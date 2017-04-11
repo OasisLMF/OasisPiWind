@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 4 sp1 (x64) (http://www.altova.com) by XMLSpy 2015 Enterprise Ed., Installed for 2 users (with SMP from 2015-01-23 to 2016-01-24) (Oasis Palm Tree Ltd.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="root">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="rec" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="RowID"/>
+						<xs:attribute name="ACCNTNUM"/>
+						<xs:attribute name="POLICYNUM"/>
+						<xs:attribute name="POLICYTYPE"/>
+						<xs:attribute name="UNDCOVAMT"/>
+						<xs:attribute name="PARTOF"/>
+						<xs:attribute name="MINDEDAMT"/>
+						<xs:attribute name="MAXDEDAMT"/>
+						<xs:attribute name="BLANDEDAMT"/>
+						<xs:attribute name="BLANLIMAMT"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Edited with Altova MapForce 2015r4sp1 -->
+<mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="22">
+	<resources/>
+	<component name="defaultmap1" blackbox="0" uid="1" editable="1">
+		<properties SelectedLanguage="xslt"/>
+		<structure>
+			<children>
+				<component name="substitute-missing" library="core" uid="16" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="90"/>
+						<datapoint pos="1" key="91"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="92"/>
+					</targets>
+					<view ltx="334" lty="287" rbx="448" rby="343"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="17" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="93"/>
+						<datapoint pos="1" key="94"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="95"/>
+					</targets>
+					<view ltx="364" lty="317" rbx="478" rby="373"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="18" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="96"/>
+						<datapoint pos="1" key="97"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="98"/>
+					</targets>
+					<view ltx="394" lty="347" rbx="508" rby="403"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="19" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="99"/>
+						<datapoint pos="1" key="100"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="101"/>
+					</targets>
+					<view ltx="424" lty="377" rbx="538" rby="433"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="20" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="102"/>
+						<datapoint pos="1" key="103"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="104"/>
+					</targets>
+					<view ltx="454" lty="407" rbx="568" rby="463"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="5" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="61"/>
+						<datapoint pos="1" key="62"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="63"/>
+					</targets>
+					<view ltx="351" lty="77" rbx="465" rby="133"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="6" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="64"/>
+						<datapoint pos="1" key="65"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="66"/>
+					</targets>
+					<view ltx="381" lty="107" rbx="495" rby="163"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="7" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="67"/>
+						<datapoint pos="1" key="68"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="69"/>
+					</targets>
+					<view ltx="411" lty="137" rbx="525" rby="193"/>
+				</component>
+				<component name="Catrisks_ModelLoc" library="xml" uid="3" kind="14">
+					<properties XSLTTargetEncoding="UTF-8" XSLTDefaultOutput="1"/>
+					<view ltx="781" rbx="1038" rby="380"/>
+					<data>
+						<root scrollposition="1">
+							<header>
+								<namespaces>
+									<namespace/>
+									<namespace uid="http://www.altova.com/mapforce"/>
+								</namespaces>
+							</header>
+							<entry name="FileInstance" ns="1" expanded="1">
+								<entry name="document" ns="1" expanded="1" casttotargettypemode="cast-in-subtree">
+									<entry name="root" inpkey="1" expanded="1">
+										<entry name="rec" inpkey="2" expanded="1">
+											<entry name="Item_ID" type="attribute" inpkey="3"/>
+											<entry name="ACCNTNUM" type="attribute" inpkey="4"/>
+											<entry name="LOCNUM" type="attribute" inpkey="5"/>
+											<entry name="CITY" type="attribute" inpkey="6"/>
+											<entry name="STATE" type="attribute" inpkey="7"/>
+											<entry name="LATITUDE" type="attribute" inpkey="8"/>
+											<entry name="LONGITUDE" type="attribute" inpkey="9"/>
+											<entry name="ADDRMATCH" type="attribute" inpkey="10"/>
+											<entry name="COUNTRY" type="attribute" inpkey="57"/>
+											<entry name="NUMBLDGS" type="attribute" inpkey="11"/>
+											<entry name="BLDGSCHEME" type="attribute" inpkey="12"/>
+											<entry name="BLDGCLASS" type="attribute" inpkey="13"/>
+											<entry name="OCCSCHEME" type="attribute" inpkey="14"/>
+											<entry name="OCCTYPE" type="attribute" inpkey="15"/>
+											<entry name="CNTRYSCHEME" type="attribute" inpkey="16"/>
+											<entry name="CNTRYCODE" type="attribute" inpkey="162"/>
+											<entry name="EQCV1VAL" type="attribute" inpkey="17"/>
+											<entry name="EQCV2VAL" type="attribute" inpkey="18"/>
+											<entry name="Locfilerowlocator" type="attribute" inpkey="19"/>
+										</entry>
+									</entry>
+								</entry>
+							</entry>
+						</root>
+						<document schema="Catrisks_ModelLoc.xsd" outputinstance="Catrisks_ModelLoc.xml" instanceroot="{}root"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="substitute-missing" library="core" uid="8" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="70"/>
+						<datapoint pos="1" key="71"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="157"/>
+					</targets>
+					<view ltx="441" lty="167" rbx="555" rby="223"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="9" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="72"/>
+						<datapoint pos="1" key="73"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="74"/>
+					</targets>
+					<view ltx="471" lty="197" rbx="585" rby="253"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="10" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="75"/>
+						<datapoint pos="1" key="76"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="77"/>
+					</targets>
+					<view ltx="501" lty="227" rbx="615" rby="283"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="11" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="78"/>
+						<datapoint pos="1" key="79"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="80"/>
+					</targets>
+					<view ltx="531" lty="257" rbx="645" rby="313"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="12" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="81"/>
+						<datapoint pos="1" key="82"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="83"/>
+					</targets>
+					<view ltx="561" lty="287" rbx="675" rby="343"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="13" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="84"/>
+						<datapoint pos="1" key="85"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="86"/>
+					</targets>
+					<view ltx="591" lty="317" rbx="705" rby="373"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="14" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="87"/>
+						<datapoint pos="1" key="88"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="89"/>
+					</targets>
+					<view ltx="621" lty="347" rbx="735" rby="403"/>
+				</component>
+				<component name="substitute-missing" library="core" uid="21" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="105"/>
+						<datapoint pos="1" key="106"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="107"/>
+					</targets>
+					<view ltx="484" lty="437" rbx="598" rby="493"/>
+				</component>
+				<component name="Catrisks_CanLoc" library="xml" uid="2" kind="14">
+					<properties XSLTTargetEncoding="UTF-8"/>
+					<view rbx="270" rby="735"/>
+					<data>
+						<root scrollposition="1">
+							<header>
+								<namespaces>
+									<namespace/>
+									<namespace uid="http://www.altova.com/mapforce"/>
+								</namespaces>
+							</header>
+							<entry name="FileInstance" ns="1" expanded="1">
+								<entry name="document" ns="1" expanded="1" casttotargettypemode="cast-in-subtree">
+									<entry name="root" outkey="20" expanded="1">
+										<entry name="rec" outkey="21" expanded="1">
+											<entry name="LocId" type="attribute" outkey="22"/>
+											<entry name="ACCNTNUM" type="attribute" outkey="23"/>
+											<entry name="LOCNUM" type="attribute" outkey="24"/>
+											<entry name="LATITUDE" type="attribute" outkey="25"/>
+											<entry name="LONGITUDE" type="attribute" outkey="26"/>
+											<entry name="ADDRMATCH" type="attribute" outkey="27"/>
+											<entry name="STATE" type="attribute" outkey="28"/>
+											<entry name="CITY" type="attribute" outkey="29"/>
+											<entry name="COUNTRY" type="attribute" outkey="58"/>
+											<entry name="CNTRYSCHEME" type="attribute" outkey="30"/>
+											<entry name="CNTRYCODE" type="attribute" outkey="163"/>
+											<entry name="BLDGSCHEME" type="attribute" outkey="31"/>
+											<entry name="BLDGCLASS" type="attribute" outkey="32"/>
+											<entry name="OCCSCHEME" type="attribute" outkey="33"/>
+											<entry name="OCCTYPE" type="attribute" outkey="34"/>
+											<entry name="NUMBLDGS" type="attribute" outkey="35"/>
+											<entry name="EQCV1VAL" type="attribute" outkey="36"/>
+											<entry name="EQCV2VAL" type="attribute" outkey="37"/>
+										</entry>
+									</entry>
+								</entry>
+							</entry>
+						</root>
+						<document schema="Catrisks_CanLoc.xsd" outputinstance="Catrisks_CanLoc.xml" instanceroot="{}root"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="substitute-missing" library="core" uid="24" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="161"/>
+						<datapoint pos="1" key="159"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="160"/>
+					</targets>
+					<view ltx="531" lty="462" rbx="645" rby="518"/>
+				</component>
+				<component name="constant" library="core" uid="23" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="60"/>
+					</targets>
+					<view ltx="302" lty="215" rbx="340" rby="233"/>
+					<data>
+						<constant value="0" datatype="decimal"/>
+						<wsdl/>
+					</data>
+				</component>
+			</children>
+			<graph directed="1">
+				<edges/>
+				<vertices>
+					<vertex vertexkey="20">
+						<edges>
+							<edge vertexkey="1" edgekey="38"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="21">
+						<edges>
+							<edge vertexkey="2" edgekey="39"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="22">
+						<edges>
+							<edge vertexkey="3" edgekey="40"/>
+							<edge vertexkey="19" edgekey="108"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="23">
+						<edges>
+							<edge vertexkey="61" edgekey="109"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="24">
+						<edges>
+							<edge vertexkey="64" edgekey="110"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="25">
+						<edges>
+							<edge vertexkey="72" edgekey="111"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="26">
+						<edges>
+							<edge vertexkey="75" edgekey="112"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="27">
+						<edges>
+							<edge vertexkey="78" edgekey="113"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="28">
+						<edges>
+							<edge vertexkey="70" edgekey="114"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="29">
+						<edges>
+							<edge vertexkey="67" edgekey="115"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="30">
+						<edges>
+							<edge vertexkey="99" edgekey="116"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="31">
+						<edges>
+							<edge vertexkey="87" edgekey="117"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="32">
+						<edges>
+							<edge vertexkey="90" edgekey="118"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="33">
+						<edges>
+							<edge vertexkey="93" edgekey="119"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="34">
+						<edges>
+							<edge vertexkey="96" edgekey="120"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="35">
+						<edges>
+							<edge vertexkey="84" edgekey="121"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="36">
+						<edges>
+							<edge vertexkey="102" edgekey="122"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="37">
+						<edges>
+							<edge vertexkey="105" edgekey="123"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="58">
+						<edges>
+							<edge vertexkey="81" edgekey="124"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="60">
+						<edges>
+							<edge vertexkey="62" edgekey="125"/>
+							<edge vertexkey="65" edgekey="126"/>
+							<edge vertexkey="68" edgekey="127"/>
+							<edge vertexkey="71" edgekey="128"/>
+							<edge vertexkey="73" edgekey="129"/>
+							<edge vertexkey="76" edgekey="130"/>
+							<edge vertexkey="79" edgekey="131"/>
+							<edge vertexkey="82" edgekey="132"/>
+							<edge vertexkey="85" edgekey="133"/>
+							<edge vertexkey="88" edgekey="134"/>
+							<edge vertexkey="91" edgekey="135"/>
+							<edge vertexkey="94" edgekey="136"/>
+							<edge vertexkey="97" edgekey="137"/>
+							<edge vertexkey="100" edgekey="138"/>
+							<edge vertexkey="103" edgekey="139"/>
+							<edge vertexkey="106" edgekey="140"/>
+							<edge vertexkey="159" edgekey="164"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="63">
+						<edges>
+							<edge vertexkey="4" edgekey="141"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="66">
+						<edges>
+							<edge vertexkey="5" edgekey="142"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="69">
+						<edges>
+							<edge vertexkey="6" edgekey="143"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="74">
+						<edges>
+							<edge vertexkey="8" edgekey="145"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="77">
+						<edges>
+							<edge vertexkey="9" edgekey="146"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="80">
+						<edges>
+							<edge vertexkey="10" edgekey="147"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="83">
+						<edges>
+							<edge vertexkey="57" edgekey="148"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="86">
+						<edges>
+							<edge vertexkey="11" edgekey="149"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="89">
+						<edges>
+							<edge vertexkey="12" edgekey="150"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="92">
+						<edges>
+							<edge vertexkey="13" edgekey="151"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="95">
+						<edges>
+							<edge vertexkey="14" edgekey="152"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="98">
+						<edges>
+							<edge vertexkey="15" edgekey="153"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="101">
+						<edges>
+							<edge vertexkey="16" edgekey="154"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="104">
+						<edges>
+							<edge vertexkey="17" edgekey="155"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="107">
+						<edges>
+							<edge vertexkey="18" edgekey="156"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="157">
+						<edges>
+							<edge vertexkey="7" edgekey="158"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="160">
+						<edges>
+							<edge vertexkey="162" edgekey="165"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="163">
+						<edges>
+							<edge vertexkey="161" edgekey="166"/>
+						</edges>
+					</vertex>
+				</vertices>
+			</graph>
+		</structure>
+	</component>
+</mapping>

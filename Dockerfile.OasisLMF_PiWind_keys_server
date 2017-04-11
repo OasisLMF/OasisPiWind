@@ -1,0 +1,45 @@
+FROM coreoasis/oasis_base:R_0_0_0_7
+
+RUN apt-get install -y apache2 \
+                       apache2-utils \
+                       libapache2-mod-wsgi \
+                       python-flask
+
+RUN mkdir /var/www/oasis
+RUN mkdir /var/www/oasis/keys_server
+RUN mkdir /var/oasis
+RUN mkdir /var/log/oasis
+RUN chown www-data:www-data /var/log/oasis
+RUN chmod a+w /var/log/oasis
+RUN touch /var/log/oasis/keys_server.log
+RUN chown www-data:www-data /var/log/oasis/keys_server.log
+RUN chmod a+w /var/log/oasis/keys_server.log
+
+COPY ./keys_server_config/apache2.conf /etc/apache2/apache2.conf
+COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/oasis.conf
+COPY ./keys_server_config/oasis.wsgi /var/www/oasis/oasis.wsgi
+COPY ./src/oasis_utils /var/www/oasis/oasis_utils/
+COPY ./src/oasis_keys_lookup /var/www/oasis/oasis_keys_lookup/
+COPY ./src/keys_server /var/www/oasis/keys_server/
+COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
+
+COPY ./keys_data /var/oasis/keys_data
+RUN chmod -R ugo=rwx /var/oasis/keys_data
+
+COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
+RUN chmod +x /usr/local/bin/startup.sh
+
+COPY ./src/oasis_utils/requirements.txt ./
+RUN pip install -r ./requirements.txt
+
+COPY ./src/oasis_keys_server/requirements.txt ./
+RUN pip install -r ./requirements.txt
+
+COPY ./src/keys_server/requirements.txt ./
+RUN pip install -r ./requirements.txt
+
+RUN a2dissite 000-default
+RUN a2ensite oasis.conf
+EXPOSE 5000
+
+ENTRYPOINT startup.sh; tail -f /var/log/oasis/keys_server.log

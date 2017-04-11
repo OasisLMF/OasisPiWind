@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 4 sp1 (x64) (http://www.altova.com) by XMLSpy 2015 Enterprise Ed., Installed for 2 users (with SMP from 2015-01-23 to 2016-01-24) (Oasis Palm Tree Ltd.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="root">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="rec" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="Item_ID" use="required"/>
+						<xs:attribute name="ACCNTNUM" use="required"/>
+						<xs:attribute name="LOCNUM" use="required"/>
+						<xs:attribute name="CITY" use="required"/>
+						<xs:attribute name="STATE" use="required"/>
+						<xs:attribute name="LATITUDE" use="required"/>
+						<xs:attribute name="LONGITUDE" use="required"/>
+						<xs:attribute name="ADDRMATCH" use="required"/>
+						<xs:attribute name="COUNTRY" use="required"/>
+						<xs:attribute name="NUMBLDGS" use="required"/>
+						<xs:attribute name="BLDGSCHEME" use="required"/>
+						<xs:attribute name="BLDGCLASS" use="required"/>
+						<xs:attribute name="OCCSCHEME" use="required"/>
+						<xs:attribute name="OCCTYPE" use="required"/>
+						<xs:attribute name="CNTRYSCHEME" use="required"/>
+						<xs:attribute name="CNTRYCODE" use="required"/>
+						<xs:attribute name="EQCV1VAL" use="required"/>
+						<xs:attribute name="EQCV2VAL" use="required"/>
+						<xs:attribute name="Locfilerowlocator" use="optional"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
