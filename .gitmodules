@@ -1,0 +1,9 @@
+[submodule "src/oasis_utils"]
+	path = src/oasis_utils
+	url = git+ssh://git@github.com/OasisLMF/oasis_utils
+[submodule "src/oasis_keys_lookup"]
+	path = src/oasis_keys_lookup
+	url = git+ssh://git@github.com/OasisLMF/oasis_keys_lookup
+[submodule "src/oasis_keys_server"]
+	path = src/oasis_keys_server
+	url = git+ssh://git@github.com/OasisLMF/oasis_keys_server
