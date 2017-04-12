@@ -1,0 +1,9 @@
+FROM coreoasis/model_execution_worker:OASIS_0_0_0_167
+
+COPY ./src/model_execution_worker/OasisLMF ./model_execution_worker/OasisLMF
+COPY ./model_data/OASISPIWIND /var/oasis/model_data/OasisLMF/OASISPIWIND
+RUN touch /var/log/oasis/celery_worker.log
+RUN chmod a+w /var/log/oasis/celery_worker.log
+
+ENTRYPOINT
+# Define entry points here

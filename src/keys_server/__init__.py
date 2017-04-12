@@ -2,4 +2,4 @@
 Module initialiser.
 '''
 from .utils import *
-from .KeysLookup import *
+from .OASISPIWINDKeysLookup import *

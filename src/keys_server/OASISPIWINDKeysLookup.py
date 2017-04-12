@@ -1,5 +1,5 @@
 __all__ = [
-  'ModelNameKeysLookup'
+  'OASISPIWINDKeysLookup'
 ]  # This should be a list of all public methods and attributes that can be imported from this
    # module elsewhere. This list should contain the class names of all the model-specific keys
    # keys lookup classes defined here.
@@ -18,12 +18,11 @@ from oasis_utils import (
     oasis_log_utils,
 )
 
-from oasis_keys_server import BaseKeysLookup
+from oasis_keys_lookup import BaseKeysLookup
 
-class ModelNameKeysLookup(BaseKeysLookup):
+class OASISPIWINDNameKeysLookup(BaseKeysLookup):
     """
-    Model-specific keys lookup logic for the model with shortname 'ModelName'. Multiple models
-    each get their own keys lookup class, ModelNameKeysLookup, with a unique model name prefix.
+    Model-specific keys lookup logic.
     """
 
     @oasis_log_utils.oasis_log()
@@ -32,12 +31,7 @@ class ModelNameKeysLookup(BaseKeysLookup):
         keys_data_directory=os.path.join(os.sep, 'var', 'oasis', 'keys_data'),
         supplier=None,
         model_name=None,
-        model_version='0.0.0.1',
-        areas=None,
-        vulnerabilities=None,
-        location_map=None,
-        vulnerability_map=None,
-        construction_class=None
+        model_version='0.0.0.1'
     ):
         """
         Initialise the static data required for the lookup.
@@ -46,12 +40,7 @@ class ModelNameKeysLookup(BaseKeysLookup):
             keys_data_directory,
             supplier,
             model_name,
-            model_version,
-            areas,
-            vulnerabilities,
-            location_map,
-            vulnerability_map,
-            construction_class
+            model_version
         )
         pass
     
@@ -64,6 +53,6 @@ class ModelNameKeysLookup(BaseKeysLookup):
         keys lookup class. Other methods inherited from the superclass
         BaseKeysLookup can also be used, please refer to the source:
         
-        https://github.com/OasisLMF/oasis_keys_server/blob/master/BaseKeysLookup.py
+        https://github.com/OasisLMF/oasis_keys_lookup/blob/master/BaseKeysLookup.py
         """
         pass
