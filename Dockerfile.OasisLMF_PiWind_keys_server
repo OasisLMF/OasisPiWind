@@ -23,7 +23,7 @@ COPY ./src/oasis_keys_lookup /var/www/oasis/oasis_keys_lookup/
 COPY ./src/keys_server /var/www/oasis/keys_server/
 COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
 
-COPY ./keys_data /var/oasis/keys_data
+COPY ./keys_data/PiWind /var/oasis/keys_data
 RUN chmod -R ugo=rwx /var/oasis/keys_data
 
 COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/

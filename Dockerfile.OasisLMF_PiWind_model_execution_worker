@@ -1,7 +1,7 @@
-FROM coreoasis/model_execution_worker:R_0_0_0_106
+FROM coreoasis/model_execution_worker:OASIS_0_0_214_0
 
-COPY ./src/model_execution_worker/Catrisks  ./model_execution_worker/Catrisks
-COPY ./model_data/MEEQ /var/oasis/model_data/Catrisks/MEEQ
+COPY ./src/model_execution_worker/OasisLMF  ./model_execution_worker/OasisLMF
+COPY ./model_data/PiWind /var/oasis/model_data/OasisLMF/PiWind
 RUN touch /var/log/oasis/celery_worker.log
 RUN chmod a+w /var/log/oasis/celery_worker.log
 

@@ -1,5 +1,5 @@
 __all__ = [
-  'ModelNameKeysLookup'
+  'PiWindKeysLookup'
 ]  # This should be a list of all public methods and attributes that can be imported from this
    # module elsewhere. This list should contain the class names of all the model-specific keys
    # keys lookup classes defined here.
@@ -20,7 +20,7 @@ from oasis_utils import (
 
 from oasis_keys_server import BaseKeysLookup
 
-class ModelNameKeysLookup(BaseKeysLookup):
+class PiWindKeysLookup(BaseKeysLookup):
     """
     Model-specific keys lookup logic for the model with shortname 'ModelName'. Multiple models
     each get their own keys lookup class, ModelNameKeysLookup, with a unique model name prefix.
@@ -32,12 +32,7 @@ class ModelNameKeysLookup(BaseKeysLookup):
         keys_data_directory=os.path.join(os.sep, 'var', 'oasis', 'keys_data'),
         supplier=None,
         model_name=None,
-        model_version='0.0.0.1',
-        areas=None,
-        vulnerabilities=None,
-        location_map=None,
-        vulnerability_map=None,
-        construction_class=None
+        model_version='0.0.0.1'
     ):
         """
         Initialise the static data required for the lookup.
@@ -46,12 +41,7 @@ class ModelNameKeysLookup(BaseKeysLookup):
             keys_data_directory,
             supplier,
             model_name,
-            model_version,
-            areas,
-            vulnerabilities,
-            location_map,
-            vulnerability_map,
-            construction_class
+            model_version
         )
         pass
     
