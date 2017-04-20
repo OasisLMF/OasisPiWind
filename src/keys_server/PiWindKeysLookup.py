@@ -18,12 +18,12 @@ from oasis_utils import (
     oasis_log_utils,
 )
 
-from oasis_keys_server import BaseKeysLookup
+from oasis_keys_lookup import BaseKeysLookup
+
 
 class PiWindKeysLookup(BaseKeysLookup):
     """
-    Model-specific keys lookup logic for the model with shortname 'ModelName'. Multiple models
-    each get their own keys lookup class, ModelNameKeysLookup, with a unique model name prefix.
+    Model-specific keys lookup logic.
     """
 
     @oasis_log_utils.oasis_log()
@@ -54,6 +54,6 @@ class PiWindKeysLookup(BaseKeysLookup):
         keys lookup class. Other methods inherited from the superclass
         BaseKeysLookup can also be used, please refer to the source:
         
-        https://github.com/OasisLMF/oasis_keys_server/blob/master/BaseKeysLookup.py
+        https://github.com/OasisLMF/oasis_keys_lookup/blob/master/BaseKeysLookup.py
         """
         pass
