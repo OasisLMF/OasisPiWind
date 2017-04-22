@@ -1,4 +1,4 @@
-FROM coreoasis/model_execution_worker:OASIS_0_0_214_0
+FROM coreoasis/model_execution_worker:OASIS_0_0_0_167
 
 COPY ./src/model_execution_worker/OasisLMF ./model_execution_worker/OasisLMF
 COPY ./model_data/PiWind /var/oasis/model_data/OasisLMF/PiWind
