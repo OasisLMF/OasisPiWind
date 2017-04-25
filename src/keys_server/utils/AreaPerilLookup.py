@@ -2,41 +2,52 @@ __all__ = ['AreaPerilLookup']
 
 # (c) 2013-2016 Oasis LMF Ltd.  Software provided for early adopter evaluation only.
 '''
-AreaPeril lookup.
+Area peril lookup.
 '''
+import csv
 import logging
 
 from shapely.geometry import (
     Point,
-    Polygon,
     MultiPoint,
 )
 
-from .LookupStatus import *
+import oasis_utils
 
 
 class AreaPerilLookup(object):
     '''
-    Functionality to perform an AreaPeril lookup.
+    Functionality to perform an area peril lookup.
     '''
 
-    def __init__(self):
+    def __init__(self, areas_file=None):
         self._lookup_data = []
 
+        if areas_file:
+            with open(areas_file, 'r') as f:
+                dr = csv.DictReader(f)
+                for r in dr:
+                    self._lookup_data.append(
+                        (
+                            int(r['AREA_PERIL_ID']),
+                            MultiPoint(
+                                tuple((float(r['LAT{}'.format(i)]),float(r['LON{}'.format(i)])) for i in range(1, 5))
+                            ).convex_hull
+                        )
+                    )                
 
-    def is_number(self, value_to_check):
-        '''
-        Check that a string is numeric.
-        Args:
-            s (string): the string to validate
-        Returns:
-            True if string is numeric, False otherwise
-        '''
-        try:
-            float(value_to_check)
-        except ValueError:
-            return False
-        return True
+
+    def set_lookup_data(self, data):
+    '''
+    Set the lookup data.
+    Args:
+        data: the lookup data.
+    '''
+        self._lookup_data = []
+        for rec in data:
+            self._lookup_data.append(
+                (rec['id'], MultiPoint(rec['points']).convex_hull)
+            )
 
 
     def validate_lat(self, lat):
@@ -45,11 +56,9 @@ class AreaPerilLookup(object):
         Args:
             s (string or number): the latitude
         Returns:
-            True if string is a valiud latitude, False otherwise
+            True if string is a valid latitude, False otherwise
         '''
-        if not self.is_number(lat):
-            return False
-        return (float(lat) >= -90) & (float(lat) <= 90.0)
+        return -90 <= lat <= 90
 
 
     def validate_lon(self, lon):
@@ -58,23 +67,10 @@ class AreaPerilLookup(object):
         Args:
             s (string or number): the longitude
         Returns:
-            True if string is a valiud longitude, False otherwise
+            True if string is a valid longitude, False otherwise
         '''
-        if not self.is_number(lon):
-            return False
-        return (float(lon) >= -180) & (float(lon) <= 180.0)
+        return -180 <= lon <= 180
 
-
-    def set_lookup_data(self, data):
-        '''
-        Set the lookup data.
-        Args:
-            data: the lookup data.
-        '''
-        for value in data:
-            self._lookup_data.append(
-                (value['id'], MultiPoint(value['points']).convex_hull)
-            )
 
     def do_lookup_location(self, location):
         '''
@@ -84,25 +80,25 @@ class AreaPerilLookup(object):
         Return:
             Lookup result
         '''
-        logging.debug("Looking up location.", )
+        logging.debug("Looking up location.")
         
-        status = STATUS_NOMATCH
+        status = oasis_utils.KEYS_STATUS_NOMATCH
         area_peril_id = None
-        message = None
+        message = ''
 
         lat = location['lat']
         lon = location['lon']
 
         if not self.validate_lat(lat) & self.validate_lon(lon):
-            status = STATUS_FAIL
+            status = oasis_utils.KEYS_STATUS_FAIL
             area_peril_id = None
             message = "Invalid lat/lon"
         else:
-            point = Point(lat, lon)
+            loc_point = Point(lat, lon)
             for (cell_area_peril_id, cell) in self._lookup_data:
-                if cell.intersects(point):
+                if cell.intersects(loc_point):
                     area_peril_id = cell_area_peril_id
-                    status = STATUS_SUCCESS
+                    status = oasis_utils.KEYS_STATUS_SUCCESS
                     break
 
         return {
