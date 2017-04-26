@@ -4,10 +4,10 @@ Perform the area peril and vulnerability lookup for PiWind example model. This w
 
 ## Request Format
 
-The request is in CSV or JSON format, and can be compressed or uncompressed.
+The request is in CSV format, and can be compressed or uncompressed.
 
 For CSV set the Content-Type header to 'text/csv; charset=utf-8'.
-For JSON set the Content-Type header to 'application/json; charset=utf-8'.
+
 For zipped date set Content-Encoding header to 'gzip'.
 
 ### CSV
@@ -17,26 +17,8 @@ ID,LAT,LON,COVERAGE,CLASS_1,CLASS_2
 2,1.5,0.5,1,A,B
 ```
 ### JSON
-```javascript
-[
-  {
-    "id": 1,
-    "lat": 0.5, 
-    "lon": 0.5, 
-    "coverage": 1, 
-    "class_1": "A", 
-    "class_2": "B", 
-  },
-    {
-    "id": 2,
-    "lat": 0.5, 
-    "lon": 0.5, 
-    "coverage": 1, 
-    "class_1": "A", 
-    "class_2": "B", 
-  }
-}
-```
+
+TO BE IMPLEMENTED
 
 ## Response format
 
@@ -57,7 +39,7 @@ The response is in JSON format, and can be compressed or uncompressed.
     "status": "nomatch", 
     "area_peril_id": 1, 
     "vulnerability_id": None,
-    "message": "No vulnerability match."
+    "message": "No area peril or vulnerability match."
   }
   {
     "id": 3,
@@ -85,6 +67,7 @@ TO BE UPDATED
 
 Python:
 * Python 64 2.7
+* Pandas 0.19.2
 * Flask 0.10.1
 * Shapely 1.5.13
 
