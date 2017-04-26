@@ -19,7 +19,7 @@ RUN chown www-data:www-data /var/log/oasis
 RUN chmod 777 /var/log/oasis
 RUN touch /var/log/oasis/keys_server.log
 RUN chown www-data:www-data /var/log/oasis/keys_server.log
-RUN chmod 777 /var/log/oasis/keys_server.log
+RUN chmod 666 /var/log/oasis/keys_server.log
 
 COPY ./keys_server_config/apache2.conf /etc/apache2/apache2.conf
 COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/oasis.conf
