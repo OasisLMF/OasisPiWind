@@ -38,11 +38,11 @@ class AreaPerilLookup(object):
 
 
     def set_lookup_data(self, data):
-    '''
-    Set the lookup data.
-    Args:
-        data: the lookup data.
-    '''
+        '''
+        Set the lookup data.
+        Args:
+            data: the lookup data.
+        '''
         self._lookup_data = []
         for rec in data:
             self._lookup_data.append(

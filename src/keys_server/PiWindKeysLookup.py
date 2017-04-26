@@ -20,26 +20,25 @@ from oasis_utils import (
 from oasis_keys_lookup import BaseKeysLookup
 
 from utils import (
-    LookupStatus,
     AreaPerilLookup,
     VulnerabilityLookup,
 )
-
-
-_LOCATION_RECORD_META = {
-    'id': {'csv_header': 'ID', 'csv_data_type': int, 'validator': to_int, 'desc': 'Location ID'},
-    'lon': {'csv_header': 'LON', 'csv_data_type': float, 'validator': to_float, 'desc': 'Longitude'},
-    'lat': {'csv_header': 'LAT', 'csv_data_type': float, 'validator': to_float, 'desc': 'Latitude'},
-    'coverage': {'csv_header': 'COVERAGE', 'csv_data_type': int, 'validator': to_int, 'desc': 'Coverage'},
-    'class_1': {'csv_header': 'CLASS_1', 'csv_data_type': str, 'validator': to_string, 'desc': 'Class #1'},
-    'class_2': {'csv_header': 'CLASS_2', 'csv_data_type': str, 'validator': to_string, 'desc': 'Class #2'}
-}
 
 
 class PiWindKeysLookup(BaseKeysLookup):
     """
     PiWind keys lookup.
     """
+
+    _LOCATION_RECORD_META = {
+        'id': {'csv_header': 'ID', 'csv_data_type': int, 'validator': oasis_utils.to_int, 'desc': 'Location ID'},
+        'lon': {'csv_header': 'LON', 'csv_data_type': float, 'validator': oasis_utils.to_float, 'desc': 'Longitude'},
+        'lat': {'csv_header': 'LAT', 'csv_data_type': float, 'validator': oasis_utils.to_float, 'desc': 'Latitude'},
+        'coverage': {'csv_header': 'COVERAGE', 'csv_data_type': int, 'validator': oasis_utils.to_int, 'desc': 'Coverage'},
+        'class_1': {'csv_header': 'CLASS_1', 'csv_data_type': str, 'validator': oasis_utils.to_string, 'desc': 'Class #1'},
+        'class_2': {'csv_header': 'CLASS_2', 'csv_data_type': str, 'validator': oasis_utils.to_string, 'desc': 'Class #2'}
+    }
+
 
     @oasis_log_utils.oasis_log()
     def __init__(
@@ -88,7 +87,7 @@ class PiWindKeysLookup(BaseKeysLookup):
             exposure_rec['area_peril_id'] = loc_area_peril_rec['area_peril_id']
 
             loc_vuln_peril_rec = self.vulnerability_lookup.do_lookup_location(loc_rec)
-            exposure_rec['vulnerability_id'] = loc_area_peril_rec['vulnerability_id']
+            exposure_rec['vulnerability_id'] = loc_vuln_peril_rec['vulnerability_id']
 
             if loc_area_peril_rec['status'] == loc_vuln_peril_rec['status'] == oasis_utils.KEYS_STATUS_SUCCESS:
                 exposure_rec['status'] = oasis_utils.KEYS_STATUS_SUCCESS
