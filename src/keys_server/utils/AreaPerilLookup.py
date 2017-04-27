@@ -20,34 +20,29 @@ class AreaPerilLookup(object):
     Functionality to perform an area peril lookup.
     '''
 
-    def __init__(self, areas_file=None):
-        self._lookup_data = []
+    _lookup_data = []
 
+    def __init__(self, areas_file=None):
         if areas_file:
             with open(areas_file, 'r') as f:
                 dr = csv.DictReader(f)
-                for r in dr:
-                    self._lookup_data.append(
-                        (
-                            int(r['AREA_PERIL_ID']),
-                            MultiPoint(
-                                tuple((float(r['LAT{}'.format(i)]),float(r['LON{}'.format(i)])) for i in range(1, 5))
-                            ).convex_hull
-                        )
-                    )                
+                self.load_lookup_data(dr)              
 
 
-    def set_lookup_data(self, data):
+    def load_lookup_data(self, data):
         '''
-        Set the lookup data.
+        Load the lookup data.
         Args:
             data: the lookup data.
         '''
-        self._lookup_data = []
-        for rec in data:
-            self._lookup_data.append(
-                (rec['id'], MultiPoint(rec['points']).convex_hull)
-            )
+        self._lookup_data = [
+            (
+                int(r['AREA_PERIL_ID']),
+                MultiPoint(
+                    tuple((float(r['LAT{}'.format(i)]),float(r['LON{}'.format(i)])) for i in range(1, 5))
+                ).convex_hull
+            ) for r in data
+        ]
 
 
     def validate_lat(self, lat):

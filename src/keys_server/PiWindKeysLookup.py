@@ -58,8 +58,13 @@ class PiWindKeysLookup(BaseKeysLookup):
             model_version
         )
 
-        self.area_peril_lookup = AreaPerilLookup(areas_file=os.path.join(self.keys_data_directory, 'area_peril_dict.csv'))
-        self.vulnerability_lookup = VulnerabilityLookup(vulnerabilities_file=os.path.join(self.keys_data_directory, 'vulnerability_dict.csv'))
+        self.area_peril_lookup = AreaPerilLookup(
+            areas_file=os.path.join(self.keys_data_directory, 'area_peril_dict.csv')
+        )
+        
+        self.vulnerability_lookup = VulnerabilityLookup(
+            vulnerabilities_file=os.path.join(self.keys_data_directory, 'vulnerability_dict.csv')
+        )
 
     
     @oasis_log_utils.oasis_log()
