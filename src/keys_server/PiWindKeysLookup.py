@@ -31,19 +31,19 @@ class PiWindKeysLookup(BaseKeysLookup):
     """
 
     _LOCATION_RECORD_META = {
-        'id': {'csv_header': 'ID', 'csv_data_type': int, 'validator': oasis_utils.to_int, 'desc': 'Location ID'},
-        'lon': {'csv_header': 'LON', 'csv_data_type': float, 'validator': oasis_utils.to_float, 'desc': 'Longitude'},
-        'lat': {'csv_header': 'LAT', 'csv_data_type': float, 'validator': oasis_utils.to_float, 'desc': 'Latitude'},
-        'coverage': {'csv_header': 'COVERAGE', 'csv_data_type': int, 'validator': oasis_utils.to_int, 'desc': 'Coverage'},
-        'class_1': {'csv_header': 'CLASS_1', 'csv_data_type': str, 'validator': oasis_utils.to_string, 'desc': 'Class #1'},
-        'class_2': {'csv_header': 'CLASS_2', 'csv_data_type': str, 'validator': oasis_utils.to_string, 'desc': 'Class #2'}
+        'id': {'source_header': 'ID', 'csv_data_type': int, 'validator': oasis_utils.to_int, 'desc': 'Location ID'},
+        'lon': {'source_header': 'LON', 'csv_data_type': float, 'validator': oasis_utils.to_float, 'desc': 'Longitude'},
+        'lat': {'source_header': 'LAT', 'csv_data_type': float, 'validator': oasis_utils.to_float, 'desc': 'Latitude'},
+        'coverage': {'source_header': 'COVERAGE', 'csv_data_type': int, 'validator': oasis_utils.to_int, 'desc': 'Coverage'},
+        'class_1': {'source_header': 'CLASS_1', 'csv_data_type': str, 'validator': oasis_utils.to_string, 'desc': 'Class #1'},
+        'class_2': {'source_header': 'CLASS_2', 'csv_data_type': str, 'validator': oasis_utils.to_string, 'desc': 'Class #2'}
     }
 
 
     @oasis_log_utils.oasis_log()
     def __init__(
         self,
-        keys_data_directory=os.path.join(os.sep, 'var', 'oasis', 'keys_data'),
+        keys_data_directory=None,
         supplier='OasisLMF',
         model_name='PiWind',
         model_version='0.0.0.1'
@@ -60,15 +60,15 @@ class PiWindKeysLookup(BaseKeysLookup):
 
         self.area_peril_lookup = AreaPerilLookup(
             areas_file=os.path.join(self.keys_data_directory, 'area_peril_dict.csv')
-        )
+        ) if keys_data_directory else AreaPerilLookup()
         
         self.vulnerability_lookup = VulnerabilityLookup(
             vulnerabilities_file=os.path.join(self.keys_data_directory, 'vulnerability_dict.csv')
-        )
+        ) if keys_data_directory else VulnerabilityLookup()
 
     
     @oasis_log_utils.oasis_log()
-    def process_locations(self, loc_data):
+    def process_locations(self, loc_data, mime_type=oasis_utils.MIME_TYPE_CSV):
         """
         Read in raw location rows from request CSV data and generate
         exposure records. This is the main method to override in each model
@@ -77,7 +77,10 @@ class PiWindKeysLookup(BaseKeysLookup):
         
         https://github.com/OasisLMF/oasis_keys_lookup/blob/master/BaseKeysLookup.py
         """
-        loc_df = pd.read_csv(io.StringIO(loc_data))
+        loc_df = (
+            pd.read_csv(io.StringIO(loc_data)) if mime_type == oasis_utils.MIME_TYPE_CSV
+            else pd.read_json(io.StringIO(loc_data))
+        )
 
         for i in range(len(loc_df)):
             exposure_rec = dict()
@@ -121,6 +124,6 @@ class PiWindKeysLookup(BaseKeysLookup):
         return dict(
             (
                 k,
-                meta[k]['validator'](loc_item[meta[k]['csv_header']])
+                meta[k]['validator'](loc_item[meta[k]['source_header']])
             ) for k in meta
         )
