@@ -4,9 +4,9 @@ import os
 import sys
 import unittest
 
-TEST_DIRECTORY = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-LIB_PATH = os.path.abspath(os.path.join(TEST_DIRECTORY, '..', 'src'))
-sys.path.append(LIB_PATH)
+BASE_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+SRC_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'src'))
+sys.path.append(SRC_PATH)
 
 import oasis_utils
 
