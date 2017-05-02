@@ -53,7 +53,10 @@ class AreaPerilLookup(object):
         Returns:
             True if string is a valid latitude, False otherwise
         '''
-        return -90 <= lat <= 90
+        try:
+            return -90 <= float(lat) <= 90
+        except ValueError:
+            return False
 
 
     def validate_lon(self, lon):
@@ -64,7 +67,10 @@ class AreaPerilLookup(object):
         Returns:
             True if string is a valid longitude, False otherwise
         '''
-        return -180 <= lon <= 180
+        try:
+            return -180 <= float(lon) <= 180
+        except ValueError:
+            return False
 
 
     def do_lookup_location(self, location):
