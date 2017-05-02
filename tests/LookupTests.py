@@ -44,7 +44,7 @@ class LookupTests(unittest.TestCase):
 
     def test_area_peril_lookup_success(self):
         lookup = AreaPerilLookup()
-        lookup.set_lookup_data(self.area_peril_lookup_test_data)
+        lookup.load_lookup_data(self.area_peril_lookup_test_data)
 
         location = {'id': 1, 'lat': 0.5, 'lon': 0.5}
         result = lookup.do_lookup_location(location)
@@ -54,7 +54,7 @@ class LookupTests(unittest.TestCase):
 
     def test_area_peril_lookup_corners_1(self):
         lookup = AreaPerilLookup()
-        lookup.set_lookup_data(self.area_peril_lookup_test_data)
+        lookup.load_lookup_data(self.area_peril_lookup_test_data)
 
         location = {'id': 1, 'lat': 0.0, 'lon': 0.0}
         result = lookup.do_lookup_location(location)
@@ -78,7 +78,7 @@ class LookupTests(unittest.TestCase):
 
     def test_area_peril_lookup_corners_2(self):
         lookup = AreaPerilLookup()
-        lookup.set_lookup_data(self.area_peril_lookup_test_data)
+        lookup.load_lookup_data(self.area_peril_lookup_test_data)
 
         location = {'id': 1, 'lat': 1.0, 'lon': 0.0}
         result = lookup.do_lookup_location(location)
@@ -102,7 +102,7 @@ class LookupTests(unittest.TestCase):
 
     def test_area_peril_lookup_nomatch(self):
         lookup = AreaPerilLookup()
-        lookup.set_lookup_data(self.area_peril_lookup_test_data)
+        lookup.load_lookup_data(self.area_peril_lookup_test_data)
 
         location = {'id': 1, 'lat': 10.0, 'lon': 1.0}
         result = lookup.do_lookup_location(location)
@@ -166,7 +166,7 @@ class LookupTests(unittest.TestCase):
 
     def test_vulnerability_lookup_success(self):
         lookup = VulnerabilityLookup()
-        lookup.set_lookup_data(self.vulnerability_lookup_test_data)
+        lookup.load_lookup_data(self.vulnerability_lookup_test_data)
 
         location = {'id': 1, "coverage": 1, "class_1": "A", "class_2": "B"}
         result = lookup.do_lookup_location(location)
@@ -188,7 +188,7 @@ class LookupTests(unittest.TestCase):
 
     def test_vulnerability_lookup_nomatch(self):
         lookup = VulnerabilityLookup()
-        lookup.set_lookup_data(self.vulnerability_lookup_test_data)
+        lookup.load_lookup_data(self.vulnerability_lookup_test_data)
 
         location = {'id': 1, "coverage": 1, "class_1": "B", "class_2": "B"}
         result = lookup.do_lookup_location(location)
