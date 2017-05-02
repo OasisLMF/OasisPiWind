@@ -19,7 +19,7 @@ from oasis_utils import (
 
 from oasis_keys_lookup import BaseKeysLookup
 
-from utils import (
+from .utils import (
     AreaPerilLookup,
     VulnerabilityLookup,
 )
