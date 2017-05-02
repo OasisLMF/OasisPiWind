@@ -1,6 +1,6 @@
 '''
 Module initialiser.
 '''
-from utils import *
+from .utils import *
 
 from .PiWindKeysLookup import *
