@@ -4,7 +4,6 @@ RUN apt install -y apache2 \
                    apache2-utils \
                    libapache2-mod-wsgi \
                    python-flask \
-                   libmysqlclient-dev \
                    unixodbc \
                    unixodbc-dev \
                    libgeos-c1v5 \
