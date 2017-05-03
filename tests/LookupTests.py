@@ -5,8 +5,11 @@ import sys
 import unittest
 
 BASE_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
 SRC_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'src'))
-sys.path.append(SRC_PATH)
+
+if os.path.exists(SRC_PATH):
+    sys.path.append(SRC_PATH)
 
 import oasis_utils
 

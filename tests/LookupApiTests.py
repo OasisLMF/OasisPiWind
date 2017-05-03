@@ -126,7 +126,8 @@ class LookupApiTests(unittest.TestCase):
 
         locations = [
             {'id': 1, 'lat': 0.5, 'lon': 0.5, "coverage": 1, "class_1": "A", "class_2": "B"}, 
-            {'id': 2, 'lat': 1.5, 'lon': 0.5, "coverage": 1, "class_1": "A", "class_2": "B"}]
+            {'id': 2, 'lat': 1.5, 'lon': 0.5, "coverage": 1, "class_1": "A", "class_2": "B"}
+        ]
         response = self.post_csv(locations)
         assert response.status_code == 200
 
@@ -186,9 +187,10 @@ class LookupApiTests(unittest.TestCase):
         return self.app.post(os.path.join(app.SERVICE_BASE_URL, 'get_keys'), headers=headers, data=csv_data)
 
     def post_json(self, data):
+        _data = map(lambda rec: dict((k.upper(), rec[k]) for k in rec), data)
         def obj_dict(obj):
             return obj.__dict__
-        json_data = json.dumps(data, default=obj_dict).encode('utf-8')
+        json_data = json.dumps(_data, default=obj_dict).encode('utf-8')
         json_data_length = len(json_data)
         headers = [('Content-Type', oasis_utils.HTTP_REQUEST_CONTENT_TYPE_JSON)]
         headers.append(('Content-Length', json_data_length))
