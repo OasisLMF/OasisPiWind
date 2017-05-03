@@ -16,9 +16,28 @@ ID,LAT,LON,COVERAGE,CLASS_1,CLASS_2
 1,0.5,0.5,1,A,B
 2,1.5,0.5,1,A,B
 ```
-### JSON
 
-TO BE IMPLEMENTED
+### JSON
+```
+[
+  {
+    "id": 1,
+    "lat": 0.5, 
+    "lon": 0.5, 
+    "coverage": 1, 
+    "class_1": "A", 
+    "class_2": "B", 
+  },
+    {
+    "id": 2,
+    "lat": 0.5, 
+    "lon": 0.5, 
+    "coverage": 1, 
+    "class_1": "A", 
+    "class_2": "B", 
+  }
+}
+```
 
 ## Response format
 
@@ -65,15 +84,17 @@ TO BE UPDATED
 
 ### Installation requirements
 
-Python:
-* Python 64 2.7
-* Pandas 0.19.2
-* Flask 0.10.1
-* Shapely 1.5.13
+Installation will be via a Docker app running on an AWS instance - the app image will contain all the requirements. The internal requirements are:
+
+* Python 2.7.x
+* Pandas 0.19.2+
+* Flask 0.10.1+
+* Shapely 1.5.13+
+* PyODBC 3.0.10+
 
 ### Deployment
 
-TO BE UPDATED
+Deployment will be via a Docker app running on an AWS instance.
 
 ## Installation script
 
