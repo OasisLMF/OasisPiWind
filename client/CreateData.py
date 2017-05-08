@@ -30,7 +30,7 @@ def create_test_exposure(
 
     with open(EXPOSURE_FILE, 'w') as csvfile:
         exposure_writer = csv.writer(csvfile, lineterminator='\n')
-        exposure_writer.writerow('ID,LAT,LON,COVERAGE,CLASS_1,CLASS_2')
+        exposure_writer.writerow(['ID','LAT','LON','COVERAGE','CLASS_1','CLASS_2'])
         for exposure_id in range(1, number_of_locations + 1):
             lat = round(
                 min_lat + (((max_lat - min_lat)/grid_lat_dim) * exposure_id % grid_lat_dim), 2)
@@ -59,7 +59,7 @@ def create_area_peril_lookup_data(
 
     with open(AREA_PERIL_LOOKUP_FILE, 'w') as csvfile:
         exposure_writer = csv.writer(csvfile, lineterminator='\n')
-        exposure_writer.writerow('AREA_PERIL_ID,LAT1,LON1,LAT2,LON2,LAT3,LON3,LAT4,LON4')
+        exposure_writer.writerow(['AREA_PERIL_ID','LAT1','LON1','LAT2','LON2','LAT3','LON3','LAT4','LON4'])
         for area_peril_id in range(1, grid_lat_dim * grid_lon_dim + 1):
             lat1 = round(min_lat + (((max_lat - min_lat)/grid_lat_dim) * area_peril_id), 2)
             lon1 = round(min_lon + (((max_lon - min_lon)/grid_lon_dim) * area_peril_id), 2)
@@ -80,9 +80,9 @@ def create_vulnerability_lookup_data():
 
     with open(VULNERABILITY_LOOKUP_FILE, 'w') as csvfile:
         exposure_writer = csv.writer(csvfile, lineterminator='\n')
-        exposure_writer.writerow('VULNERABILITY_ID,COVERAGE,CLASS_1')
+        exposure_writer.writerow(['VULNERABILITY_ID','COVERAGE','CLASS_1'])
         for i, class_1 in enumerate(['I', 'C', 'R']):
-            exposure_writer.writerow('{},1,{}'.format(i, class_1))
+            exposure_writer.writerow([i, '1', class_1])
 
 
 if __name__ == '__main__':
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
     print "\n\tgenerating area peril lookup data"
     create_area_peril_lookup_data(
-        number_of_area_perils=100, min_lat=-0.9176515, max_lat=-0.9176515 + 0.0606651,
+        min_lat=-0.9176515, max_lat=-0.9176515 + 0.0606651,
         grid_lat_dim=10,
         min_lon=52.7339933, max_lon=52.7339933 + 0.0606651,
         grid_lon_dim=10)
