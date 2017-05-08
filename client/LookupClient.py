@@ -1,13 +1,22 @@
 # (c) 2013-2016 Oasis LMF Ltd.  Software provided for early adopter evaluation only.
-import csv
-import urllib2
-import json
-import gzip
-import os
-# Not supported in cygwin
-#import psutil
 import argparse
+import csv
+import gzip
+import inspect
+import json
+import os
 import sys
+import urllib2
+
+BASE_DIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+
+SRC_PATH = os.path.abspath(os.path.join(BASE_DIR, '..', 'src'))
+
+if os.path.exists(SRC_PATH):
+    sys.path.append(SRC_PATH)
+
+import oasis_utils
+
 
 class LookupClient(object):
     """
@@ -21,7 +30,7 @@ class LookupClient(object):
         handled without loading too much data into memory.
     """
 
-    #_LOOKUP_URL = "http://localhost:50000/oasis/piwind/v1.0/lookup"
+    #_LOOKUP_URL = "http://localhost:50000/OasisLMF/PiWind/0.0.0.1/get_keys"
     #_lookup_url = "http://10.1.0.190/oasis/piwind/v1.0/lookup"
     #_exposure_file = os.path.abspath(os.path.join('utils', "exposure.csv"))
 
@@ -186,7 +195,7 @@ class LookupClient(object):
         csv_data_bytes = csv_data.encode()
 
         req = urllib2.Request(self._lookup_url)
-        req.add_header('Content-Type', 'text/csv; charset=utf-8')
+        req.add_header('Content-Type', oasis_utils.MIME_TYPE_CSV; charset=oasis_utils.CHARSET_ENCODING_UTF8)
         req.add_header('Content-Length', len(csv_data_bytes))
         response = urllib2.urlopen(req, data=csv_data_bytes)
         
