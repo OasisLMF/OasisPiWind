@@ -181,9 +181,8 @@ class LookupApiTests(unittest.TestCase):
                 str(item['id']) + ',' + str(item['lat']) + ',' + str(item['lon']) + ',' + \
                 str(item['coverage']) + ',' + str(item['class_1']) + ',' + str(item['class_2']) + '\n'
 
-        data_length = len(csv_data)
         headers = [('Content-Type', oasis_utils.HTTP_REQUEST_CONTENT_TYPE_CSV)]
-        headers.append(('Content-Length', data_length))
+        headers.append(('Content-Length', len(csv_data)))
         return self.app.post(os.path.join(app.SERVICE_BASE_URL, 'get_keys'), headers=headers, data=csv_data)
 
     def post_json(self, data):
