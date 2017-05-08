@@ -154,6 +154,7 @@ class LookupApiTests(unittest.TestCase):
         assert locations[0]['area_peril_id'] is None
 
     def test_one_fail_csv(self):
+
         locations = [{'id': 1, 'lat': 500.0, 'lon': 1.0, "coverage": 1, "class_1": "A", "class_2": "B"}]
         response = self.post_csv(locations)
         assert response.status_code == 200
@@ -174,6 +175,7 @@ class LookupApiTests(unittest.TestCase):
         assert response.status_code == 500
 
     def post_csv(self, data):
+
         csv_data = ""
         csv_data = "ID,LAT,LON,COVERAGE,CLASS_1,CLASS_2\n"
         for item in data:
@@ -186,6 +188,7 @@ class LookupApiTests(unittest.TestCase):
         return self.app.post(os.path.join(app.SERVICE_BASE_URL, 'get_keys'), headers=headers, data=csv_data)
 
     def post_json(self, data):
+
         _data = map(lambda rec: dict((k.upper(), rec[k]) for k in rec), data)
         def obj_dict(obj):
             return obj.__dict__
