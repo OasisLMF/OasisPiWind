@@ -1,6 +1,6 @@
-FROM coreoasis/oasis_base:R_0_0_0_8
+FROM coreoasis/oasis_base:R_0_0_0_10
 
-RUN apt install -y apache2 \
+RUN apt update && apt install -y apache2 \
                    apache2-utils \
                    libapache2-mod-wsgi \
                    python-flask \
