@@ -89,10 +89,10 @@ TO BE UPDATED
 Installation will be via a Docker app running on an AWS instance - the app image will contain all the requirements. The internal requirements are:
 
 * Python 2.7.x
-* Pandas 0.19.2+
-* Flask 0.10.1+
-* Shapely 1.5.13+
-* PyODBC 3.0.10+
+* Pandas 0.19.2
+* Flask 0.10.1
+* Shapely 1.5.13
+* PyODBC 3.0.10
 
 ### Deployment
 
