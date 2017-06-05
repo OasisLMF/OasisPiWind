@@ -17,7 +17,7 @@ from oasis_utils import (
     oasis_log_utils,
 )
 
-from oasis_keys_lookup import BaseKeysLookup
+from oasis_keys_lookup import OasisBaseKeysLookup
 
 from .utils import (
     AreaPerilLookup,
@@ -25,7 +25,7 @@ from .utils import (
 )
 
 
-class PiWindKeysLookup(BaseKeysLookup):
+class PiWindKeysLookup(OasisBaseKeysLookup):
     """
     PiWind keys lookup.
     """
