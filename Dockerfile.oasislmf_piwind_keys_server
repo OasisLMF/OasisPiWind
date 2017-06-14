@@ -1,35 +1,40 @@
 FROM coreoasis/oasis_base:R_0_0_0_10
 
-RUN apt update && apt install -y apache2 \
-                   apache2-utils \
-                   libapache2-mod-wsgi \
-                   python-flask \
-                   unixodbc \
-                   unixodbc-dev \
-                   libgeos-c1v5 \
-                   libgeos-dev
-
+RUN apt update && apt install -y \
+    apache2 \
+    apache2-utils \
+    libapache2-mod-wsgi \
+    python-flask \
+    libgeos-dev \
+    unixodbc \
+    unixodbc-dev
 
 RUN mkdir /var/www/oasis
-RUN mkdir /var/www/oasis/keys_server
 RUN mkdir /var/oasis
+
 RUN mkdir /var/log/oasis
 RUN chown www-data:www-data /var/log/oasis
-RUN chmod 777 /var/log/oasis
+RUN chmod 744 /var/log/oasis
 RUN touch /var/log/oasis/keys_server.log
 RUN chown www-data:www-data /var/log/oasis/keys_server.log
-RUN chmod 666 /var/log/oasis/keys_server.log
+RUN chmod 644 /var/log/oasis/keys_server.log
 
 COPY ./keys_server_config/apache2.conf /etc/apache2/apache2.conf
 COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/oasis.conf
 COPY ./keys_server_config/oasis.wsgi /var/www/oasis/oasis.wsgi
+
 COPY ./src/oasis_utils /var/www/oasis/oasis_utils/
 COPY ./src/oasis_keys_lookup /var/www/oasis/oasis_keys_lookup/
-COPY ./src/keys_server /var/www/oasis/keys_server/
 COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
 
+RUN mkdir /var/www/oasis/keys_server
+COPY ./src/keys_server/ /var/www/oasis/keys_server/
+
+RUN mkdir /var/oasis/keys_data
+RUN chown www-data:www-data /var/oasis/keys_data
+RUN chmod 744 /var/oasis/keys_data
 COPY ./keys_data/PiWind /var/oasis/keys_data
-RUN chmod -R 777 /var/oasis/keys_data
+RUN chmod 444 /var/oasis/keys_data/*.csv
 
 COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
