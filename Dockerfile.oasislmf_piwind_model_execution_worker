@@ -1,4 +1,4 @@
-FROM coreoasis/model_execution_worker:OASIS_0_0_0_228
+FROM coreoasis/model_execution_worker:OASIS_0_0_228_0
 
 USER worker
 WORKDIR /home/worker
