@@ -10,7 +10,7 @@ http://www.altova.com/mapforce
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:agt="http://www.altova.com/Mapforce/agt" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="agt xs">
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-	<xsl:template name="agt:MapTopiwind_model_var5_create_rec">
+	<xsl:template name="agt:MapTopiwind_modelloc_var5_create_rec">
 		<xsl:param name="var4_current"/>
 		<rec>
 			<xsl:variable name="var1_ROWID">
@@ -43,24 +43,24 @@ http://www.altova.com/mapforce
 					<xsl:value-of select="string($var4_current/@LONGITUDE)"/>
 				</xsl:attribute>
 			</xsl:if>
-			<xsl:attribute name="COVERAGE">B</xsl:attribute>
+			<xsl:attribute name="COVERAGE">1</xsl:attribute>
 			<xsl:attribute name="CLASS_1">R</xsl:attribute>
 			<xsl:attribute name="CLASS_2">R</xsl:attribute>
 		</rec>
 	</xsl:template>
-	<xsl:template name="agt:MapTopiwind_model_var7_resultof_map">
+	<xsl:template name="agt:MapTopiwind_modelloc_var7_resultof_map">
 		<xsl:param name="var6_current"/>
 		<xsl:for-each select="$var6_current/rec">
-			<xsl:call-template name="agt:MapTopiwind_model_var5_create_rec">
+			<xsl:call-template name="agt:MapTopiwind_modelloc_var5_create_rec">
 				<xsl:with-param name="var4_current" select="."/>
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
 	<xsl:template match="/">
 		<root>
-			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/PiWind/piwind_model.xsd</xsl:attribute>
+			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/PiWind/piwind_modelloc.xsd</xsl:attribute>
 			<xsl:for-each select="root">
-				<xsl:call-template name="agt:MapTopiwind_model_var7_resultof_map">
+				<xsl:call-template name="agt:MapTopiwind_modelloc_var7_resultof_map">
 					<xsl:with-param name="var6_current" select="."/>
 				</xsl:call-template>
 			</xsl:for-each>
