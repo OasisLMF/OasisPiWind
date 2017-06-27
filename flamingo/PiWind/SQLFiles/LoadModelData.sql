@@ -45,7 +45,7 @@ INSERT [dbo].[Service] ([ServiceID], [ServiceName], [ServiceDesc], [ServiceTypeI
 INSERT [dbo].[OasisSystem] ([OasisSystemID], [OasisSystemName], [OasisSystemDescription], [url], [Port], [SysConfigID]) 
 		VALUES (@OasisSystemId, N'PiWind Oasis Mid Tier', N'PiWind Oasis Mid Tier', N'%OASIS_API_IP%', %OASIS_API_PORT%, 4)                       ----to check
 INSERT [dbo].[OasisSystem] ([OasisSystemID], [OasisSystemName], [OasisSystemDescription], [url], [Port], [SysConfigID])  ----to check
-		VALUES (@OasisSystemId+1, N'PiWind API', N'PiWind Lookup Service', N'%KEYS_SERVICE_IP%', %KEYS_SERVICE_PORT%, NULL)
+		VALUES (@OasisSystemId+1, N'PiWind API', N'PiWind Lookup Service', N'http://' + N'%KEYS_SERVICE_IP%' + N':' + N'%KEYS_SERVICE_PORT%' + N'/OasisLMF/PiWind/0.0.0.1/get_keys', %KEYS_SERVICE_PORT%, NULL)
 
 --OasisSystemService
 INSERT [dbo].[OasisSystemService] ([OasisSystemServiceID], [OasisSystemID], [ServiceID]) 
