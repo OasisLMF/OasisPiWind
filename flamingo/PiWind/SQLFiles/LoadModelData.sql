@@ -43,8 +43,8 @@ INSERT [dbo].[Service] ([ServiceID], [ServiceName], [ServiceDesc], [ServiceTypeI
 
 --OasisSystem
 INSERT [dbo].[OasisSystem] ([OasisSystemID], [OasisSystemName], [OasisSystemDescription], [url], [Port], [SysConfigID]) 
-		VALUES (@OasisSystemId, N'PiWind Oasis Mid Tier', N'PiWind Oasis Mid Tier', N'%OASIS_API_IP%', %OASIS_API_PORT%, 4)                       ----to check
-INSERT [dbo].[OasisSystem] ([OasisSystemID], [OasisSystemName], [OasisSystemDescription], [url], [Port], [SysConfigID])  ----to check
+		VALUES (@OasisSystemId, N'PiWind Oasis Mid Tier', N'PiWind Oasis Mid Tier', N'%OASIS_API_IP%', %OASIS_API_PORT%, 4)  
+INSERT [dbo].[OasisSystem] ([OasisSystemID], [OasisSystemName], [OasisSystemDescription], [url], [Port], [SysConfigID])  
 		VALUES (@OasisSystemId+1, N'PiWind API', N'PiWind Lookup Service', N'http://' + N'%KEYS_SERVICE_IP%' + N':' + N'%KEYS_SERVICE_PORT%' + N'/OasisLMF/PiWind/0.0.0.1/get_keys', %KEYS_SERVICE_PORT%, NULL)
 
 --OasisSystemService
@@ -67,8 +67,8 @@ Create Table #ModelResource
 INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'model_file_extension', 305, @OasisSystemID+1, @ModelID, N'csv')
 INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'PiWind API', 1000, @OasisSystemID+1, @ModelID, N'')
 INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'ModelGroupField', 300, @OasisSystemID, @ModelID, N'LocID')
-INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'module_supplier_id', 301, @OasisSystemID, @ModelID, N'Oasis') ----to check
-INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'model_version_id', 302, @OasisSystemID, @ModelID, N'PiWind')           ----to check
+INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'module_supplier_id', 301, @OasisSystemID, @ModelID, N'OasisLMF') 
+INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'model_version_id', 302, @OasisSystemID, @ModelID, N'PiWind')   
 INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'peril_wind', 1001, @OasisSystemId, @ModelID, N'checkbox')
 INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'event_set', 1001, @OasisSystemId, @ModelID, N'dropdown')
 INSERT #ModelResource (ModelResourceName,ResourceTypeID,OasisSystemID,ModelID,ModelResourceValue) VALUES (N'event_occurance_id', 1001, @OasisSystemId, @ModelID, N'dropdown')
