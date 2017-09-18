@@ -17,7 +17,7 @@ from oasis_utils import (
     oasis_log_utils,
 )
 
-from oasis_keys_lookup import OasisBaseKeysLookup
+from .OasisBaseKeysLookup import OasisBaseKeysLookup
 
 from .utils import (
     AreaPerilLookup,
