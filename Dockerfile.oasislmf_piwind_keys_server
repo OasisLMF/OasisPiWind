@@ -4,6 +4,9 @@ RUN apt update && apt upgrade -y && apt install -y \
     apache2 \
     apache2-utils \
     libapache2-mod-wsgi \
+    python-pip \
+    python-dev \
+    build-essential \
     python-flask \
     libgeos-dev \
     unixodbc \
@@ -24,8 +27,12 @@ COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/oasis.conf
 COPY ./keys_server_config/oasis.wsgi /var/www/oasis/oasis.wsgi
 
 COPY ./src/oasis_utils /var/www/oasis/oasis_utils/
-COPY ./src/oasis_keys_lookup /var/www/oasis/oasis_keys_lookup/
+RUN rm -fr /var/www/oasis/oasis_utils/docs
+RUN rm -fr /var/www/oasis/oasis_utils/venv
+
 COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
+RUN rm -fr /var/www/oasis/oasis_keys_server/docs
+RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 
 RUN mkdir /var/www/oasis/keys_server
 COPY ./src/keys_server/ /var/www/oasis/keys_server/
