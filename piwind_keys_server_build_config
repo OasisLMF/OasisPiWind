@@ -1,0 +1,61 @@
+### !/usr/bin/env bash
+###
+### Change the value of LOCAL_SUPPLIER_HOME to the (relative) path of local
+### supplier Git repository on the system you are building on, using the
+### SUPPLIER variable and/or the HOME environment variable on your system
+### if necessary.
+###
+### Also change, if necessary, the web service URL domain, if you are not
+### building on a non-local system.
+
+# You need to define the following variables:
+#
+#   * SUPPLIER - name of the supplier as given in the relevant model version file
+#
+#   * LOCAL_SUPPLIER_HOME - the (relative or absolute) path of the local Git
+#                           repository for the supplier on the system; you can
+#                           use the value of SUPPLIER or of the HOME environment
+#                           variable on your system; by default it is assumed
+#                           to be the current working directory
+#
+#   * MODEL_NAME - name of the model as given in the model version file
+#
+#   * MODEL_VERSION - version of the model as given in the model version file
+#
+#   * DOCKERFILE - the path of the Dockerfile for the keys server
+#
+#   * BUILD_IMAGE_NAME - the intended name of the Docker image
+#
+#   * BUILD_CONTAINER_NAME - the intended name of the container
+#
+#   * LOCAL_KEYS_DATADIR - since the keys data directory is not version controlled
+#                          this variable should store the path of model keys data
+#                          directory; by default it is expected to be a subfolder
+#                          of the keys_data directory in the supplier repo, named
+#                          by the relevant model
+#
+#   * LOCAL_TEST_MODEL_LOCATION_FILE - the path of the model location file you
+#                                      want to use for sending a keys request to the
+#                                      web service running in the container; by
+#                                      default an executable CSV file is expected,
+#                                      other formats will cause a request failure;
+#                                      the format should not be raw but consistent with
+#                                      the format produced by Flamingo after the
+#                                      transforms; by default this file is expected
+#                                      to be found in the model subdirectory within
+#                                      keys data directory
+
+export SUPPLIER=OasisLMF
+export LOCAL_SUPPLIER_HOME="$(pwd)"
+export MODEL_NAME=PiWind
+export MODEL_VERSION=0.0.0.1
+
+export DOCKERFILE="${LOCAL_SUPPLIER_HOME}"/Dockerfile.oasislmf_piwind_keys_server
+
+export BUILD_IMAGE_NAME=oasislmf_piwind_keys_server
+export BUILD_CONTAINER_NAME=oasislmf_piwind_keys_server
+
+export SERVICE_PORT=5000
+
+export LOCAL_KEYS_DATADIR="${LOCAL_SUPPLIER_HOME}"/keys_data/${MODEL_NAME}
+export LOCAL_TEST_MODEL_LOCATION_FILE="${LOCAL_KEYS_DATADIR}"/oasislmf_piwind_test_model_loc.csv
