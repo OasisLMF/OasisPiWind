@@ -10,11 +10,7 @@ To clone this repository first ensure that you have generated an SSH key pair on
 
 The `--recursive` option ensures the cloned repository contains the necessary Oasis repositories <a href="https://github.com/OasisLMF/oasis_utils" target="_blank">`oasis_utils`</a>, <a href="https://github.com/OasisLMF/oasis_keys_lookup" target="_blank">`oasis_keys_lookup`</a>, <a href="https://github.com/OasisLMF/oasis_keys_server" target="_blank">`oasis_keys_server`</a> and <a href="https://github.com/OasisLMF/oasis_build_utils" target="_blank">`oasis_build_utils`</a> as Git submodules. You have read only access to these repositories.
 
-After the clone `cd` into `OasisPiWind` and run the following command
-
-    git submodule foreach 'git checkout master'
-
-to ensure that the Oasis submodules are checked out on the master branches. If you've already cloned the repository and wish to update the submodules from GitHub then run
+If you've already cloned the repository and wish to update the submodules from GitHub then run
 
     git submodule foreach 'git pull origin master'
 
