@@ -16,9 +16,7 @@ After the clone `cd` into `OasisPiWind` and run the following command
 
 to ensure that the Oasis submodules are checked out on the master branches. If you've already cloned the repository and wish to update the submodules from GitHub then run
 
-    git submodule foreach 'git pull origin'
-
-Any changes to the submodules, e.g. when pulled from GitHub, will be reflected locally when you run `git status -uno`. In that case you should add those changes to the Git index and commit them.
+    git submodule foreach 'git pull origin master'
 
 ## Request Format
 
