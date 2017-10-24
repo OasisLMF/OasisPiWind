@@ -9,6 +9,8 @@ Declare	@ServiceId int = (Select ISNULL(Max(ServiceId),0) + 1 From Service)
 Declare	@OasisSystemId int = (Select ISNULL(Max(OasisSystemId),0) + 1 From OasisSystem)
 Declare	@OasisSystemServiceId int = (Select ISNULL(Max(OasisSystemServiceId),0) + 1 From OasisSystemService)
 Declare	@ModelResourceId int = (Select ISNULL(Max(ModelResourceId),0) From ModelResource)
+Declare	@ModelPerilId int = (Select ISNULL(Max(ModelPerilId),0) From ModelPeril)
+Declare	@ModelCoverageTypeId int = (Select ISNULL(Max(ModelCoverageTypeId),0) From ModelCoverageType)
 
 Declare	@ModelLicenseId int = (Select ISNULL(Max(ModelLicenseId),0) + 1 From ModelLicense)
 Declare	@OasisUserId int = (Select ISNULL(Max(OasisUserId),0) + 1 From OasisUser) --to be fixed
@@ -98,6 +100,14 @@ INSERT [dbo].[OasisUser] ([OasisUserID], [OasisUserName], [ModelLicenseID], [Oas
 --UserLicense
 INSERT [dbo].[UserLicense] ([UserLicenseId], [BFEUserID], [OasisUserID]) VALUES (@UserLicenseId, 1, @OasisUserId)
 
+--ModelPeril
+INSERT ModelPeril Values (@ModelPerilId+1,@ModelId,1,1,'Wind')
+
+--ModelPeril
+INSERT ModelCoverageType Values (@ModelCoverageTypeId+1,@ModelId,1,'1','Buildings')
+INSERT ModelCoverageType Values (@ModelCoverageTypeId+2,@ModelId,2,'2','Other Structures')
+INSERT ModelCoverageType Values (@ModelCoverageTypeId+3,@ModelId,3,'3','Contents')
+INSERT ModelCoverageType Values (@ModelCoverageTypeId+4,@ModelId,4,'4','Business Interuption')
 
 ---------------------------------------------------------
 --Transforms
@@ -307,37 +317,36 @@ insert into [ProfileElement] values (75+@ProfileElementId,'BLANLIMAMT',@AccProfi
 
 
 --ProfileValueDetail
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (1+@ProfileValueDetailID ,13+14+@ProfileElementId,1,1,1)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (2+@ProfileValueDetailID ,13+15+@ProfileElementId,1,3,2)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (3+@ProfileValueDetailID ,13+16+@ProfileElementId,1,4,3)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (4+@ProfileValueDetailID ,13+17+@ProfileElementId,1,1,4)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (5+@ProfileValueDetailID ,13+18+@ProfileElementId,1,2,5)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (6+@ProfileValueDetailID ,13+19+@ProfileElementId,1,3,6)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (7+@ProfileValueDetailID ,13+20+@ProfileElementId,1,4,7)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (8+@ProfileValueDetailID ,13+21+@ProfileElementId,1,2,8)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (9+@ProfileValueDetailID ,13+22+@ProfileElementId,1,2,9)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (10+@ProfileValueDetailID ,13+23+@ProfileElementId,1,2,10)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (11+@ProfileValueDetailID ,13+24+@ProfileElementId,1,1,1)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (12+@ProfileValueDetailID ,13+25+@ProfileElementId,1,3,2)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (13+@ProfileValueDetailID ,13+26+@ProfileElementId,1,4,3)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (14+@ProfileValueDetailID ,13+27+@ProfileElementId,1,1,4)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (15+@ProfileValueDetailID ,13+28+@ProfileElementId,1,2,5)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (16+@ProfileValueDetailID ,13+29+@ProfileElementId,1,3,6)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (17+@ProfileValueDetailID ,13+30+@ProfileElementId,1,4,7)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (18+@ProfileValueDetailID ,13+31+@ProfileElementId,1,2,8)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (19+@ProfileValueDetailID ,13+32+@ProfileElementId,1,2,9)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (20+@ProfileValueDetailID ,13+33+@ProfileElementId,1,2,10)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (21+@ProfileValueDetailID ,13+34+@ProfileElementId,1,1,1)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (22+@ProfileValueDetailID ,13+35+@ProfileElementId,1,3,2)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (23+@ProfileValueDetailID ,13+36+@ProfileElementId,1,4,3)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (24+@ProfileValueDetailID ,13+37+@ProfileElementId,1,1,4)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (25+@ProfileValueDetailID ,13+38+@ProfileElementId,1,2,5)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (26+@ProfileValueDetailID ,13+39+@ProfileElementId,1,3,6)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (27+@ProfileValueDetailID ,13+40+@ProfileElementId,1,4,7)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (28+@ProfileValueDetailID ,13+41+@ProfileElementId,1,2,8)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (29+@ProfileValueDetailID ,13+42+@ProfileElementId,1,2,9)
-INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (30+@ProfileValueDetailID ,13+43+@ProfileElementId,1,2,10)
-
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (1+@ProfileValueDetailID ,27+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+1,1)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (2+@ProfileValueDetailID ,28+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+3,2)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (3+@ProfileValueDetailID ,29+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+4,3)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (4+@ProfileValueDetailID ,30+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+1,4)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (5+@ProfileValueDetailID ,31+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,5)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (6+@ProfileValueDetailID ,32+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+3,6)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (7+@ProfileValueDetailID ,33+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+4,7)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (8+@ProfileValueDetailID ,34+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,8)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (9+@ProfileValueDetailID ,35+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,9)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (10+@ProfileValueDetailID ,36+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,10)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (11+@ProfileValueDetailID ,37+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+1,1)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (12+@ProfileValueDetailID ,38+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+3,2)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (13+@ProfileValueDetailID ,39+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+4,3)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (14+@ProfileValueDetailID ,40+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+1,4)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (15+@ProfileValueDetailID ,41+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,5)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (16+@ProfileValueDetailID ,42+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+3,6)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (17+@ProfileValueDetailID ,43+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+4,7)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (18+@ProfileValueDetailID ,44+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,8)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (19+@ProfileValueDetailID ,45+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,9)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (20+@ProfileValueDetailID ,46+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,10)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (21+@ProfileValueDetailID ,47+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+1,1)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (22+@ProfileValueDetailID ,48+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+3,2)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (23+@ProfileValueDetailID ,49+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+4,3)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (24+@ProfileValueDetailID ,50+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+1,4)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (25+@ProfileValueDetailID ,51+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,5)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (26+@ProfileValueDetailID ,52+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+3,6)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (27+@ProfileValueDetailID ,53+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+4,7)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (28+@ProfileValueDetailID ,54+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,8)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (29+@ProfileValueDetailID ,55+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,9)
+INSERT [dbo].[ProfileValueDetail] ([ProfileValueDetailID], [ProfileElementID],[PerilID],[CoverageTypeID],[ElementDimensionID]) VALUES (30+@ProfileValueDetailID ,56+@ProfileElementId,@ModelPerilId+1,@ModelCoverageTypeId+2,10)
 
 
 GO
