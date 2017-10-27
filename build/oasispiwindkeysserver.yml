@@ -3,7 +3,7 @@ services:
 
   piwind_keys_server:
     restart: always
-    image: coreoasis/piwind_keys_server:OASIS_0_0_0_3
+    image: coreoasis/piwind_keys_server:OASIS_0_0_0_4
     container_name: piwind_keys_server
     ports:
      - 9001:80
