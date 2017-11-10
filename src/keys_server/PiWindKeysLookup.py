@@ -76,37 +76,39 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             else pd.read_json(io.StringIO(loc_data))
         )
 
-        for i in range(len(loc_df)):
-            exposure_rec = dict()
-            exposure_rec['peril_id'] = oasis_utils.PERIL_ID_WIND
-            
-            loc_rec = self._get_location_record(loc_df.loc[i])
+        for i in range(len(loc_df)):            
+            record = self._get_location_record(loc_df.loc[i])
 
-            exposure_rec['id'] = loc_rec['id']
-            exposure_rec['coverage'] = loc_rec['coverage']
+            area_peril_rec = self.area_peril_lookup.do_lookup_location(record)
 
-            loc_area_peril_rec = self.area_peril_lookup.do_lookup_location(loc_rec)
-            exposure_rec['area_peril_id'] = loc_area_peril_rec['area_peril_id']
+            vuln_peril_rec = self.vulnerability_lookup.do_lookup_location(record)
 
-            loc_vuln_peril_rec = self.vulnerability_lookup.do_lookup_location(loc_rec)
-            exposure_rec['vulnerability_id'] = loc_vuln_peril_rec['vulnerability_id']
+            status = message = ''
 
-            if loc_area_peril_rec['status'] == loc_vuln_peril_rec['status'] == oasis_utils.KEYS_STATUS_SUCCESS:
-                exposure_rec['status'] = oasis_utils.KEYS_STATUS_SUCCESS
+            if area_peril_rec['status'] == vuln_peril_rec['status'] == oasis_utils.KEYS_STATUS_SUCCESS:
+                status = oasis_utils.KEYS_STATUS_SUCCESS
             elif (
-                loc_area_peril_rec['status'] == oasis_utils.KEYS_STATUS_FAIL or
-                loc_vuln_peril_rec['status'] == oasis_utils.KEYS_STATUS_FAIL
+                area_peril_rec['status'] == oasis_utils.KEYS_STATUS_FAIL or
+                vuln_peril_rec['status'] == oasis_utils.KEYS_STATUS_FAIL
             ):
-                exposure_rec['status'] = oasis_utils.KEYS_STATUS_FAIL
-                exposure_rec['message'] = '{}, {}'.format(
-                    loc_area_peril_rec['message'],
-                    loc_vuln_peril_rec['message']
+                status = oasis_utils.KEYS_STATUS_FAIL
+                message = '{}, {}'.format(
+                    area_peril_rec['message'],
+                    vuln_peril_rec['message']
                 )
             else:
-                exposure_rec['status'] = oasis_utils.KEYS_STATUS_NOMATCH
-                exposure_rec['message'] = 'No area peril or vulnerability match'
+                status = oasis_utils.KEYS_STATUS_NOMATCH
+                message = 'No area peril or vulnerability match'
 
-            yield exposure_rec
+            yield {
+                "id": record['id'],
+                "peril_id": oasis_utils.PERIL_ID_WIND,
+                "coverage": record['coverage'],
+                "area_peril_id": area_peril_rec['area_peril_id'],
+                "vulnerability_id": vuln_peril_rec['vulnerability_id'],
+                "message": message,
+                "status": status
+            }
 
 
     def _get_location_record(self, loc_item):
