@@ -62,19 +62,10 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
 
     
     @oasis_log_utils.oasis_log()
-    def process_locations(self, loc_data, mime_type=oasis_utils.MIME_TYPE_CSV):
+    def process_locations(self, loc_df):
         """
-        Read in raw location rows from request CSV data and generate
-        exposure records. This is the main method to override in each model
-        keys lookup class. Other methods inherited from the superclass
-        BaseKeysLookup can also be used, please refer to the source:
-        
-        https://github.com/OasisLMF/oasis_keys_lookup/blob/master/BaseKeysLookup.py
+        Process location rows - passed in as a pandas dataframe.
         """
-        loc_df = (
-            pd.read_csv(io.StringIO(loc_data)) if mime_type == oasis_utils.MIME_TYPE_CSV
-            else pd.read_json(io.StringIO(loc_data))
-        )
 
         for i in range(len(loc_df)):            
             record = self._get_location_record(loc_df.loc[i])

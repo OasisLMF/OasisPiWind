@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 __all__ = [
     'OasisBaseKeysLookup'
 ]
@@ -35,11 +37,9 @@ class OasisBaseKeysLookup(object):
 
 
     @oasis_log_utils.oasis_log()
-    def process_locations(self, loc_data, mime_type=oasis_utils.MIME_TYPE_CSV):
+    def process_locations(self, loc_df):
         """
-        Read in raw location rows from request data and generate exposure
-        records. The request content MIME type is assumed to be CSV, but can be
-        explicitly set to JSON by the caller.
+        Process location rows - passed in as a pandas dataframe.
         """
         pass
 
@@ -47,9 +47,7 @@ class OasisBaseKeysLookup(object):
     def _get_location_record(self, raw_loc_item):
         """
         Returns a dict of standard location keys and values based on
-        a raw location item, which could be a Pandas or Geopandas dataframe
-        row or a string representing a line from a CSV file, or a list or
-        tuple.
+        a raw location item, which is a row in a Pandas dataframe.
         """
         pass
 
