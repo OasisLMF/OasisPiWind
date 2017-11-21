@@ -111,6 +111,6 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         return dict(
             (
                 k,
-                meta[k]['validator'](loc_item[meta[k]['source_header']])
+                meta[k]['validator'](loc_item[meta[k]['source_header'].lower()])
             ) for k in meta
         )
