@@ -31,6 +31,7 @@ RUN rm -fr /var/www/oasis/oasis_utils/docs
 RUN rm -fr /var/www/oasis/oasis_utils/venv
 
 COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
+COPY ./src/keys_server/KeysServer.ini /var/www/oasis/oasis_keys_server/
 RUN rm -fr /var/www/oasis/oasis_keys_server/docs
 RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 
