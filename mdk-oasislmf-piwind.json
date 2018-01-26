@@ -1,16 +1,14 @@
 {
-    "keys_data_path": "OasisPiWind/keys_data/PiWind",
-    "model_version_file_path": "OasisPiWind/keys_data/PiWind/ModelVersion.csv", 
-    "lookup_package_path": "OasisPiWind/src/keys_server",
-    "canonical_exposures_profile_json_path": "OasisPiWind/oasislmf-piwind-canonical-profile.json",
-    "source_exposures_file_path": "OasisPiWind/tests/data/SourceLocPiWind.csv",
-    "source_exposures_validation_file_path": "OasisPiWind/flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
-    "source_to_canonical_exposures_transformation_file_path": "OasisPiWind/flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
-    "canonical_exposures_validation_file_path": "OasisPiWind/flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
-    "canonical_to_model_exposures_transformation_file_path": "OasisPiWind/flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
-    "xtrans_path": "omdk/xtrans/xtrans.exe",
-    "oasis_files_path": "omdk/runs",
-    "analysis_settings_json_file_path": "OasisPiWind/analysis_settings.json",
-    "model_data_path": "OasisPiWind/model_data/PiWind",
-    "model_run_dir_path": "omdk/runs"
+    "keys_data_path": "keys_data/PiWind",
+    "model_version_file_path": "keys_data/PiWind/ModelVersion.csv", 
+    "lookup_package_path": "src/keys_server",
+    "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-profile.json",
+    "source_exposures_file_path": "tests/data/SourceLocPiWind.csv",
+    "source_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
+    "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
+    "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
+    "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
+    "xtrans_path": "../omdk/xtrans/xtrans.exe",
+    "analysis_settings_json_file_path": "analysis_settings.json",
+    "model_data_path": "model_data/PiWind"
 }
