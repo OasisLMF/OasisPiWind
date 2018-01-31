@@ -32,6 +32,7 @@ RUN rm -fr /var/www/oasis/oasis_utils/venv
 
 COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
 COPY ./src/keys_server/KeysServer.ini /var/www/oasis/oasis_keys_server/
+COPY ./src/keys_server/KeysServerTests.ini /var/www/oasis/oasis_keys_server/tests/
 RUN rm -fr /var/www/oasis/oasis_keys_server/docs
 RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 
@@ -51,6 +52,9 @@ COPY ./src/oasis_utils/requirements.txt ./
 RUN pip install -r ./requirements.txt
 
 COPY ./src/oasis_keys_server/requirements.txt ./
+RUN pip install -r ./requirements.txt
+
+COPY ./src/oasis_keys_server/tests/requirements.txt ./
 RUN pip install -r ./requirements.txt
 
 COPY ./src/keys_server/requirements.txt ./
