@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 __all__ = ['AreaPerilLookup']
 
 # (c) 2013-2016 Oasis LMF Ltd.  Software provided for early adopter evaluation only.
