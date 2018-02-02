@@ -36,29 +36,23 @@ COPY ./src/oasis_keys_server/ /var/www/oasis/oasis_keys_server/
 RUN rm -fr /var/www/oasis/oasis_keys_server/docs
 RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 
+COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
+RUN chmod +x /usr/local/bin/startup.sh
+
 RUN mkdir /var/www/oasis/keys_server
 COPY ./src/keys_server/ /var/www/oasis/keys_server/
 
 RUN mkdir /var/oasis/keys_data
 RUN chown www-data:www-data /var/oasis/keys_data
 RUN chmod 744 /var/oasis/keys_data
-COPY ./keys_data/PiWind /var/oasis/keys_data
+COPY ./keys_data/PiWind/ /var/oasis/keys_data/
 RUN chmod 444 /var/oasis/keys_data/*.csv
 
-COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
-RUN chmod +x /usr/local/bin/startup.sh
+RUN pip install -r /var/www/oasis/oasis_utils/requirements.txt
 
-COPY ./src/oasis_utils/requirements.txt ./
-RUN pip install -r ./requirements.txt
+RUN pip install -r /var/www/oasis/keys_server/requirements.txt
 
-COPY ./src/oasis_keys_server/requirements.txt ./
-RUN pip install -r ./requirements.txt
-
-COPY ./src/oasis_keys_server/tests/requirements.txt ./
-RUN pip install -r ./requirements.txt
-
-COPY ./src/keys_server/requirements.txt ./
-RUN pip install -r ./requirements.txt
+RUN pip install -r /var/www/oasis/oasis_keys_server/requirements.txt
 
 RUN a2dissite 000-default
 RUN a2ensite oasis.conf

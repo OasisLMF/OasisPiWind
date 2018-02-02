@@ -58,4 +58,4 @@ export BUILD_CONTAINER_NAME=oasislmf_piwind_keys_server
 export SERVICE_PORT=5000
 
 export LOCAL_KEYS_DATADIR="${LOCAL_SUPPLIER_HOME}"/keys_data/"${MODEL_NAME}"
-export LOCAL_TEST_MODEL_LOCATION_FILE="${LOCAL_KEYS_DATADIR}"/oasislmf_piwind_test_model_loc.csv
+export LOCAL_TEST_MODEL_LOCATION_FILE="${LOCAL_KEYS_DATADIR}"/oasislmf_piwind_model_loc_test.csv
