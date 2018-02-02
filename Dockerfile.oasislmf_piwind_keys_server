@@ -26,13 +26,13 @@ COPY ./keys_server_config/apache2.conf /etc/apache2/apache2.conf
 COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/oasis.conf
 COPY ./keys_server_config/oasis.wsgi /var/www/oasis/oasis.wsgi
 
-COPY ./src/oasis_utils /var/www/oasis/oasis_utils/
+RUN mkdir /var/www/oasis/oasis_utils
+COPY ./src/oasis_utils/ /var/www/oasis/oasis_utils/
 RUN rm -fr /var/www/oasis/oasis_utils/docs
 RUN rm -fr /var/www/oasis/oasis_utils/venv
 
-COPY ./src/oasis_keys_server /var/www/oasis/oasis_keys_server/
-COPY ./src/keys_server/KeysServer.ini /var/www/oasis/oasis_keys_server/
-COPY ./src/keys_server/KeysServerTests.ini /var/www/oasis/oasis_keys_server/tests/
+RUN mkdir /var/www/oasis/oasis_keys_server
+COPY ./src/oasis_keys_server/ /var/www/oasis/oasis_keys_server/
 RUN rm -fr /var/www/oasis/oasis_keys_server/docs
 RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 
