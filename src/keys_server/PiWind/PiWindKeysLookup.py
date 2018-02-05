@@ -19,7 +19,7 @@ from oasis_utils import (
     oasis_log_utils,
 )
 
-from .OasisBaseKeysLookup import OasisBaseKeysLookup
+from keys_server import OasisBaseKeysLookup
 
 from .utils import (
     AreaPerilLookup,

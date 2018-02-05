@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-'''
-Module initialiser.
-'''
-from .utils import *
-
-from .OasisBaseKeysLookup import *
-from .PiWindKeysLookup import *
+"""
+Package initialiser.
+"""
+from utils import *
+from OasisBaseKeysLookup import *
+from .PiWind import *
