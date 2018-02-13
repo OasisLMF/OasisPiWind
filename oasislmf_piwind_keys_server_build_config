@@ -52,8 +52,8 @@ export MODEL_VERSION=0.0.0.1
 
 export DOCKERFILE="${LOCAL_SUPPLIER_HOME}"/Dockerfile.oasislmf_piwind_keys_server
 
-export BUILD_IMAGE_NAME=oasislmf_piwind_keys_server
-export BUILD_CONTAINER_NAME=oasislmf_piwind_keys_server
+export BUILD_IMAGE_NAME=oasislmf_piwind_keys_server_test
+export BUILD_CONTAINER_NAME=oasislmf_piwind_keys_server_test
 
 export SERVICE_PORT=5000
 
