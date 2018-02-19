@@ -8,7 +8,6 @@
     "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
     "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
     "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
-    "xtrans_path": "../omdk/xtrans/xtrans.exe",
     "analysis_settings_json_file_path": "analysis_settings.json",
     "model_data_path": "model_data/PiWind"
 }
