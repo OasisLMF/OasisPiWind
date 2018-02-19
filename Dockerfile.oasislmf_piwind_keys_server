@@ -22,9 +22,9 @@ RUN touch /var/log/oasis/keys_server.log
 RUN chown www-data:www-data /var/log/oasis/keys_server.log
 RUN chmod 644 /var/log/oasis/keys_server.log
 
-COPY ./keys_server_config/apache2.conf /etc/apache2/apache2.conf
-COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/oasis.conf
-COPY ./keys_server_config/oasis.wsgi /var/www/oasis/oasis.wsgi
+COPY ./keys_server_config/apache2.conf /etc/apache2/
+COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/
+COPY ./keys_server_config/oasis.wsgi /var/www/oasis/
 
 RUN mkdir /var/www/oasis/oasis_utils
 COPY ./src/oasis_utils/ /var/www/oasis/oasis_utils/
@@ -39,15 +39,16 @@ RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 RUN mkdir /var/www/oasis/keys_server
 COPY ./src/keys_server/__init__.py.base /var/www/oasis/keys_server/__init__.py
 RUN echo "\nfrom .PiWind import *" >> /var/www/oasis/keys_server/__init__.py
-COPY ./src/oasis_keys_server/oasis_keys_lookup/OasisBaseKeysLookup.py /var/www/oasis/keys_server/OasisBaseKeysLookup.py
-COPY ./src/keys_server/utils.py /var/www/oasis/keys_server/utils.py
-COPY ./src/keys_server/requirements.txt /var/www/oasis/keys_server/requirements.txt
+COPY ./src/oasis_keys_server/oasis_keys_lookup/OasisBaseKeysLookup.py /var/www/oasis/keys_server/
+COPY ./src/keys_server/utils.py /var/www/oasis/keys_server/
+COPY ./src/keys_server/requirements.txt /var/www/oasis/keys_server/
+RUN mkdir /var/www/oasis/keys_server/PiWind
 COPY ./src/keys_server/PiWind/ /var/www/oasis/keys_server/PiWind/
 COPY ./src/keys_server/PiWind/KeysServer.ini /var/www/oasis_keys_server/
 
 RUN mkdir /var/oasis/keys_data
 RUN chown www-data:www-data /var/oasis/keys_data
-RUN chmod 744 /var/oasis/keys_data
+RUN chmod -R 744 /var/oasis/keys_data
 COPY ./keys_data/PiWind/ /var/oasis/keys_data/
 RUN chmod 444 /var/oasis/keys_data/*
 
