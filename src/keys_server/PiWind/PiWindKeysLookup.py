@@ -43,7 +43,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
 
 
     @oasis_log_utils.oasis_log()
-    def __init__(self, keys_data_directory, supplier, model_name, model_version):
+    def __init__(self, keys_data_directory=None, supplier='OasisLMF', model_name='PiWind', model_version=None):
         """
         Initialise the static data required for the lookup.
         """
