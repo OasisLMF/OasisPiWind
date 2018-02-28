@@ -1,5 +1,5 @@
-OasisPiWind Keys Server 
-=======================
+Oasis PiWind Keys Server 
+========================
 
 ## Cloning the repository
 
