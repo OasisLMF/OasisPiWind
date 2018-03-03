@@ -26,11 +26,6 @@ COPY ./keys_server_config/apache2.conf /etc/apache2/
 COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/
 COPY ./keys_server_config/oasis.wsgi /var/www/oasis/
 
-RUN mkdir /var/www/oasis/oasis_utils
-COPY ./src/oasis_utils/ /var/www/oasis/oasis_utils/
-RUN rm -fr /var/www/oasis/oasis_utils/docs
-RUN rm -fr /var/www/oasis/oasis_utils/venv
-
 RUN mkdir /var/www/oasis/oasis_keys_server
 COPY ./src/oasis_keys_server/ /var/www/oasis/oasis_keys_server/
 RUN rm -fr /var/www/oasis/oasis_keys_server/docs
@@ -39,7 +34,6 @@ RUN rm -fr /var/www/oasis/oasis_keys_server/venv
 RUN mkdir /var/www/oasis/keys_server
 COPY ./src/keys_server/__init__.py.base /var/www/oasis/keys_server/__init__.py
 RUN echo "\nfrom .PiWind import *" >> /var/www/oasis/keys_server/__init__.py
-COPY ./src/oasis_keys_server/oasis_keys_lookup/OasisBaseKeysLookup.py /var/www/oasis/keys_server/
 COPY ./src/keys_server/utils.py /var/www/oasis/keys_server/
 COPY ./src/keys_server/requirements.txt /var/www/oasis/keys_server/
 RUN mkdir /var/www/oasis/keys_server/PiWind
@@ -54,12 +48,9 @@ COPY ./keys_data/PiWind/ /var/oasis/keys_data/
 COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
 
-RUN pip install -r /var/www/oasis/oasis_utils/requirements.txt
-
+RUN pip install -r /var/www/oasis/oasis_keys_server/requirements.txt
 RUN pip install -r /var/www/oasis/keys_server/requirements.txt
 RUN pip install -r /var/www/oasis/keys_server/PiWind/requirements.txt
-
-RUN pip install -r /var/www/oasis/oasis_keys_server/requirements.txt
 
 RUN a2dissite 000-default
 RUN a2ensite oasis.conf

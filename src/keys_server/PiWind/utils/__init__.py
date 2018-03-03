@@ -1,2 +1,2 @@
-from .AreaPerilLookup import *
-from .VulnerabilityLookup import *
+from AreaPerilLookup import *
+from VulnerabilityLookup import *
