@@ -2,10 +2,7 @@
 
 __all__ = ['AreaPerilLookup']
 
-# (c) 2013-2016 Oasis LMF Ltd.  Software provided for early adopter evaluation only.
-'''
-Area peril lookup.
-'''
+import io
 import csv
 import logging
 
@@ -14,7 +11,11 @@ from shapely.geometry import (
     MultiPoint,
 )
 
-import oasis_utils
+from oasislmf.utils.status import (
+    KEYS_STATUS_FAIL,
+    KEYS_STATUS_NOMATCH,
+    KEYS_STATUS_SUCCESS,
+)
 
 
 class AreaPerilLookup(object):
@@ -26,9 +27,9 @@ class AreaPerilLookup(object):
 
     def __init__(self, areas_file=None):
         if areas_file:
-            with open(areas_file, 'r') as f:
+            with io.open(areas_file, 'r', encoding='utf-8') as f:
                 dr = csv.DictReader(f)
-                self.load_lookup_data(dr)              
+                self.load_lookup_data(dr)
 
 
     def load_lookup_data(self, data):
@@ -85,7 +86,7 @@ class AreaPerilLookup(object):
         '''
         logging.debug("Looking up location.")
         
-        status = oasis_utils.KEYS_STATUS_NOMATCH
+        status = KEYS_STATUS_NOMATCH
         area_peril_id = None
         message = ''
 
@@ -93,7 +94,7 @@ class AreaPerilLookup(object):
         lon = location['lon']
 
         if not self.validate_lat(lat) & self.validate_lon(lon):
-            status = oasis_utils.KEYS_STATUS_FAIL
+            status = KEYS_STATUS_FAIL
             area_peril_id = None
             message = "Invalid lat/lon"
         else:
@@ -101,7 +102,7 @@ class AreaPerilLookup(object):
             for (cell_area_peril_id, cell) in self._lookup_data:
                 if cell.intersects(loc_point):
                     area_peril_id = cell_area_peril_id
-                    status = oasis_utils.KEYS_STATUS_SUCCESS
+                    status = KEYS_STATUS_SUCCESS
                     break
 
         return {
