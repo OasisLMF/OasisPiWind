@@ -1,8 +1,5 @@
 FROM coreoasis/oasis_base:latest
 
-RUN apt update && apt upgrade -y && apt install -y \
-    libgeos-dev
-
 RUN mkdir /var/www/oasis && \
     mkdir /var/oasis && \
     mkdir /var/log/oasis && \
@@ -18,8 +15,8 @@ COPY ./keys_server_config/oasis.wsgi /var/www/oasis/
 
 RUN mkdir /var/www/oasis/oasis_keys_server
 COPY ./src/oasis_keys_server/ /var/www/oasis/oasis_keys_server/
-RUN rm -fr /var/www/oasis/oasis_keys_server/docs
-RUN rm -fr /var/www/oasis/oasis_keys_server/venv
+RUN rm -fr /var/www/oasis/oasis_keys_server/docs && \
+    rm -fr /var/www/oasis/oasis_keys_server/venv
 
 RUN mkdir /var/www/oasis/keys_server
 COPY ./src/keys_server/__init__.py.base /var/www/oasis/keys_server/__init__.py
@@ -30,20 +27,20 @@ RUN mkdir /var/www/oasis/keys_server/PiWind
 COPY ./src/keys_server/PiWind/ /var/www/oasis/keys_server/PiWind/
 COPY ./src/keys_server/PiWind/KeysServer.ini /var/www/oasis_keys_server/
 
-RUN mkdir /var/oasis/keys_data
-RUN chown www-data:www-data /var/oasis/keys_data
-RUN chmod -R 744 /var/oasis/keys_data
+RUN mkdir /var/oasis/keys_data && \
+    chown www-data:www-data /var/oasis/keys_data && \
+    chmod -R 744 /var/oasis/keys_data
 COPY ./keys_data/PiWind/ /var/oasis/keys_data/
 
 COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
 
-RUN pip install -r /var/www/oasis/oasis_keys_server/requirements.txt
-RUN pip install -r /var/www/oasis/keys_server/requirements.txt
-RUN pip install -r /var/www/oasis/keys_server/PiWind/requirements.txt
+RUN pip install -r /var/www/oasis/oasis_keys_server/requirements.txt && \
+    pip install -r /var/www/oasis/keys_server/requirements.txt && \
+    pip install -r /var/www/oasis/keys_server/PiWind/requirements.txt
 
-RUN a2dissite 000-default
-RUN a2ensite oasis.conf
+RUN a2dissite 000-default && \
+    a2ensite oasis.conf
 EXPOSE 5000
 
 ENTRYPOINT startup.sh; tail -f /var/log/oasis/keys_server.log
