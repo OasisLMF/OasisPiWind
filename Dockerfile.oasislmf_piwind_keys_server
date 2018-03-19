@@ -1,4 +1,16 @@
-FROM coreoasis/oasis_base:latest
+FROM ubuntu:16.04
+
+RUN apt update && apt upgrade -y && apt install -y \
+    apache2 \
+    apache2-utils \
+    libapache2-mod-wsgi \
+    python-pip \
+    python-dev \
+    build-essential \
+    python-flask \
+    libgeos-dev \
+    unixodbc \
+    unixodbc-dev
 
 RUN mkdir /var/www/oasis && \
     mkdir /var/oasis && \
