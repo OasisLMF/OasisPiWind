@@ -13,7 +13,7 @@ To clone over HTTPS use
 
 ## Managing the submodules
 
-There are three submodules - `src/oasis_keys_server` which contains the Flask app that handles the keys requests dispatched to the model lookup services, `src/oasis_utils` which contains various Python utilities used by the Flask app and also the model lookup services, and `oasis_build_utils`, which contains a Bash script and utilities for building keys server Docker images and running them in Docker containers.
+There is only submodule - `src/oasis_keys_server` which contains the Flask app that handles the keys requests dispatched to the model lookup services.
 
 Run the command
 
@@ -23,13 +23,11 @@ to list the submodules (latest commit IDs, paths and branches). If any are missi
 
 	git submodule add <submodule GitHub repo URL> <local path/destination>
 
-to ensure that the Oasis submodules are checked out on the `master` branches.
-
 If you've already cloned the repository and wish to update the submodules (all at once) in your working directory from their GitHub repositories then run
 
     git submodule foreach 'git pull origin'
 
-You can also update the submodules individually by pulling from within them.
+You can also update the submodules individually by navigating to their location and pulling from the corresponding remote repository on GitHub.
 
 You should not make any local changes to these submodules because you have read-only access to their GitHub repositories. So submodule changes can only propagate from GitHub to your local repository. To detect these changes you can run `git status -uno` and to commit them you can add the paths and commit them in the normal way.
 
@@ -37,23 +35,7 @@ You should not make any local changes to these submodules because you have read-
 
 First, ensure that you have Docker installed on your system and that your Unix user has been added to the `docker` user group (run `sudo usermod -a -G docker $USER`).
 
-There are two ways of building and running the keys server - either using the <a href="https://github.com/OasisLMF/oasis_build_utils/blob/master/keys_server_build_utils.sh" target="_blank">`keys_server_build_utils.sh`</a> shell script provided by Oasis or directly using Docker.
-
-To use the shell script first load the build configuration file for the keys server using
-
-    . oasis_build_utils/keys_server_build_utils.sh <keys server build config file name>
-
-This loads build parameters needed by the script, such as the supplier, model name, version, path to the keys data files etc. - if there are errors or missing parameters please change the build config file and run the same command again. Every model should have its own build configuration file with the following name format (all lowercase)
-
-    <supplier ID>_<model ID>_keys_server_build_config
-
-Then run
-
-    start_keys_server
-
-This will build the keys server image (calls the function `build_image`), run the image in a container (`run_container`) and run a healthcheck (`healthcheck`). If you want to do these steps separately call the relevant functions separately.
-
-If you prefer to use Docker directly to build the image then you can run the following command (from the base of the repository)
+To build the keys server run the command
 
     sudo docker build -f <docker file name> -t <image name/tag> .
 
