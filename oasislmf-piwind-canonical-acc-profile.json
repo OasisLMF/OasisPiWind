@@ -5,8 +5,6 @@
     "POLICYTYPE":{"ProfileElementName": "POLICYTYPE", "FieldName":"PolicyType"},
     "UNDCOVAMT":{"ProfileElementName": "UNDCOVAMT", "FieldName":"AttachmentPoint"},
     "PARTOF":{"ProfileElementName": "PARTOF", "FieldName":"LayerLimit", "FMLevel": "Layer", "FMLevelOrder": 6, "FMTermType": "Limit", "FMTermGroupID": 1},
-    "MINDEDAMT":{"ProfileElementName": "MINDEDAMT", "FieldName":"MinimumDeductible", "FMLevel": "Account", "FMLevelOrder": 5, "FMTermType": "Deductible", "FMTermGroupID": 1},
-    "MAXDEDAMT":{"ProfileElementName": "MAXDEDAMT", "FieldName":"MaximumDeductible",  "FMLevel": "Account", "FMLevelOrder": 5, "FMTermType": "Deductible", "FMTermGroupID": 1},
     "BLANDEDAMT":{"ProfileElementName": "BLANDEDAMT", "FieldName":"BlanketDeductible",  "FMLevel": "Account", "FMLevelOrder": 5, "FMTermType": "Deductible", "FMTermGroupID": 1},
     "BLANLIMAMT":{"ProfileElementName": "BLANLIMAMT", "FieldName":"BlanketLimit"}
 }
