@@ -3,8 +3,8 @@
     "ACCNTNUM":{"ProfileElementName": "ACCNTNUM", "FieldName":"AccountNumber"},
     "POLICYNUM":{"ProfileElementName": "POLICYNUM", "FieldName":"PolicyNumber"},
     "POLICYTYPE":{"ProfileElementName": "POLICYTYPE", "FieldName":"PolicyType"},
-    "UNDCOVAMT":{"ProfileElementName": "UNDCOVAMT", "DeductibleType": "B", "FieldName": "AttachmentPoint", "FMLevelName": "Layer", "FMLevelID": 6, "FMTermType": "Deductible", "FMTermGroupID": 1},
-    "PARTOF":{"ProfileElementName": "PARTOF", "FieldName":"LayerLimit", "FMLevelName": "Layer", "FMLevelID": 6, "FMTermType": "Limit", "FMTermGroupID": 1},
-    "BLANDEDAMT":{"ProfileElementName": "BLANDEDAMT", "DeductibleType": "B", "FieldName":"BlanketDeductible",  "FMLevelName": "Account", "FMLevelID": 5, "FMTermType": "Deductible", "FMTermGroupID": 1},
-    "BLANLIMAMT":{"ProfileElementName": "BLANLIMAMT", "FieldName":"BlanketLimit", "FMLevelName": "Layer", "FMLevelID": 6, "FMTermType": "Share", "FMTermGroupID": 1}
+    "UNDCOVAMT":{"ProfileElementName": "UNDCOVAMT", "DeductibleType": "B", "FieldName": "AttachmentPoint", "FMLevelName": "Layer", "FMLevel": 6, "FMTermType": "Deductible", "FMTermGroupID": 1},
+    "PARTOF":{"ProfileElementName": "PARTOF", "FieldName":"LayerLimit", "FMLevelName": "Layer", "FMLevel": 6, "FMTermType": "Limit", "FMTermGroupID": 1},
+    "BLANDEDAMT":{"ProfileElementName": "BLANDEDAMT", "DeductibleType": "B", "FieldName":"BlanketDeductible",  "FMLevelName": "Account", "FMLevel": 5, "FMTermType": "Deductible", "FMTermGroupID": 1},
+    "BLANLIMAMT":{"ProfileElementName": "BLANLIMAMT", "FieldName":"BlanketLimit", "FMLevelName": "Layer", "FMLevel": 6, "FMTermType": "Share", "FMTermGroupID": 1}
 }
