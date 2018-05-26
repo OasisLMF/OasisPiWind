@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
-from utils import *
-from PiWindKeysLookup import *
+from .utils import *
+from .PiWindKeysLookup import *
