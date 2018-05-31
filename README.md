@@ -3,9 +3,7 @@
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master)
 
 # Oasis PiWind
-Example model implementation.
-
-## First Steps
+Example model implementation, providing a concrete implementation of an Oasis model respository built using the <a href="https://github.com/OasisLMF/cookiecutter-OasisModel">Oasis cookiecutter</a> utility.
 
 ## Cloning the repository
 
@@ -95,3 +93,27 @@ You should see the tests passing
 To run individual test cases you can use
 
     python -m unittest -v KeysServerTests.KeysServerTests.<test case name>
+
+## Running a test analysis using the Oasis MDK
+
+The Oasis MDK provides utilities for developing models. This is accessed by installing the <a href=https://github.com/OasisLMF/OasisLMF"">oasislmf package</a>. The repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/mdk-oasislmf-piwind.json" target="_blank">JSON configuration file</a> for the model which can be used to run the model.
+
+    {
+        "keys_data_path": "keys_data/PiWind",
+        "model_version_file_path": "keys_data/PiWind/ModelVersion.csv", 
+        "lookup_package_path": "src/keys_server",
+        "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-profile.json",
+        "source_exposures_file_path": "tests/data/SourceLocPiWind.csv",
+        "source_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
+        "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
+        "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
+        "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
+        "analysis_settings_json_file_path": "analysis_settings.json",
+        "model_data_path": "model_data/PiWind"
+    }
+
+**NOTE**: All the paths are given relative to the location of the PiWind repository.
+
+An analysis can be executed using the command is:
+
+	oasislmf model run -C mdk-oasislmf-piwind.json -r [OUTPUT_DIRECTORY]
