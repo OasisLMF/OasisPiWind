@@ -1,22 +1,4 @@
-FROM coreoasis/oasis_base:latest
-
-RUN mkdir /var/www/oasis && \
-    mkdir /var/oasis && \
-    mkdir /var/log/oasis && \
-    chown www-data:www-data /var/log/oasis && \
-    chmod 744 /var/log/oasis && \
-    touch /var/log/oasis/keys_server.log && \
-    chown www-data:www-data /var/log/oasis/keys_server.log && \
-    chmod 644 /var/log/oasis/keys_server.log
-
-COPY ./keys_server_config/apache2.conf /etc/apache2/
-COPY ./keys_server_config/oasis.conf /etc/apache2/sites-available/
-COPY ./keys_server_config/oasis.wsgi /var/www/oasis/
-
-RUN mkdir /var/www/oasis/oasis_keys_server
-COPY ./src/oasis_keys_server/ /var/www/oasis/oasis_keys_server/
-RUN rm -fr /var/www/oasis/oasis_keys_server/docs && \
-    rm -fr /var/www/oasis/oasis_keys_server/venv
+FROM coreoasis/model_keys_server:latest
 
 RUN mkdir /var/www/oasis/keys_server
 COPY ./src/keys_server/__init__.py.base /var/www/oasis/keys_server/__init__.py
@@ -32,15 +14,7 @@ RUN mkdir /var/oasis/keys_data && \
     chmod -R 744 /var/oasis/keys_data
 COPY ./keys_data/PiWind/ /var/oasis/keys_data/
 
-COPY ./src/oasis_keys_server/startup.sh  /usr/local/bin/
-RUN chmod +x /usr/local/bin/startup.sh
-
-RUN pip install -r /var/www/oasis/oasis_keys_server/requirements.txt && \
-    pip install -r /var/www/oasis/keys_server/requirements.txt && \
+RUN pip install -r /var/www/oasis/keys_server/requirements.txt && \
     pip install -r /var/www/oasis/keys_server/PiWind/requirements.txt
 
-RUN a2dissite 000-default && \
-    a2ensite oasis.conf
-EXPOSE 5000
-
-ENTRYPOINT startup.sh; tail -f /var/log/oasis/keys_server.log
+ENTRYPOINT startup.sh
