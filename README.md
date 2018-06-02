@@ -91,7 +91,7 @@ To run individual test cases you can use
 
 ## Running a test analysis using the Oasis MDK
 
-The <a href="https://pypi.org/project/oasislmf/">Oasis MDK</a> Python package provides modules and command line tools for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/mdk-oasislmf-piwind.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
+The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis MDK</a> Python package provides modules and command line tools for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/mdk-oasislmf-piwind.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
 
     {
         "keys_data_path": "keys_data/PiWind",
