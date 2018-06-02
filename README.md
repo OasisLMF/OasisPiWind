@@ -91,7 +91,7 @@ To run individual test cases you can use
 
 ## Running a test analysis using the Oasis MDK
 
-The Oasis MDK provides utilities for developing models. This is accessed by installing the <a href=https://github.com/OasisLMF/OasisLMF"">oasislmf package</a>. The repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/mdk-oasislmf-piwind.json" target="_blank">JSON configuration file</a> for the model which can be used to run the model.
+The <a href="https://pypi.org/project/oasislmf/">Oasis MDK</a> Python package provides modules and command line tools for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/mdk-oasislmf-piwind.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
 
     {
         "keys_data_path": "keys_data/PiWind",
@@ -107,8 +107,18 @@ The Oasis MDK provides utilities for developing models. This is accessed by inst
         "model_data_path": "model_data/PiWind"
     }
 
-**NOTE**: All the paths are given relative to the location of the PiWind repository.
+**NOTE**: As the file resides in the PiWind repository all the paths are given relative to the location of the repository. The file can be located anywhere on the filesystem, and the paths must be given relative to the location of the PiWind repository.
 
-An analysis can be executed using the command is:
+An end-to-end analysis can be executed using the command:
 
 	oasislmf model run -C mdk-oasislmf-piwind.json -r [OUTPUT_DIRECTORY]
+
+This can also be done by providing all the arguments via the command line - use the `oasislmf model run --help` command to view the required argument flags. Particular steps in the analysis can be also be executed independently using either command line arguments or a JSON configuration file (via the `-C` flag):
+
+    oasislmf model generate-keys         # Generate Oasis keys and keys error files
+
+    oasislmf model generate-oasis-files  # Generate Oasis files (GUL only at present; FM to be added later)
+
+    oasislmf model generate-losses       # Generate losses from an existing set of Oasis files and analysis settings JSON
+
+Use the `--help` flag to show the command line flags and JSON key names for the arguments.
