@@ -109,16 +109,22 @@ The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis MDK</a> P
 
 **NOTE**: As the file resides in the PiWind repository all the paths are given relative to the location of the repository. The file can be located anywhere on the filesystem, and the paths must be given relative to the location of the PiWind repository.
 
-An end-to-end analysis can be executed using the command:
+Using the configuration file an end-to-end analysis can be executed using the command:
 
-	oasislmf model run -C mdk-oasislmf-piwind.json -r [OUTPUT_DIRECTORY]
+	oasislmf model run -C /path/to/mdk-oasislmf-piwind.json [-r OUTPUT_DIRECTORY]
+
+If you specified an output directory the package will generate all the files there. Otherwise the files will be generated in a UTC timestamped folder named `ProgOasis-<UTC timestamp`> in your working directory.
 
 This can also be done by providing all the arguments via the command line - use the `oasislmf model run --help` command to view the required argument flags. Particular steps in the analysis can be also be executed independently using either command line arguments or a JSON configuration file (via the `-C` flag):
 
-    oasislmf model generate-keys         # Generate Oasis keys and keys error files
+    oasislmf model transform-source-to-canonical  # Generate a canonical exposures/accounts file from a source exposures/accounts file
 
-    oasislmf model generate-oasis-files  # Generate Oasis files (GUL only at present; FM to be added later)
+    oasislmf model transform-canonical-to-model   # Generate a model exposures file from a canonical exposures file
 
-    oasislmf model generate-losses       # Generate losses from an existing set of Oasis files and analysis settings JSON
+    oasislmf model generate-keys                  # Generate Oasis keys and keys error files
+
+    oasislmf model generate-oasis-files           # Generate Oasis files (GUL only at present; FM to be added later)
+
+    oasislmf model generate-losses                # Generate losses from an existing set of Oasis files and analysis settings JSON
 
 Use the `--help` flag to show the command line flags and JSON key names for the arguments.
