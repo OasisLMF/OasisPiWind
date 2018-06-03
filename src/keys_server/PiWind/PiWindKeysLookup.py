@@ -123,7 +123,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         lat = loc_item['lat']
         lon = loc_item['lon']
 
-        ap_result = lambda loc_id, apst, apid, apmsg: {
+        ap_lookup = lambda loc_id, apst, apid, apmsg: {
             'id': loc_id,
             'area_peril_status': apst,
             'area_peril_id': apid,
@@ -133,11 +133,10 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         try:
             lat = float(lat)
             lon = float(lon)
-            Point(float(lat), float(lon))
             if not ((-90 <= lat <= 90) and (-180 <= lon <= 180)):
                 raise ValueError('lon/lat out of bounds')
         except (ValueError, TypeError) as e:
-            return ap_result(loc_item['id'], KEYS_STATUS_FAIL, None, 'Area peril lookup: invalid lat/lon ({}, {}) - {}'.format(lat, lon, str(e)))
+            return ap_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, 'Area peril lookup: invalid lat/lon ({}, {}) - {}'.format(lat, lon, str(e)))
 
         apst = KEYS_STATUS_NOMATCH
         apmsg = 'No area peril match'
@@ -148,12 +147,12 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         except IndexError:
             pass
         except RTreeError as e:
-            return ap_result(loc_item['id'], KEYS_STATUS_FAIL, None, str(e))
+            return ap_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, str(e))
         else:
             apst = KEYS_STATUS_SUCCESS
             apmsg = 'Successful area peril lookup: {}'.format(apid)
 
-        return ap_result(loc_item['id'], apst, apid, apmsg)
+        return ap_lookup(loc_item['id'], apst, apid, apmsg)
 
     def lookup_vulnerability(self, loc_item):
         """
@@ -163,7 +162,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         coverage = loc_item['coverage']
         class_1 = loc_item['class_1']
 
-        vln_result = lambda loc_id, vlnst, vlnid, vlnmsg: {
+        vln_lookup = lambda loc_id, vlnst, vlnid, vlnmsg: {
             'id': loc_id,
             'vulnerability_status': vlnst,
             'vulnerability_id': vlnid,
@@ -173,7 +172,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         try:
             int(coverage) and str(class_1)
         except (TypeError, ValueError):
-            return vln_result(loc_item['id'], KEYS_STATUS_FAIL, None, 'Vulnerability lookup: invalid location coverage or class 1')
+            return vln_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, 'Vulnerability lookup: invalid location coverage or class 1')
 
         vlnst = KEYS_STATUS_NOMATCH
         vlnmsg = 'No vulnerability match'
@@ -187,7 +186,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             vlnst = KEYS_STATUS_SUCCESS
             vlnmsg = 'Successful vulnerability lookup: {}'.format(vlnid)
 
-        return vln_result(loc_item['id'], vlnst, vlnid, vlnmsg)
+        return vln_lookup(loc_item['id'], vlnst, vlnid, vlnmsg)
 
     def lookup_status(self, loc_item):
         """
