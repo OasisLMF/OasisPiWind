@@ -122,11 +122,12 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             apst = KEYS_STATUS_FAIL
             apmsg = "Invalid lat/lon"
         else:
-            ap = [apit['area_peril_id'] for apit in six.itervalues(self.area_perils) if apit['polygon'].intersects(Point(loc_it['lat'],loc_it['lon']))]
-            if ap:
-                apst = KEYS_STATUS_SUCCESS
-                apid = ap[0]
-                apmsg = "Successful area peril match {}".format(ap[0])
+            for apit in six.itervalues(self.area_perils):
+                if apit['polygon'].intersects(Point(loc_it['lat'],loc_it['lon'])):
+                    apid = apit['area_peril_id']
+                    apst = KEYS_STATUS_SUCCESS
+                    apmsg = "Successful area peril match {}".format(apid)
+                    break
 
         return {'area_peril_status': apst, 'area_peril_id': apid, 'area_peril_message': apmsg}
 
@@ -139,11 +140,12 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         vlnmsg = 'No vulnerability match'
         vlnid = None
 
-        vln = [vlnid for (coverage, class_1), vlnid in six.iteritems(self.vulnerabilities) if coverage == loc_it['coverage'] and class_1 == loc_it['class_1']]
-        if vln:
-            vlnst = KEYS_STATUS_SUCCESS
-            vlnid = vln[0]
-            vlnmsg = "Successful vulnerability match {}".format(vln[0])
+        for (coverage, class_1), vid in six.iteritems(self.vulnerabilities):
+            if coverage == loc_it['coverage'] and class_1 == loc_it['class_1']:
+                vlnst = KEYS_STATUS_SUCCESS
+                vlnid = vid
+                vlnmsg = "Successful vulnerability match {}".format(vlnid)
+                break
 
         return {'vulnerability_status': vlnst, 'vulnerability_id': vlnid, 'vulnerability_message': vlnmsg}
 
@@ -179,19 +181,21 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
                 apst = KEYS_STATUS_FAIL
                 apmsg = "Invalid lat/lon"
             else:
-                ap = [apit['area_peril_id'] for apit in six.itervalues(self.area_perils) if apit['polygon'].intersects(Point(loc_it['lat'],loc_it['lon']))]
-                if ap:
-                    apst = KEYS_STATUS_SUCCESS
-                    apid = ap[0]
-                    apmsg = "Successful area peril match {}".format(ap[0])
+                for apit in six.itervalues(self.area_perils):
+                    if apit['polygon'].intersects(Point(loc_it['lat'],loc_it['lon'])):
+                        apid = apit['area_peril_id']
+                        apst = KEYS_STATUS_SUCCESS
+                        apmsg = "Successful area peril match {}".format(apid)
+                        break
 
             # Vulnerablity lookup for location item - could be done via function call to get_vulnerability_id
             # but it is faster to avoid function calls in a `for` loop if possible
-            vln = [vlnid for (coverage, class_1), vlnid in six.iteritems(self.vulnerabilities) if coverage == loc_it['coverage'] and class_1 == loc_it['class_1']]
-            if vln:
-                vlnst = KEYS_STATUS_SUCCESS
-                vlnid = vln[0]
-                vlnmsg = "Successful vulnerability match {}".format(vln[0])
+            for (coverage, class_1), vid in six.iteritems(self.vulnerabilities):
+                if coverage == loc_it['coverage'] and class_1 == loc_it['class_1']:
+                    vlnst = KEYS_STATUS_SUCCESS
+                    vlnid = vid
+                    vlnmsg = "Successful vulnerability match {}".format(vlnid)
+                    break
 
             # Set combined status
             if apst == KEYS_STATUS_SUCCESS and vlnst == KEYS_STATUS_SUCCESS:
