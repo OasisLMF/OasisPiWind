@@ -56,12 +56,11 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         # in the same place as this file
         self.config = ConfigParser()
 
-        # Keys server/lookup INI file path
+        # Load keys server and lookup settings from INI file
         self.keys_server_ini_file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'KeysServer.ini')
         if not os.path.exists(self.keys_server_ini_file_path):
             raise OasisException()
 
-        #
         self.config.read(self.keys_server_ini_file_path)
 
         # Set keys data directory to be the value passed in via the constructor, or if this does not exist
@@ -91,6 +90,8 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             ap_df = ap_df.where(ap_df.notnull(), None)
             ap_df.columns = ap_df.columns.str.lower()
 
+            # Area perils dictionary and RTree index - the dict has (area peril ID polygon) key-values
+            # pairs and the index has (area peril ID and polygon bounds) key-values.
             for _, it in ap_df.iterrows():
                 apid = int(it['area_peril_id'])
                 poly = MultiPoint(tuple((float(it['lat{}'.format(i)]),float(it['lon{}'.format(i)])) for i in range(1, 5))).convex_hull
@@ -131,7 +132,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             lat = float(lat)
             lon = float(lon)
             if not ((-90 <= lat <= 90) and (-180 <= lon <= 180)):
-                raise ValueError('lon/lat out of bounds')
+                raise ValueError('lat/lon out of bounds')
         except (ValueError, TypeError) as e:
             return ap_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, 'Area peril lookup: invalid lat/lon ({}, {}) - {}'.format(lat, lon, str(e)))
 
