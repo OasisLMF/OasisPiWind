@@ -23,10 +23,7 @@ import six
 from rtree.core import RTreeError
 from rtree.index import Index
 
-from shapely.geometry import (
-    Point,
-    MultiPoint,
-)
+from shapely.geometry import MultiPoint
 
 # Imports from Oasis core repos + subpackages or modules within keys_server
 from oasislmf.keys.lookup import OasisBaseKeysLookup
