@@ -1,3 +1,4 @@
 oasislmf
 pandas==0.19.2
+Rtree
 Shapely==1.5.13
