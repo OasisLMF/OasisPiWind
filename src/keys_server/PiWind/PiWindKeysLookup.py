@@ -94,7 +94,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             # pairs and the index has (area peril ID and polygon bounds) key-values.
             for _, it in ap_df.iterrows():
                 apid = int(it['area_peril_id'])
-                poly = MultiPoint(tuple((float(it['lat{}'.format(i)]),float(it['lon{}'.format(i)])) for i in range(1, 5))).convex_hull
+                poly = MultiPoint(tuple((float(it['lon{}'.format(i)]),float(it['lat{}'.format(i)])) for i in range(1, 5))).convex_hull
                 self.area_perils[apid] = poly
                 self.area_perils_idx.insert(apid, poly.bounds)
 
@@ -118,8 +118,8 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         Area peril lookup for an individual item, which could be a dict or a
         Pandas series.
         """
-        lat = loc_item['lat']
         lon = loc_item['lon']
+        lat = loc_item['lat']
 
         ap_lookup = lambda loc_id, apst, apid, apmsg: {
             'id': loc_id,
@@ -129,19 +129,19 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         }
 
         try:
-            lat = float(lat)
             lon = float(lon)
-            if not ((-90 <= lat <= 90) and (-180 <= lon <= 180)):
-                raise ValueError('lat/lon out of bounds')
+            lat = float(lat)
+            if not ((-180 <= lon <= 180) and (-90 <= lat <= 90)):
+                raise ValueError('lon/lat out of bounds')
         except (ValueError, TypeError) as e:
-            return ap_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, 'Area peril lookup: invalid lat/lon ({}, {}) - {}'.format(lat, lon, str(e)))
+            return ap_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, 'Area peril lookup: invalid lon/lat ({}, {}) - {}'.format(lon, lat, str(e)))
 
         apst = KEYS_STATUS_NOMATCH
         apmsg = 'No area peril match'
         apid = None
 
         try:
-            apid = list(self.area_perils_idx.intersection([lat, lon]))[0]
+            apid = list(self.area_perils_idx.intersection([lon, lat]))[0]
         except IndexError:
             pass
         except RTreeError as e:
