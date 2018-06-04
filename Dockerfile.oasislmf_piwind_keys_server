@@ -1,5 +1,7 @@
 FROM coreoasis/oasis_base:latest
 
+RUN apt update && apt upgrade -y && apt install -y libspatialindex-dev
+
 RUN mkdir /var/www/oasis && \
     mkdir /var/oasis && \
     mkdir /var/log/oasis && \
