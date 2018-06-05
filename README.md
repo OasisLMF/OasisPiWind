@@ -15,6 +15,17 @@ To clone over HTTPS use
 
     git clone --recursive https://<GitHub user name:GitHub password>@github.com/OasisLMF/OasisPiWind
 
+## Python requirements
+
+PiWind has the following Python requirements
+
+    oasislmf
+    pandas==0.19.2
+    Rtree
+    Shapely==1.5.13
+
+These can be installed via `pip` (or `pip3` if you're using Python 3). The `Rtree` package is a Python wrapper for the <a href="https://libspatialindex.github.io/" target="_blank">`libspatialindex`</a> library, which must be installed first as a system package.
+
 ## Managing the submodules
 
 There is only submodule - `src/oasis_keys_server` which contains the Flask app that handles the keys requests dispatched to the model lookup services.
