@@ -79,39 +79,64 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
             model_version
         )
 
-        # Load the area perils dictionary file into a dict and create an RTree index
+        # Create an RTree index with the area peril entries - index entries are
+        #
+        #    (area peril ID, area polygon bounds)
+        #
+        # pairs. Also store as a dict - entries are
+        #
+        #    (area peril ID, area peril entry dict)
+        #
+        # pairs.
         self.area_perils_file_path = os.path.join(self.keys_data_directory, self.config.get('Keys Data', 'AREA_PERILS_FILE'))
-
-        self.area_perils = {}
-        self.area_perils_idx = Index()
 
         with io.open(self.area_perils_file_path, 'r', encoding='utf-8') as f:
             ap_df = pd.read_csv(f, float_precision='high')
-            ap_df = ap_df.where(ap_df.notnull(), None)
-            ap_df.columns = ap_df.columns.str.lower()
 
-            # Area perils dictionary and RTree index - the dict has (area peril ID polygon) key-values
-            # pairs and the index has (area peril ID and polygon bounds) key-values.
-            for _, it in ap_df.iterrows():
-                apid = int(it['area_peril_id'])
-                poly = MultiPoint(tuple((float(it['lon{}'.format(i)]),float(it['lat{}'.format(i)])) for i in range(1, 5))).convex_hull
-                self.area_perils[apid] = poly
-                self.area_perils_idx.insert(apid, poly.bounds)
+        ap_df.dropna(subset=ap_df.columns, inplace=True)
+        ap_df.columns = ap_df.columns.str.lower()
+        ap_df['index'] = list(range(len(ap_df)))
+        ap_df['area_peril_id'] = ap_df['area_peril_id'].apply(int)
+        ap_df['area_peril_id'] = ap_df['area_peril_id'].astype(object)
 
-        # Load the vulnerability dictionary file into a dict
+        self.area_perils = {}
+
+        def _ap_idx_entries():
+            for _, ap in ap_df.iterrows():
+                apid = ap['area_peril_id']
+                self.area_perils[apid] = ap.to_dict()
+                poly = MultiPoint(tuple((float(ap['lon{}'.format(i)]),float(ap['lat{}'.format(i)])) for i in range(1, 5))).convex_hull
+                yield (apid, poly.bounds, None)
+
+        self.area_perils_idx = Index(_ap_idx_entries())
+
+        # Create a vulnerabilities ordered dict - entries are 
+        #
+        #    ((coverage type, class 1), vulnerabilty ID)
+        #
+        # pairs. The reason for making this dict ordered (by ID, ascending) is
+        # that it is used directly for the vulnerabilty ID lookup, whereas
+        # the area peril ID lookup uses the RTree index, which imposes its
+        # order internally.
         self.vulnerabilities_file_path = os.path.join(self.keys_data_directory, self.config.get('Keys Data', 'VULNERABILITIES_FILE'))
+
         with io.open(self.vulnerabilities_file_path, 'r', encoding='utf-8') as f:
             vln_df = pd.read_csv(f, float_precision='high')
-            vln_df = vln_df.where(vln_df.notnull(), None)
-            vln_df.columns = vln_df.columns.str.lower()
 
-            # Vulnerabilities dictionary - keys are coverage/class 1 tuples and values are vulnerability IDs
-            self.vulnerabilities = OrderedDict(
-                [
-                    ((int(it['coverage']),it['class_1']), int(it['vulnerability_id']))
-                    for _, it in vln_df.iterrows()
-                ]
-            )
+        vln_df.dropna(subset=vln_df.columns, inplace=True)
+        vln_df.columns = vln_df.columns.str.lower()
+        vln_df['index'] = list(range(len(vln_df)))
+        vln_df['coverage'] = vln_df['coverage'].apply(int)
+        vln_df['vulnerability_id'] = vln_df['vulnerability_id'].apply(int)
+        vln_df['coverage'] = vln_df['coverage'].astype(object)
+        vln_df['vulnerability_id'] = vln_df['vulnerability_id'].astype(object)
+
+        self.vulnerabilities = OrderedDict(
+            [
+                ((it['coverage'],it['class_1']), it['vulnerability_id'])
+                for _, it in vln_df.iterrows()
+            ]
+        )
 
     def lookup_area_peril(self, loc_item):
         """
@@ -139,11 +164,15 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         apst = KEYS_STATUS_NOMATCH
         apmsg = 'No area peril match'
         apid = None
+        point = lon, lat
 
         try:
-            apid = list(self.area_perils_idx.intersection([lon, lat]))[0]
+            apid = list(self.area_perils_idx.intersection(point))[0]
         except IndexError:
-            pass
+            try:
+                apid = list(self.area_perils_idx.nearest(point))[0]
+            except IndexError:
+                pass
         except RTreeError as e:
             return ap_lookup(loc_item['id'], KEYS_STATUS_FAIL, None, str(e))
         else:
