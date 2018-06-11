@@ -3,4 +3,5 @@ python-dev
 build-essential
 gdb
 autoconf
+libgeos-dev
 libspatialindex-dev
