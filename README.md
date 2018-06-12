@@ -1,28 +1,5 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-# Core Oasis Builds
-
-| Pipeline        | Status | Desc |
-|-----------------|--------|------|
-| oasis _base     |  [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=pipeline_stable/oasis_base)](http://ci.oasislmfdev.org/blue/organizations/jenkins/pipeline_stable%2Foasis_base/activity)      |      |
-| oasis _pypi     | [![PyPI version](https://badge.fury.io/py/oasislmf.svg)](https://badge.fury.io/py/oasislmf)  [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=pipeline_stable/oasis_pypi)](http://ci.oasislmfdev.org/blue/organizations/jenkins/pipeline_stable%2Foasis_pypi/activity)       |      |
-| oasis _platform | [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=pipeline_stable/oasis_platform)](http://ci.oasislmfdev.org/blue/organizations/jenkins/pipeline_stable%2Foasis_platform/activity)       |      |
-| oasis _ui       |  [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=pipeline_stable/oasis_ui)](http://ci.oasislmfdev.org/blue/organizations/jenkins/pipeline_stable%2Foasis_ui)      |      |
-
-# Oasis Model Repository 
-
-| Pipeline        | Status | Desc |
-|-----------------|--------|------|
-| catrisks _IREQ  |        |      |
-| catrisks _MEEQ  |        |      |
-| impact _EUWS    |        |      |
-| impact_FRFL     |        |      |
-| oasis_PiWind    |        |      |
-| jba_UKFL        |        |      |
-| hurloss_ARA     |        |      |
-
-
-
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=pipeline_stable/oasis_PiWind)](http://ci.oasislmfdev.org/blue/organizations/jenkins/pipeline_stable%2Foasis_PiWind)
 
 # Oasis PiWind
