@@ -25,7 +25,7 @@ from rtree.index import Index
 
 from shapely.geometry import MultiPoint
 
-# Imports from Oasis core repos + subpackages or modules within keys_server
+# Imports from Oasis core repos + subpackages or modules within `keys_server` subpackage
 from oasislmf.keys.lookup import OasisBaseKeysLookup
 from oasislmf.utils.exceptions import OasisException
 from oasislmf.utils.log import oasis_log
@@ -88,9 +88,9 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         #    (area peril ID, area peril entry dict)
         #
         # pairs.
-        self.area_perils_file_path = os.path.join(self.keys_data_directory, self.config.get('Keys Data', 'AREA_PERILS_FILE'))
+        self.area_perils_fp = os.path.join(self.keys_data_directory, self.config.get('Lookup', 'AREA_PERILS_FILE'))
 
-        with io.open(self.area_perils_file_path, 'r', encoding='utf-8') as f:
+        with io.open(self.area_perils_fp, 'r', encoding='utf-8') as f:
             ap_df = pd.read_csv(f, float_precision='high')
 
         ap_df.dropna(subset=ap_df.columns, inplace=True)
@@ -118,9 +118,9 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         # that it is used directly for the vulnerabilty ID lookup, whereas
         # the area peril ID lookup uses the RTree index, which imposes its
         # order internally.
-        self.vulnerabilities_file_path = os.path.join(self.keys_data_directory, self.config.get('Keys Data', 'VULNERABILITIES_FILE'))
+        self.vulnerabilities_fp = os.path.join(self.keys_data_directory, self.config.get('Lookup', 'VULNERABILITIES_FILE'))
 
-        with io.open(self.vulnerabilities_file_path, 'r', encoding='utf-8') as f:
+        with io.open(self.vulnerabilities_fp, 'r', encoding='utf-8') as f:
             vln_df = pd.read_csv(f, float_precision='high')
 
         vln_df.dropna(subset=vln_df.columns, inplace=True)

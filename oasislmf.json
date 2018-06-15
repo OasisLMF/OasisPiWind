@@ -1,17 +1,14 @@
 {
-    "source_exposures_file_path": "tests/data/SourceLocPiWind1K.csv",
+    "source_exposures_file_path": "tests/data/SourceLocPiWind10K.csv",
     "source_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
     "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
     "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-loc-profile.json",
     "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
     "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
     "lookup_package_path": "src/keys_server",
+    "lookup_config_path": "src/keys_server/PiWind/oasislmf-piwind-0.0.0.1.json",
     "keys_data_path": "keys_data/PiWind",
     "model_version_file_path": "keys_data/PiWind/ModelVersion.csv",
-    "model_exposures_file_path": "/tmp/model_exposure_PiWind.csv",
-    "keys_file_path": "/tmp/keys_PiWind.csv",
-    "keys_error_file_path": "/tmp/keys_erros_PiWind.json",
     "model_data_path": "model_data/PiWind",
-    "model_run_dir_path": "/tmp/run_PiWind",
     "analysis_settings_json_file_path": "analysis_settings.json"
 }
