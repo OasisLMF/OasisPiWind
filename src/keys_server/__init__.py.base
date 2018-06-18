@@ -5,4 +5,3 @@ Package initialiser template (used in a model specific keys server Docker file
 to copy resources into the image needed by the model).
 """
 
-from .utils import *

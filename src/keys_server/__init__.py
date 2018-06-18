@@ -3,5 +3,4 @@
 """
 Package initialiser.
 """
-from .utils import *
 from .PiWind import *
