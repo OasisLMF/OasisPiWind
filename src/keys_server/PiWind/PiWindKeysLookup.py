@@ -66,7 +66,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         # Set keys data directory to be the value passed in via the constructor, or if this does not exist
         # the value found in the keys server INI file which should exist in the same directory as this file
         # - raise an `OasisException` if none of these exist
-        self.keys_data_directory = keys_data_directory if keys_data_directory else self.config.get('Default', 'KEYS_DATA_DIRECTORY')
+        self.keys_data_directory = keys_data_directory or self.config.get('Default', 'KEYS_DATA_DIRECTORY')
 
         if not keys_data_directory:
             raise OasisException('No keys data directory specified - expected a valid path via the class constructor or keys server INI file')
