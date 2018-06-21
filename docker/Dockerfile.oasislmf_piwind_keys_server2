@@ -7,4 +7,4 @@ RUN mkdir /var/oasis/keys_data && \
     chmod -R 744 /var/oasis/keys_data
 COPY ./keys_data/PiWind/ /var/oasis/keys_data/
 
-ENTRYPOINT startup.sh
+ENTRYPOINT ["/bin/sh", "-c", "startup.sh"]
