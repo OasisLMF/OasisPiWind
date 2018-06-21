@@ -88,7 +88,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         #    (area peril ID, area peril entry dict)
         #
         # pairs.
-        self.area_perils_fp = os.path.join(self.keys_data_directory, self.config.get('Lookup', 'AREA_PERILS_FILE'))
+        self.area_perils_fp = os.path.join(self.keys_data_directory, self.config.get('Default', 'AREA_PERILS_FILE'))
 
         with io.open(self.area_perils_fp, 'r', encoding='utf-8') as f:
             ap_df = pd.read_csv(f, float_precision='high')
@@ -118,7 +118,7 @@ class PiWindKeysLookup(OasisBaseKeysLookup):
         # that it is used directly for the vulnerabilty ID lookup, whereas
         # the area peril ID lookup uses the RTree index, which imposes its
         # order internally.
-        self.vulnerabilities_fp = os.path.join(self.keys_data_directory, self.config.get('Lookup', 'VULNERABILITIES_FILE'))
+        self.vulnerabilities_fp = os.path.join(self.keys_data_directory, self.config.get('Default', 'VULNERABILITIES_FILE'))
 
         with io.open(self.vulnerabilities_fp, 'r', encoding='utf-8') as f:
             vln_df = pd.read_csv(f, float_precision='high')
