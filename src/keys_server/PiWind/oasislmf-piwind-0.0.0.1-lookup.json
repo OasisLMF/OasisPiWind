@@ -58,7 +58,9 @@
         "cols": ["COVERAGE", "CLASS_1", "VULNERABILITY_ID"],
         "non_na_cols": ["COVERAGE", "CLASS_1", "VULNERABILITY_ID"],
         "key_cols": ["COVERAGE", "CLASS_1"],
-        "col_dtypes": "infer",
+        "col_dtypes": {
+            "COVERAGE": "int", "CLASS_1": "str", "VULNERABILITY_ID": "int"
+        },
         "sort_col": "VULNERABILITY_ID",
         "sort_ascending": true,
         "vulnerability_id_col": "VULNERABILITY_ID"
