@@ -7,7 +7,7 @@
     "peril": {
         "peril": "wind",
         "peril_id": 1,
-        "file_path": "%KEYS_DATA_PATH%/area_peril_dict.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_areas": 100,
@@ -29,7 +29,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%KEYS_DATA_PATH%/oasislmf-piwind-0.0.0.1-areas-rtree-index",
+            "filename": "%%KEYS_DATA_PATH%%/oasislmf-piwind-0.0.0.1-areas-rtree-index",
             "fill_factor": 0.7,
             "idx_extension": "idx",
             "index_capacity": 100,
@@ -51,7 +51,7 @@
         }
     },
     "vulnerability": {
-        "file_path": "%KEYS_DATA_PATH%/vulnerability_dict.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_vulnerabilities": 3,
