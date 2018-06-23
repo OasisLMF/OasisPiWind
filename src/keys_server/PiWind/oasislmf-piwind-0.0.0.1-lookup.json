@@ -4,6 +4,7 @@
         "model_id": "PiWind",
         "model_version": "0.0.0.1"
     },
+    "keys_data_path": null,
     "peril": {
         "peril": "wind",
         "peril_id": 1,
@@ -13,7 +14,17 @@
         "num_areas": 100,
         "cols": ["AREA_PERIL_ID", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4"],
         "non_na_cols": ["AREA_PERIL_ID", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4"],
-        "col_dtypes": "infer",
+        "col_dtypes": {
+            "AREA_PERIL_ID": "int",
+            "LON1": "float",
+            "LAT1": "float",
+            "LON2": "float",
+            "LAT2": "float",
+            "LON3": "float",
+            "LAT3": "float",
+            "LON4": "float",
+            "LAT5": "float"
+        },
         "sort_col": "AREA_PERIL_ID",
         "sort_ascending": true,
         "peril_area_id_col": "AREA_PERIL_ID",
@@ -68,8 +79,8 @@
     "locations": {
         "id_col": "id",
         "coords_type": "lonlat",
-        "coordx_x_col": "longitude",
-        "coordx_y_col": "latitude",
+        "coords_x_col": "longitude",
+        "coords_y_col": "latitude",
         "coords_x_bounds": [-180, 180],
         "coords_y_bounds": [-90, 90]
     }
