@@ -4,7 +4,7 @@
         "model_id": "PiWind",
         "model_version": "0.0.0.1"
     },
-    "keys_data_path": null,
+    "keys_data_path": "../OasisPiWind/keys_data/PiWind",
     "peril": {
         "peril": "wind",
         "peril_id": 1,
@@ -79,9 +79,15 @@
     "locations": {
         "id_col": "id",
         "coords_type": "lonlat",
-        "coords_x_col": "longitude",
-        "coords_y_col": "latitude",
+        "coords_x_col": "lon",
+        "coords_y_col": "lat",
         "coords_x_bounds": [-180, 180],
-        "coords_y_bounds": [-90, 90]
+        "coords_y_bounds": [-90, 90],
+        "non_na_cols": ["id", "lon", "lat"],
+        "col_dtypes": {
+            "id": "int", "lon": "float", "lat": "float"
+        },
+        "sort_col": "id",
+        "sort_ascending": true
     }
 }
