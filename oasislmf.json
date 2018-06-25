@@ -6,7 +6,6 @@
     "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
     "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
     "lookup_package_path": "src/keys_server",
-    "lookup_config_path": "src/keys_server/PiWind/oasislmf-piwind-0.0.0.1.json",
     "keys_data_path": "keys_data/PiWind",
     "model_version_file_path": "keys_data/PiWind/ModelVersion.csv",
     "model_data_path": "model_data/PiWind",
