@@ -1,4 +1,1 @@
-oasislmf
-pandas==0.19.2
-Rtree
-Shapely==1.5.13
+-e git+ssh://git@github.com/OasisLMF/OasisLMF.git@fcb4a6c40f23b9a9119b7781ab7ff69b7b58a411#egg=oasislmf
