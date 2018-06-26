@@ -4,7 +4,7 @@
         "model_id": "PiWind",
         "model_version": "0.0.0.1"
     },
-    "keys_data_path": "../OasisPiWind/keys_data/PiWind",
+    "keys_data_path": "keys_data/PiWind",
     "peril": {
         "peril": "wind",
         "peril_id": 1,
@@ -40,7 +40,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/oasislmf-piwind-0.0.0.1-areas-rtree-index",
+            "filename": "%%KEYS_DATA_PATH%%/areas-rtree-index-py2",
             "fill_factor": 0.7,
             "idx_extension": "idx",
             "index_capacity": 100,
