@@ -1,6 +1,13 @@
 {
     "ROW_ID":{"ProfileElementName": "ROW_ID", "FieldName":"LocationID", "ProfileType": "Acc"},
-    "ACCNTNUM":{"ProfileElementName": "ACCNTNUM", "FieldName":"AccountNumber", "ProfileType": "Acc"},
+    "ACCNTNUM":{
+        "ProfileElementName": "ACCNTNUM",
+        "FieldName":"AccountNumber",
+        "Agg": {
+            "5": {"FMLevel": 5, "FMLevelName": "Account"}
+        },
+        "ProfileType": "Acc"
+    },
     "POLICYNUM":{"ProfileElementName": "POLICYNUM", "FieldName":"PolicyNumber", "ProfileType": "Acc"},
     "POLICYTYPE":{"ProfileElementName": "POLICYTYPE", "FieldName":"PolicyType", "ProfileType": "Acc"},
     "UNDCOVAMT":{"ProfileElementName": "UNDCOVAMT", "DeductibleType": "B", "FieldName": "AttachmentPoint", "FMLevelName": "Layer", "FMLevel": 6, "FMTermType": "Deductible", "FMTermGroupID": 1, "ProfileType": "Acc"},
