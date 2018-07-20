@@ -5,9 +5,11 @@
         "model_version": "0.0.0.1"
     },
     "keys_data_path": "keys_data/PiWind",
+    "coverage_types": [1],
     "peril": {
         "peril": "wind",
         "peril_id": 1,
+        "peril_ids": [1],
         "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict.csv",
         "file_type": "csv",
         "float_precision_high": true,
