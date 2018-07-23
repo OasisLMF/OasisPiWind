@@ -5,18 +5,24 @@
         "model_version": "0.0.0.1"
     },
     "keys_data_path": "keys_data/PiWind",
-    "coverage_types": [1],
+    "coverage": {
+        "coverage_types": [1],
+        "coverage_type_col": "COVERAGE_TYPE"
+    },
     "peril": {
         "peril": "wind",
         "peril_id": 1,
         "peril_ids": [1],
-        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict.csv",
+        "peril_id_col": "PERIL_ID",
+        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict2.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_areas": 100,
-        "cols": ["AREA_PERIL_ID", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4"],
-        "non_na_cols": ["AREA_PERIL_ID", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4"],
+        "cols": ["PERIL_ID", "COVERAGE_TYPE", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4", "AREA_PERIL_ID"],
+        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4", "AREA_PERIL_ID"],
         "col_dtypes": {
+            "PERIL_ID": "int",
+            "COVERAGE_TYPE": "int",
             "AREA_PERIL_ID": "int",
             "LON1": "float",
             "LAT1": "float",
@@ -43,12 +49,12 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/test-areas-rtree-index-py3",
-            "fill_factor": 0.7,
+            "filename": "%%KEYS_DATA_PATH%%/areas-rtree-index-new-py3",
+            "fill_factor": 0.9,
             "idx_extension": "idx",
             "index_capacity": 100,
             "index_id": null,
-            "leaf_capacity": 100,
+            "leaf_capacity": 1000,
             "near_minimum_overlap_factor": 32,
             "overwrite": true,
             "pagesize": 4096,
@@ -65,15 +71,15 @@
         }
     },
     "vulnerability": {
-        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict2.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_vulnerabilities": 3,
-        "cols": ["COVERAGE", "CLASS_1", "VULNERABILITY_ID"],
-        "non_na_cols": ["COVERAGE", "CLASS_1", "VULNERABILITY_ID"],
-        "key_cols": ["COVERAGE", "CLASS_1"],
+        "cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
+        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
+        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1"],
         "col_dtypes": {
-            "COVERAGE": "int", "CLASS_1": "str", "VULNERABILITY_ID": "int"
+            "PERIL_ID": "int", "COVERAGE_TYPE": "int", "CLASS_1": "str", "VULNERABILITY_ID": "int"
         },
         "sort_col": "VULNERABILITY_ID",
         "sort_ascending": true,
