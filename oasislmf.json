@@ -1,5 +1,5 @@
 {
-    "source_exposures_file_path": "tests/data/SourceLocPiWind10K.csv",
+    "source_exposures_file_path": "tests/data/SourceLocPiWind10.csv",
     "source_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
     "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
     "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-loc-profile.json",
@@ -14,5 +14,5 @@
     "model_version_file_path": "keys_data/PiWind/ModelVersion.csv",
     "model_data_path": "model_data/PiWind",
     "analysis_settings_json_file_path": "analysis_settings.json",
-    "lookup_config_file_path": "src/keys_server/PiWind/oasislmf-piwind-0.0.0.1-lookup.json"
+    "lookup_config_file_path": "src/keys_server/PiWind/lookup.json"
 }
