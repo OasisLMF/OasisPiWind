@@ -1,4 +1,4 @@
-FROM coreoasis/model_keys_server2:latest
+FROM coreoasis/generic_keys_server:latest
 
 COPY ./src/keys_server/PiWind/KeysServer.ini /var/www/oasis/oasis_keys_server/ 
 COPY ["./keys_data/PiWind/", \
