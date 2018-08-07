@@ -4,7 +4,7 @@
         "FMLevelName": "Coverage",
         "FMAggKeys": {
             "LocID": {
-                "src": "GUL",
+                "src": "FM",
                 "field": "canexp_id",
                 "name": "Location ID"
             },
@@ -20,7 +20,7 @@
         "FMLevelName": "Combined",
         "FMAggKeys": {
             "LocID": {
-                "src": "GUL",
+                "src": "FM",
                 "field": "canexp_id",
                 "name": "Location ID",
                 "cov_types": [1]
@@ -32,7 +32,7 @@
         "FMLevel": "Site",
         "FMAggKeys": {
             "LocID":  {
-                "src": "GUL",
+                "src": "FM",
                 "field": "canexp_id",
                 "name": "Location ID"
             }
@@ -48,7 +48,7 @@
                 "name": "Account no."
             },
             "Cond1Name": {
-                "src": "LocProfile",
+                "src": "CanExp",
                 "field": "COND1NAME",
                 "name": "Sublimit ref."
             }
@@ -75,7 +75,7 @@
                 "name": "Account no."
             },
             "PolicyNum": {
-                "src": "FM",
+                "src": "CanAcc",
                 "field": "layer_id",
                 "name": "Layer ID"
             }
