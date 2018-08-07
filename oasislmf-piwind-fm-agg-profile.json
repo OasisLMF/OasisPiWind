@@ -1,0 +1,50 @@
+{
+    "1": {
+        "FMLevel": 1,
+        "FMLevelName": "Coverage",
+        "FMAggKeys": {
+            "LocID": {
+                "src": "GUL",
+                "label": "canexp_id"
+            },
+            "CoverageID": {
+                "src": "GUL",
+                "label": "coverage_id"
+            }
+        }
+    },
+    "3": {
+        "FMLevel": 3,
+        "FMLevel": "Site",
+        "FMAggKeys": {
+            "LocID":  {
+                "src": "GUL",
+                "label": "canexp_id"
+            }
+        }
+    },
+    "4": {
+        "FMLevel": 4,
+        "FMLevelName": "Sublimit",
+        "FMAggKeys": {
+            "AccntNum":  {
+                "src": "FM",
+                "label": "canacc_id"
+            },
+            "Cond1Name": {
+                "src": "LocProfile",
+                "label": "COND1NAME"
+            }
+        }
+    },
+    "5": {
+        "FMLevel": 5,
+        "FMLevelName": "Account",
+        "FMAggKeys": {
+            "AccntNum": {
+                "src": "FM",
+                "label": "canacc_id"
+            }
+        }
+    }
+}
