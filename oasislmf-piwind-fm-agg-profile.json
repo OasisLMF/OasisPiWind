@@ -5,11 +5,25 @@
         "FMAggKeys": {
             "LocID": {
                 "src": "GUL",
-                "label": "canexp_id"
+                "field": "canexp_id",
+                "name": "Location ID"
             },
             "CoverageID": {
                 "src": "GUL",
-                "label": "coverage_id"
+                "field": "coverage_id",
+                "name": "Coverage ID"
+            }
+        }
+    },
+    "2": {
+        "FMLevel": 2,
+        "FMLevelName": "Combined",
+        "FMAggKeys": {
+            "LocID": {
+                "src": "GUL",
+                "field": "canexp_id",
+                "name": "Location ID",
+                "cov_types": [1]
             }
         }
     },
@@ -19,7 +33,8 @@
         "FMAggKeys": {
             "LocID":  {
                 "src": "GUL",
-                "label": "canexp_id"
+                "field": "canexp_id",
+                "name": "Location ID"
             }
         }
     },
@@ -29,11 +44,13 @@
         "FMAggKeys": {
             "AccntNum":  {
                 "src": "FM",
-                "label": "canacc_id"
+                "field": "canacc_id",
+                "name": "Account no."
             },
             "Cond1Name": {
                 "src": "LocProfile",
-                "label": "COND1NAME"
+                "field": "COND1NAME",
+                "name": "Sublimit ref."
             }
         }
     },
@@ -43,7 +60,24 @@
         "FMAggKeys": {
             "AccntNum": {
                 "src": "FM",
-                "label": "canacc_id"
+                "field": "canacc_id",
+                "name": "Account no."
+            }
+        }
+    },
+    "6": {
+        "FMLevel": 6,
+        "FMLevelName": "Layer",
+        "FMAggKeys": {
+            "AccntNum": {
+                "src": "FM",
+                "field": "canacc_id",
+                "name": "Account no."
+            },
+            "PolicyNum": {
+                "src": "FM",
+                "field": "policynum",
+                "name": "Policy no."
             }
         }
     }
