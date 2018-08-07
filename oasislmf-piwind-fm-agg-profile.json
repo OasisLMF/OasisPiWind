@@ -76,8 +76,8 @@
             },
             "PolicyNum": {
                 "src": "FM",
-                "field": "policynum",
-                "name": "Policy no."
+                "field": "layer_id",
+                "name": "Layer ID"
             }
         }
     }
