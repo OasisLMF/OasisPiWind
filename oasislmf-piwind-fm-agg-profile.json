@@ -2,7 +2,7 @@
     "1": {
         "FMLevel": 1,
         "FMLevelName": "Coverage",
-        "FMAggKeys": {
+        "FMAggKey": {
             "LocID": {
                 "src": "FM",
                 "field": "canexp_id",
@@ -18,7 +18,7 @@
     "2": {
         "FMLevel": 2,
         "FMLevelName": "Combined",
-        "FMAggKeys": {
+        "FMAggKey": {
             "LocID": {
                 "src": "FM",
                 "field": "canexp_id",
@@ -30,7 +30,7 @@
     "3": {
         "FMLevel": 3,
         "FMLevel": "Site",
-        "FMAggKeys": {
+        "FMAggKey": {
             "LocID":  {
                 "src": "FM",
                 "field": "canexp_id",
@@ -41,7 +41,7 @@
     "4": {
         "FMLevel": 4,
         "FMLevelName": "Sublimit",
-        "FMAggKeys": {
+        "FMAggKey": {
             "AccntNum":  {
                 "src": "FM",
                 "field": "canacc_id",
@@ -49,7 +49,7 @@
             },
             "Cond1Name": {
                 "src": "CanExp",
-                "field": "COND1NAME",
+                "field": "cond1name",
                 "name": "Sublimit ref."
             }
         }
@@ -57,7 +57,7 @@
     "5": {
         "FMLevel": 5,
         "FMLevelName": "Account",
-        "FMAggKeys": {
+        "FMAggKey": {
             "AccntNum": {
                 "src": "FM",
                 "field": "canacc_id",
@@ -68,16 +68,16 @@
     "6": {
         "FMLevel": 6,
         "FMLevelName": "Layer",
-        "FMAggKeys": {
+        "FMAggKey": {
             "AccntNum": {
                 "src": "FM",
                 "field": "canacc_id",
                 "name": "Account no."
             },
             "PolicyNum": {
-                "src": "CanAcc",
-                "field": "layer_id",
-                "name": "Layer ID"
+                "src": "FM",
+                "field": "policy_num",
+                "name": "Account policy no."
             }
         }
     }
