@@ -47,7 +47,7 @@
                 "field": "canacc_id",
                 "name": "Account no."
             },
-            "Cond1Name": {
+            "SublimitRef": {
                 "src": "CanExp",
                 "field": "cond1name",
                 "name": "Sublimit ref."
