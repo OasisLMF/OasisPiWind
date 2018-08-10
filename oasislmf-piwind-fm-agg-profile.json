@@ -23,7 +23,7 @@
                 "src": "FM",
                 "field": "canexp_id",
                 "name": "Location ID",
-                "cov_types": [1]
+                "cov_types": [1, 3]
             }
         }
     },
