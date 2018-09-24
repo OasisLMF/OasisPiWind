@@ -4,7 +4,7 @@
         "model_id": "PiWind",
         "model_version": "0.0.0.1"
     },
-    "keys_data_path": "keys_data/PiWind",
+    "keys_data_path": "./",
     "coverage": {
         "coverage_types": [1],
         "coverage_type_col": "COVERAGE_TYPE"
