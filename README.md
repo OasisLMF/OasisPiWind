@@ -63,7 +63,11 @@ The log files to check are `/var/log/apache/error.log` (Apache error log), `/var
 
 ## Testing the keys server
 
-The `./src/oasis_keys_server` submodule contains a set of Python test cases which you can run against a locally running keys server for a defined model. The tests require configuration information which can be found in an INI file `KeysServerTests.ini` located in `OasisPiWind/tests/keys_server_tests/data/<model ID>`. If this subfolder and file does not exist then you will have to create it. The file should define some files and keys server properties needed to run the tests.
+You can test a running keys server either by making a manual keys request (using `curl` or `wget`), or by using a built-in test suite in the `oasis_keys_server` submodule. To make a manual keys request, you need to pass in a UTF-8 encoded model locatons/exposures CSV file (or JSON), e.g. using `curl`
+
+    curl -v http://localhost:5000/OasisLMF/PiWind/0.0.0.1/get_keys --data-binary @</path/to/model/exposure/file> -H 'Content-type:text/csv; charset=utf-8'
+
+The tests require configuration information which can be found in an INI file `KeysServerTests.ini` located in `OasisPiWind/tests/keys_server_tests/data/<model ID>`. If this subfolder and file does not exist then you will have to create it. The file should define some files and keys server properties needed to run the tests.
 
     MODEL_VERSION_FILE_PATH=../../../tests/keys_server_tests/data/PiWind/ModelVersion.csv
 
