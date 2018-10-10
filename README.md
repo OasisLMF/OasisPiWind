@@ -15,17 +15,6 @@ To clone over HTTPS use
 
     git clone --recursive https://<GitHub user name:GitHub password>@github.com/OasisLMF/OasisPiWind
 
-## Python requirements
-
-PiWind has the following Python requirements
-
-    oasislmf
-    pandas==0.19.2
-    Rtree
-    Shapely==1.5.13
-
-These can be installed via `pip` (or `pip3` if you're using Python 3). The `Rtree` package is a Python wrapper for the <a href="https://libspatialindex.github.io/" target="_blank">`libspatialindex`</a> library, which must be installed first as a system package.
-
 ## Managing the submodules
 
 There is only submodule - `src/oasis_keys_server` which contains the Flask app that handles the keys requests dispatched to the model lookup services.
@@ -50,9 +39,13 @@ You should not make any local changes to these submodules because you have read-
 
 First, ensure that you have Docker installed on your system and that your Unix user has been added to the `docker` user group (run `sudo usermod -a -G docker $USER`).
 
-To build the keys server run the command
+The PiWind lookup is a built-in lookup provided by the oasislmf package, and the PiWind keys server is based on a Flask application for built-in lookups and which is part of the `oasis_keys_server` submodule. The Flask source code is built in to a base keys image named `coreoasis/builtin_keys_server`, which you need to build first before building the PiWind keys server. You can do this from the submodule location using
 
-    sudo docker build -f <docker file name> -t <image name/tag> .
+    docker build -f docker/Dockerfile.builtin_keys_server -t coreoasis/builtin_keys_server .
+
+Then, you can build the PiWind keys server from the base of your PiWind repository by running
+
+    docker build -f docker/Dockerfile.oasislmf_piwind_keys_server -t <image name/tag> .
 
 Run `docker images` to list all images and check the one you've built exists. To run the image in a container you can use the command
 
@@ -70,16 +63,21 @@ The log files to check are `/var/log/apache/error.log` (Apache error log), `/var
 
 ## Testing the keys server
 
-The `./src/oasis_keys_server` submodule contains a set of Python test cases which you can run against a locally running keys server for a defined model. The tests require configuration information which can be found in an INI file `KeysServerTests.ini` located in `./tests/keys_server_tests/data/<model ID>`. If this subfolder and file does not exist then you will have to create it. The file should define some files and keys server properties needed to run the tests.
+The `./src/oasis_keys_server` submodule contains a set of Python test cases which you can run against a locally running keys server for a defined model. The tests require configuration information which can be found in an INI file `KeysServerTests.ini` located in `OasisPiWind/tests/keys_server_tests/data/<model ID>`. If this subfolder and file does not exist then you will have to create it. The file should define some files and keys server properties needed to run the tests.
 
-    [Default]
-    MODEL_VERSION_FILE_PATH=/path/to/your/OasisPiWind/tests/keys_server_tests/data/<model ID>/ModelVersion.csv
-    SAMPLE_CSV_MODEL_EXPOSURES_FILE_PATH=/path/to/your/OasisPiWind/tests/keys_server_tests/data/<model ID>/<model loc. test CSV file>
-    SAMPLE_JSON_MODEL_EXPOSURES_FILE_PATH=/path/to/your/OasisPiWind/tests/keys_server_tests/data/<model ID>/<model loc. test JSON file>
+    MODEL_VERSION_FILE_PATH=../../../tests/keys_server_tests/data/PiWind/ModelVersion.csv
+
+    KEYS_DATA_PATH=../../../keys_data/PiWind
+
+    SAMPLE_CSV_MODEL_EXPOSURES_FILE_PATH=../../../tests/keys_server_tests/data/PiWind/oasislmf_piwind_model_loc_test.csv
+
+    SAMPLE_JSON_MODEL_EXPOSURES_FILE_PATH=../../../tests/keys_server_tests/data/PiWind/oasislmf_piwind_model_loc_test.json
+
     KEYS_SERVER_HOSTNAME_OR_IP=localhost
+
     KEYS_SERVER_PORT=5000
 
-Make sure the paths exist and the server hostname/IP and port are correct. Then copy the INI file (`./tests/keys_server_tests/data/PiWind/KeysServerTests.ini`) to `./src/oasis_keys_server/tests` and then run
+These paths are relative to the location of `OasisPiWind/tests/keys_server_tests/data/<model ID>`. Make sure the paths exist and the server hostname/IP and port are correct. Then copy this INI file to `OasisPiWind/src/oasis_keys_server/tests` and then run
 
     python -m unittest -v KeysServerTests
 
@@ -102,27 +100,33 @@ To run individual test cases you can use
 
 ## Running a test analysis using the Oasis MDK
 
-The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis MDK</a> Python package provides modules and command line tools for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/mdk-oasislmf-piwind.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
+The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis MDK</a> Python package provides modules and command line tools for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/oasislmf.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
 
     {
-        "keys_data_path": "keys_data/PiWind",
-        "model_version_file_path": "keys_data/PiWind/ModelVersion.csv", 
-        "lookup_package_path": "src/keys_server",
-        "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-profile.json",
-        "source_exposures_file_path": "tests/data/SourceLocPiWind.csv",
+        "source_exposures_file_path": "tests/data/SourceLocPiWind10.csv",
         "source_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
         "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
+        "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-loc-profile.json",
         "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
         "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
+        "source_accounts_file_path": "tests/data/SourceAccPiWind.csv",
+        "canonical_accounts_profile_json_path": "oasislmf-piwind-canonical-acc-profile.json",
+        "source_accounts_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_CanAcc_A.xsd",
+        "source_to_canonical_accounts_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_CanAcc_A.xslt",
+        "lookup_package_path": "src/keys_server",
+        "keys_data_path": "keys_data/PiWind",
+        "model_version_file_path": "keys_data/PiWind/ModelVersion.csv",
+        "model_data_path": "model_data/PiWind",
         "analysis_settings_json_file_path": "analysis_settings.json",
-        "model_data_path": "model_data/PiWind"
+        "lookup_config_file_path": "keys_data/PiWind/lookup.json",
+        "fm_agg_profile_path": "fm-agg-profile.json"
     }
 
-**NOTE**: As the file resides in the PiWind repository all the paths are given relative to the location of the repository. The file can be located anywhere on the filesystem, and the paths must be given relative to the location of the PiWind repository.
+**NOTE**: All paths in this JSON file should be given relative to the location of the file.
 
 Using the configuration file an end-to-end analysis can be executed using the command:
 
-	oasislmf model run -C /path/to/mdk-oasislmf-piwind.json [-r OUTPUT_DIRECTORY]
+	oasislmf model run -C /path/to/oasislmf.json [-r OUTPUT_DIRECTORY]
 
 If you specified an output directory the package will generate all the files there. Otherwise the files will be generated in a UTC timestamped folder named `ProgOasis-<UTC timestamp`> in your working directory.
 
