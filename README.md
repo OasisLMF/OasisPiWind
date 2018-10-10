@@ -39,7 +39,7 @@ You should not make any local changes to these submodules because you have read-
 
 First, ensure that you have Docker installed on your system and that your Unix user has been added to the `docker` user group (run `sudo usermod -a -G docker $USER`).
 
-The PiWind lookup is a built-in lookup provided by the oasislmf package, and the PiWind keys server is based on a Flask application for built-in lookups and which is part of the `oasis_keys_server` submodule. The Flask source code is built in to a base keys image named `coreoasis/builtin_keys_server`, which you need to build first before building the PiWind keys server. You can do this from the submodule location using
+The PiWind lookup is a built-in lookup provided by the <a href="https://pypi.org/project/oasislmf/" target="_blank">`oasislmf`</a> Python package, and the PiWind keys server is based on a Flask application for built-in lookups and which is part of the `oasis_keys_server` submodule. The Flask source code is built in to a base image named `coreoasis/builtin_keys_server`, which you need to build first before building the PiWind keys server. You can do this from the submodule location using
 
     docker build -f docker/Dockerfile.builtin_keys_server -t coreoasis/builtin_keys_server .
 
@@ -51,9 +51,11 @@ Run `docker images` to list all images and check the one you've built exists. To
 
     docker run -dp 5000:80 --name=<container name/tag> <image name/tag>
 
+This will run the container on the local host on port 5000.
+
 To check the container is running use the command `docker ps`. If you want to run the healthcheck on the keys server then use the command
 
-    curl -s http://<server or localhost>:5000/OasisPiWind/<model identifier>/<model version>/healthcheck
+    curl http://localhost:5000/OasisLMF/PiWind/0.0.0.1/healthcheck
 
 You should get a response of `OK` if the keys server has initialised and is running normally, otherwise you should get the HTML error response from Apache. To enter the running container you can use the command
 
