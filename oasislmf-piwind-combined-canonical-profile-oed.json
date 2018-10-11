@@ -29,7 +29,7 @@
             "deductible": {
                 "ProfileElementName": "LocDed1Other",
                 "FieldName": "CoverageDeductible",
-                "DeductibleType": "O",
+                "DeductibleType": "B",
                 "PerilID": 1,
                 "CoverageTypeID": 1,
                 "FMLevelName": "Coverage",
@@ -54,7 +54,7 @@
             "deductible": {
                 "ProfileElementName": "LocDed1Contents",
                 "FieldName": "CoverageDeductible",
-                "DeductibleType": "C",
+                "DeductibleType": "B",
                 "PerilID": 1,
                 "CoverageTypeID": 1,
                 "FMLevelName": "Coverage",
@@ -79,7 +79,7 @@
             "deductible": {
                 "ProfileElementName": "LocDed1BI",
                 "FieldName": "CoverageDeductible",
-                "DeductibleType": "BI",
+                "DeductibleType": "B",
                 "PerilID": 1,
                 "CoverageTypeID": 1,
                 "FMLevelName": "Coverage",
@@ -106,7 +106,7 @@
             "deductible": {
                 "ProfileElementName": "LocDed5PD",
                 "FieldName": "CombinedDeductible",
-                "DeductibleType": "PD",
+                "DeductibleType": "B",
                 "FMLevelName": "Combined",
                 "FMLevel": 2,
                 "FMTermType": "Deductible",
@@ -120,7 +120,7 @@
             "deductible": {
                 "ProfileElementName": "LocDed6All",
                 "FieldName": "SiteDeductible",
-                "DeductibleType": "S",
+                "DeductibleType": "B",
                 "FMLevelName": "Site",
                 "FMLevel": 3,
                 "FMTermType": "Deductible",
@@ -134,7 +134,7 @@
             "deductible": {
                 "ProfileElementName": "CondDed6All",
                 "FieldName": "SubLimitDeductible",
-                "DeductibleType": "All",
+                "DeductibleType": "B",
                 "FMLevelName": "Sublimit",
                 "FMLevel": 4,
                 "FMTermType": "Deductible",
@@ -156,7 +156,7 @@
         "1": {
             "deductible": {
                 "ProfileElementName": "PolDed6All",
-                "DeductibleType": "All",
+                "DeductibleType": "B",
                 "FieldName": "BlanketDeductible",
                 "FMLevelName": "Account",
                 "FMLevel": 5,
@@ -188,7 +188,7 @@
             },
             "deductible": {
                 "ProfileElementName": "LayerAttachment",
-                "DeductibleType": "All",
+                "DeductibleType": "B",
                 "FieldName": "AttachmentPoint",
                 "FMLevelName": "Layer",
                 "FMLevel": 6,
