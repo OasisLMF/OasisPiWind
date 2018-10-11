@@ -1,0 +1,40 @@
+{
+    "PolDed6All": {
+        "ProfileElementName": "PolDed6All",
+        "DeductibleType": "B",
+        "FieldName": "BlanketDeductible",
+        "FMLevelName": "Account",
+        "FMLevel": 5,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "LayerParticipation": {
+        "ProfileElementName": "LayerParticipation",
+        "FieldName": "BlanketLimit",
+        "FMLevelName": "Layer",
+        "FMLevel": 6,
+        "FMTermType": "Share",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "LayerLimit": {
+        "ProfileElementName": "LayerLimit",
+        "FieldName": "LayerLimit",
+        "FMLevelName": "Layer",
+        "FMLevel": 6,
+        "FMTermType": "Limit",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "LayerAttachment": {
+        "ProfileElementName": "LayerAttachment",
+        "DeductibleType": "B",
+        "FieldName": "AttachmentPoint",
+        "FMLevelName": "Layer",
+        "FMLevel": 6,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    }
+}
