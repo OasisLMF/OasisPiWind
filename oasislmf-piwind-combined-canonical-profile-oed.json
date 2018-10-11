@@ -1,0 +1,201 @@
+{
+    "1": {
+        "1": {
+            "deductible": {
+                "ProfileElementName": "LocDed1Building",
+                "FieldName": "CoverageDeductible",
+                "DeductibleType": "B",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "tiv": {
+                "ProfileElementName": "BuildingTIV",
+                "FieldName": "TIV",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "TIV",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        },
+        "2": {
+            "deductible": {
+                "ProfileElementName": "LocDed1Other",
+                "FieldName": "CoverageDeductible",
+                "DeductibleType": "O",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "tiv": {
+                "ProfileElementName": "OtherTIV",
+                "FieldName": "TIV",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "TIV",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        },
+        "3": {
+            "deductible": {
+                "ProfileElementName": "LocDed1Contents",
+                "FieldName": "CoverageDeductible",
+                "DeductibleType": "C",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "tiv": {
+                "ProfileElementName": "ContentsTIV",
+                "FieldName": "TIV",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "TIV",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        },
+        "4": {
+            "deductible": {
+                "ProfileElementName": "LocDed1BI",
+                "FieldName": "CoverageDeductible",
+                "DeductibleType": "BI",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "tiv": {
+                "ProfileElementName": "BITIV",
+                "FieldName": "TIV",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "TIV",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        }
+    },
+    "2": {
+        "1": {
+            "deductible": {
+                "ProfileElementName": "LocDed5PD",
+                "FieldName": "CombinedDeductible",
+                "DeductibleType": "PD",
+                "FMLevelName": "Combined",
+                "FMLevel": 2,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        }
+    },
+    "3": {
+        "1": {
+            "deductible": {
+                "ProfileElementName": "LocDed6All",
+                "FieldName": "SiteDeductible",
+                "DeductibleType": "S",
+                "FMLevelName": "Site",
+                "FMLevel": 3,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        }
+    },
+    "4": {
+        "1": {
+            "deductible": {
+                "ProfileElementName": "CondDed6All",
+                "FieldName": "SubLimitDeductible",
+                "DeductibleType": "All",
+                "FMLevelName": "Sublimit",
+                "FMLevel": 4,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "limit": {
+                "ProfileElementName": "CondLimit6All",
+                "FieldName": "SubLimitLimit",
+                "FMLevelName": "Sublimit",
+                "FMLevel": 4,
+                "FMTermType": "Limit",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            }
+        }
+    },
+    "5": {
+        "1": {
+            "deductible": {
+                "ProfileElementName": "PolDed6All",
+                "DeductibleType": "All",
+                "FieldName": "BlanketDeductible",
+                "FMLevelName": "Account",
+                "FMLevel": 5,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            }
+        }
+    },
+    "6": {
+        "1": {
+            "share": {
+                "ProfileElementName": "LayerParticipation",
+                "FieldName": "BlanketLimit",
+                "FMLevelName": "Layer",
+                "FMLevel": 6,
+                "FMTermType": "Share",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            },
+            "limit": {
+                "ProfileElementName": "LayerLimit",
+                "FieldName": "LayerLimit",
+                "FMLevelName": "Layer",
+                "FMLevel": 6,
+                "FMTermType": "Limit",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            },
+            "deductible": {
+                "ProfileElementName": "LayerAttachment",
+                "DeductibleType": "All",
+                "FieldName": "AttachmentPoint",
+                "FMLevelName": "Layer",
+                "FMLevel": 6,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            }
+        }
+    }
+}
