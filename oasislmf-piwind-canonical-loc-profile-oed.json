@@ -27,22 +27,22 @@
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 1,
+        "CoverageTypeID": 2,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 1,
+        "FMTermGroupID": 2,
         "ProfileType": "Loc"
     },
     "OtherTIV": {
         "ProfileElementName": "OtherTIV",
         "FieldName": "TIV",
         "PerilID": 1,
-        "CoverageTypeID": 1,
+        "CoverageTypeID": 2,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "TIV",
-        "FMTermGroupID": 1,
+        "FMTermGroupID": 2,
         "ProfileType": "Loc"
     },
     "LocDed3Contents": {
@@ -50,11 +50,22 @@
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 1,
+        "CoverageTypeID": 3,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 1,
+        "FMTermGroupID": 3,
+        "ProfileType": "Loc"
+    },
+    "ContentsTIV": {
+        "ProfileElementName": "ContentsTIV",
+        "FieldName": "TIV",
+        "PerilID": 1,
+        "CoverageTypeID": 3,
+        "FMLevelName": "Coverage",
+        "FMLevel": 1,
+        "FMTermType": "TIV",
+        "FMTermGroupID": 3,
         "ProfileType": "Loc"
     },
     "LocDed4BI": {
@@ -62,22 +73,22 @@
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 1,
+        "CoverageTypeID": 3,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 1,
+        "FMTermGroupID": 3,
         "ProfileType": "Loc"
     },
     "BITIV": {
         "ProfileElementName": "BITIV",
         "FieldName": "TIV",
         "PerilID": 1,
-        "CoverageTypeID": 1,
+        "CoverageTypeID": 4,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "TIV",
-        "FMTermGroupID": 1,
+        "FMTermGroupID": 4,
         "ProfileType": "Loc"
     },
     "LocDed5PD": {
@@ -88,7 +99,7 @@
         "FMLevel": 2,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
-        "ProfileType": "Loc"
+        "ProfileType": "Acc"
     },
     "LocDed6All": {
         "ProfileElementName": "LocDed6All",
@@ -98,6 +109,6 @@
         "FMLevel": 3,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
-        "ProfileType": "Loc"
+        "ProfileType": "Acc"
     }
 }
