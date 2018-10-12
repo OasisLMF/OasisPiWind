@@ -11,7 +11,7 @@
         "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
-    "BuildingTIV":  {
+    "BuildingTIV": {
         "ProfileElementName": "BuildingTIV",
         "FieldName": "TIV",
         "PerilID": 1,
@@ -22,73 +22,62 @@
         "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
-    "LocDed1Other": {
-        "ProfileElementName": "LocDed1Other",
+    "LocDed2Other": {
+        "ProfileElementName": "LocDed2Other",
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 2,
+        "CoverageTypeID": 1,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 2,
+        "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
     "OtherTIV": {
         "ProfileElementName": "OtherTIV",
         "FieldName": "TIV",
         "PerilID": 1,
-        "CoverageTypeID": 2,
+        "CoverageTypeID": 1,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "TIV",
-        "FMTermGroupID": 2,
+        "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
-    "LocDed1Contents": {
-        "ProfileElementName": "LocDed1Contents",
+    "LocDed3Contents": {
+        "ProfileElementName": "LocDed3Contents",
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 3,
+        "CoverageTypeID": 1,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 3,
+        "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
-    "ContentsTIV": {
-        "ProfileElementName": "ContentsTIV",
-        "FieldName": "TIV",
-        "PerilID": 1,
-        "CoverageTypeID": 3,
-        "FMLevelName": "Coverage",
-        "FMLevel": 1,
-        "FMTermType": "TIV",
-        "FMTermGroupID": 3,
-        "ProfileType": "Loc"
-    },
-    "LocDed1BI": {
-        "ProfileElementName": "LocDed1BI",
+    "LocDed4BI": {
+        "ProfileElementName": "LocDed4BI",
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 4,
+        "CoverageTypeID": 1,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 4,
+        "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
     "BITIV": {
         "ProfileElementName": "BITIV",
         "FieldName": "TIV",
         "PerilID": 1,
-        "CoverageTypeID": 4,
+        "CoverageTypeID": 1,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "TIV",
-        "FMTermGroupID": 4,
+        "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
     "LocDed5PD": {
@@ -108,25 +97,6 @@
         "FMLevelName": "Site",
         "FMLevel": 3,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 1,
-        "ProfileType": "Loc"
-    },
-    "CondDed6All": {
-        "ProfileElementName": "CondDed6All",
-        "FieldName": "SubLimitDeductible",
-        "DeductibleType": "B",
-        "FMLevelName": "Sublimit",
-        "FMLevel": 4,
-        "FMTermType": "Deductible",
-        "FMTermGroupID": 1,
-        "ProfileType": "Loc"
-    },
-    "CondLimit6All": {
-        "ProfileElementName": "CondLimit6All",
-        "FieldName": "SubLimitLimit",
-        "FMLevelName": "Sublimit",
-        "FMLevel": 4,
-        "FMTermType": "Limit",
         "FMTermGroupID": 1,
         "ProfileType": "Loc"
     }

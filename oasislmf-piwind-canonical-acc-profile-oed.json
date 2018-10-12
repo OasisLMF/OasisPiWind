@@ -1,4 +1,23 @@
 {
+    "CondDed6All": {
+        "ProfileElementName": "CondDed6All",
+        "FieldName": "SubLimitDeductible",
+        "DeductibleType": "B",
+        "FMLevelName": "Sublimit",
+        "FMLevel": 4,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondLimit6All": {
+        "ProfileElementName": "CondLimit6All",
+        "FieldName": "SubLimitLimit",
+        "FMLevelName": "Sublimit",
+        "FMLevel": 4,
+        "FMTermType": "Limit",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
     "PolDed6All": {
         "ProfileElementName": "PolDed6All",
         "DeductibleType": "B",
@@ -9,12 +28,13 @@
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
     },
-    "LayerParticipation": {
-        "ProfileElementName": "LayerParticipation",
-        "FieldName": "BlanketLimit",
+    "LayerAttachment": {
+        "ProfileElementName": "LayerAttachment",
+        "DeductibleType": "B",
+        "FieldName": "AttachmentPoint",
         "FMLevelName": "Layer",
         "FMLevel": 6,
-        "FMTermType": "Share",
+        "FMTermType": "Deductible",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
     },
