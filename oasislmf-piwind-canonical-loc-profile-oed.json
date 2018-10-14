@@ -73,11 +73,11 @@
         "FieldName": "CoverageDeductible",
         "DeductibleType": "B",
         "PerilID": 1,
-        "CoverageTypeID": 3,
+        "CoverageTypeID": 4,
         "FMLevelName": "Coverage",
         "FMLevel": 1,
         "FMTermType": "Deductible",
-        "FMTermGroupID": 3,
+        "FMTermGroupID": 4,
         "ProfileType": "Loc"
     },
     "BITIV": {
@@ -99,7 +99,7 @@
         "FMLevel": 2,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
-        "ProfileType": "Acc"
+        "ProfileType": "Loc"
     },
     "LocDed6All": {
         "ProfileElementName": "LocDed6All",
@@ -109,6 +109,6 @@
         "FMLevel": 3,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
-        "ProfileType": "Acc"
+        "ProfileType": "Loc"
     }
 }

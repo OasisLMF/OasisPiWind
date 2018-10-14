@@ -1,29 +1,6 @@
 {
     "1": {
         "1": {
-            "deductible": {
-                "ProfileElementName": "WSCV1DED",
-                "FieldName": "CoverageDeductible",
-                "DeductibleType": "B",
-                "PerilID": 1,
-                "CoverageTypeID": 1,
-                "FMLevelName": "Coverage",
-                "FMLevel": 1,
-                "FMTermType": "Deductible",
-                "FMTermGroupID": 1,
-                "ProfileType": "Loc"
-            },
-            "limit": {
-                "ProfileElementName": "WSCV1LIMIT",
-                "FieldName": "CoverageLimit",
-                "PerilID": 1,
-                "CoverageTypeID": 1,
-                "FMLevelName": "Coverage",
-                "FMLevel": 1,
-                "FMTermType": "Limit",
-                "FMTermGroupID": 1,
-                "ProfileType": "Loc"
-            },
             "tiv": {
                 "ProfileElementName": "WSCV1VAL",
                 "FieldName": "TIV",
@@ -34,27 +11,27 @@
                 "FMTermType": "TIV",
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
-            }
-        }
-    },
-    "2": {
-        "1": {
-            "deductible": {
-                "ProfileElementName": "WSCOMBINEDDED",
-                "FieldName": "CombinedDeductible",
-                "DeductibleType": "B",
-                "FMLevelName": "Combined",
-                "FMLevel": 2,
-                "FMTermType": "Deductible",
+            },
+            "lim": {
+                "ProfileElementName": "WSCV1LIMIT",
+                "FieldName": "CoverageLimit",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "Limit",
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "limit": {
-                "ProfileElementName": "WSCOMBINEDLIM",
-                "FieldName": "CombinedLimit",
-                "FMLevelName": "Combined",
-                "FMLevel": 2,
-                "FMTermType": "Limit",
+            "ded": {
+                "ProfileElementName": "WSCV1DED",
+                "FieldName": "CoverageDeductible",
+                "DeductibleType": "B",
+                "PerilID": 1,
+                "CoverageTypeID": 1,
+                "FMLevelName": "Coverage",
+                "FMLevel": 1,
+                "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             }
@@ -62,7 +39,16 @@
     },
     "3": {
         "1": {
-            "deductible": {
+            "lim": {
+                "ProfileElementName": "WSSITELIM",
+                "FieldName": "SiteLimit",
+                "FMLevelName": "Site",
+                "FMLevel": 3,
+                "FMTermType": "Limit",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "ded": {
                 "ProfileElementName": "WSSITEDED",
                 "FieldName": "SiteDeductible",
                 "DeductibleType": "B",
@@ -71,13 +57,27 @@
                 "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
-            },
-            "limit": {
-                "ProfileElementName": "WSSITELIM",
-                "FieldName": "SiteLimit",
-                "FMLevelName": "Site",
-                "FMLevel": 3,
+            }
+        }
+    },
+    "2": {
+        "1": {
+            "lim": {
+                "ProfileElementName": "WSCOMBINEDLIM",
+                "FieldName": "CombinedLimit",
+                "FMLevelName": "Combined",
+                "FMLevel": 2,
                 "FMTermType": "Limit",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "ded": {
+                "ProfileElementName": "WSCOMBINEDDED",
+                "FieldName": "CombinedDeductible",
+                "DeductibleType": "B",
+                "FMLevelName": "Combined",
+                "FMLevel": 2,
+                "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             }
@@ -85,7 +85,7 @@
     },
     "4": {
         "1": {
-            "deductible": {
+            "ded": {
                 "ProfileElementName": "COND1DEDUCTIBLE",
                 "FieldName": "SubLimitDeductible",
                 "DeductibleType": "B",
@@ -95,7 +95,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "limit": {
+            "lim": {
                 "ProfileElementName": "COND1LIMIT",
                 "FieldName": "SubLimitLimit",
                 "FMLevelName": "Sublimit",
@@ -106,23 +106,9 @@
             }
         }
     },
-    "5": {
-        "1": {
-            "deductible": {
-                "ProfileElementName": "BLANDEDAMT",
-                "DeductibleType": "B",
-                "FieldName": "BlanketDeductible",
-                "FMLevelName": "Account",
-                "FMLevel": 5,
-                "FMTermType": "Deductible",
-                "FMTermGroupID": 1,
-                "ProfileType": "Acc"
-            }
-        }
-    },
     "6": {
         "1": {
-            "share": {
+            "shr": {
                 "ProfileElementName": "BLANLIMAMT",
                 "FieldName": "BlanketLimit",
                 "FMLevelName": "Layer",
@@ -130,22 +116,17 @@
                 "FMTermType": "Share",
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
-            },
-            "limit": {
-                "ProfileElementName": "PARTOF",
-                "FieldName": "LayerLimit",
-                "FMLevelName": "Layer",
-                "FMLevel": 6,
-                "FMTermType": "Limit",
-                "FMTermGroupID": 1,
-                "ProfileType": "Acc"
-            },
-            "deductible": {
-                "ProfileElementName": "UNDCOVAMT",
+            }
+        }
+    },
+    "5": {
+        "1": {
+            "ded": {
+                "ProfileElementName": "BLANDEDAMT",
                 "DeductibleType": "B",
-                "FieldName": "AttachmentPoint",
-                "FMLevelName": "Layer",
-                "FMLevel": 6,
+                "FieldName": "BlanketDeductible",
+                "FMLevelName": "Account",
+                "FMLevel": 5,
                 "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
