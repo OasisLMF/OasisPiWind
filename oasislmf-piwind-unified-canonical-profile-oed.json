@@ -1,7 +1,7 @@
 {
     "1": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LocDed1Building",
                 "FieldName": "CoverageDeductible",
                 "DeductibleType": "B",
@@ -26,7 +26,7 @@
             }
         },
         "2": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LocDed2Other",
                 "FieldName": "CoverageDeductible",
                 "DeductibleType": "B",
@@ -51,7 +51,7 @@
             }
         },
         "3": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LocDed3Contents",
                 "FieldName": "CoverageDeductible",
                 "DeductibleType": "B",
@@ -76,7 +76,7 @@
             }
         },
         "4": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LocDed4BI",
                 "FieldName": "CoverageDeductible",
                 "DeductibleType": "B",
@@ -103,7 +103,7 @@
     },
     "2": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LocDed5PD",
                 "FieldName": "CombinedDeductible",
                 "DeductibleType": "B",
@@ -117,7 +117,7 @@
     },
     "3": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LocDed6All",
                 "FieldName": "SiteDeductible",
                 "DeductibleType": "B",
@@ -131,7 +131,7 @@
     },
     "4": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "CondDed6All",
                 "FieldName": "SubLimitDeductible",
                 "DeductibleType": "B",
@@ -141,7 +141,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
             },
-            "lim": {
+            "limit": {
                 "ProfileElementName": "CondLimit6All",
                 "FieldName": "SubLimitLimit",
                 "FMLevelName": "Sublimit",
@@ -154,7 +154,7 @@
     },
     "5": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "PolDed6All",
                 "DeductibleType": "B",
                 "FieldName": "BlanketDeductible",
@@ -168,7 +168,7 @@
     },
     "6": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "LayerAttachment",
                 "DeductibleType": "B",
                 "FieldName": "AttachmentPoint",
@@ -178,7 +178,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
             },
-            "lim": {
+            "limit": {
                 "ProfileElementName": "LayerLimit",
                 "FieldName": "LayerLimit",
                 "FMLevelName": "Layer",

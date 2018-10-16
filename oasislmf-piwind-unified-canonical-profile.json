@@ -12,7 +12,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "lim": {
+            "limit": {
                 "ProfileElementName": "WSCV1LIMIT",
                 "FieldName": "CoverageLimit",
                 "PerilID": 1,
@@ -23,7 +23,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "WSCV1DED",
                 "FieldName": "CoverageDeductible",
                 "DeductibleType": "B",
@@ -39,7 +39,7 @@
     },
     "3": {
         "1": {
-            "lim": {
+            "limit": {
                 "ProfileElementName": "WSSITELIM",
                 "FieldName": "SiteLimit",
                 "FMLevelName": "Site",
@@ -48,7 +48,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "WSSITEDED",
                 "FieldName": "SiteDeductible",
                 "DeductibleType": "B",
@@ -62,7 +62,7 @@
     },
     "2": {
         "1": {
-            "lim": {
+            "limit": {
                 "ProfileElementName": "WSCOMBINEDLIM",
                 "FieldName": "CombinedLimit",
                 "FMLevelName": "Combined",
@@ -71,7 +71,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "WSCOMBINEDDED",
                 "FieldName": "CombinedDeductible",
                 "DeductibleType": "B",
@@ -85,7 +85,7 @@
     },
     "4": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "COND1DEDUCTIBLE",
                 "FieldName": "SubLimitDeductible",
                 "DeductibleType": "B",
@@ -95,7 +95,7 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
             },
-            "lim": {
+            "limit": {
                 "ProfileElementName": "COND1LIMIT",
                 "FieldName": "SubLimitLimit",
                 "FMLevelName": "Sublimit",
@@ -108,7 +108,7 @@
     },
     "6": {
         "1": {
-            "shr": {
+            "share": {
                 "ProfileElementName": "BLANLIMAMT",
                 "FieldName": "BlanketLimit",
                 "FMLevelName": "Layer",
@@ -121,7 +121,7 @@
     },
     "5": {
         "1": {
-            "ded": {
+            "deductible": {
                 "ProfileElementName": "BLANDEDAMT",
                 "DeductibleType": "B",
                 "FieldName": "BlanketDeductible",
