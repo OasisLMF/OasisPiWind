@@ -37,29 +37,6 @@
             }
         }
     },
-    "3": {
-        "1": {
-            "limit": {
-                "ProfileElementName": "WSSITELIM",
-                "FieldName": "SiteLimit",
-                "FMLevelName": "Site",
-                "FMLevel": 3,
-                "FMTermType": "Limit",
-                "FMTermGroupID": 1,
-                "ProfileType": "Loc"
-            },
-            "deductible": {
-                "ProfileElementName": "WSSITEDED",
-                "FieldName": "SiteDeductible",
-                "DeductibleType": "B",
-                "FMLevelName": "Site",
-                "FMLevel": 3,
-                "FMTermType": "Deductible",
-                "FMTermGroupID": 1,
-                "ProfileType": "Loc"
-            }
-        }
-    },
     "2": {
         "1": {
             "limit": {
@@ -77,6 +54,29 @@
                 "DeductibleType": "B",
                 "FMLevelName": "Combined",
                 "FMLevel": 2,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            }
+        }
+    },
+    "3": {
+        "1": {
+            "limit": {
+                "ProfileElementName": "WSSITELIM",
+                "FieldName": "SiteLimit",
+                "FMLevelName": "Site",
+                "FMLevel": 3,
+                "FMTermType": "Limit",
+                "FMTermGroupID": 1,
+                "ProfileType": "Loc"
+            },
+            "deductible": {
+                "ProfileElementName": "WSSITEDED",
+                "FieldName": "SiteDeductible",
+                "DeductibleType": "B",
+                "FMLevelName": "Site",
+                "FMLevel": 3,
                 "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Loc"
@@ -106,19 +106,6 @@
             }
         }
     },
-    "6": {
-        "1": {
-            "share": {
-                "ProfileElementName": "BLANLIMAMT",
-                "FieldName": "BlanketLimit",
-                "FMLevelName": "Layer",
-                "FMLevel": 6,
-                "FMTermType": "Share",
-                "FMTermGroupID": 1,
-                "ProfileType": "Acc"
-            }
-        }
-    },
     "5": {
         "1": {
             "deductible": {
@@ -128,6 +115,38 @@
                 "FMLevelName": "Account",
                 "FMLevel": 5,
                 "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            }
+        }
+    },
+    "6": {
+        "1": {
+            "deductible": {
+                "ProfileElementName": "UNDCOVAMT",
+                "DeductibleType": "B",
+                "FieldName": "AttachmentPoint",
+                "FMLevelName": "Layer",
+                "FMLevel": 6,
+                "FMTermType": "Deductible",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            },
+            "limit": {
+                "ProfileElementName": "PARTOF",
+                "FieldName": "LayerLimit",
+                "FMLevelName": "Layer",
+                "FMLevel": 6,
+                "FMTermType": "Limit",
+                "FMTermGroupID": 1,
+                "ProfileType": "Acc"
+            },
+            "share": {
+                "ProfileElementName": "BLANLIMAMT",
+                "FieldName": "BlanketLimit",
+                "FMLevelName": "Layer",
+                "FMLevel": 6,
+                "FMTermType": "Share",
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
             }
