@@ -28,26 +28,6 @@
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
     },
-    "PolMinDed6All": {
-        "ProfileElementName": "PolMinDed6All",
-        "DeductibleType": "MI",
-        "FieldName": "BlanketMinDeductible",
-        "FMLevelName": "Account",
-        "FMLevel": 5,
-        "FMTermType": "DeductibleMin",
-        "FMTermGroupID": 1,
-        "ProfileType": "Acc"
-    },
-    "PolMaxDed6All": {
-        "ProfileElementName": "PolMaxDed6All",
-        "DeductibleType": "MA",
-        "FieldName": "BlanketMaxDeductible",
-        "FMLevelName": "Account",
-        "FMLevel": 5,
-        "FMTermType": "DeductibleMax",
-        "FMTermGroupID": 1,
-        "ProfileType": "Acc"
-    },
     "LayerAttachment": {
         "ProfileElementName": "LayerAttachment",
         "DeductibleType": "B",
