@@ -150,7 +150,7 @@
         "FieldName": "CombinedLimit",
         "FMLevelName": "Combined",
         "FMLevel": 2,
-        "FMTermType": "Deductible",
+        "FMTermType": "Limit",
         "FMTermGroupID": 1,
         "ProfileType": "Loc"
     },
