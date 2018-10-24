@@ -216,37 +216,37 @@
     },
     "5": {
         "1": {
-            "deductibleblanket": {
+            "deductible": {
                 "ProfileElementName": "PolDed6All",
                 "DeductibleType": "B",
                 "FieldName": "BlanketDeductible",
                 "FMLevelName": "Account",
                 "FMLevel": 5,
-                "FMTermType": "DeductibleBlanket",
+                "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
             }
         },
         "2": {
-            "deductibleblanketmin": {
+            "deductiblemin": {
                 "ProfileElementName": "PolMinDed6All",
                 "DeductibleType": "MI",
                 "FieldName": "BlanketMinDeductible",
                 "FMLevelName": "Account",
                 "FMLevel": 5,
-                "FMTermType": "DeductibleBlanketMin",
+                "FMTermType": "DeductibleMin",
                 "FMTermGroupID": 2,
                 "ProfileType": "Acc"
             }
         },
         "3": {
-            "deductibleblanketmax": {
+            "deductiblemax": {
                 "ProfileElementName": "PolMaxDed6All",
                 "DeductibleType": "MA",
                 "FieldName": "BlanketMaxDeductible",
                 "FMLevelName": "Account",
                 "FMLevel": 5,
-                "FMTermType": "DeductibleBlanketMax",
+                "FMTermType": "DeductibleMax",
                 "FMTermGroupID": 3,
                 "ProfileType": "Acc"
             }
