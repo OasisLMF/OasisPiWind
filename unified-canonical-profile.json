@@ -118,6 +118,30 @@
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
             }
+        },
+        "2": {
+            "deductiblemin": {
+                "ProfileElementName": "MINDEDAMT",
+                "DeductibleType": "MI",
+                "FieldName": "BlanketMinDeductible",
+                "FMLevelName": "Account",
+                "FMLevel": 5,
+                "FMTermType": "DeductibleMin",
+                "FMTermGroupID": 2,
+                "ProfileType": "Acc"
+            }
+        },
+        "3": {
+            "deductiblemax": {
+                "ProfileElementName": "MAXDEDAMT",
+                "DeductibleType": "MA",
+                "FieldName": "BlanketMaxDeductible",
+                "FMLevelName": "Account",
+                "FMLevel": 5,
+                "FMTermType": "DeductibleMax",
+                "FMTermGroupID": 3,
+                "ProfileType": "Acc"
+            }
         }
     },
     "6": {
