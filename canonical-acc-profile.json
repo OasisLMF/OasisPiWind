@@ -16,7 +16,7 @@
         "FMLevelName": "Account",
         "FMLevel": 5,
         "FMTermType": "DeductibleMin",
-        "FMTermGroupID": 2,
+        "FMTermGroupID": 1,
         "ProfileType": "Acc"
     },
     "MAXDEDAMT": {
@@ -26,7 +26,7 @@
         "FMLevelName": "Account",
         "FMLevel": 5,
         "FMTermType": "DeductibleMax",
-        "FMTermGroupID": 3,
+        "FMTermGroupID": 1,
         "ProfileType": "Acc"
     },
     "UNDCOVAMT": {
