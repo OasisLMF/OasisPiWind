@@ -23,7 +23,7 @@ test_output_result(){
     fi
 
     ## Check Test Output
-    cd /var/oasis/test/output_cmp
+    cd /var/oasis/test/common
     pip install -r requirements.txt
     python -m unittest -v CheckOutput
 }

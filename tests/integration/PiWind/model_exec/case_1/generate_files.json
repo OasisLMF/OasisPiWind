@@ -1,11 +1,11 @@
 {
     "source_exposures_file_path":                               "/var/oasis/test/model_exec/case_1/SourceLocPiWind1K.csv",
     "model_version_file_path":                                  "/var/oasis/keys_data/ModelVersion.csv",
-    "lookup_config_file_path":                                  "/var/oasis/test/data/lookup.json",
-    "source_exposures_validation_file_path":                    "/var/oasis/test/data/Generic_Windstorm_SourceLoc.xsd",
-    "source_to_canonical_exposures_transformation_file_path":   "/var/oasis/test/data/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
-    "canonical_exposures_profile_json_path":                    "/var/oasis/test/data/piwind-canonical-loc-profile.json",
-    "canonical_exposures_validation_file_path":                 "/var/oasis/test/data/Generic_Windstorm_CanLoc_B.xsd",
-    "canonical_to_model_exposures_transformation_file_path":    "/var/oasis/test/data/MappingMapTopiwind_modelloc.xslt",
+    "lookup_config_file_path":                                  "/var/oasis/test/common/data/lookup.json",
+    "source_exposures_validation_file_path":                    "/var/oasis/test/common/data/Generic_Windstorm_SourceLoc.xsd",
+    "source_to_canonical_exposures_transformation_file_path":   "/var/oasis/test/common/data/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
+    "canonical_exposures_profile_json_path":                    "/var/oasis/test/common/data/piwind-canonical-loc-profile.json",
+    "canonical_exposures_validation_file_path":                 "/var/oasis/test/common/data/Generic_Windstorm_CanLoc_B.xsd",
+    "canonical_to_model_exposures_transformation_file_path":    "/var/oasis/test/common/data/MappingMapTopiwind_modelloc.xslt",
     "oasis_files_path":                                         "/var/oasis/test/input"
 }
