@@ -7,6 +7,7 @@ PROVIDER='OasisLMF'
 DIR_SCRIPT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 OUTPUT=$DIR_SCRIPT'/output'
 TEST_TYPE=$1   #type of test [Keys_server, Model_execution]
+TIMEOUT=2700
 
 
 # pass in two dirs to compare 
@@ -66,7 +67,7 @@ test_model_exec(){
     oasislmf model generate-oasis-files -C $DIR_SCRIPT/model_exec/$TEST_CASE/generate_files.json
 
     # Send analsys request to API 
-    timeout 2700 oasislmf test model-api  http://oasis_api_server \
+    timeout $TIMEOUT oasislmf test model-api  http://oasis_api_server \
                              -a $ANALYSIS_SETTINGS \
                              -i $DIR_OASIS_FILES \
                              -o $OUTPUT | tee $RUN_LOG
@@ -74,8 +75,12 @@ test_model_exec(){
     set +exu
     EXCEPTION_CHECK=$(cat $RUN_LOG | grep -ci exception)
     ERROR_CHECK=$(cat $RUN_LOG | grep -ci error)
+    COMPLETE_CHECK=$(cat $RUN_LOG | grep -ci 'Finished: 1 completed, 0 failed')
     if [ $ERROR_CHECK -ne 0 ] || [ $EXCEPTION_CHECK -ne 0 ]; then
         echo "Error Detected"
+        exit 1
+    elif [ $COMPLETE_CHECK -ne 1 ]; then 
+        echo "Execution timed out at '${TIMEOUT}' seconds"
         exit 1
     else
         set -exu
