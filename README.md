@@ -43,29 +43,27 @@ You can test a running keys server by making a manual keys request (using `curl`
 
     curl -v http://localhost:5000/OasisLMF/PiWind/0.0.0.1/get_keys --data-binary @</path/to/model/exposure/file> -H 'Content-type:text/csv; charset=utf-8' --compressed
 
-## Running a test analysis using the Oasis MDK
+## Running via the Oasis MDK
 
-The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis MDK</a> Python package provides modules and command line tools for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/master/oasislmf.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
+The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis model development kit (MDK)</a> is a Python package which provides a command line interface (CLI) for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/develop/keys_data/PiWind/lookup.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
 
     {
         "source_exposures_file_path": "tests/data/SourceLocPiWind10.csv",
         "source_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_SourceLoc.xsd",
         "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
-        "canonical_exposures_profile_json_path": "oasislmf-piwind-canonical-loc-profile.json",
+        "canonical_exposures_profile_json_path": "canonical-loc-profile.json",
         "canonical_exposures_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_Windstorm_CanLoc_B.xsd",
         "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
         "source_accounts_file_path": "tests/data/SourceAccPiWind.csv",
-        "canonical_accounts_profile_json_path": "oasislmf-piwind-canonical-acc-profile.json",
+        "canonical_accounts_profile_json_path": "canonical-acc-profile.json",
         "source_accounts_validation_file_path": "flamingo/PiWind/Files/ValidationFiles/Generic_CanAcc_A.xsd",
         "source_to_canonical_accounts_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_CanAcc_A.xslt",
-        "lookup_package_path": "src/keys_server",
-        "keys_data_path": "keys_data/PiWind",
-        "model_version_file_path": "keys_data/PiWind/ModelVersion.csv",
         "model_data_path": "model_data/PiWind",
         "analysis_settings_json_file_path": "analysis_settings.json",
         "lookup_config_file_path": "keys_data/PiWind/lookup.json",
         "fm_agg_profile_path": "fm-agg-profile.json"
     }
+
 
 **NOTE**: All paths in this JSON file should be given relative to the location of the file.
 
@@ -77,14 +75,16 @@ If you specified an output directory the package will generate all the files the
 
 This can also be done by providing all the arguments via the command line - use the `oasislmf model run --help` command to view the required argument flags. Particular steps in the analysis can be also be executed independently using either command line arguments or a JSON configuration file (via the `-C` flag):
 
-    oasislmf model transform-source-to-canonical  # Generate a canonical exposures/accounts file from a source exposures/accounts file
+    oasislmf model generate-peril-areas-rtree-file-index  # Generate an Rtree spatial file index from a source peril areas CSV file
 
-    oasislmf model transform-canonical-to-model   # Generate a model exposures file from a canonical exposures file
+    oasislmf model transform-source-to-canonical          # Generate a canonical exposures/accounts file from a source exposures/accounts file
 
-    oasislmf model generate-keys                  # Generate Oasis keys and keys error files
+    oasislmf model transform-canonical-to-model           # Generate a model exposures file from a canonical exposures file
 
-    oasislmf model generate-oasis-files           # Generate Oasis files (GUL only by defaut; for FM add the `--fm` flag)
+    oasislmf model generate-keys                          # Generate Oasis keys and keys error files
 
-    oasislmf model generate-losses                # Generate losses from an existing set of Oasis files and analysis settings JSON
+    oasislmf model generate-oasis-files                   # Generate Oasis files (GUL only by defaut; for FM add the `--fm` flag)
+
+    oasislmf model generate-losses                        # Generate losses from an existing set of Oasis files and analysis settings JSON
 
 Use the `--help` flag to show the command line flags and JSON key names for the arguments.
