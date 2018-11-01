@@ -1,3 +1,0 @@
-[submodule "src/oasis_keys_server"]
-	path = src/oasis_keys_server
-	url = https://github.com/OasisLMF/oasis_keys_server.git

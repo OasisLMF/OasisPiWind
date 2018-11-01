@@ -225,9 +225,7 @@
                 "FMTermType": "Deductible",
                 "FMTermGroupID": 1,
                 "ProfileType": "Acc"
-            }
-        },
-        "2": {
+            },
             "deductiblemin": {
                 "ProfileElementName": "PolMinDed6All",
                 "DeductibleType": "MI",
@@ -235,11 +233,9 @@
                 "FMLevelName": "Account",
                 "FMLevel": 5,
                 "FMTermType": "DeductibleMin",
-                "FMTermGroupID": 2,
+                "FMTermGroupID": 1,
                 "ProfileType": "Acc"
-            }
-        },
-        "3": {
+            },
             "deductiblemax": {
                 "ProfileElementName": "PolMaxDed6All",
                 "DeductibleType": "MA",
@@ -247,7 +243,7 @@
                 "FMLevelName": "Account",
                 "FMLevel": 5,
                 "FMTermType": "DeductibleMax",
-                "FMTermGroupID": 3,
+                "FMTermGroupID": 1,
                 "ProfileType": "Acc"
             }
         }
