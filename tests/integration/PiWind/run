@@ -61,7 +61,7 @@ test_model_exec(){
     fi
 
     ## Override 
-    ANALYSIS_SETTINGS="${DIR_SCRIPT}/data/analysis_settings.json"
+    ANALYSIS_SETTINGS="${DIR_SCRIPT}/common/data/analysis_settings.json"
 
     ## generate ktool input files from source exposure data 
     oasislmf model generate-oasis-files -C $DIR_SCRIPT/model_exec/$TEST_CASE/generate_files.json
