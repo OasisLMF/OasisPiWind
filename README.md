@@ -1,6 +1,6 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=pipeline_stable/oasis_PiWind)](http://ci.oasislmfdev.org/blue/organizations/jenkins/pipeline_stable%2Foasis_PiWind)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=oasis_PiWind)](http://ci.oasislmfdev.org/blue/organizations/jenkins/oasis_PiWind)
 
 # Oasis PiWind
 Toy UK windstorm model that provides an example Oasis implementation, providing a concrete implementation of an Oasis model respository built using the <a href="https://github.com/OasisLMF/cookiecutter-OasisModel">Oasis cookiecutter</a> utility.
