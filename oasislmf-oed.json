@@ -9,5 +9,5 @@
     "lookup_package_path": "src/keys_server",
     "analysis_settings_json_file_path": "analysis_settings.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
-    "fm_agg_profile_path": "oed-fm-agg-profile.json"
+    "fm_agg_profile_path": "fm-oed-agg-profile.json"
 }
