@@ -3,7 +3,7 @@
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![Build](http://ci.oasislmfdev.org/buildStatus/icon?job=oasis_PiWind)](http://ci.oasislmfdev.org/blue/organizations/jenkins/oasis_PiWind)
 
 # Oasis PiWind
-Toy UK windstorm model that provides an example Oasis implementation, providing a concrete implementation of an Oasis model respository built using the <a href="https://github.com/OasisLMF/cookiecutter-OasisModel">Oasis cookiecutter</a> utility.
+Toy UK windstorm model.
 
 ## Cloning the repository
 
