@@ -25,7 +25,7 @@
         "FMLevel": 3,
         "FMLevel": "Site",
         "FMAggKey": {
-            "LocID":  {
+            "LocID": {
                 "src": "FM",
                 "field": "canexp_id",
                 "name": "Location ID"
@@ -36,15 +36,10 @@
         "FMLevel": 4,
         "FMLevelName": "Sublimit",
         "FMAggKey": {
-            "AccntNum":  {
+            "AccntNum": {
                 "src": "FM",
                 "field": "canacc_id",
                 "name": "Account no."
-            },
-            "SublimitRef": {
-                "src": "CanExp",
-                "field": "cond1name",
-                "name": "Sublimit ref."
             }
         }
     },
