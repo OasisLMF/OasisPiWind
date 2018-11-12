@@ -23,24 +23,24 @@ http://www.altova.com/mapforce
 					<xsl:value-of select="string($var4_current/@ROW_ID)"/>
 				</xsl:attribute>
 			</xsl:if>
-			<xsl:variable name="var2_LATITUDE">
-				<xsl:if test="$var4_current/@LATITUDE">
+			<xsl:variable name="var2_Latitude">
+				<xsl:if test="$var4_current/@Latitude">
 					<xsl:value-of select="'1'"/>
 				</xsl:if>
 			</xsl:variable>
-			<xsl:if test="string(boolean(string($var2_LATITUDE))) != 'false'">
+			<xsl:if test="string(boolean(string($var2_Latitude))) != 'false'">
 				<xsl:attribute name="LAT">
-					<xsl:value-of select="string($var4_current/@LATITUDE)"/>
+					<xsl:value-of select="string($var4_current/@Latitude)"/>
 				</xsl:attribute>
 			</xsl:if>
-			<xsl:variable name="var3_LONGITUDE">
-				<xsl:if test="$var4_current/@LONGITUDE">
+			<xsl:variable name="var3_Longitude">
+				<xsl:if test="$var4_current/@Longitude">
 					<xsl:value-of select="'1'"/>
 				</xsl:if>
 			</xsl:variable>
-			<xsl:if test="string(boolean(string($var3_LONGITUDE))) != 'false'">
+			<xsl:if test="string(boolean(string($var3_Longitude))) != 'false'">
 				<xsl:attribute name="LON">
-					<xsl:value-of select="string($var4_current/@LONGITUDE)"/>
+					<xsl:value-of select="string($var4_current/@Longitude)"/>
 				</xsl:attribute>
 			</xsl:if>
 			<xsl:attribute name="COVERAGE">1</xsl:attribute>
@@ -58,7 +58,7 @@ http://www.altova.com/mapforce
 	</xsl:template>
 	<xsl:template match="/">
 		<root>
-			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/PiWind/piwind_modelloc.xsd</xsl:attribute>
+			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/ReinsuranceTestTool/Transformations/ValidationFiles/piwind_modelloc.xsd</xsl:attribute>
 			<xsl:for-each select="root">
 				<xsl:call-template name="agt:MapTopiwind_modelloc_var7_resultof_map">
 					<xsl:with-param name="var6_current" select="."/>
