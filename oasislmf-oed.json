@@ -2,7 +2,7 @@
     "source_exposures_file_path": "tests/data/SourceLocOEDPiWind10.csv",
     "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_CanLocA.xslt",
     "canonical_exposures_profile_json_path": "canonical-oed-loc-profile.json",
-    "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapTopiwind_modelloc.xslt",
+    "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_piwind_modelloc.xslt",
     "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
     "canonical_accounts_profile_json_path": "canonical-oed-acc-profile.json",
     "source_to_canonical_accounts_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_CanAccA.xslt",

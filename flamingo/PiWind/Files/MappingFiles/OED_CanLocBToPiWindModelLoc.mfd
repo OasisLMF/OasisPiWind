@@ -7,7 +7,7 @@
 		<structure>
 			<children>
 				<component name="OED_CanLocB" library="xml" uid="2" kind="14">
-					<properties/>
+					<properties XSLTTargetEncoding="UTF-8"/>
 					<view ltx="620" lty="204" rbx="928" rby="1527"/>
 					<data>
 						<root scrollposition="1">
@@ -33,8 +33,30 @@
 						<wsdl/>
 					</data>
 				</component>
-				<component name="piwind_modelloc" library="xml" uid="3" kind="14">
-					<properties XSLTDefaultOutput="1"/>
+				<component name="constant" library="core" uid="5" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="1"/>
+					</targets>
+					<view ltx="1064" lty="523" rbx="1110" rby="541"/>
+					<data>
+						<constant value="1" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="constant" library="core" uid="4" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="2"/>
+					</targets>
+					<view ltx="1064" lty="578" rbx="1111" rby="596"/>
+					<data>
+						<constant value="R" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="OED_piwind_modelloc" library="xml" uid="3" kind="14">
+					<properties XSLTTargetEncoding="UTF-8" XSLTDefaultOutput="1"/>
 					<view ltx="1215" lty="358" rbx="1569" rby="778"/>
 					<data>
 						<root>
@@ -59,29 +81,7 @@
 								</entry>
 							</entry>
 						</root>
-						<document schema="..\ValidationFiles\piwind_modelloc.xsd" outputinstance="..\ValidationFiles\piwind_modelloc.xml" instanceroot="{}root"/>
-						<wsdl/>
-					</data>
-				</component>
-				<component name="constant" library="core" uid="5" kind="2">
-					<properties/>
-					<targets>
-						<datapoint pos="0" key="1"/>
-					</targets>
-					<view ltx="1064" lty="523" rbx="1110" rby="541"/>
-					<data>
-						<constant value="1" datatype="string"/>
-						<wsdl/>
-					</data>
-				</component>
-				<component name="constant" library="core" uid="4" kind="2">
-					<properties/>
-					<targets>
-						<datapoint pos="0" key="2"/>
-					</targets>
-					<view ltx="1064" lty="578" rbx="1111" rby="596"/>
-					<data>
-						<constant value="R" datatype="string"/>
+						<document schema="..\ValidationFiles\OED_piwind_modelloc.xsd" outputinstance="..\ValidationFiles\piwind_modelloc.xml" instanceroot="{}root"/>
 						<wsdl/>
 					</data>
 				</component>
