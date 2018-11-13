@@ -10,27 +10,9464 @@ http://www.altova.com/mapforce
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:agt="http://www.altova.com/Mapforce/agt" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="agt xs">
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-	<xsl:template name="agt:MapToOED_CanLocA_var2_create_rec">
+	<xsl:template name="agt:MapToOED_CanLocA_var2_create_AccNumber">
 		<xsl:param name="var1_current"/>
-		<rec>
-			<xsl:copy-of select="$var1_current/@node()"/>
-			<xsl:copy-of select="$var1_current/node()"/>
-		</rec>
+		<xsl:attribute name="AccNumber">
+			<xsl:value-of select="$var1_current"/>
+		</xsl:attribute>
 	</xsl:template>
-	<xsl:template name="agt:MapToOED_CanLocA_var4_resultof_map">
-		<xsl:param name="var3_current"/>
-		<xsl:for-each select="$var3_current/rec">
-			<xsl:call-template name="agt:MapToOED_CanLocA_var2_create_rec">
-				<xsl:with-param name="var1_current" select="."/>
+	<xsl:template name="agt:MapToOED_CanLocA_var7_resultof_cast">
+		<xsl:param name="var6_current"/>
+		<xsl:variable name="var5_current" select="string($var6_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var2_create_AccNumber">
+			<xsl:with-param name="var1_current" select="$var5_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var9_resultof_map">
+		<xsl:param name="var8_current"/>
+		<xsl:for-each select="$var8_current/@AccNumber">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var7_resultof_cast">
+				<xsl:with-param name="var6_current" select="."/>
 			</xsl:call-template>
 		</xsl:for-each>
 	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var11_create_LocNumber">
+		<xsl:param name="var10_current"/>
+		<xsl:attribute name="LocNumber">
+			<xsl:value-of select="$var10_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var16_resultof_cast">
+		<xsl:param name="var15_current"/>
+		<xsl:variable name="var14_current" select="string($var15_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var11_create_LocNumber">
+			<xsl:with-param name="var10_current" select="$var14_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var18_resultof_map">
+		<xsl:param name="var17_current"/>
+		<xsl:for-each select="$var17_current/@LocNumber">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var16_resultof_cast">
+				<xsl:with-param name="var15_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var20_create_LocName">
+		<xsl:param name="var19_current"/>
+		<xsl:attribute name="LocName">
+			<xsl:value-of select="$var19_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var25_resultof_cast">
+		<xsl:param name="var24_current"/>
+		<xsl:variable name="var23_current" select="string($var24_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var20_create_LocName">
+			<xsl:with-param name="var19_current" select="$var23_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var27_resultof_map">
+		<xsl:param name="var26_current"/>
+		<xsl:for-each select="$var26_current/@LocName">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var25_resultof_cast">
+				<xsl:with-param name="var24_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var29_create_LocGroup">
+		<xsl:param name="var28_current"/>
+		<xsl:attribute name="LocGroup">
+			<xsl:value-of select="$var28_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var34_resultof_cast">
+		<xsl:param name="var33_current"/>
+		<xsl:variable name="var32_current" select="string($var33_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var29_create_LocGroup">
+			<xsl:with-param name="var28_current" select="$var32_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var36_resultof_map">
+		<xsl:param name="var35_current"/>
+		<xsl:for-each select="$var35_current/@LocGroup">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var34_resultof_cast">
+				<xsl:with-param name="var33_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var38_create_IsPrimary">
+		<xsl:param name="var37_current"/>
+		<xsl:attribute name="IsPrimary">
+			<xsl:value-of select="$var37_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var43_resultof_cast">
+		<xsl:param name="var42_current"/>
+		<xsl:variable name="var41_current" select="string($var42_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var38_create_IsPrimary">
+			<xsl:with-param name="var37_current" select="$var41_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var45_resultof_map">
+		<xsl:param name="var44_current"/>
+		<xsl:for-each select="$var44_current/@IsPrimary">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var43_resultof_cast">
+				<xsl:with-param name="var42_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var47_create_IsTenant">
+		<xsl:param name="var46_current"/>
+		<xsl:attribute name="IsTenant">
+			<xsl:value-of select="$var46_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var52_resultof_cast">
+		<xsl:param name="var51_current"/>
+		<xsl:variable name="var50_current" select="string($var51_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var47_create_IsTenant">
+			<xsl:with-param name="var46_current" select="$var50_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var54_resultof_map">
+		<xsl:param name="var53_current"/>
+		<xsl:for-each select="$var53_current/@IsTenant">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var52_resultof_cast">
+				<xsl:with-param name="var51_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var56_create_BuildingID">
+		<xsl:param name="var55_current"/>
+		<xsl:attribute name="BuildingID">
+			<xsl:value-of select="$var55_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var61_resultof_cast">
+		<xsl:param name="var60_current"/>
+		<xsl:variable name="var59_current" select="string($var60_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var56_create_BuildingID">
+			<xsl:with-param name="var55_current" select="$var59_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var63_resultof_map">
+		<xsl:param name="var62_current"/>
+		<xsl:for-each select="$var62_current/@BuildingID">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var61_resultof_cast">
+				<xsl:with-param name="var60_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var65_create_LocInceptionDate">
+		<xsl:param name="var64_current"/>
+		<xsl:attribute name="LocInceptionDate">
+			<xsl:value-of select="$var64_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var70_resultof_cast">
+		<xsl:param name="var69_current"/>
+		<xsl:variable name="var68_current" select="string($var69_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var65_create_LocInceptionDate">
+			<xsl:with-param name="var64_current" select="$var68_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var72_resultof_map">
+		<xsl:param name="var71_current"/>
+		<xsl:for-each select="$var71_current/@LocInceptionDate">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var70_resultof_cast">
+				<xsl:with-param name="var69_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var74_create_LocExpiryDate">
+		<xsl:param name="var73_current"/>
+		<xsl:attribute name="LocExpiryDate">
+			<xsl:value-of select="$var73_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var79_resultof_cast">
+		<xsl:param name="var78_current"/>
+		<xsl:variable name="var77_current" select="string($var78_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var74_create_LocExpiryDate">
+			<xsl:with-param name="var73_current" select="$var77_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var81_resultof_map">
+		<xsl:param name="var80_current"/>
+		<xsl:for-each select="$var80_current/@LocExpiryDate">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var79_resultof_cast">
+				<xsl:with-param name="var78_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var83_create_PercentComplete">
+		<xsl:param name="var82_current"/>
+		<xsl:attribute name="PercentComplete">
+			<xsl:value-of select="$var82_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var88_resultof_cast">
+		<xsl:param name="var87_current"/>
+		<xsl:variable name="var86_current" select="string($var87_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var83_create_PercentComplete">
+			<xsl:with-param name="var82_current" select="$var86_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var90_resultof_map">
+		<xsl:param name="var89_current"/>
+		<xsl:for-each select="$var89_current/@PercentComplete">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var88_resultof_cast">
+				<xsl:with-param name="var87_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var92_create_CompletionDate">
+		<xsl:param name="var91_current"/>
+		<xsl:attribute name="CompletionDate">
+			<xsl:value-of select="$var91_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var97_resultof_cast">
+		<xsl:param name="var96_current"/>
+		<xsl:variable name="var95_current" select="string($var96_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var92_create_CompletionDate">
+			<xsl:with-param name="var91_current" select="$var95_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var99_resultof_map">
+		<xsl:param name="var98_current"/>
+		<xsl:for-each select="$var98_current/@CompletionDate">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var97_resultof_cast">
+				<xsl:with-param name="var96_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var101_create_CountryCode">
+		<xsl:param name="var100_current"/>
+		<xsl:attribute name="CountryCode">
+			<xsl:value-of select="$var100_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var106_resultof_cast">
+		<xsl:param name="var105_current"/>
+		<xsl:variable name="var104_current" select="string($var105_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var101_create_CountryCode">
+			<xsl:with-param name="var100_current" select="$var104_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var108_resultof_map">
+		<xsl:param name="var107_current"/>
+		<xsl:for-each select="$var107_current/@CountryCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var106_resultof_cast">
+				<xsl:with-param name="var105_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var110_create_Latitude">
+		<xsl:param name="var109_current"/>
+		<xsl:attribute name="Latitude">
+			<xsl:value-of select="$var109_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var115_resultof_cast">
+		<xsl:param name="var114_current"/>
+		<xsl:variable name="var113_current" select="string($var114_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var110_create_Latitude">
+			<xsl:with-param name="var109_current" select="$var113_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var117_resultof_map">
+		<xsl:param name="var116_current"/>
+		<xsl:for-each select="$var116_current/@Latitude">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var115_resultof_cast">
+				<xsl:with-param name="var114_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var119_create_Longitude">
+		<xsl:param name="var118_current"/>
+		<xsl:attribute name="Longitude">
+			<xsl:value-of select="$var118_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var124_resultof_cast">
+		<xsl:param name="var123_current"/>
+		<xsl:variable name="var122_current" select="string($var123_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var119_create_Longitude">
+			<xsl:with-param name="var118_current" select="$var122_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var126_resultof_map">
+		<xsl:param name="var125_current"/>
+		<xsl:for-each select="$var125_current/@Longitude">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var124_resultof_cast">
+				<xsl:with-param name="var123_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var128_create_StreetAddress">
+		<xsl:param name="var127_current"/>
+		<xsl:attribute name="StreetAddress">
+			<xsl:value-of select="$var127_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var133_resultof_cast">
+		<xsl:param name="var132_current"/>
+		<xsl:variable name="var131_current" select="string($var132_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var128_create_StreetAddress">
+			<xsl:with-param name="var127_current" select="$var131_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var135_resultof_map">
+		<xsl:param name="var134_current"/>
+		<xsl:for-each select="$var134_current/@StreetAddress">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var133_resultof_cast">
+				<xsl:with-param name="var132_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var137_create_PostalCode">
+		<xsl:param name="var136_current"/>
+		<xsl:attribute name="PostalCode">
+			<xsl:value-of select="$var136_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var142_resultof_cast">
+		<xsl:param name="var141_current"/>
+		<xsl:variable name="var140_current" select="string($var141_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var137_create_PostalCode">
+			<xsl:with-param name="var136_current" select="$var140_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var144_resultof_map">
+		<xsl:param name="var143_current"/>
+		<xsl:for-each select="$var143_current/@PostalCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var142_resultof_cast">
+				<xsl:with-param name="var141_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var146_create_City">
+		<xsl:param name="var145_current"/>
+		<xsl:attribute name="City">
+			<xsl:value-of select="$var145_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var151_resultof_cast">
+		<xsl:param name="var150_current"/>
+		<xsl:variable name="var149_current" select="string($var150_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var146_create_City">
+			<xsl:with-param name="var145_current" select="$var149_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var153_resultof_map">
+		<xsl:param name="var152_current"/>
+		<xsl:for-each select="$var152_current/@City">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var151_resultof_cast">
+				<xsl:with-param name="var150_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var155_create_AreaCode">
+		<xsl:param name="var154_current"/>
+		<xsl:attribute name="AreaCode">
+			<xsl:value-of select="$var154_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var160_resultof_cast">
+		<xsl:param name="var159_current"/>
+		<xsl:variable name="var158_current" select="string($var159_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var155_create_AreaCode">
+			<xsl:with-param name="var154_current" select="$var158_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var162_resultof_map">
+		<xsl:param name="var161_current"/>
+		<xsl:for-each select="$var161_current/@AreaCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var160_resultof_cast">
+				<xsl:with-param name="var159_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var164_create_AreaName">
+		<xsl:param name="var163_current"/>
+		<xsl:attribute name="AreaName">
+			<xsl:value-of select="$var163_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var169_resultof_cast">
+		<xsl:param name="var168_current"/>
+		<xsl:variable name="var167_current" select="string($var168_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var164_create_AreaName">
+			<xsl:with-param name="var163_current" select="$var167_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var171_resultof_map">
+		<xsl:param name="var170_current"/>
+		<xsl:for-each select="$var170_current/@AreaName">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var169_resultof_cast">
+				<xsl:with-param name="var168_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var173_create_GeogScheme">
+		<xsl:param name="var172_current"/>
+		<xsl:attribute name="GeogScheme1">
+			<xsl:value-of select="$var172_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var178_resultof_cast">
+		<xsl:param name="var177_current"/>
+		<xsl:variable name="var176_current" select="string($var177_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var173_create_GeogScheme">
+			<xsl:with-param name="var172_current" select="$var176_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var180_resultof_map">
+		<xsl:param name="var179_current"/>
+		<xsl:for-each select="$var179_current/@GeogScheme1">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var178_resultof_cast">
+				<xsl:with-param name="var177_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var182_create_GeogName">
+		<xsl:param name="var181_current"/>
+		<xsl:attribute name="GeogName1">
+			<xsl:value-of select="$var181_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var187_resultof_cast">
+		<xsl:param name="var186_current"/>
+		<xsl:variable name="var185_current" select="string($var186_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var182_create_GeogName">
+			<xsl:with-param name="var181_current" select="$var185_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var189_resultof_map">
+		<xsl:param name="var188_current"/>
+		<xsl:for-each select="$var188_current/@GeogName1">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var187_resultof_cast">
+				<xsl:with-param name="var186_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var191_create_GeogScheme">
+		<xsl:param name="var190_current"/>
+		<xsl:attribute name="GeogScheme2">
+			<xsl:value-of select="$var190_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var196_resultof_cast">
+		<xsl:param name="var195_current"/>
+		<xsl:variable name="var194_current" select="string($var195_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var191_create_GeogScheme">
+			<xsl:with-param name="var190_current" select="$var194_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var198_resultof_map">
+		<xsl:param name="var197_current"/>
+		<xsl:for-each select="$var197_current/@GeogScheme2">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var196_resultof_cast">
+				<xsl:with-param name="var195_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var200_create_GeogName">
+		<xsl:param name="var199_current"/>
+		<xsl:attribute name="GeogName2">
+			<xsl:value-of select="$var199_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var205_resultof_cast">
+		<xsl:param name="var204_current"/>
+		<xsl:variable name="var203_current" select="string($var204_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var200_create_GeogName">
+			<xsl:with-param name="var199_current" select="$var203_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var207_resultof_map">
+		<xsl:param name="var206_current"/>
+		<xsl:for-each select="$var206_current/@GeogName2">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var205_resultof_cast">
+				<xsl:with-param name="var204_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var209_create_GeogScheme">
+		<xsl:param name="var208_current"/>
+		<xsl:attribute name="GeogScheme3">
+			<xsl:value-of select="$var208_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var214_resultof_cast">
+		<xsl:param name="var213_current"/>
+		<xsl:variable name="var212_current" select="string($var213_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var209_create_GeogScheme">
+			<xsl:with-param name="var208_current" select="$var212_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var216_resultof_map">
+		<xsl:param name="var215_current"/>
+		<xsl:for-each select="$var215_current/@GeogScheme3">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var214_resultof_cast">
+				<xsl:with-param name="var213_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var218_create_GeogName">
+		<xsl:param name="var217_current"/>
+		<xsl:attribute name="GeogName3">
+			<xsl:value-of select="$var217_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var223_resultof_cast">
+		<xsl:param name="var222_current"/>
+		<xsl:variable name="var221_current" select="string($var222_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var218_create_GeogName">
+			<xsl:with-param name="var217_current" select="$var221_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var225_resultof_map">
+		<xsl:param name="var224_current"/>
+		<xsl:for-each select="$var224_current/@GeogName3">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var223_resultof_cast">
+				<xsl:with-param name="var222_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var227_create_GeogScheme">
+		<xsl:param name="var226_current"/>
+		<xsl:attribute name="GeogScheme4">
+			<xsl:value-of select="$var226_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var232_resultof_cast">
+		<xsl:param name="var231_current"/>
+		<xsl:variable name="var230_current" select="string($var231_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var227_create_GeogScheme">
+			<xsl:with-param name="var226_current" select="$var230_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var234_resultof_map">
+		<xsl:param name="var233_current"/>
+		<xsl:for-each select="$var233_current/@GeogScheme4">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var232_resultof_cast">
+				<xsl:with-param name="var231_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var236_create_GeogName">
+		<xsl:param name="var235_current"/>
+		<xsl:attribute name="GeogName4">
+			<xsl:value-of select="$var235_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var241_resultof_cast">
+		<xsl:param name="var240_current"/>
+		<xsl:variable name="var239_current" select="string($var240_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var236_create_GeogName">
+			<xsl:with-param name="var235_current" select="$var239_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var243_resultof_map">
+		<xsl:param name="var242_current"/>
+		<xsl:for-each select="$var242_current/@GeogName4">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var241_resultof_cast">
+				<xsl:with-param name="var240_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var245_create_GeogScheme">
+		<xsl:param name="var244_current"/>
+		<xsl:attribute name="GeogScheme5">
+			<xsl:value-of select="$var244_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var250_resultof_cast">
+		<xsl:param name="var249_current"/>
+		<xsl:variable name="var248_current" select="string($var249_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var245_create_GeogScheme">
+			<xsl:with-param name="var244_current" select="$var248_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var252_resultof_map">
+		<xsl:param name="var251_current"/>
+		<xsl:for-each select="$var251_current/@GeogScheme5">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var250_resultof_cast">
+				<xsl:with-param name="var249_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var254_create_GeogName">
+		<xsl:param name="var253_current"/>
+		<xsl:attribute name="GeogName5">
+			<xsl:value-of select="$var253_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var259_resultof_cast">
+		<xsl:param name="var258_current"/>
+		<xsl:variable name="var257_current" select="string($var258_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var254_create_GeogName">
+			<xsl:with-param name="var253_current" select="$var257_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var261_resultof_map">
+		<xsl:param name="var260_current"/>
+		<xsl:for-each select="$var260_current/@GeogName5">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var259_resultof_cast">
+				<xsl:with-param name="var258_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var263_create_AddressMatch">
+		<xsl:param name="var262_current"/>
+		<xsl:attribute name="AddressMatch">
+			<xsl:value-of select="$var262_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var268_resultof_cast">
+		<xsl:param name="var267_current"/>
+		<xsl:variable name="var266_current" select="string($var267_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var263_create_AddressMatch">
+			<xsl:with-param name="var262_current" select="$var266_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var270_resultof_map">
+		<xsl:param name="var269_current"/>
+		<xsl:for-each select="$var269_current/@AddressMatch">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var268_resultof_cast">
+				<xsl:with-param name="var267_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var272_create_GeocodeQuality">
+		<xsl:param name="var271_current"/>
+		<xsl:attribute name="GeocodeQuality">
+			<xsl:value-of select="$var271_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var277_resultof_cast">
+		<xsl:param name="var276_current"/>
+		<xsl:variable name="var275_current" select="string($var276_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var272_create_GeocodeQuality">
+			<xsl:with-param name="var271_current" select="$var275_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var279_resultof_map">
+		<xsl:param name="var278_current"/>
+		<xsl:for-each select="$var278_current/@GeocodeQuality">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var277_resultof_cast">
+				<xsl:with-param name="var276_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var281_create_Geocoder">
+		<xsl:param name="var280_current"/>
+		<xsl:attribute name="Geocoder">
+			<xsl:value-of select="$var280_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var286_resultof_cast">
+		<xsl:param name="var285_current"/>
+		<xsl:variable name="var284_current" select="string($var285_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var281_create_Geocoder">
+			<xsl:with-param name="var280_current" select="$var284_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var288_resultof_map">
+		<xsl:param name="var287_current"/>
+		<xsl:for-each select="$var287_current/@Geocoder">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var286_resultof_cast">
+				<xsl:with-param name="var285_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var290_create_OrgOccupancyScheme">
+		<xsl:param name="var289_current"/>
+		<xsl:attribute name="OrgOccupancyScheme">
+			<xsl:value-of select="$var289_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var295_resultof_cast">
+		<xsl:param name="var294_current"/>
+		<xsl:variable name="var293_current" select="string($var294_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var290_create_OrgOccupancyScheme">
+			<xsl:with-param name="var289_current" select="$var293_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var297_resultof_map">
+		<xsl:param name="var296_current"/>
+		<xsl:for-each select="$var296_current/@OrgOccupancyScheme">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var295_resultof_cast">
+				<xsl:with-param name="var294_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var299_create_OrgOccupancyCode">
+		<xsl:param name="var298_current"/>
+		<xsl:attribute name="OrgOccupancyCode">
+			<xsl:value-of select="$var298_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var304_resultof_cast">
+		<xsl:param name="var303_current"/>
+		<xsl:variable name="var302_current" select="string($var303_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var299_create_OrgOccupancyCode">
+			<xsl:with-param name="var298_current" select="$var302_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var306_resultof_map">
+		<xsl:param name="var305_current"/>
+		<xsl:for-each select="$var305_current/@OrgOccupancyCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var304_resultof_cast">
+				<xsl:with-param name="var303_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var308_create_OrgConstructionScheme">
+		<xsl:param name="var307_current"/>
+		<xsl:attribute name="OrgConstructionScheme">
+			<xsl:value-of select="$var307_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var313_resultof_cast">
+		<xsl:param name="var312_current"/>
+		<xsl:variable name="var311_current" select="string($var312_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var308_create_OrgConstructionScheme">
+			<xsl:with-param name="var307_current" select="$var311_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var315_resultof_map">
+		<xsl:param name="var314_current"/>
+		<xsl:for-each select="$var314_current/@OrgConstructionScheme">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var313_resultof_cast">
+				<xsl:with-param name="var312_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var317_create_OrgConstructionCode">
+		<xsl:param name="var316_current"/>
+		<xsl:attribute name="OrgConstructionCode">
+			<xsl:value-of select="$var316_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var322_resultof_cast">
+		<xsl:param name="var321_current"/>
+		<xsl:variable name="var320_current" select="string($var321_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var317_create_OrgConstructionCode">
+			<xsl:with-param name="var316_current" select="$var320_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var324_resultof_map">
+		<xsl:param name="var323_current"/>
+		<xsl:for-each select="$var323_current/@OrgConstructionCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var322_resultof_cast">
+				<xsl:with-param name="var321_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var326_create_OccupancyCode">
+		<xsl:param name="var325_current"/>
+		<xsl:attribute name="OccupancyCode">
+			<xsl:value-of select="$var325_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var331_resultof_cast">
+		<xsl:param name="var330_current"/>
+		<xsl:variable name="var329_current" select="string($var330_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var326_create_OccupancyCode">
+			<xsl:with-param name="var325_current" select="$var329_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var333_resultof_map">
+		<xsl:param name="var332_current"/>
+		<xsl:for-each select="$var332_current/@OccupancyCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var331_resultof_cast">
+				<xsl:with-param name="var330_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var335_create_ConstructionCode">
+		<xsl:param name="var334_current"/>
+		<xsl:attribute name="ConstructionCode">
+			<xsl:value-of select="$var334_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var340_resultof_cast">
+		<xsl:param name="var339_current"/>
+		<xsl:variable name="var338_current" select="string($var339_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var335_create_ConstructionCode">
+			<xsl:with-param name="var334_current" select="$var338_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var342_resultof_map">
+		<xsl:param name="var341_current"/>
+		<xsl:for-each select="$var341_current/@ConstructionCode">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var340_resultof_cast">
+				<xsl:with-param name="var339_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var344_create_YearBuilt">
+		<xsl:param name="var343_current"/>
+		<xsl:attribute name="YearBuilt">
+			<xsl:value-of select="$var343_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var349_resultof_cast">
+		<xsl:param name="var348_current"/>
+		<xsl:variable name="var347_current" select="string($var348_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var344_create_YearBuilt">
+			<xsl:with-param name="var343_current" select="$var347_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var351_resultof_map">
+		<xsl:param name="var350_current"/>
+		<xsl:for-each select="$var350_current/@YearBuilt">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var349_resultof_cast">
+				<xsl:with-param name="var348_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var353_create_NumberOfStories">
+		<xsl:param name="var352_current"/>
+		<xsl:attribute name="NumberOfStories">
+			<xsl:value-of select="$var352_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var358_resultof_cast">
+		<xsl:param name="var357_current"/>
+		<xsl:variable name="var356_current" select="string($var357_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var353_create_NumberOfStories">
+			<xsl:with-param name="var352_current" select="$var356_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var360_resultof_map">
+		<xsl:param name="var359_current"/>
+		<xsl:for-each select="$var359_current/@NumberOfStories">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var358_resultof_cast">
+				<xsl:with-param name="var357_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var362_create_NumberOfBuildings">
+		<xsl:param name="var361_current"/>
+		<xsl:attribute name="NumberOfBuildings">
+			<xsl:value-of select="$var361_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var367_resultof_cast">
+		<xsl:param name="var366_current"/>
+		<xsl:variable name="var365_current" select="string($var366_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var362_create_NumberOfBuildings">
+			<xsl:with-param name="var361_current" select="$var365_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var369_resultof_map">
+		<xsl:param name="var368_current"/>
+		<xsl:for-each select="$var368_current/@NumberOfBuildings">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var367_resultof_cast">
+				<xsl:with-param name="var366_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var371_create_FloorArea">
+		<xsl:param name="var370_current"/>
+		<xsl:attribute name="FloorArea">
+			<xsl:value-of select="$var370_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var376_resultof_cast">
+		<xsl:param name="var375_current"/>
+		<xsl:variable name="var374_current" select="string($var375_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var371_create_FloorArea">
+			<xsl:with-param name="var370_current" select="$var374_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var378_resultof_map">
+		<xsl:param name="var377_current"/>
+		<xsl:for-each select="$var377_current/@FloorArea">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var376_resultof_cast">
+				<xsl:with-param name="var375_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var380_create_FloorAreaUnit">
+		<xsl:param name="var379_current"/>
+		<xsl:attribute name="FloorAreaUnit">
+			<xsl:value-of select="$var379_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var385_resultof_cast">
+		<xsl:param name="var384_current"/>
+		<xsl:variable name="var383_current" select="string($var384_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var380_create_FloorAreaUnit">
+			<xsl:with-param name="var379_current" select="$var383_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var387_resultof_map">
+		<xsl:param name="var386_current"/>
+		<xsl:for-each select="$var386_current/@FloorAreaUnit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var385_resultof_cast">
+				<xsl:with-param name="var384_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var389_create_LocUserDef">
+		<xsl:param name="var388_current"/>
+		<xsl:attribute name="LocUserDef1">
+			<xsl:value-of select="$var388_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var394_resultof_cast">
+		<xsl:param name="var393_current"/>
+		<xsl:variable name="var392_current" select="string($var393_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var389_create_LocUserDef">
+			<xsl:with-param name="var388_current" select="$var392_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var396_resultof_map">
+		<xsl:param name="var395_current"/>
+		<xsl:for-each select="$var395_current/@LocUserDef1">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var394_resultof_cast">
+				<xsl:with-param name="var393_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var398_create_LocUserDef">
+		<xsl:param name="var397_current"/>
+		<xsl:attribute name="LocUserDef2">
+			<xsl:value-of select="$var397_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var403_resultof_cast">
+		<xsl:param name="var402_current"/>
+		<xsl:variable name="var401_current" select="string($var402_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var398_create_LocUserDef">
+			<xsl:with-param name="var397_current" select="$var401_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var405_resultof_map">
+		<xsl:param name="var404_current"/>
+		<xsl:for-each select="$var404_current/@LocUserDef2">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var403_resultof_cast">
+				<xsl:with-param name="var402_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var407_create_LocUserDef">
+		<xsl:param name="var406_current"/>
+		<xsl:attribute name="LocUserDef3">
+			<xsl:value-of select="$var406_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var412_resultof_cast">
+		<xsl:param name="var411_current"/>
+		<xsl:variable name="var410_current" select="string($var411_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var407_create_LocUserDef">
+			<xsl:with-param name="var406_current" select="$var410_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var414_resultof_map">
+		<xsl:param name="var413_current"/>
+		<xsl:for-each select="$var413_current/@LocUserDef3">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var412_resultof_cast">
+				<xsl:with-param name="var411_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var416_create_LocUserDef">
+		<xsl:param name="var415_current"/>
+		<xsl:attribute name="LocUserDef4">
+			<xsl:value-of select="$var415_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var421_resultof_cast">
+		<xsl:param name="var420_current"/>
+		<xsl:variable name="var419_current" select="string($var420_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var416_create_LocUserDef">
+			<xsl:with-param name="var415_current" select="$var419_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var423_resultof_map">
+		<xsl:param name="var422_current"/>
+		<xsl:for-each select="$var422_current/@LocUserDef4">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var421_resultof_cast">
+				<xsl:with-param name="var420_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var425_create_LocUserDef">
+		<xsl:param name="var424_current"/>
+		<xsl:attribute name="LocUserDef5">
+			<xsl:value-of select="$var424_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var430_resultof_cast">
+		<xsl:param name="var429_current"/>
+		<xsl:variable name="var428_current" select="string($var429_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var425_create_LocUserDef">
+			<xsl:with-param name="var424_current" select="$var428_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var432_resultof_map">
+		<xsl:param name="var431_current"/>
+		<xsl:for-each select="$var431_current/@LocUserDef5">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var430_resultof_cast">
+				<xsl:with-param name="var429_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var434_create_LocPerilsCovered">
+		<xsl:param name="var433_current"/>
+		<xsl:attribute name="LocPerilsCovered">
+			<xsl:value-of select="$var433_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var439_resultof_cast">
+		<xsl:param name="var438_current"/>
+		<xsl:variable name="var437_current" select="string($var438_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var434_create_LocPerilsCovered">
+			<xsl:with-param name="var433_current" select="$var437_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var441_resultof_map">
+		<xsl:param name="var440_current"/>
+		<xsl:for-each select="$var440_current/@LocPerilsCovered">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var439_resultof_cast">
+				<xsl:with-param name="var438_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var443_create_BuildingTIV">
+		<xsl:param name="var442_current"/>
+		<xsl:attribute name="BuildingTIV">
+			<xsl:value-of select="$var442_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var448_resultof_cast">
+		<xsl:param name="var447_current"/>
+		<xsl:variable name="var446_current" select="string($var447_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var443_create_BuildingTIV">
+			<xsl:with-param name="var442_current" select="$var446_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var450_resultof_map">
+		<xsl:param name="var449_current"/>
+		<xsl:for-each select="$var449_current/@BuildingTIV">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var448_resultof_cast">
+				<xsl:with-param name="var447_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var452_create_OtherTIV">
+		<xsl:param name="var451_current"/>
+		<xsl:attribute name="OtherTIV">
+			<xsl:value-of select="$var451_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var457_resultof_cast">
+		<xsl:param name="var456_current"/>
+		<xsl:variable name="var455_current" select="string($var456_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var452_create_OtherTIV">
+			<xsl:with-param name="var451_current" select="$var455_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var459_resultof_map">
+		<xsl:param name="var458_current"/>
+		<xsl:for-each select="$var458_current/@OtherTIV">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var457_resultof_cast">
+				<xsl:with-param name="var456_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var461_create_ContentsTIV">
+		<xsl:param name="var460_current"/>
+		<xsl:attribute name="ContentsTIV">
+			<xsl:value-of select="$var460_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var466_resultof_cast">
+		<xsl:param name="var465_current"/>
+		<xsl:variable name="var464_current" select="string($var465_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var461_create_ContentsTIV">
+			<xsl:with-param name="var460_current" select="$var464_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var468_resultof_map">
+		<xsl:param name="var467_current"/>
+		<xsl:for-each select="$var467_current/@ContentsTIV">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var466_resultof_cast">
+				<xsl:with-param name="var465_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var470_create_BITIV">
+		<xsl:param name="var469_current"/>
+		<xsl:attribute name="BITIV">
+			<xsl:value-of select="$var469_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var475_resultof_cast">
+		<xsl:param name="var474_current"/>
+		<xsl:variable name="var473_current" select="string($var474_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var470_create_BITIV">
+			<xsl:with-param name="var469_current" select="$var473_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var477_resultof_map">
+		<xsl:param name="var476_current"/>
+		<xsl:for-each select="$var476_current/@BITIV">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var475_resultof_cast">
+				<xsl:with-param name="var474_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var479_create_BIPOI">
+		<xsl:param name="var478_current"/>
+		<xsl:attribute name="BIPOI">
+			<xsl:value-of select="$var478_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var484_resultof_cast">
+		<xsl:param name="var483_current"/>
+		<xsl:variable name="var482_current" select="string($var483_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var479_create_BIPOI">
+			<xsl:with-param name="var478_current" select="$var482_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var486_resultof_map">
+		<xsl:param name="var485_current"/>
+		<xsl:for-each select="$var485_current/@BIPOI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var484_resultof_cast">
+				<xsl:with-param name="var483_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var488_create_LocCurrency">
+		<xsl:param name="var487_current"/>
+		<xsl:attribute name="LocCurrency">
+			<xsl:value-of select="$var487_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var493_resultof_cast">
+		<xsl:param name="var492_current"/>
+		<xsl:variable name="var491_current" select="string($var492_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var488_create_LocCurrency">
+			<xsl:with-param name="var487_current" select="$var491_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var495_resultof_map">
+		<xsl:param name="var494_current"/>
+		<xsl:for-each select="$var494_current/@LocCurrency">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var493_resultof_cast">
+				<xsl:with-param name="var492_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var497_create_LocGrossPremium">
+		<xsl:param name="var496_current"/>
+		<xsl:attribute name="LocGrossPremium">
+			<xsl:value-of select="$var496_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var502_resultof_cast">
+		<xsl:param name="var501_current"/>
+		<xsl:variable name="var500_current" select="string($var501_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var497_create_LocGrossPremium">
+			<xsl:with-param name="var496_current" select="$var500_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var504_resultof_map">
+		<xsl:param name="var503_current"/>
+		<xsl:for-each select="$var503_current/@LocGrossPremium">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var502_resultof_cast">
+				<xsl:with-param name="var501_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var506_create_LocTax">
+		<xsl:param name="var505_current"/>
+		<xsl:attribute name="LocTax">
+			<xsl:value-of select="$var505_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var511_resultof_cast">
+		<xsl:param name="var510_current"/>
+		<xsl:variable name="var509_current" select="string($var510_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var506_create_LocTax">
+			<xsl:with-param name="var505_current" select="$var509_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var513_resultof_map">
+		<xsl:param name="var512_current"/>
+		<xsl:for-each select="$var512_current/@LocTax">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var511_resultof_cast">
+				<xsl:with-param name="var510_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var515_create_LocBrokerage">
+		<xsl:param name="var514_current"/>
+		<xsl:attribute name="LocBrokerage">
+			<xsl:value-of select="$var514_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var520_resultof_cast">
+		<xsl:param name="var519_current"/>
+		<xsl:variable name="var518_current" select="string($var519_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var515_create_LocBrokerage">
+			<xsl:with-param name="var514_current" select="$var518_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var522_resultof_map">
+		<xsl:param name="var521_current"/>
+		<xsl:for-each select="$var521_current/@LocBrokerage">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var520_resultof_cast">
+				<xsl:with-param name="var519_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var524_create_LocNetPremium">
+		<xsl:param name="var523_current"/>
+		<xsl:attribute name="LocNetPremium">
+			<xsl:value-of select="$var523_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var529_resultof_cast">
+		<xsl:param name="var528_current"/>
+		<xsl:variable name="var527_current" select="string($var528_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var524_create_LocNetPremium">
+			<xsl:with-param name="var523_current" select="$var527_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var531_resultof_map">
+		<xsl:param name="var530_current"/>
+		<xsl:for-each select="$var530_current/@LocNetPremium">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var529_resultof_cast">
+				<xsl:with-param name="var528_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var533_create_NonCatGroundUpLoss">
+		<xsl:param name="var532_current"/>
+		<xsl:attribute name="NonCatGroundUpLoss">
+			<xsl:value-of select="$var532_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var538_resultof_cast">
+		<xsl:param name="var537_current"/>
+		<xsl:variable name="var536_current" select="string($var537_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var533_create_NonCatGroundUpLoss">
+			<xsl:with-param name="var532_current" select="$var536_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var540_resultof_map">
+		<xsl:param name="var539_current"/>
+		<xsl:for-each select="$var539_current/@NonCatGroundUpLoss">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var538_resultof_cast">
+				<xsl:with-param name="var537_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var542_create_LocParticipation">
+		<xsl:param name="var541_current"/>
+		<xsl:attribute name="LocParticipation">
+			<xsl:value-of select="$var541_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var547_resultof_cast">
+		<xsl:param name="var546_current"/>
+		<xsl:variable name="var545_current" select="string($var546_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var542_create_LocParticipation">
+			<xsl:with-param name="var541_current" select="$var545_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var549_resultof_map">
+		<xsl:param name="var548_current"/>
+		<xsl:for-each select="$var548_current/@LocParticipation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var547_resultof_cast">
+				<xsl:with-param name="var546_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var551_create_PayoutBasis">
+		<xsl:param name="var550_current"/>
+		<xsl:attribute name="PayoutBasis">
+			<xsl:value-of select="$var550_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var556_resultof_cast">
+		<xsl:param name="var555_current"/>
+		<xsl:variable name="var554_current" select="string($var555_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var551_create_PayoutBasis">
+			<xsl:with-param name="var550_current" select="$var554_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var558_resultof_map">
+		<xsl:param name="var557_current"/>
+		<xsl:for-each select="$var557_current/@PayoutBasis">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var556_resultof_cast">
+				<xsl:with-param name="var555_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var560_create_ReinsTag">
+		<xsl:param name="var559_current"/>
+		<xsl:attribute name="ReinsTag">
+			<xsl:value-of select="$var559_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var565_resultof_cast">
+		<xsl:param name="var564_current"/>
+		<xsl:variable name="var563_current" select="string($var564_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var560_create_ReinsTag">
+			<xsl:with-param name="var559_current" select="$var563_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var567_resultof_map">
+		<xsl:param name="var566_current"/>
+		<xsl:for-each select="$var566_current/@ReinsTag">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var565_resultof_cast">
+				<xsl:with-param name="var564_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var569_create_CondTag">
+		<xsl:param name="var568_current"/>
+		<xsl:attribute name="CondTag">
+			<xsl:value-of select="$var568_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var574_resultof_cast">
+		<xsl:param name="var573_current"/>
+		<xsl:variable name="var572_current" select="string($var573_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var569_create_CondTag">
+			<xsl:with-param name="var568_current" select="$var572_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var576_resultof_map">
+		<xsl:param name="var575_current"/>
+		<xsl:for-each select="$var575_current/@CondTag">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var574_resultof_cast">
+				<xsl:with-param name="var573_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var578_create_CondPriority">
+		<xsl:param name="var577_current"/>
+		<xsl:attribute name="CondPriority">
+			<xsl:value-of select="$var577_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var583_resultof_cast">
+		<xsl:param name="var582_current"/>
+		<xsl:variable name="var581_current" select="string($var582_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var578_create_CondPriority">
+			<xsl:with-param name="var577_current" select="$var581_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var585_resultof_map">
+		<xsl:param name="var584_current"/>
+		<xsl:for-each select="$var584_current/@CondPriority">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var583_resultof_cast">
+				<xsl:with-param name="var582_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var587_create_LocDedCodeBuilding">
+		<xsl:param name="var586_current"/>
+		<xsl:attribute name="LocDedCode1Building">
+			<xsl:value-of select="$var586_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var592_resultof_cast">
+		<xsl:param name="var591_current"/>
+		<xsl:variable name="var590_current" select="string($var591_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var587_create_LocDedCodeBuilding">
+			<xsl:with-param name="var586_current" select="$var590_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var594_resultof_map">
+		<xsl:param name="var593_current"/>
+		<xsl:for-each select="$var593_current/@LocDedCode1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var592_resultof_cast">
+				<xsl:with-param name="var591_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var596_create_LocDedTypeBuilding">
+		<xsl:param name="var595_current"/>
+		<xsl:attribute name="LocDedType1Building">
+			<xsl:value-of select="$var595_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var601_resultof_cast">
+		<xsl:param name="var600_current"/>
+		<xsl:variable name="var599_current" select="string($var600_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var596_create_LocDedTypeBuilding">
+			<xsl:with-param name="var595_current" select="$var599_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var603_resultof_map">
+		<xsl:param name="var602_current"/>
+		<xsl:for-each select="$var602_current/@LocDedType1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var601_resultof_cast">
+				<xsl:with-param name="var600_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var605_create_LocDedBuilding">
+		<xsl:param name="var604_current"/>
+		<xsl:attribute name="LocDed1Building">
+			<xsl:value-of select="$var604_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var610_resultof_cast">
+		<xsl:param name="var609_current"/>
+		<xsl:variable name="var608_current" select="string($var609_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var605_create_LocDedBuilding">
+			<xsl:with-param name="var604_current" select="$var608_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var612_resultof_map">
+		<xsl:param name="var611_current"/>
+		<xsl:for-each select="$var611_current/@LocDed1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var610_resultof_cast">
+				<xsl:with-param name="var609_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var614_create_LocMinDedBuilding">
+		<xsl:param name="var613_current"/>
+		<xsl:attribute name="LocMinDed1Building">
+			<xsl:value-of select="$var613_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var619_resultof_cast">
+		<xsl:param name="var618_current"/>
+		<xsl:variable name="var617_current" select="string($var618_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var614_create_LocMinDedBuilding">
+			<xsl:with-param name="var613_current" select="$var617_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var621_resultof_map">
+		<xsl:param name="var620_current"/>
+		<xsl:for-each select="$var620_current/@LocMinDed1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var619_resultof_cast">
+				<xsl:with-param name="var618_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var623_create_LocMaxDedBuilding">
+		<xsl:param name="var622_current"/>
+		<xsl:attribute name="LocMaxDed1Building">
+			<xsl:value-of select="$var622_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var628_resultof_cast">
+		<xsl:param name="var627_current"/>
+		<xsl:variable name="var626_current" select="string($var627_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var623_create_LocMaxDedBuilding">
+			<xsl:with-param name="var622_current" select="$var626_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var630_resultof_map">
+		<xsl:param name="var629_current"/>
+		<xsl:for-each select="$var629_current/@LocMaxDed1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var628_resultof_cast">
+				<xsl:with-param name="var627_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var632_create_LocDedCodeOther">
+		<xsl:param name="var631_current"/>
+		<xsl:attribute name="LocDedCode2Other">
+			<xsl:value-of select="$var631_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var637_resultof_cast">
+		<xsl:param name="var636_current"/>
+		<xsl:variable name="var635_current" select="string($var636_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var632_create_LocDedCodeOther">
+			<xsl:with-param name="var631_current" select="$var635_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var639_resultof_map">
+		<xsl:param name="var638_current"/>
+		<xsl:for-each select="$var638_current/@LocDedCode2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var637_resultof_cast">
+				<xsl:with-param name="var636_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var641_create_LocDedTypeOther">
+		<xsl:param name="var640_current"/>
+		<xsl:attribute name="LocDedType2Other">
+			<xsl:value-of select="$var640_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var646_resultof_cast">
+		<xsl:param name="var645_current"/>
+		<xsl:variable name="var644_current" select="string($var645_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var641_create_LocDedTypeOther">
+			<xsl:with-param name="var640_current" select="$var644_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var648_resultof_map">
+		<xsl:param name="var647_current"/>
+		<xsl:for-each select="$var647_current/@LocDedType2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var646_resultof_cast">
+				<xsl:with-param name="var645_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var650_create_LocDedOther">
+		<xsl:param name="var649_current"/>
+		<xsl:attribute name="LocDed2Other">
+			<xsl:value-of select="$var649_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var655_resultof_cast">
+		<xsl:param name="var654_current"/>
+		<xsl:variable name="var653_current" select="string($var654_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var650_create_LocDedOther">
+			<xsl:with-param name="var649_current" select="$var653_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var657_resultof_map">
+		<xsl:param name="var656_current"/>
+		<xsl:for-each select="$var656_current/@LocDed2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var655_resultof_cast">
+				<xsl:with-param name="var654_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var659_create_LocMinDedOther">
+		<xsl:param name="var658_current"/>
+		<xsl:attribute name="LocMinDed2Other">
+			<xsl:value-of select="$var658_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var664_resultof_cast">
+		<xsl:param name="var663_current"/>
+		<xsl:variable name="var662_current" select="string($var663_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var659_create_LocMinDedOther">
+			<xsl:with-param name="var658_current" select="$var662_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var666_resultof_map">
+		<xsl:param name="var665_current"/>
+		<xsl:for-each select="$var665_current/@LocMinDed2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var664_resultof_cast">
+				<xsl:with-param name="var663_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var668_create_LocMaxDedOther">
+		<xsl:param name="var667_current"/>
+		<xsl:attribute name="LocMaxDed2Other">
+			<xsl:value-of select="$var667_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var673_resultof_cast">
+		<xsl:param name="var672_current"/>
+		<xsl:variable name="var671_current" select="string($var672_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var668_create_LocMaxDedOther">
+			<xsl:with-param name="var667_current" select="$var671_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var675_resultof_map">
+		<xsl:param name="var674_current"/>
+		<xsl:for-each select="$var674_current/@LocMaxDed2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var673_resultof_cast">
+				<xsl:with-param name="var672_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var677_create_LocDedCodeContents">
+		<xsl:param name="var676_current"/>
+		<xsl:attribute name="LocDedCode3Contents">
+			<xsl:value-of select="$var676_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var682_resultof_cast">
+		<xsl:param name="var681_current"/>
+		<xsl:variable name="var680_current" select="string($var681_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var677_create_LocDedCodeContents">
+			<xsl:with-param name="var676_current" select="$var680_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var684_resultof_map">
+		<xsl:param name="var683_current"/>
+		<xsl:for-each select="$var683_current/@LocDedCode3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var682_resultof_cast">
+				<xsl:with-param name="var681_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var686_create_LocDedTypeContents">
+		<xsl:param name="var685_current"/>
+		<xsl:attribute name="LocDedType3Contents">
+			<xsl:value-of select="$var685_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var691_resultof_cast">
+		<xsl:param name="var690_current"/>
+		<xsl:variable name="var689_current" select="string($var690_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var686_create_LocDedTypeContents">
+			<xsl:with-param name="var685_current" select="$var689_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var693_resultof_map">
+		<xsl:param name="var692_current"/>
+		<xsl:for-each select="$var692_current/@LocDedType3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var691_resultof_cast">
+				<xsl:with-param name="var690_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var695_create_LocDedContents">
+		<xsl:param name="var694_current"/>
+		<xsl:attribute name="LocDed3Contents">
+			<xsl:value-of select="$var694_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var700_resultof_cast">
+		<xsl:param name="var699_current"/>
+		<xsl:variable name="var698_current" select="string($var699_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var695_create_LocDedContents">
+			<xsl:with-param name="var694_current" select="$var698_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var702_resultof_map">
+		<xsl:param name="var701_current"/>
+		<xsl:for-each select="$var701_current/@LocDed3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var700_resultof_cast">
+				<xsl:with-param name="var699_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var704_create_LocMinDedContents">
+		<xsl:param name="var703_current"/>
+		<xsl:attribute name="LocMinDed3Contents">
+			<xsl:value-of select="$var703_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var709_resultof_cast">
+		<xsl:param name="var708_current"/>
+		<xsl:variable name="var707_current" select="string($var708_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var704_create_LocMinDedContents">
+			<xsl:with-param name="var703_current" select="$var707_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var711_resultof_map">
+		<xsl:param name="var710_current"/>
+		<xsl:for-each select="$var710_current/@LocMinDed3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var709_resultof_cast">
+				<xsl:with-param name="var708_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var713_create_LocMaxDedContents">
+		<xsl:param name="var712_current"/>
+		<xsl:attribute name="LocMaxDed3Contents">
+			<xsl:value-of select="$var712_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var718_resultof_cast">
+		<xsl:param name="var717_current"/>
+		<xsl:variable name="var716_current" select="string($var717_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var713_create_LocMaxDedContents">
+			<xsl:with-param name="var712_current" select="$var716_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var720_resultof_map">
+		<xsl:param name="var719_current"/>
+		<xsl:for-each select="$var719_current/@LocMaxDed3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var718_resultof_cast">
+				<xsl:with-param name="var717_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var722_create_LocDedCodeBI">
+		<xsl:param name="var721_current"/>
+		<xsl:attribute name="LocDedCode4BI">
+			<xsl:value-of select="$var721_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var727_resultof_cast">
+		<xsl:param name="var726_current"/>
+		<xsl:variable name="var725_current" select="string($var726_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var722_create_LocDedCodeBI">
+			<xsl:with-param name="var721_current" select="$var725_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var729_resultof_map">
+		<xsl:param name="var728_current"/>
+		<xsl:for-each select="$var728_current/@LocDedCode4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var727_resultof_cast">
+				<xsl:with-param name="var726_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var731_create_LocDedTypeBI">
+		<xsl:param name="var730_current"/>
+		<xsl:attribute name="LocDedType4BI">
+			<xsl:value-of select="$var730_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var736_resultof_cast">
+		<xsl:param name="var735_current"/>
+		<xsl:variable name="var734_current" select="string($var735_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var731_create_LocDedTypeBI">
+			<xsl:with-param name="var730_current" select="$var734_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var738_resultof_map">
+		<xsl:param name="var737_current"/>
+		<xsl:for-each select="$var737_current/@LocDedType4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var736_resultof_cast">
+				<xsl:with-param name="var735_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var740_create_LocDedBI">
+		<xsl:param name="var739_current"/>
+		<xsl:attribute name="LocDed4BI">
+			<xsl:value-of select="$var739_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var745_resultof_cast">
+		<xsl:param name="var744_current"/>
+		<xsl:variable name="var743_current" select="string($var744_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var740_create_LocDedBI">
+			<xsl:with-param name="var739_current" select="$var743_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var747_resultof_map">
+		<xsl:param name="var746_current"/>
+		<xsl:for-each select="$var746_current/@LocDed4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var745_resultof_cast">
+				<xsl:with-param name="var744_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var749_create_LocMinDedBI">
+		<xsl:param name="var748_current"/>
+		<xsl:attribute name="LocMinDed4BI">
+			<xsl:value-of select="$var748_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var754_resultof_cast">
+		<xsl:param name="var753_current"/>
+		<xsl:variable name="var752_current" select="string($var753_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var749_create_LocMinDedBI">
+			<xsl:with-param name="var748_current" select="$var752_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var756_resultof_map">
+		<xsl:param name="var755_current"/>
+		<xsl:for-each select="$var755_current/@LocMinDed4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var754_resultof_cast">
+				<xsl:with-param name="var753_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var758_create_LocMaxDedBI">
+		<xsl:param name="var757_current"/>
+		<xsl:attribute name="LocMaxDed4BI">
+			<xsl:value-of select="$var757_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var763_resultof_cast">
+		<xsl:param name="var762_current"/>
+		<xsl:variable name="var761_current" select="string($var762_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var758_create_LocMaxDedBI">
+			<xsl:with-param name="var757_current" select="$var761_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var765_resultof_map">
+		<xsl:param name="var764_current"/>
+		<xsl:for-each select="$var764_current/@LocMaxDed4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var763_resultof_cast">
+				<xsl:with-param name="var762_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var767_create_LocDedCodePD">
+		<xsl:param name="var766_current"/>
+		<xsl:attribute name="LocDedCode5PD">
+			<xsl:value-of select="$var766_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var772_resultof_cast">
+		<xsl:param name="var771_current"/>
+		<xsl:variable name="var770_current" select="string($var771_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var767_create_LocDedCodePD">
+			<xsl:with-param name="var766_current" select="$var770_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var774_resultof_map">
+		<xsl:param name="var773_current"/>
+		<xsl:for-each select="$var773_current/@LocDedCode5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var772_resultof_cast">
+				<xsl:with-param name="var771_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var776_create_LocDedTypePD">
+		<xsl:param name="var775_current"/>
+		<xsl:attribute name="LocDedType5PD">
+			<xsl:value-of select="$var775_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var781_resultof_cast">
+		<xsl:param name="var780_current"/>
+		<xsl:variable name="var779_current" select="string($var780_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var776_create_LocDedTypePD">
+			<xsl:with-param name="var775_current" select="$var779_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var783_resultof_map">
+		<xsl:param name="var782_current"/>
+		<xsl:for-each select="$var782_current/@LocDedType5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var781_resultof_cast">
+				<xsl:with-param name="var780_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var785_create_LocDedPD">
+		<xsl:param name="var784_current"/>
+		<xsl:attribute name="LocDed5PD">
+			<xsl:value-of select="$var784_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var790_resultof_cast">
+		<xsl:param name="var789_current"/>
+		<xsl:variable name="var788_current" select="string($var789_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var785_create_LocDedPD">
+			<xsl:with-param name="var784_current" select="$var788_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var792_resultof_map">
+		<xsl:param name="var791_current"/>
+		<xsl:for-each select="$var791_current/@LocDed5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var790_resultof_cast">
+				<xsl:with-param name="var789_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var794_create_LocMinDedPD">
+		<xsl:param name="var793_current"/>
+		<xsl:attribute name="LocMinDed5PD">
+			<xsl:value-of select="$var793_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var799_resultof_cast">
+		<xsl:param name="var798_current"/>
+		<xsl:variable name="var797_current" select="string($var798_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var794_create_LocMinDedPD">
+			<xsl:with-param name="var793_current" select="$var797_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var801_resultof_map">
+		<xsl:param name="var800_current"/>
+		<xsl:for-each select="$var800_current/@LocMinDed5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var799_resultof_cast">
+				<xsl:with-param name="var798_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var803_create_LocMaxDedPD">
+		<xsl:param name="var802_current"/>
+		<xsl:attribute name="LocMaxDed5PD">
+			<xsl:value-of select="$var802_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var808_resultof_cast">
+		<xsl:param name="var807_current"/>
+		<xsl:variable name="var806_current" select="string($var807_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var803_create_LocMaxDedPD">
+			<xsl:with-param name="var802_current" select="$var806_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var810_resultof_map">
+		<xsl:param name="var809_current"/>
+		<xsl:for-each select="$var809_current/@LocMaxDed5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var808_resultof_cast">
+				<xsl:with-param name="var807_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var812_create_LocDedCodeAll">
+		<xsl:param name="var811_current"/>
+		<xsl:attribute name="LocDedCode6All">
+			<xsl:value-of select="$var811_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var817_resultof_cast">
+		<xsl:param name="var816_current"/>
+		<xsl:variable name="var815_current" select="string($var816_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var812_create_LocDedCodeAll">
+			<xsl:with-param name="var811_current" select="$var815_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var819_resultof_map">
+		<xsl:param name="var818_current"/>
+		<xsl:for-each select="$var818_current/@LocDedCode6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var817_resultof_cast">
+				<xsl:with-param name="var816_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var821_create_LocDedTypeAll">
+		<xsl:param name="var820_current"/>
+		<xsl:attribute name="LocDedType6All">
+			<xsl:value-of select="$var820_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var826_resultof_cast">
+		<xsl:param name="var825_current"/>
+		<xsl:variable name="var824_current" select="string($var825_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var821_create_LocDedTypeAll">
+			<xsl:with-param name="var820_current" select="$var824_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var828_resultof_map">
+		<xsl:param name="var827_current"/>
+		<xsl:for-each select="$var827_current/@LocDedType6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var826_resultof_cast">
+				<xsl:with-param name="var825_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var830_create_LocDedAll">
+		<xsl:param name="var829_current"/>
+		<xsl:attribute name="LocDed6All">
+			<xsl:value-of select="$var829_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var835_resultof_cast">
+		<xsl:param name="var834_current"/>
+		<xsl:variable name="var833_current" select="string($var834_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var830_create_LocDedAll">
+			<xsl:with-param name="var829_current" select="$var833_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var837_resultof_map">
+		<xsl:param name="var836_current"/>
+		<xsl:for-each select="$var836_current/@LocDed6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var835_resultof_cast">
+				<xsl:with-param name="var834_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var839_create_LocMinDedAll">
+		<xsl:param name="var838_current"/>
+		<xsl:attribute name="LocMinDed6All">
+			<xsl:value-of select="$var838_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var844_resultof_cast">
+		<xsl:param name="var843_current"/>
+		<xsl:variable name="var842_current" select="string($var843_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var839_create_LocMinDedAll">
+			<xsl:with-param name="var838_current" select="$var842_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var846_resultof_map">
+		<xsl:param name="var845_current"/>
+		<xsl:for-each select="$var845_current/@LocMinDed6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var844_resultof_cast">
+				<xsl:with-param name="var843_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var848_create_LocMaxDedAll">
+		<xsl:param name="var847_current"/>
+		<xsl:attribute name="LocMaxDed6All">
+			<xsl:value-of select="$var847_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var853_resultof_cast">
+		<xsl:param name="var852_current"/>
+		<xsl:variable name="var851_current" select="string($var852_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var848_create_LocMaxDedAll">
+			<xsl:with-param name="var847_current" select="$var851_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var855_resultof_map">
+		<xsl:param name="var854_current"/>
+		<xsl:for-each select="$var854_current/@LocMaxDed6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var853_resultof_cast">
+				<xsl:with-param name="var852_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var857_create_LocLimitCodeBuilding">
+		<xsl:param name="var856_current"/>
+		<xsl:attribute name="LocLimitCode1Building">
+			<xsl:value-of select="$var856_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var862_resultof_cast">
+		<xsl:param name="var861_current"/>
+		<xsl:variable name="var860_current" select="string($var861_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var857_create_LocLimitCodeBuilding">
+			<xsl:with-param name="var856_current" select="$var860_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var864_resultof_map">
+		<xsl:param name="var863_current"/>
+		<xsl:for-each select="$var863_current/@LocLimitCode1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var862_resultof_cast">
+				<xsl:with-param name="var861_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var866_create_LocLimitTypeBuilding">
+		<xsl:param name="var865_current"/>
+		<xsl:attribute name="LocLimitType1Building">
+			<xsl:value-of select="$var865_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var871_resultof_cast">
+		<xsl:param name="var870_current"/>
+		<xsl:variable name="var869_current" select="string($var870_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var866_create_LocLimitTypeBuilding">
+			<xsl:with-param name="var865_current" select="$var869_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var873_resultof_map">
+		<xsl:param name="var872_current"/>
+		<xsl:for-each select="$var872_current/@LocLimitType1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var871_resultof_cast">
+				<xsl:with-param name="var870_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var875_create_LocLimitBuilding">
+		<xsl:param name="var874_current"/>
+		<xsl:attribute name="LocLimit1Building">
+			<xsl:value-of select="$var874_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var880_resultof_cast">
+		<xsl:param name="var879_current"/>
+		<xsl:variable name="var878_current" select="string($var879_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var875_create_LocLimitBuilding">
+			<xsl:with-param name="var874_current" select="$var878_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var882_resultof_map">
+		<xsl:param name="var881_current"/>
+		<xsl:for-each select="$var881_current/@LocLimit1Building">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var880_resultof_cast">
+				<xsl:with-param name="var879_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var884_create_LocLimitCodeOther">
+		<xsl:param name="var883_current"/>
+		<xsl:attribute name="LocLimitCode2Other">
+			<xsl:value-of select="$var883_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var889_resultof_cast">
+		<xsl:param name="var888_current"/>
+		<xsl:variable name="var887_current" select="string($var888_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var884_create_LocLimitCodeOther">
+			<xsl:with-param name="var883_current" select="$var887_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var891_resultof_map">
+		<xsl:param name="var890_current"/>
+		<xsl:for-each select="$var890_current/@LocLimitCode2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var889_resultof_cast">
+				<xsl:with-param name="var888_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var893_create_LocLimitTypeOther">
+		<xsl:param name="var892_current"/>
+		<xsl:attribute name="LocLimitType2Other">
+			<xsl:value-of select="$var892_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var898_resultof_cast">
+		<xsl:param name="var897_current"/>
+		<xsl:variable name="var896_current" select="string($var897_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var893_create_LocLimitTypeOther">
+			<xsl:with-param name="var892_current" select="$var896_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var900_resultof_map">
+		<xsl:param name="var899_current"/>
+		<xsl:for-each select="$var899_current/@LocLimitType2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var898_resultof_cast">
+				<xsl:with-param name="var897_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var902_create_LocLimitOther">
+		<xsl:param name="var901_current"/>
+		<xsl:attribute name="LocLimit2Other">
+			<xsl:value-of select="$var901_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var907_resultof_cast">
+		<xsl:param name="var906_current"/>
+		<xsl:variable name="var905_current" select="string($var906_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var902_create_LocLimitOther">
+			<xsl:with-param name="var901_current" select="$var905_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var909_resultof_map">
+		<xsl:param name="var908_current"/>
+		<xsl:for-each select="$var908_current/@LocLimit2Other">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var907_resultof_cast">
+				<xsl:with-param name="var906_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var911_create_LocLimitCodeContents">
+		<xsl:param name="var910_current"/>
+		<xsl:attribute name="LocLimitCode3Contents">
+			<xsl:value-of select="$var910_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var916_resultof_cast">
+		<xsl:param name="var915_current"/>
+		<xsl:variable name="var914_current" select="string($var915_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var911_create_LocLimitCodeContents">
+			<xsl:with-param name="var910_current" select="$var914_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var918_resultof_map">
+		<xsl:param name="var917_current"/>
+		<xsl:for-each select="$var917_current/@LocLimitCode3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var916_resultof_cast">
+				<xsl:with-param name="var915_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var920_create_LocLimitTypeContents">
+		<xsl:param name="var919_current"/>
+		<xsl:attribute name="LocLimitType3Contents">
+			<xsl:value-of select="$var919_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var925_resultof_cast">
+		<xsl:param name="var924_current"/>
+		<xsl:variable name="var923_current" select="string($var924_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var920_create_LocLimitTypeContents">
+			<xsl:with-param name="var919_current" select="$var923_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var927_resultof_map">
+		<xsl:param name="var926_current"/>
+		<xsl:for-each select="$var926_current/@LocLimitType3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var925_resultof_cast">
+				<xsl:with-param name="var924_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var929_create_LocLimitContents">
+		<xsl:param name="var928_current"/>
+		<xsl:attribute name="LocLimit3Contents">
+			<xsl:value-of select="$var928_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var934_resultof_cast">
+		<xsl:param name="var933_current"/>
+		<xsl:variable name="var932_current" select="string($var933_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var929_create_LocLimitContents">
+			<xsl:with-param name="var928_current" select="$var932_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var936_resultof_map">
+		<xsl:param name="var935_current"/>
+		<xsl:for-each select="$var935_current/@LocLimit3Contents">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var934_resultof_cast">
+				<xsl:with-param name="var933_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var938_create_LocLimitCodeBI">
+		<xsl:param name="var937_current"/>
+		<xsl:attribute name="LocLimitCode4BI">
+			<xsl:value-of select="$var937_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var943_resultof_cast">
+		<xsl:param name="var942_current"/>
+		<xsl:variable name="var941_current" select="string($var942_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var938_create_LocLimitCodeBI">
+			<xsl:with-param name="var937_current" select="$var941_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var945_resultof_map">
+		<xsl:param name="var944_current"/>
+		<xsl:for-each select="$var944_current/@LocLimitCode4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var943_resultof_cast">
+				<xsl:with-param name="var942_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var947_create_LocLimitTypeBI">
+		<xsl:param name="var946_current"/>
+		<xsl:attribute name="LocLimitType4BI">
+			<xsl:value-of select="$var946_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var952_resultof_cast">
+		<xsl:param name="var951_current"/>
+		<xsl:variable name="var950_current" select="string($var951_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var947_create_LocLimitTypeBI">
+			<xsl:with-param name="var946_current" select="$var950_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var954_resultof_map">
+		<xsl:param name="var953_current"/>
+		<xsl:for-each select="$var953_current/@LocLimitType4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var952_resultof_cast">
+				<xsl:with-param name="var951_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var956_create_LocLimitBI">
+		<xsl:param name="var955_current"/>
+		<xsl:attribute name="LocLimit4BI">
+			<xsl:value-of select="$var955_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var961_resultof_cast">
+		<xsl:param name="var960_current"/>
+		<xsl:variable name="var959_current" select="string($var960_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var956_create_LocLimitBI">
+			<xsl:with-param name="var955_current" select="$var959_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var963_resultof_map">
+		<xsl:param name="var962_current"/>
+		<xsl:for-each select="$var962_current/@LocLimit4BI">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var961_resultof_cast">
+				<xsl:with-param name="var960_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var965_create_LocLimitCodePD">
+		<xsl:param name="var964_current"/>
+		<xsl:attribute name="LocLimitCode5PD">
+			<xsl:value-of select="$var964_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var970_resultof_cast">
+		<xsl:param name="var969_current"/>
+		<xsl:variable name="var968_current" select="string($var969_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var965_create_LocLimitCodePD">
+			<xsl:with-param name="var964_current" select="$var968_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var972_resultof_map">
+		<xsl:param name="var971_current"/>
+		<xsl:for-each select="$var971_current/@LocLimitCode5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var970_resultof_cast">
+				<xsl:with-param name="var969_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var974_create_LocLimitTypePD">
+		<xsl:param name="var973_current"/>
+		<xsl:attribute name="LocLimitType5PD">
+			<xsl:value-of select="$var973_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var979_resultof_cast">
+		<xsl:param name="var978_current"/>
+		<xsl:variable name="var977_current" select="string($var978_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var974_create_LocLimitTypePD">
+			<xsl:with-param name="var973_current" select="$var977_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var981_resultof_map">
+		<xsl:param name="var980_current"/>
+		<xsl:for-each select="$var980_current/@LocLimitType5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var979_resultof_cast">
+				<xsl:with-param name="var978_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var983_create_LocLimitPD">
+		<xsl:param name="var982_current"/>
+		<xsl:attribute name="LocLimit5PD">
+			<xsl:value-of select="$var982_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var988_resultof_cast">
+		<xsl:param name="var987_current"/>
+		<xsl:variable name="var986_current" select="string($var987_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var983_create_LocLimitPD">
+			<xsl:with-param name="var982_current" select="$var986_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var990_resultof_map">
+		<xsl:param name="var989_current"/>
+		<xsl:for-each select="$var989_current/@LocLimit5PD">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var988_resultof_cast">
+				<xsl:with-param name="var987_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var992_create_LocLimitCodeAll">
+		<xsl:param name="var991_current"/>
+		<xsl:attribute name="LocLimitCode6All">
+			<xsl:value-of select="$var991_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var997_resultof_cast">
+		<xsl:param name="var996_current"/>
+		<xsl:variable name="var995_current" select="string($var996_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var992_create_LocLimitCodeAll">
+			<xsl:with-param name="var991_current" select="$var995_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var999_resultof_map">
+		<xsl:param name="var998_current"/>
+		<xsl:for-each select="$var998_current/@LocLimitCode6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var997_resultof_cast">
+				<xsl:with-param name="var996_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1001_create_LocLimitTypeAll">
+		<xsl:param name="var1000_current"/>
+		<xsl:attribute name="LocLimitType6All">
+			<xsl:value-of select="$var1000_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1006_resultof_cast">
+		<xsl:param name="var1005_current"/>
+		<xsl:variable name="var1004_current" select="string($var1005_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1001_create_LocLimitTypeAll">
+			<xsl:with-param name="var1000_current" select="$var1004_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1008_resultof_map">
+		<xsl:param name="var1007_current"/>
+		<xsl:for-each select="$var1007_current/@LocLimitType6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1006_resultof_cast">
+				<xsl:with-param name="var1005_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1010_create_LocLimitAll">
+		<xsl:param name="var1009_current"/>
+		<xsl:attribute name="LocLimit6All">
+			<xsl:value-of select="$var1009_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1015_resultof_cast">
+		<xsl:param name="var1014_current"/>
+		<xsl:variable name="var1013_current" select="string($var1014_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1010_create_LocLimitAll">
+			<xsl:with-param name="var1009_current" select="$var1013_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1017_resultof_map">
+		<xsl:param name="var1016_current"/>
+		<xsl:for-each select="$var1016_current/@LocLimit6All">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1015_resultof_cast">
+				<xsl:with-param name="var1014_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1019_create_BIWaitingPeriod">
+		<xsl:param name="var1018_current"/>
+		<xsl:attribute name="BIWaitingPeriod">
+			<xsl:value-of select="$var1018_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1024_resultof_cast">
+		<xsl:param name="var1023_current"/>
+		<xsl:variable name="var1022_current" select="string($var1023_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1019_create_BIWaitingPeriod">
+			<xsl:with-param name="var1018_current" select="$var1022_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1026_resultof_map">
+		<xsl:param name="var1025_current"/>
+		<xsl:for-each select="$var1025_current/@BIWaitingPeriod">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1024_resultof_cast">
+				<xsl:with-param name="var1023_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1028_create_LocPeril">
+		<xsl:param name="var1027_current"/>
+		<xsl:attribute name="LocPeril">
+			<xsl:value-of select="$var1027_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1033_resultof_cast">
+		<xsl:param name="var1032_current"/>
+		<xsl:variable name="var1031_current" select="string($var1032_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1028_create_LocPeril">
+			<xsl:with-param name="var1027_current" select="$var1031_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1035_resultof_map">
+		<xsl:param name="var1034_current"/>
+		<xsl:for-each select="$var1034_current/@LocPeril">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1033_resultof_cast">
+				<xsl:with-param name="var1032_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1037_create_YearUpgraded">
+		<xsl:param name="var1036_current"/>
+		<xsl:attribute name="YearUpgraded">
+			<xsl:value-of select="$var1036_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1042_resultof_cast">
+		<xsl:param name="var1041_current"/>
+		<xsl:variable name="var1040_current" select="string($var1041_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1037_create_YearUpgraded">
+			<xsl:with-param name="var1036_current" select="$var1040_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1044_resultof_map">
+		<xsl:param name="var1043_current"/>
+		<xsl:for-each select="$var1043_current/@YearUpgraded">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1042_resultof_cast">
+				<xsl:with-param name="var1041_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1046_create_SurgeLeakage">
+		<xsl:param name="var1045_current"/>
+		<xsl:attribute name="SurgeLeakage">
+			<xsl:value-of select="$var1045_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1051_resultof_cast">
+		<xsl:param name="var1050_current"/>
+		<xsl:variable name="var1049_current" select="string($var1050_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1046_create_SurgeLeakage">
+			<xsl:with-param name="var1045_current" select="$var1049_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1053_resultof_map">
+		<xsl:param name="var1052_current"/>
+		<xsl:for-each select="$var1052_current/@SurgeLeakage">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1051_resultof_cast">
+				<xsl:with-param name="var1050_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1055_create_SprinklerType">
+		<xsl:param name="var1054_current"/>
+		<xsl:attribute name="SprinklerType">
+			<xsl:value-of select="$var1054_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1060_resultof_cast">
+		<xsl:param name="var1059_current"/>
+		<xsl:variable name="var1058_current" select="string($var1059_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1055_create_SprinklerType">
+			<xsl:with-param name="var1054_current" select="$var1058_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1062_resultof_map">
+		<xsl:param name="var1061_current"/>
+		<xsl:for-each select="$var1061_current/@SprinklerType">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1060_resultof_cast">
+				<xsl:with-param name="var1059_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1064_create_RoofCover">
+		<xsl:param name="var1063_current"/>
+		<xsl:attribute name="RoofCover">
+			<xsl:value-of select="$var1063_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1069_resultof_cast">
+		<xsl:param name="var1068_current"/>
+		<xsl:variable name="var1067_current" select="string($var1068_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1064_create_RoofCover">
+			<xsl:with-param name="var1063_current" select="$var1067_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1071_resultof_map">
+		<xsl:param name="var1070_current"/>
+		<xsl:for-each select="$var1070_current/@RoofCover">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1069_resultof_cast">
+				<xsl:with-param name="var1068_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1073_create_RoofYearBuilt">
+		<xsl:param name="var1072_current"/>
+		<xsl:attribute name="RoofYearBuilt">
+			<xsl:value-of select="$var1072_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1078_resultof_cast">
+		<xsl:param name="var1077_current"/>
+		<xsl:variable name="var1076_current" select="string($var1077_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1073_create_RoofYearBuilt">
+			<xsl:with-param name="var1072_current" select="$var1076_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1080_resultof_map">
+		<xsl:param name="var1079_current"/>
+		<xsl:for-each select="$var1079_current/@RoofYearBuilt">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1078_resultof_cast">
+				<xsl:with-param name="var1077_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1082_create_RoofGeometry">
+		<xsl:param name="var1081_current"/>
+		<xsl:attribute name="RoofGeometry">
+			<xsl:value-of select="$var1081_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1087_resultof_cast">
+		<xsl:param name="var1086_current"/>
+		<xsl:variable name="var1085_current" select="string($var1086_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1082_create_RoofGeometry">
+			<xsl:with-param name="var1081_current" select="$var1085_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1089_resultof_map">
+		<xsl:param name="var1088_current"/>
+		<xsl:for-each select="$var1088_current/@RoofGeometry">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1087_resultof_cast">
+				<xsl:with-param name="var1086_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1091_create_RoofEquipment">
+		<xsl:param name="var1090_current"/>
+		<xsl:attribute name="RoofEquipment">
+			<xsl:value-of select="$var1090_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1096_resultof_cast">
+		<xsl:param name="var1095_current"/>
+		<xsl:variable name="var1094_current" select="string($var1095_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1091_create_RoofEquipment">
+			<xsl:with-param name="var1090_current" select="$var1094_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1098_resultof_map">
+		<xsl:param name="var1097_current"/>
+		<xsl:for-each select="$var1097_current/@RoofEquipment">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1096_resultof_cast">
+				<xsl:with-param name="var1095_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1100_create_RoofFrame">
+		<xsl:param name="var1099_current"/>
+		<xsl:attribute name="RoofFrame">
+			<xsl:value-of select="$var1099_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1105_resultof_cast">
+		<xsl:param name="var1104_current"/>
+		<xsl:variable name="var1103_current" select="string($var1104_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1100_create_RoofFrame">
+			<xsl:with-param name="var1099_current" select="$var1103_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1107_resultof_map">
+		<xsl:param name="var1106_current"/>
+		<xsl:for-each select="$var1106_current/@RoofFrame">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1105_resultof_cast">
+				<xsl:with-param name="var1104_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1109_create_RoofMaintenance">
+		<xsl:param name="var1108_current"/>
+		<xsl:attribute name="RoofMaintenance">
+			<xsl:value-of select="$var1108_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1114_resultof_cast">
+		<xsl:param name="var1113_current"/>
+		<xsl:variable name="var1112_current" select="string($var1113_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1109_create_RoofMaintenance">
+			<xsl:with-param name="var1108_current" select="$var1112_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1116_resultof_map">
+		<xsl:param name="var1115_current"/>
+		<xsl:for-each select="$var1115_current/@RoofMaintenance">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1114_resultof_cast">
+				<xsl:with-param name="var1113_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1118_create_BuildingCondition">
+		<xsl:param name="var1117_current"/>
+		<xsl:attribute name="BuildingCondition">
+			<xsl:value-of select="$var1117_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1123_resultof_cast">
+		<xsl:param name="var1122_current"/>
+		<xsl:variable name="var1121_current" select="string($var1122_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1118_create_BuildingCondition">
+			<xsl:with-param name="var1117_current" select="$var1121_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1125_resultof_map">
+		<xsl:param name="var1124_current"/>
+		<xsl:for-each select="$var1124_current/@BuildingCondition">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1123_resultof_cast">
+				<xsl:with-param name="var1122_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1127_create_RoofAttachedStructure">
+		<xsl:param name="var1126_current"/>
+		<xsl:attribute name="RoofAttachedStructure">
+			<xsl:value-of select="$var1126_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1132_resultof_cast">
+		<xsl:param name="var1131_current"/>
+		<xsl:variable name="var1130_current" select="string($var1131_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1127_create_RoofAttachedStructure">
+			<xsl:with-param name="var1126_current" select="$var1130_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1134_resultof_map">
+		<xsl:param name="var1133_current"/>
+		<xsl:for-each select="$var1133_current/@RoofAttachedStructure">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1132_resultof_cast">
+				<xsl:with-param name="var1131_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1136_create_RoofDeck">
+		<xsl:param name="var1135_current"/>
+		<xsl:attribute name="RoofDeck">
+			<xsl:value-of select="$var1135_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1141_resultof_cast">
+		<xsl:param name="var1140_current"/>
+		<xsl:variable name="var1139_current" select="string($var1140_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1136_create_RoofDeck">
+			<xsl:with-param name="var1135_current" select="$var1139_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1143_resultof_map">
+		<xsl:param name="var1142_current"/>
+		<xsl:for-each select="$var1142_current/@RoofDeck">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1141_resultof_cast">
+				<xsl:with-param name="var1140_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1145_create_RoofPitch">
+		<xsl:param name="var1144_current"/>
+		<xsl:attribute name="RoofPitch">
+			<xsl:value-of select="$var1144_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1150_resultof_cast">
+		<xsl:param name="var1149_current"/>
+		<xsl:variable name="var1148_current" select="string($var1149_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1145_create_RoofPitch">
+			<xsl:with-param name="var1144_current" select="$var1148_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1152_resultof_map">
+		<xsl:param name="var1151_current"/>
+		<xsl:for-each select="$var1151_current/@RoofPitch">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1150_resultof_cast">
+				<xsl:with-param name="var1149_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1154_create_RoofAnchorage">
+		<xsl:param name="var1153_current"/>
+		<xsl:attribute name="RoofAnchorage">
+			<xsl:value-of select="$var1153_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1159_resultof_cast">
+		<xsl:param name="var1158_current"/>
+		<xsl:variable name="var1157_current" select="string($var1158_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1154_create_RoofAnchorage">
+			<xsl:with-param name="var1153_current" select="$var1157_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1161_resultof_map">
+		<xsl:param name="var1160_current"/>
+		<xsl:for-each select="$var1160_current/@RoofAnchorage">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1159_resultof_cast">
+				<xsl:with-param name="var1158_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1163_create_RoofDeckAttachment">
+		<xsl:param name="var1162_current"/>
+		<xsl:attribute name="RoofDeckAttachment">
+			<xsl:value-of select="$var1162_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1168_resultof_cast">
+		<xsl:param name="var1167_current"/>
+		<xsl:variable name="var1166_current" select="string($var1167_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1163_create_RoofDeckAttachment">
+			<xsl:with-param name="var1162_current" select="$var1166_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1170_resultof_map">
+		<xsl:param name="var1169_current"/>
+		<xsl:for-each select="$var1169_current/@RoofDeckAttachment">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1168_resultof_cast">
+				<xsl:with-param name="var1167_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1172_create_RoofCoverAttachment">
+		<xsl:param name="var1171_current"/>
+		<xsl:attribute name="RoofCoverAttachment">
+			<xsl:value-of select="$var1171_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1177_resultof_cast">
+		<xsl:param name="var1176_current"/>
+		<xsl:variable name="var1175_current" select="string($var1176_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1172_create_RoofCoverAttachment">
+			<xsl:with-param name="var1171_current" select="$var1175_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1179_resultof_map">
+		<xsl:param name="var1178_current"/>
+		<xsl:for-each select="$var1178_current/@RoofCoverAttachment">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1177_resultof_cast">
+				<xsl:with-param name="var1176_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1181_create_GlassType">
+		<xsl:param name="var1180_current"/>
+		<xsl:attribute name="GlassType">
+			<xsl:value-of select="$var1180_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1186_resultof_cast">
+		<xsl:param name="var1185_current"/>
+		<xsl:variable name="var1184_current" select="string($var1185_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1181_create_GlassType">
+			<xsl:with-param name="var1180_current" select="$var1184_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1188_resultof_map">
+		<xsl:param name="var1187_current"/>
+		<xsl:for-each select="$var1187_current/@GlassType">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1186_resultof_cast">
+				<xsl:with-param name="var1185_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1190_create_LatticeType">
+		<xsl:param name="var1189_current"/>
+		<xsl:attribute name="LatticeType">
+			<xsl:value-of select="$var1189_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1195_resultof_cast">
+		<xsl:param name="var1194_current"/>
+		<xsl:variable name="var1193_current" select="string($var1194_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1190_create_LatticeType">
+			<xsl:with-param name="var1189_current" select="$var1193_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1197_resultof_map">
+		<xsl:param name="var1196_current"/>
+		<xsl:for-each select="$var1196_current/@LatticeType">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1195_resultof_cast">
+				<xsl:with-param name="var1194_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1199_create_FloodZone">
+		<xsl:param name="var1198_current"/>
+		<xsl:attribute name="FloodZone">
+			<xsl:value-of select="$var1198_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1204_resultof_cast">
+		<xsl:param name="var1203_current"/>
+		<xsl:variable name="var1202_current" select="string($var1203_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1199_create_FloodZone">
+			<xsl:with-param name="var1198_current" select="$var1202_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1206_resultof_map">
+		<xsl:param name="var1205_current"/>
+		<xsl:for-each select="$var1205_current/@FloodZone">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1204_resultof_cast">
+				<xsl:with-param name="var1203_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1208_create_SoftStory">
+		<xsl:param name="var1207_current"/>
+		<xsl:attribute name="SoftStory">
+			<xsl:value-of select="$var1207_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1213_resultof_cast">
+		<xsl:param name="var1212_current"/>
+		<xsl:variable name="var1211_current" select="string($var1212_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1208_create_SoftStory">
+			<xsl:with-param name="var1207_current" select="$var1211_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1215_resultof_map">
+		<xsl:param name="var1214_current"/>
+		<xsl:for-each select="$var1214_current/@SoftStory">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1213_resultof_cast">
+				<xsl:with-param name="var1212_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1217_create_Basement">
+		<xsl:param name="var1216_current"/>
+		<xsl:attribute name="Basement">
+			<xsl:value-of select="$var1216_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1222_resultof_cast">
+		<xsl:param name="var1221_current"/>
+		<xsl:variable name="var1220_current" select="string($var1221_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1217_create_Basement">
+			<xsl:with-param name="var1216_current" select="$var1220_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1224_resultof_map">
+		<xsl:param name="var1223_current"/>
+		<xsl:for-each select="$var1223_current/@Basement">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1222_resultof_cast">
+				<xsl:with-param name="var1221_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1226_create_BasementLevelCount">
+		<xsl:param name="var1225_current"/>
+		<xsl:attribute name="BasementLevelCount">
+			<xsl:value-of select="$var1225_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1231_resultof_cast">
+		<xsl:param name="var1230_current"/>
+		<xsl:variable name="var1229_current" select="string($var1230_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1226_create_BasementLevelCount">
+			<xsl:with-param name="var1225_current" select="$var1229_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1233_resultof_map">
+		<xsl:param name="var1232_current"/>
+		<xsl:for-each select="$var1232_current/@BasementLevelCount">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1231_resultof_cast">
+				<xsl:with-param name="var1230_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1235_create_WindowProtection">
+		<xsl:param name="var1234_current"/>
+		<xsl:attribute name="WindowProtection">
+			<xsl:value-of select="$var1234_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1240_resultof_cast">
+		<xsl:param name="var1239_current"/>
+		<xsl:variable name="var1238_current" select="string($var1239_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1235_create_WindowProtection">
+			<xsl:with-param name="var1234_current" select="$var1238_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1242_resultof_map">
+		<xsl:param name="var1241_current"/>
+		<xsl:for-each select="$var1241_current/@WindowProtection">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1240_resultof_cast">
+				<xsl:with-param name="var1239_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1244_create_FoundationType">
+		<xsl:param name="var1243_current"/>
+		<xsl:attribute name="FoundationType">
+			<xsl:value-of select="$var1243_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1249_resultof_cast">
+		<xsl:param name="var1248_current"/>
+		<xsl:variable name="var1247_current" select="string($var1248_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1244_create_FoundationType">
+			<xsl:with-param name="var1243_current" select="$var1247_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1251_resultof_map">
+		<xsl:param name="var1250_current"/>
+		<xsl:for-each select="$var1250_current/@FoundationType">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1249_resultof_cast">
+				<xsl:with-param name="var1248_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1253_create_WallAttachedStructure">
+		<xsl:param name="var1252_current"/>
+		<xsl:attribute name="WallAttachedStructure">
+			<xsl:value-of select="$var1252_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1258_resultof_cast">
+		<xsl:param name="var1257_current"/>
+		<xsl:variable name="var1256_current" select="string($var1257_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1253_create_WallAttachedStructure">
+			<xsl:with-param name="var1252_current" select="$var1256_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1260_resultof_map">
+		<xsl:param name="var1259_current"/>
+		<xsl:for-each select="$var1259_current/@WallAttachedStructure">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1258_resultof_cast">
+				<xsl:with-param name="var1257_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1262_create_AppurtenantStructure">
+		<xsl:param name="var1261_current"/>
+		<xsl:attribute name="AppurtenantStructure">
+			<xsl:value-of select="$var1261_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1267_resultof_cast">
+		<xsl:param name="var1266_current"/>
+		<xsl:variable name="var1265_current" select="string($var1266_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1262_create_AppurtenantStructure">
+			<xsl:with-param name="var1261_current" select="$var1265_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1269_resultof_map">
+		<xsl:param name="var1268_current"/>
+		<xsl:for-each select="$var1268_current/@AppurtenantStructure">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1267_resultof_cast">
+				<xsl:with-param name="var1266_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1271_create_ConstructionQuality">
+		<xsl:param name="var1270_current"/>
+		<xsl:attribute name="ConstructionQuality">
+			<xsl:value-of select="$var1270_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1276_resultof_cast">
+		<xsl:param name="var1275_current"/>
+		<xsl:variable name="var1274_current" select="string($var1275_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1271_create_ConstructionQuality">
+			<xsl:with-param name="var1270_current" select="$var1274_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1278_resultof_map">
+		<xsl:param name="var1277_current"/>
+		<xsl:for-each select="$var1277_current/@ConstructionQuality">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1276_resultof_cast">
+				<xsl:with-param name="var1275_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1280_create_GroundEquipment">
+		<xsl:param name="var1279_current"/>
+		<xsl:attribute name="GroundEquipment">
+			<xsl:value-of select="$var1279_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1285_resultof_cast">
+		<xsl:param name="var1284_current"/>
+		<xsl:variable name="var1283_current" select="string($var1284_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1280_create_GroundEquipment">
+			<xsl:with-param name="var1279_current" select="$var1283_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1287_resultof_map">
+		<xsl:param name="var1286_current"/>
+		<xsl:for-each select="$var1286_current/@GroundEquipment">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1285_resultof_cast">
+				<xsl:with-param name="var1284_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1289_create_EquipmentBracing">
+		<xsl:param name="var1288_current"/>
+		<xsl:attribute name="EquipmentBracing">
+			<xsl:value-of select="$var1288_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1294_resultof_cast">
+		<xsl:param name="var1293_current"/>
+		<xsl:variable name="var1292_current" select="string($var1293_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1289_create_EquipmentBracing">
+			<xsl:with-param name="var1288_current" select="$var1292_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1296_resultof_map">
+		<xsl:param name="var1295_current"/>
+		<xsl:for-each select="$var1295_current/@EquipmentBracing">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1294_resultof_cast">
+				<xsl:with-param name="var1293_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1298_create_Flashing">
+		<xsl:param name="var1297_current"/>
+		<xsl:attribute name="Flashing">
+			<xsl:value-of select="$var1297_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1303_resultof_cast">
+		<xsl:param name="var1302_current"/>
+		<xsl:variable name="var1301_current" select="string($var1302_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1298_create_Flashing">
+			<xsl:with-param name="var1297_current" select="$var1301_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1305_resultof_map">
+		<xsl:param name="var1304_current"/>
+		<xsl:for-each select="$var1304_current/@Flashing">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1303_resultof_cast">
+				<xsl:with-param name="var1302_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1307_create_BuildingShape">
+		<xsl:param name="var1306_current"/>
+		<xsl:attribute name="BuildingShape">
+			<xsl:value-of select="$var1306_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1312_resultof_cast">
+		<xsl:param name="var1311_current"/>
+		<xsl:variable name="var1310_current" select="string($var1311_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1307_create_BuildingShape">
+			<xsl:with-param name="var1306_current" select="$var1310_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1314_resultof_map">
+		<xsl:param name="var1313_current"/>
+		<xsl:for-each select="$var1313_current/@BuildingShape">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1312_resultof_cast">
+				<xsl:with-param name="var1311_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1316_create_ShapeIrregularity">
+		<xsl:param name="var1315_current"/>
+		<xsl:attribute name="ShapeIrregularity">
+			<xsl:value-of select="$var1315_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1321_resultof_cast">
+		<xsl:param name="var1320_current"/>
+		<xsl:variable name="var1319_current" select="string($var1320_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1316_create_ShapeIrregularity">
+			<xsl:with-param name="var1315_current" select="$var1319_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1323_resultof_map">
+		<xsl:param name="var1322_current"/>
+		<xsl:for-each select="$var1322_current/@ShapeIrregularity">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1321_resultof_cast">
+				<xsl:with-param name="var1320_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1325_create_Pounding">
+		<xsl:param name="var1324_current"/>
+		<xsl:attribute name="Pounding">
+			<xsl:value-of select="$var1324_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1330_resultof_cast">
+		<xsl:param name="var1329_current"/>
+		<xsl:variable name="var1328_current" select="string($var1329_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1325_create_Pounding">
+			<xsl:with-param name="var1324_current" select="$var1328_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1332_resultof_map">
+		<xsl:param name="var1331_current"/>
+		<xsl:for-each select="$var1331_current/@Pounding">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1330_resultof_cast">
+				<xsl:with-param name="var1329_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1334_create_Ornamentation">
+		<xsl:param name="var1333_current"/>
+		<xsl:attribute name="Ornamentation">
+			<xsl:value-of select="$var1333_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1339_resultof_cast">
+		<xsl:param name="var1338_current"/>
+		<xsl:variable name="var1337_current" select="string($var1338_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1334_create_Ornamentation">
+			<xsl:with-param name="var1333_current" select="$var1337_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1341_resultof_map">
+		<xsl:param name="var1340_current"/>
+		<xsl:for-each select="$var1340_current/@Ornamentation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1339_resultof_cast">
+				<xsl:with-param name="var1338_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1343_create_SpecialEQConstruction">
+		<xsl:param name="var1342_current"/>
+		<xsl:attribute name="SpecialEQConstruction">
+			<xsl:value-of select="$var1342_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1348_resultof_cast">
+		<xsl:param name="var1347_current"/>
+		<xsl:variable name="var1346_current" select="string($var1347_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1343_create_SpecialEQConstruction">
+			<xsl:with-param name="var1342_current" select="$var1346_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1350_resultof_map">
+		<xsl:param name="var1349_current"/>
+		<xsl:for-each select="$var1349_current/@SpecialEQConstruction">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1348_resultof_cast">
+				<xsl:with-param name="var1347_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1352_create_Retrofit">
+		<xsl:param name="var1351_current"/>
+		<xsl:attribute name="Retrofit">
+			<xsl:value-of select="$var1351_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1357_resultof_cast">
+		<xsl:param name="var1356_current"/>
+		<xsl:variable name="var1355_current" select="string($var1356_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1352_create_Retrofit">
+			<xsl:with-param name="var1351_current" select="$var1355_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1359_resultof_map">
+		<xsl:param name="var1358_current"/>
+		<xsl:for-each select="$var1358_current/@Retrofit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1357_resultof_cast">
+				<xsl:with-param name="var1356_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1361_create_CrippleWalls">
+		<xsl:param name="var1360_current"/>
+		<xsl:attribute name="CrippleWalls">
+			<xsl:value-of select="$var1360_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1366_resultof_cast">
+		<xsl:param name="var1365_current"/>
+		<xsl:variable name="var1364_current" select="string($var1365_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1361_create_CrippleWalls">
+			<xsl:with-param name="var1360_current" select="$var1364_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1368_resultof_map">
+		<xsl:param name="var1367_current"/>
+		<xsl:for-each select="$var1367_current/@CrippleWalls">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1366_resultof_cast">
+				<xsl:with-param name="var1365_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1370_create_FoundationConnection">
+		<xsl:param name="var1369_current"/>
+		<xsl:attribute name="FoundationConnection">
+			<xsl:value-of select="$var1369_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1375_resultof_cast">
+		<xsl:param name="var1374_current"/>
+		<xsl:variable name="var1373_current" select="string($var1374_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1370_create_FoundationConnection">
+			<xsl:with-param name="var1369_current" select="$var1373_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1377_resultof_map">
+		<xsl:param name="var1376_current"/>
+		<xsl:for-each select="$var1376_current/@FoundationConnection">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1375_resultof_cast">
+				<xsl:with-param name="var1374_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1379_create_ShortColumn">
+		<xsl:param name="var1378_current"/>
+		<xsl:attribute name="ShortColumn">
+			<xsl:value-of select="$var1378_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1384_resultof_cast">
+		<xsl:param name="var1383_current"/>
+		<xsl:variable name="var1382_current" select="string($var1383_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1379_create_ShortColumn">
+			<xsl:with-param name="var1378_current" select="$var1382_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1386_resultof_map">
+		<xsl:param name="var1385_current"/>
+		<xsl:for-each select="$var1385_current/@ShortColumn">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1384_resultof_cast">
+				<xsl:with-param name="var1383_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1388_create_Fatigue">
+		<xsl:param name="var1387_current"/>
+		<xsl:attribute name="Fatigue">
+			<xsl:value-of select="$var1387_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1393_resultof_cast">
+		<xsl:param name="var1392_current"/>
+		<xsl:variable name="var1391_current" select="string($var1392_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1388_create_Fatigue">
+			<xsl:with-param name="var1387_current" select="$var1391_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1395_resultof_map">
+		<xsl:param name="var1394_current"/>
+		<xsl:for-each select="$var1394_current/@Fatigue">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1393_resultof_cast">
+				<xsl:with-param name="var1392_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1397_create_Cladding">
+		<xsl:param name="var1396_current"/>
+		<xsl:attribute name="Cladding">
+			<xsl:value-of select="$var1396_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1402_resultof_cast">
+		<xsl:param name="var1401_current"/>
+		<xsl:variable name="var1400_current" select="string($var1401_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1397_create_Cladding">
+			<xsl:with-param name="var1396_current" select="$var1400_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1404_resultof_map">
+		<xsl:param name="var1403_current"/>
+		<xsl:for-each select="$var1403_current/@Cladding">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1402_resultof_cast">
+				<xsl:with-param name="var1401_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1406_create_BIPreparedness">
+		<xsl:param name="var1405_current"/>
+		<xsl:attribute name="BIPreparedness">
+			<xsl:value-of select="$var1405_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1411_resultof_cast">
+		<xsl:param name="var1410_current"/>
+		<xsl:variable name="var1409_current" select="string($var1410_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1406_create_BIPreparedness">
+			<xsl:with-param name="var1405_current" select="$var1409_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1413_resultof_map">
+		<xsl:param name="var1412_current"/>
+		<xsl:for-each select="$var1412_current/@BIPreparedness">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1411_resultof_cast">
+				<xsl:with-param name="var1410_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1415_create_BIRedundancy">
+		<xsl:param name="var1414_current"/>
+		<xsl:attribute name="BIRedundancy">
+			<xsl:value-of select="$var1414_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1420_resultof_cast">
+		<xsl:param name="var1419_current"/>
+		<xsl:variable name="var1418_current" select="string($var1419_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1415_create_BIRedundancy">
+			<xsl:with-param name="var1414_current" select="$var1418_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1422_resultof_map">
+		<xsl:param name="var1421_current"/>
+		<xsl:for-each select="$var1421_current/@BIRedundancy">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1420_resultof_cast">
+				<xsl:with-param name="var1419_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1424_create_BuildingElevation">
+		<xsl:param name="var1423_current"/>
+		<xsl:attribute name="BuildingElevation">
+			<xsl:value-of select="$var1423_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1429_resultof_cast">
+		<xsl:param name="var1428_current"/>
+		<xsl:variable name="var1427_current" select="string($var1428_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1424_create_BuildingElevation">
+			<xsl:with-param name="var1423_current" select="$var1427_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1431_resultof_map">
+		<xsl:param name="var1430_current"/>
+		<xsl:for-each select="$var1430_current/@BuildingElevation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1429_resultof_cast">
+				<xsl:with-param name="var1428_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1433_create_BuildingElevationUnit">
+		<xsl:param name="var1432_current"/>
+		<xsl:attribute name="BuildingElevationUnit">
+			<xsl:value-of select="$var1432_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1438_resultof_cast">
+		<xsl:param name="var1437_current"/>
+		<xsl:variable name="var1436_current" select="string($var1437_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1433_create_BuildingElevationUnit">
+			<xsl:with-param name="var1432_current" select="$var1436_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1440_resultof_map">
+		<xsl:param name="var1439_current"/>
+		<xsl:for-each select="$var1439_current/@BuildingElevationUnit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1438_resultof_cast">
+				<xsl:with-param name="var1437_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1442_create_Datum">
+		<xsl:param name="var1441_current"/>
+		<xsl:attribute name="Datum">
+			<xsl:value-of select="$var1441_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1447_resultof_cast">
+		<xsl:param name="var1446_current"/>
+		<xsl:variable name="var1445_current" select="string($var1446_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1442_create_Datum">
+			<xsl:with-param name="var1441_current" select="$var1445_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1449_resultof_map">
+		<xsl:param name="var1448_current"/>
+		<xsl:for-each select="$var1448_current/@Datum">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1447_resultof_cast">
+				<xsl:with-param name="var1446_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1451_create_GroundElevation">
+		<xsl:param name="var1450_current"/>
+		<xsl:attribute name="GroundElevation">
+			<xsl:value-of select="$var1450_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1456_resultof_cast">
+		<xsl:param name="var1455_current"/>
+		<xsl:variable name="var1454_current" select="string($var1455_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1451_create_GroundElevation">
+			<xsl:with-param name="var1450_current" select="$var1454_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1458_resultof_map">
+		<xsl:param name="var1457_current"/>
+		<xsl:for-each select="$var1457_current/@GroundElevation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1456_resultof_cast">
+				<xsl:with-param name="var1455_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1460_create_GroundElevationUnit">
+		<xsl:param name="var1459_current"/>
+		<xsl:attribute name="GroundElevationUnit">
+			<xsl:value-of select="$var1459_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1465_resultof_cast">
+		<xsl:param name="var1464_current"/>
+		<xsl:variable name="var1463_current" select="string($var1464_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1460_create_GroundElevationUnit">
+			<xsl:with-param name="var1459_current" select="$var1463_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1467_resultof_map">
+		<xsl:param name="var1466_current"/>
+		<xsl:for-each select="$var1466_current/@GroundElevationUnit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1465_resultof_cast">
+				<xsl:with-param name="var1464_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1469_create_Tank">
+		<xsl:param name="var1468_current"/>
+		<xsl:attribute name="Tank">
+			<xsl:value-of select="$var1468_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1474_resultof_cast">
+		<xsl:param name="var1473_current"/>
+		<xsl:variable name="var1472_current" select="string($var1473_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1469_create_Tank">
+			<xsl:with-param name="var1468_current" select="$var1472_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1476_resultof_map">
+		<xsl:param name="var1475_current"/>
+		<xsl:for-each select="$var1475_current/@Tank">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1474_resultof_cast">
+				<xsl:with-param name="var1473_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1478_create_Redundancy">
+		<xsl:param name="var1477_current"/>
+		<xsl:attribute name="Redundancy">
+			<xsl:value-of select="$var1477_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1483_resultof_cast">
+		<xsl:param name="var1482_current"/>
+		<xsl:variable name="var1481_current" select="string($var1482_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1478_create_Redundancy">
+			<xsl:with-param name="var1477_current" select="$var1481_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1485_resultof_map">
+		<xsl:param name="var1484_current"/>
+		<xsl:for-each select="$var1484_current/@Redundancy">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1483_resultof_cast">
+				<xsl:with-param name="var1482_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1487_create_InternalPartition">
+		<xsl:param name="var1486_current"/>
+		<xsl:attribute name="InternalPartition">
+			<xsl:value-of select="$var1486_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1492_resultof_cast">
+		<xsl:param name="var1491_current"/>
+		<xsl:variable name="var1490_current" select="string($var1491_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1487_create_InternalPartition">
+			<xsl:with-param name="var1486_current" select="$var1490_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1494_resultof_map">
+		<xsl:param name="var1493_current"/>
+		<xsl:for-each select="$var1493_current/@InternalPartition">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1492_resultof_cast">
+				<xsl:with-param name="var1491_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1496_create_ExternalDoors">
+		<xsl:param name="var1495_current"/>
+		<xsl:attribute name="ExternalDoors">
+			<xsl:value-of select="$var1495_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1501_resultof_cast">
+		<xsl:param name="var1500_current"/>
+		<xsl:variable name="var1499_current" select="string($var1500_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1496_create_ExternalDoors">
+			<xsl:with-param name="var1495_current" select="$var1499_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1503_resultof_map">
+		<xsl:param name="var1502_current"/>
+		<xsl:for-each select="$var1502_current/@ExternalDoors">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1501_resultof_cast">
+				<xsl:with-param name="var1500_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1505_create_Torsion">
+		<xsl:param name="var1504_current"/>
+		<xsl:attribute name="Torsion">
+			<xsl:value-of select="$var1504_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1510_resultof_cast">
+		<xsl:param name="var1509_current"/>
+		<xsl:variable name="var1508_current" select="string($var1509_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1505_create_Torsion">
+			<xsl:with-param name="var1504_current" select="$var1508_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1512_resultof_map">
+		<xsl:param name="var1511_current"/>
+		<xsl:for-each select="$var1511_current/@Torsion">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1510_resultof_cast">
+				<xsl:with-param name="var1509_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1514_create_MechanicalEquipmentSide">
+		<xsl:param name="var1513_current"/>
+		<xsl:attribute name="MechanicalEquipmentSide">
+			<xsl:value-of select="$var1513_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1519_resultof_cast">
+		<xsl:param name="var1518_current"/>
+		<xsl:variable name="var1517_current" select="string($var1518_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1514_create_MechanicalEquipmentSide">
+			<xsl:with-param name="var1513_current" select="$var1517_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1521_resultof_map">
+		<xsl:param name="var1520_current"/>
+		<xsl:for-each select="$var1520_current/@MechanicalEquipmentSide">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1519_resultof_cast">
+				<xsl:with-param name="var1518_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1523_create_ContentsWindVuln">
+		<xsl:param name="var1522_current"/>
+		<xsl:attribute name="ContentsWindVuln">
+			<xsl:value-of select="$var1522_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1528_resultof_cast">
+		<xsl:param name="var1527_current"/>
+		<xsl:variable name="var1526_current" select="string($var1527_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1523_create_ContentsWindVuln">
+			<xsl:with-param name="var1522_current" select="$var1526_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1530_resultof_map">
+		<xsl:param name="var1529_current"/>
+		<xsl:for-each select="$var1529_current/@ContentsWindVuln">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1528_resultof_cast">
+				<xsl:with-param name="var1527_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1532_create_ContentsFloodVuln">
+		<xsl:param name="var1531_current"/>
+		<xsl:attribute name="ContentsFloodVuln">
+			<xsl:value-of select="$var1531_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1537_resultof_cast">
+		<xsl:param name="var1536_current"/>
+		<xsl:variable name="var1535_current" select="string($var1536_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1532_create_ContentsFloodVuln">
+			<xsl:with-param name="var1531_current" select="$var1535_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1539_resultof_map">
+		<xsl:param name="var1538_current"/>
+		<xsl:for-each select="$var1538_current/@ContentsFloodVuln">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1537_resultof_cast">
+				<xsl:with-param name="var1536_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1541_create_ContentsQuakeVuln">
+		<xsl:param name="var1540_current"/>
+		<xsl:attribute name="ContentsQuakeVuln">
+			<xsl:value-of select="$var1540_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1546_resultof_cast">
+		<xsl:param name="var1545_current"/>
+		<xsl:variable name="var1544_current" select="string($var1545_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1541_create_ContentsQuakeVuln">
+			<xsl:with-param name="var1540_current" select="$var1544_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1548_resultof_map">
+		<xsl:param name="var1547_current"/>
+		<xsl:for-each select="$var1547_current/@ContentsQuakeVuln">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1546_resultof_cast">
+				<xsl:with-param name="var1545_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1550_create_SmallDebris">
+		<xsl:param name="var1549_current"/>
+		<xsl:attribute name="SmallDebris">
+			<xsl:value-of select="$var1549_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1555_resultof_cast">
+		<xsl:param name="var1554_current"/>
+		<xsl:variable name="var1553_current" select="string($var1554_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1550_create_SmallDebris">
+			<xsl:with-param name="var1549_current" select="$var1553_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1557_resultof_map">
+		<xsl:param name="var1556_current"/>
+		<xsl:for-each select="$var1556_current/@SmallDebris">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1555_resultof_cast">
+				<xsl:with-param name="var1554_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1559_create_FloorsOccupied">
+		<xsl:param name="var1558_current"/>
+		<xsl:attribute name="FloorsOccupied">
+			<xsl:value-of select="$var1558_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1564_resultof_cast">
+		<xsl:param name="var1563_current"/>
+		<xsl:variable name="var1562_current" select="string($var1563_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1559_create_FloorsOccupied">
+			<xsl:with-param name="var1558_current" select="$var1562_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1566_resultof_map">
+		<xsl:param name="var1565_current"/>
+		<xsl:for-each select="$var1565_current/@FloorsOccupied">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1564_resultof_cast">
+				<xsl:with-param name="var1563_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1568_create_FloodDefenseElevation">
+		<xsl:param name="var1567_current"/>
+		<xsl:attribute name="FloodDefenseElevation">
+			<xsl:value-of select="$var1567_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1573_resultof_cast">
+		<xsl:param name="var1572_current"/>
+		<xsl:variable name="var1571_current" select="string($var1572_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1568_create_FloodDefenseElevation">
+			<xsl:with-param name="var1567_current" select="$var1571_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1575_resultof_map">
+		<xsl:param name="var1574_current"/>
+		<xsl:for-each select="$var1574_current/@FloodDefenseElevation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1573_resultof_cast">
+				<xsl:with-param name="var1572_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1577_create_FloodDefenseElevationUnit">
+		<xsl:param name="var1576_current"/>
+		<xsl:attribute name="FloodDefenseElevationUnit">
+			<xsl:value-of select="$var1576_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1582_resultof_cast">
+		<xsl:param name="var1581_current"/>
+		<xsl:variable name="var1580_current" select="string($var1581_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1577_create_FloodDefenseElevationUnit">
+			<xsl:with-param name="var1576_current" select="$var1580_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1584_resultof_map">
+		<xsl:param name="var1583_current"/>
+		<xsl:for-each select="$var1583_current/@FloodDefenseElevationUnit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1582_resultof_cast">
+				<xsl:with-param name="var1581_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1586_create_FloodDebrisResilience">
+		<xsl:param name="var1585_current"/>
+		<xsl:attribute name="FloodDebrisResilience">
+			<xsl:value-of select="$var1585_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1591_resultof_cast">
+		<xsl:param name="var1590_current"/>
+		<xsl:variable name="var1589_current" select="string($var1590_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1586_create_FloodDebrisResilience">
+			<xsl:with-param name="var1585_current" select="$var1589_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1593_resultof_map">
+		<xsl:param name="var1592_current"/>
+		<xsl:for-each select="$var1592_current/@FloodDebrisResilience">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1591_resultof_cast">
+				<xsl:with-param name="var1590_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1595_create_BaseFloodElevation">
+		<xsl:param name="var1594_current"/>
+		<xsl:attribute name="BaseFloodElevation">
+			<xsl:value-of select="$var1594_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1600_resultof_cast">
+		<xsl:param name="var1599_current"/>
+		<xsl:variable name="var1598_current" select="string($var1599_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1595_create_BaseFloodElevation">
+			<xsl:with-param name="var1594_current" select="$var1598_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1602_resultof_map">
+		<xsl:param name="var1601_current"/>
+		<xsl:for-each select="$var1601_current/@BaseFloodElevation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1600_resultof_cast">
+				<xsl:with-param name="var1599_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1604_create_BaseFloodElevationUnit">
+		<xsl:param name="var1603_current"/>
+		<xsl:attribute name="BaseFloodElevationUnit">
+			<xsl:value-of select="$var1603_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1609_resultof_cast">
+		<xsl:param name="var1608_current"/>
+		<xsl:variable name="var1607_current" select="string($var1608_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1604_create_BaseFloodElevationUnit">
+			<xsl:with-param name="var1603_current" select="$var1607_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1611_resultof_map">
+		<xsl:param name="var1610_current"/>
+		<xsl:for-each select="$var1610_current/@BaseFloodElevationUnit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1609_resultof_cast">
+				<xsl:with-param name="var1608_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1613_create_BuildingHeight">
+		<xsl:param name="var1612_current"/>
+		<xsl:attribute name="BuildingHeight">
+			<xsl:value-of select="$var1612_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1618_resultof_cast">
+		<xsl:param name="var1617_current"/>
+		<xsl:variable name="var1616_current" select="string($var1617_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1613_create_BuildingHeight">
+			<xsl:with-param name="var1612_current" select="$var1616_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1620_resultof_map">
+		<xsl:param name="var1619_current"/>
+		<xsl:for-each select="$var1619_current/@BuildingHeight">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1618_resultof_cast">
+				<xsl:with-param name="var1617_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1622_create_BuildingHeightUnit">
+		<xsl:param name="var1621_current"/>
+		<xsl:attribute name="BuildingHeightUnit">
+			<xsl:value-of select="$var1621_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1627_resultof_cast">
+		<xsl:param name="var1626_current"/>
+		<xsl:variable name="var1625_current" select="string($var1626_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1622_create_BuildingHeightUnit">
+			<xsl:with-param name="var1621_current" select="$var1625_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1629_resultof_map">
+		<xsl:param name="var1628_current"/>
+		<xsl:for-each select="$var1628_current/@BuildingHeightUnit">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1627_resultof_cast">
+				<xsl:with-param name="var1626_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1631_create_BuildingValuation">
+		<xsl:param name="var1630_current"/>
+		<xsl:attribute name="BuildingValuation">
+			<xsl:value-of select="$var1630_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1636_resultof_cast">
+		<xsl:param name="var1635_current"/>
+		<xsl:variable name="var1634_current" select="string($var1635_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1631_create_BuildingValuation">
+			<xsl:with-param name="var1630_current" select="$var1634_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1638_resultof_map">
+		<xsl:param name="var1637_current"/>
+		<xsl:for-each select="$var1637_current/@BuildingValuation">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1636_resultof_cast">
+				<xsl:with-param name="var1635_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1640_create_TreeExposure">
+		<xsl:param name="var1639_current"/>
+		<xsl:attribute name="TreeExposure">
+			<xsl:value-of select="$var1639_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1645_resultof_cast">
+		<xsl:param name="var1644_current"/>
+		<xsl:variable name="var1643_current" select="string($var1644_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1640_create_TreeExposure">
+			<xsl:with-param name="var1639_current" select="$var1643_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1647_resultof_map">
+		<xsl:param name="var1646_current"/>
+		<xsl:for-each select="$var1646_current/@TreeExposure">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1645_resultof_cast">
+				<xsl:with-param name="var1644_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1649_create_Chimney">
+		<xsl:param name="var1648_current"/>
+		<xsl:attribute name="Chimney">
+			<xsl:value-of select="$var1648_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1654_resultof_cast">
+		<xsl:param name="var1653_current"/>
+		<xsl:variable name="var1652_current" select="string($var1653_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1649_create_Chimney">
+			<xsl:with-param name="var1648_current" select="$var1652_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1656_resultof_map">
+		<xsl:param name="var1655_current"/>
+		<xsl:for-each select="$var1655_current/@Chimney">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1654_resultof_cast">
+				<xsl:with-param name="var1653_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1658_create_BuildingType">
+		<xsl:param name="var1657_current"/>
+		<xsl:attribute name="BuildingType">
+			<xsl:value-of select="$var1657_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1663_resultof_cast">
+		<xsl:param name="var1662_current"/>
+		<xsl:variable name="var1661_current" select="string($var1662_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1658_create_BuildingType">
+			<xsl:with-param name="var1657_current" select="$var1661_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1665_resultof_map">
+		<xsl:param name="var1664_current"/>
+		<xsl:for-each select="$var1664_current/@BuildingType">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1663_resultof_cast">
+				<xsl:with-param name="var1662_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1667_create_Packaging">
+		<xsl:param name="var1666_current"/>
+		<xsl:attribute name="Packaging">
+			<xsl:value-of select="$var1666_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1672_resultof_cast">
+		<xsl:param name="var1671_current"/>
+		<xsl:variable name="var1670_current" select="string($var1671_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1667_create_Packaging">
+			<xsl:with-param name="var1666_current" select="$var1670_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1674_resultof_map">
+		<xsl:param name="var1673_current"/>
+		<xsl:for-each select="$var1673_current/@Packaging">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1672_resultof_cast">
+				<xsl:with-param name="var1671_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1676_create_Protection">
+		<xsl:param name="var1675_current"/>
+		<xsl:attribute name="Protection">
+			<xsl:value-of select="$var1675_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1681_resultof_cast">
+		<xsl:param name="var1680_current"/>
+		<xsl:variable name="var1679_current" select="string($var1680_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1676_create_Protection">
+			<xsl:with-param name="var1675_current" select="$var1679_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1683_resultof_map">
+		<xsl:param name="var1682_current"/>
+		<xsl:for-each select="$var1682_current/@Protection">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1681_resultof_cast">
+				<xsl:with-param name="var1680_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1685_create_SalvageProtection">
+		<xsl:param name="var1684_current"/>
+		<xsl:attribute name="SalvageProtection">
+			<xsl:value-of select="$var1684_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1690_resultof_cast">
+		<xsl:param name="var1689_current"/>
+		<xsl:variable name="var1688_current" select="string($var1689_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1685_create_SalvageProtection">
+			<xsl:with-param name="var1684_current" select="$var1688_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1692_resultof_map">
+		<xsl:param name="var1691_current"/>
+		<xsl:for-each select="$var1691_current/@SalvageProtection">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1690_resultof_cast">
+				<xsl:with-param name="var1689_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1694_create_ValuablesStorage">
+		<xsl:param name="var1693_current"/>
+		<xsl:attribute name="ValuablesStorage">
+			<xsl:value-of select="$var1693_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1699_resultof_cast">
+		<xsl:param name="var1698_current"/>
+		<xsl:variable name="var1697_current" select="string($var1698_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1694_create_ValuablesStorage">
+			<xsl:with-param name="var1693_current" select="$var1697_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1701_resultof_map">
+		<xsl:param name="var1700_current"/>
+		<xsl:for-each select="$var1700_current/@ValuablesStorage">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1699_resultof_cast">
+				<xsl:with-param name="var1698_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1703_create_DaysHeld">
+		<xsl:param name="var1702_current"/>
+		<xsl:attribute name="DaysHeld">
+			<xsl:value-of select="$var1702_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1708_resultof_cast">
+		<xsl:param name="var1707_current"/>
+		<xsl:variable name="var1706_current" select="string($var1707_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1703_create_DaysHeld">
+			<xsl:with-param name="var1702_current" select="$var1706_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1710_resultof_map">
+		<xsl:param name="var1709_current"/>
+		<xsl:for-each select="$var1709_current/@DaysHeld">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1708_resultof_cast">
+				<xsl:with-param name="var1707_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1712_create_BrickVeneer">
+		<xsl:param name="var1711_current"/>
+		<xsl:attribute name="BrickVeneer">
+			<xsl:value-of select="$var1711_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1717_resultof_cast">
+		<xsl:param name="var1716_current"/>
+		<xsl:variable name="var1715_current" select="string($var1716_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1712_create_BrickVeneer">
+			<xsl:with-param name="var1711_current" select="$var1715_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1719_resultof_map">
+		<xsl:param name="var1718_current"/>
+		<xsl:for-each select="$var1718_current/@BrickVeneer">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1717_resultof_cast">
+				<xsl:with-param name="var1716_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1721_create_FEMACompliance">
+		<xsl:param name="var1720_current"/>
+		<xsl:attribute name="FEMACompliance">
+			<xsl:value-of select="$var1720_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1726_resultof_cast">
+		<xsl:param name="var1725_current"/>
+		<xsl:variable name="var1724_current" select="string($var1725_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1721_create_FEMACompliance">
+			<xsl:with-param name="var1720_current" select="$var1724_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1728_resultof_map">
+		<xsl:param name="var1727_current"/>
+		<xsl:for-each select="$var1727_current/@FEMACompliance">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1726_resultof_cast">
+				<xsl:with-param name="var1725_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1730_create_CustomFloodSOP">
+		<xsl:param name="var1729_current"/>
+		<xsl:attribute name="CustomFloodSOP">
+			<xsl:value-of select="$var1729_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1735_resultof_cast">
+		<xsl:param name="var1734_current"/>
+		<xsl:variable name="var1733_current" select="string($var1734_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1730_create_CustomFloodSOP">
+			<xsl:with-param name="var1729_current" select="$var1733_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1737_resultof_map">
+		<xsl:param name="var1736_current"/>
+		<xsl:for-each select="$var1736_current/@CustomFloodSOP">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1735_resultof_cast">
+				<xsl:with-param name="var1734_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1739_create_CustomFloodZone">
+		<xsl:param name="var1738_current"/>
+		<xsl:attribute name="CustomFloodZone">
+			<xsl:value-of select="$var1738_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1744_resultof_cast">
+		<xsl:param name="var1743_current"/>
+		<xsl:variable name="var1742_current" select="string($var1743_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1739_create_CustomFloodZone">
+			<xsl:with-param name="var1738_current" select="$var1742_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1746_resultof_map">
+		<xsl:param name="var1745_current"/>
+		<xsl:for-each select="$var1745_current/@CustomFloodZone">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1744_resultof_cast">
+				<xsl:with-param name="var1743_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1748_create_MultiStoryHall">
+		<xsl:param name="var1747_current"/>
+		<xsl:attribute name="MultiStoryHall">
+			<xsl:value-of select="$var1747_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1753_resultof_cast">
+		<xsl:param name="var1752_current"/>
+		<xsl:variable name="var1751_current" select="string($var1752_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1748_create_MultiStoryHall">
+			<xsl:with-param name="var1747_current" select="$var1751_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1755_resultof_map">
+		<xsl:param name="var1754_current"/>
+		<xsl:for-each select="$var1754_current/@MultiStoryHall">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1753_resultof_cast">
+				<xsl:with-param name="var1752_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1757_create_BuildingExteriorOpening">
+		<xsl:param name="var1756_current"/>
+		<xsl:attribute name="BuildingExteriorOpening">
+			<xsl:value-of select="$var1756_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1762_resultof_cast">
+		<xsl:param name="var1761_current"/>
+		<xsl:variable name="var1760_current" select="string($var1761_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1757_create_BuildingExteriorOpening">
+			<xsl:with-param name="var1756_current" select="$var1760_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1764_resultof_map">
+		<xsl:param name="var1763_current"/>
+		<xsl:for-each select="$var1763_current/@BuildingExteriorOpening">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1762_resultof_cast">
+				<xsl:with-param name="var1761_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1766_create_ServiceEquipmentProtection">
+		<xsl:param name="var1765_current"/>
+		<xsl:attribute name="ServiceEquipmentProtection">
+			<xsl:value-of select="$var1765_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1771_resultof_cast">
+		<xsl:param name="var1770_current"/>
+		<xsl:variable name="var1769_current" select="string($var1770_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1766_create_ServiceEquipmentProtection">
+			<xsl:with-param name="var1765_current" select="$var1769_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1773_resultof_map">
+		<xsl:param name="var1772_current"/>
+		<xsl:for-each select="$var1772_current/@ServiceEquipmentProtection">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1771_resultof_cast">
+				<xsl:with-param name="var1770_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1775_create_TallOneStory">
+		<xsl:param name="var1774_current"/>
+		<xsl:attribute name="TallOneStory">
+			<xsl:value-of select="$var1774_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1780_resultof_cast">
+		<xsl:param name="var1779_current"/>
+		<xsl:variable name="var1778_current" select="string($var1779_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1775_create_TallOneStory">
+			<xsl:with-param name="var1774_current" select="$var1778_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1782_resultof_map">
+		<xsl:param name="var1781_current"/>
+		<xsl:for-each select="$var1781_current/@TallOneStory">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1780_resultof_cast">
+				<xsl:with-param name="var1779_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1784_create_TerrainRoughness">
+		<xsl:param name="var1783_current"/>
+		<xsl:attribute name="TerrainRoughness">
+			<xsl:value-of select="$var1783_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1789_resultof_cast">
+		<xsl:param name="var1788_current"/>
+		<xsl:variable name="var1787_current" select="string($var1788_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1784_create_TerrainRoughness">
+			<xsl:with-param name="var1783_current" select="$var1787_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1791_resultof_map">
+		<xsl:param name="var1790_current"/>
+		<xsl:for-each select="$var1790_current/@TerrainRoughness">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1789_resultof_cast">
+				<xsl:with-param name="var1788_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1793_create_NumberOfEmployees">
+		<xsl:param name="var1792_current"/>
+		<xsl:attribute name="NumberOfEmployees">
+			<xsl:value-of select="$var1792_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1798_resultof_cast">
+		<xsl:param name="var1797_current"/>
+		<xsl:variable name="var1796_current" select="string($var1797_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1793_create_NumberOfEmployees">
+			<xsl:with-param name="var1792_current" select="$var1796_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1800_resultof_map">
+		<xsl:param name="var1799_current"/>
+		<xsl:for-each select="$var1799_current/@NumberOfEmployees">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1798_resultof_cast">
+				<xsl:with-param name="var1797_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1802_create_Payroll">
+		<xsl:param name="var1801_current"/>
+		<xsl:attribute name="Payroll">
+			<xsl:value-of select="$var1801_current"/>
+		</xsl:attribute>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1807_resultof_cast">
+		<xsl:param name="var1806_current"/>
+		<xsl:variable name="var1805_current" select="string($var1806_current)"/>
+		<xsl:call-template name="agt:MapToOED_CanLocA_var1802_create_Payroll">
+			<xsl:with-param name="var1801_current" select="$var1805_current"/>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1809_resultof_map">
+		<xsl:param name="var1808_current"/>
+		<xsl:for-each select="$var1808_current/@Payroll">
+			<xsl:call-template name="agt:MapToOED_CanLocA_var1807_resultof_cast">
+				<xsl:with-param name="var1806_current" select="."/>
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
+	<xsl:template name="agt:MapToOED_CanLocA_var1811_create_rec">
+		<xsl:param name="var1810_current"/>
+		<rec>
+			<xsl:variable name="var4_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var3_AccNumber">
+						<xsl:if test="@AccNumber">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var3_AccNumber))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var4_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var9_resultof_map">
+							<xsl:with-param name="var8_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var2_create_AccNumber">
+						<xsl:with-param name="var1_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var13_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var12_LocNumber">
+						<xsl:if test="@LocNumber">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var12_LocNumber))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var13_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var18_resultof_map">
+							<xsl:with-param name="var17_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var11_create_LocNumber">
+						<xsl:with-param name="var10_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var22_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var21_LocName">
+						<xsl:if test="@LocName">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var21_LocName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var22_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var27_resultof_map">
+							<xsl:with-param name="var26_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var20_create_LocName">
+						<xsl:with-param name="var19_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var31_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var30_LocGroup">
+						<xsl:if test="@LocGroup">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var30_LocGroup))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var31_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var36_resultof_map">
+							<xsl:with-param name="var35_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var29_create_LocGroup">
+						<xsl:with-param name="var28_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var40_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var39_IsPrimary">
+						<xsl:if test="@IsPrimary">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var39_IsPrimary))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var40_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var45_resultof_map">
+							<xsl:with-param name="var44_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var38_create_IsPrimary">
+						<xsl:with-param name="var37_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var49_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var48_IsTenant">
+						<xsl:if test="@IsTenant">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var48_IsTenant))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var49_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var54_resultof_map">
+							<xsl:with-param name="var53_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var47_create_IsTenant">
+						<xsl:with-param name="var46_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var58_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var57_BuildingID">
+						<xsl:if test="@BuildingID">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var57_BuildingID))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var58_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var63_resultof_map">
+							<xsl:with-param name="var62_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var56_create_BuildingID">
+						<xsl:with-param name="var55_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var67_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var66_LocInceptionDate">
+						<xsl:if test="@LocInceptionDate">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var66_LocInceptionDate))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var67_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var72_resultof_map">
+							<xsl:with-param name="var71_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var65_create_LocInceptionDate">
+						<xsl:with-param name="var64_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var76_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var75_LocExpiryDate">
+						<xsl:if test="@LocExpiryDate">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var75_LocExpiryDate))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var76_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var81_resultof_map">
+							<xsl:with-param name="var80_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var74_create_LocExpiryDate">
+						<xsl:with-param name="var73_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var85_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var84_PercentComplete">
+						<xsl:if test="@PercentComplete">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var84_PercentComplete))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var85_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var90_resultof_map">
+							<xsl:with-param name="var89_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var83_create_PercentComplete">
+						<xsl:with-param name="var82_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var94_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var93_CompletionDate">
+						<xsl:if test="@CompletionDate">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var93_CompletionDate))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var94_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var99_resultof_map">
+							<xsl:with-param name="var98_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var92_create_CompletionDate">
+						<xsl:with-param name="var91_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var103_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var102_CountryCode">
+						<xsl:if test="@CountryCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var102_CountryCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var103_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var108_resultof_map">
+							<xsl:with-param name="var107_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var101_create_CountryCode">
+						<xsl:with-param name="var100_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var112_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var111_Latitude">
+						<xsl:if test="@Latitude">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var111_Latitude))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var112_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var117_resultof_map">
+							<xsl:with-param name="var116_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var110_create_Latitude">
+						<xsl:with-param name="var109_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var121_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var120_Longitude">
+						<xsl:if test="@Longitude">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var120_Longitude))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var121_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var126_resultof_map">
+							<xsl:with-param name="var125_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var119_create_Longitude">
+						<xsl:with-param name="var118_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var130_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var129_StreetAddress">
+						<xsl:if test="@StreetAddress">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var129_StreetAddress))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var130_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var135_resultof_map">
+							<xsl:with-param name="var134_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var128_create_StreetAddress">
+						<xsl:with-param name="var127_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var139_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var138_PostalCode">
+						<xsl:if test="@PostalCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var138_PostalCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var139_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var144_resultof_map">
+							<xsl:with-param name="var143_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var137_create_PostalCode">
+						<xsl:with-param name="var136_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var148_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var147_City">
+						<xsl:if test="@City">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var147_City))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var148_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var153_resultof_map">
+							<xsl:with-param name="var152_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var146_create_City">
+						<xsl:with-param name="var145_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var157_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var156_AreaCode">
+						<xsl:if test="@AreaCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var156_AreaCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var157_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var162_resultof_map">
+							<xsl:with-param name="var161_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var155_create_AreaCode">
+						<xsl:with-param name="var154_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var166_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var165_AreaName">
+						<xsl:if test="@AreaName">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var165_AreaName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var166_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var171_resultof_map">
+							<xsl:with-param name="var170_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var164_create_AreaName">
+						<xsl:with-param name="var163_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var175_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var174_GeogScheme">
+						<xsl:if test="@GeogScheme1">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var174_GeogScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var175_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var180_resultof_map">
+							<xsl:with-param name="var179_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var173_create_GeogScheme">
+						<xsl:with-param name="var172_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var184_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var183_GeogName">
+						<xsl:if test="@GeogName1">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var183_GeogName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var184_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var189_resultof_map">
+							<xsl:with-param name="var188_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var182_create_GeogName">
+						<xsl:with-param name="var181_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var193_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var192_GeogScheme">
+						<xsl:if test="@GeogScheme2">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var192_GeogScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var193_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var198_resultof_map">
+							<xsl:with-param name="var197_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var191_create_GeogScheme">
+						<xsl:with-param name="var190_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var202_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var201_GeogName">
+						<xsl:if test="@GeogName2">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var201_GeogName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var202_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var207_resultof_map">
+							<xsl:with-param name="var206_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var200_create_GeogName">
+						<xsl:with-param name="var199_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var211_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var210_GeogScheme">
+						<xsl:if test="@GeogScheme3">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var210_GeogScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var211_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var216_resultof_map">
+							<xsl:with-param name="var215_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var209_create_GeogScheme">
+						<xsl:with-param name="var208_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var220_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var219_GeogName">
+						<xsl:if test="@GeogName3">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var219_GeogName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var220_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var225_resultof_map">
+							<xsl:with-param name="var224_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var218_create_GeogName">
+						<xsl:with-param name="var217_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var229_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var228_GeogScheme">
+						<xsl:if test="@GeogScheme4">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var228_GeogScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var229_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var234_resultof_map">
+							<xsl:with-param name="var233_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var227_create_GeogScheme">
+						<xsl:with-param name="var226_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var238_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var237_GeogName">
+						<xsl:if test="@GeogName4">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var237_GeogName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var238_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var243_resultof_map">
+							<xsl:with-param name="var242_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var236_create_GeogName">
+						<xsl:with-param name="var235_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var247_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var246_GeogScheme">
+						<xsl:if test="@GeogScheme5">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var246_GeogScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var247_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var252_resultof_map">
+							<xsl:with-param name="var251_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var245_create_GeogScheme">
+						<xsl:with-param name="var244_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var256_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var255_GeogName">
+						<xsl:if test="@GeogName5">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var255_GeogName))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var256_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var261_resultof_map">
+							<xsl:with-param name="var260_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var254_create_GeogName">
+						<xsl:with-param name="var253_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var265_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var264_AddressMatch">
+						<xsl:if test="@AddressMatch">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var264_AddressMatch))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var265_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var270_resultof_map">
+							<xsl:with-param name="var269_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var263_create_AddressMatch">
+						<xsl:with-param name="var262_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var274_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var273_GeocodeQuality">
+						<xsl:if test="@GeocodeQuality">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var273_GeocodeQuality))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var274_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var279_resultof_map">
+							<xsl:with-param name="var278_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var272_create_GeocodeQuality">
+						<xsl:with-param name="var271_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var283_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var282_Geocoder">
+						<xsl:if test="@Geocoder">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var282_Geocoder))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var283_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var288_resultof_map">
+							<xsl:with-param name="var287_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var281_create_Geocoder">
+						<xsl:with-param name="var280_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var292_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var291_OrgOccupancyScheme">
+						<xsl:if test="@OrgOccupancyScheme">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var291_OrgOccupancyScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var292_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var297_resultof_map">
+							<xsl:with-param name="var296_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var290_create_OrgOccupancyScheme">
+						<xsl:with-param name="var289_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var301_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var300_OrgOccupancyCode">
+						<xsl:if test="@OrgOccupancyCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var300_OrgOccupancyCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var301_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var306_resultof_map">
+							<xsl:with-param name="var305_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var299_create_OrgOccupancyCode">
+						<xsl:with-param name="var298_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var310_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var309_OrgConstructionScheme">
+						<xsl:if test="@OrgConstructionScheme">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var309_OrgConstructionScheme))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var310_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var315_resultof_map">
+							<xsl:with-param name="var314_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var308_create_OrgConstructionScheme">
+						<xsl:with-param name="var307_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var319_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var318_OrgConstructionCode">
+						<xsl:if test="@OrgConstructionCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var318_OrgConstructionCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var319_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var324_resultof_map">
+							<xsl:with-param name="var323_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var317_create_OrgConstructionCode">
+						<xsl:with-param name="var316_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var328_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var327_OccupancyCode">
+						<xsl:if test="@OccupancyCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var327_OccupancyCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var328_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var333_resultof_map">
+							<xsl:with-param name="var332_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var326_create_OccupancyCode">
+						<xsl:with-param name="var325_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var337_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var336_ConstructionCode">
+						<xsl:if test="@ConstructionCode">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var336_ConstructionCode))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var337_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var342_resultof_map">
+							<xsl:with-param name="var341_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var335_create_ConstructionCode">
+						<xsl:with-param name="var334_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var346_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var345_YearBuilt">
+						<xsl:if test="@YearBuilt">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var345_YearBuilt))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var346_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var351_resultof_map">
+							<xsl:with-param name="var350_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var344_create_YearBuilt">
+						<xsl:with-param name="var343_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var355_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var354_NumberOfStories">
+						<xsl:if test="@NumberOfStories">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var354_NumberOfStories))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var355_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var360_resultof_map">
+							<xsl:with-param name="var359_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var353_create_NumberOfStories">
+						<xsl:with-param name="var352_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var364_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var363_NumberOfBuildings">
+						<xsl:if test="@NumberOfBuildings">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var363_NumberOfBuildings))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var364_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var369_resultof_map">
+							<xsl:with-param name="var368_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var362_create_NumberOfBuildings">
+						<xsl:with-param name="var361_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var373_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var372_FloorArea">
+						<xsl:if test="@FloorArea">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var372_FloorArea))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var373_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var378_resultof_map">
+							<xsl:with-param name="var377_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var371_create_FloorArea">
+						<xsl:with-param name="var370_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var382_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var381_FloorAreaUnit">
+						<xsl:if test="@FloorAreaUnit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var381_FloorAreaUnit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var382_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var387_resultof_map">
+							<xsl:with-param name="var386_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var380_create_FloorAreaUnit">
+						<xsl:with-param name="var379_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var391_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var390_LocUserDef">
+						<xsl:if test="@LocUserDef1">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var390_LocUserDef))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var391_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var396_resultof_map">
+							<xsl:with-param name="var395_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var389_create_LocUserDef">
+						<xsl:with-param name="var388_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var400_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var399_LocUserDef">
+						<xsl:if test="@LocUserDef2">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var399_LocUserDef))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var400_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var405_resultof_map">
+							<xsl:with-param name="var404_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var398_create_LocUserDef">
+						<xsl:with-param name="var397_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var409_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var408_LocUserDef">
+						<xsl:if test="@LocUserDef3">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var408_LocUserDef))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var409_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var414_resultof_map">
+							<xsl:with-param name="var413_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var407_create_LocUserDef">
+						<xsl:with-param name="var406_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var418_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var417_LocUserDef">
+						<xsl:if test="@LocUserDef4">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var417_LocUserDef))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var418_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var423_resultof_map">
+							<xsl:with-param name="var422_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var416_create_LocUserDef">
+						<xsl:with-param name="var415_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var427_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var426_LocUserDef">
+						<xsl:if test="@LocUserDef5">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var426_LocUserDef))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var427_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var432_resultof_map">
+							<xsl:with-param name="var431_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var425_create_LocUserDef">
+						<xsl:with-param name="var424_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var436_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var435_LocPerilsCovered">
+						<xsl:if test="@LocPerilsCovered">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var435_LocPerilsCovered))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var436_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var441_resultof_map">
+							<xsl:with-param name="var440_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var434_create_LocPerilsCovered">
+						<xsl:with-param name="var433_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var445_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var444_BuildingTIV">
+						<xsl:if test="@BuildingTIV">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var444_BuildingTIV))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var445_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var450_resultof_map">
+							<xsl:with-param name="var449_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var443_create_BuildingTIV">
+						<xsl:with-param name="var442_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var454_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var453_OtherTIV">
+						<xsl:if test="@OtherTIV">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var453_OtherTIV))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var454_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var459_resultof_map">
+							<xsl:with-param name="var458_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var452_create_OtherTIV">
+						<xsl:with-param name="var451_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var463_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var462_ContentsTIV">
+						<xsl:if test="@ContentsTIV">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var462_ContentsTIV))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var463_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var468_resultof_map">
+							<xsl:with-param name="var467_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var461_create_ContentsTIV">
+						<xsl:with-param name="var460_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var472_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var471_BITIV">
+						<xsl:if test="@BITIV">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var471_BITIV))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var472_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var477_resultof_map">
+							<xsl:with-param name="var476_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var470_create_BITIV">
+						<xsl:with-param name="var469_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var481_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var480_BIPOI">
+						<xsl:if test="@BIPOI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var480_BIPOI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var481_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var486_resultof_map">
+							<xsl:with-param name="var485_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var479_create_BIPOI">
+						<xsl:with-param name="var478_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var490_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var489_LocCurrency">
+						<xsl:if test="@LocCurrency">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var489_LocCurrency))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var490_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var495_resultof_map">
+							<xsl:with-param name="var494_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var488_create_LocCurrency">
+						<xsl:with-param name="var487_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var499_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var498_LocGrossPremium">
+						<xsl:if test="@LocGrossPremium">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var498_LocGrossPremium))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var499_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var504_resultof_map">
+							<xsl:with-param name="var503_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var497_create_LocGrossPremium">
+						<xsl:with-param name="var496_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var508_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var507_LocTax">
+						<xsl:if test="@LocTax">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var507_LocTax))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var508_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var513_resultof_map">
+							<xsl:with-param name="var512_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var506_create_LocTax">
+						<xsl:with-param name="var505_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var517_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var516_LocBrokerage">
+						<xsl:if test="@LocBrokerage">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var516_LocBrokerage))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var517_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var522_resultof_map">
+							<xsl:with-param name="var521_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var515_create_LocBrokerage">
+						<xsl:with-param name="var514_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var526_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var525_LocNetPremium">
+						<xsl:if test="@LocNetPremium">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var525_LocNetPremium))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var526_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var531_resultof_map">
+							<xsl:with-param name="var530_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var524_create_LocNetPremium">
+						<xsl:with-param name="var523_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var535_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var534_NonCatGroundUpLoss">
+						<xsl:if test="@NonCatGroundUpLoss">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var534_NonCatGroundUpLoss))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var535_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var540_resultof_map">
+							<xsl:with-param name="var539_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var533_create_NonCatGroundUpLoss">
+						<xsl:with-param name="var532_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var544_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var543_LocParticipation">
+						<xsl:if test="@LocParticipation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var543_LocParticipation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var544_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var549_resultof_map">
+							<xsl:with-param name="var548_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var542_create_LocParticipation">
+						<xsl:with-param name="var541_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var553_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var552_PayoutBasis">
+						<xsl:if test="@PayoutBasis">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var552_PayoutBasis))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var553_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var558_resultof_map">
+							<xsl:with-param name="var557_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var551_create_PayoutBasis">
+						<xsl:with-param name="var550_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var562_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var561_ReinsTag">
+						<xsl:if test="@ReinsTag">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var561_ReinsTag))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var562_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var567_resultof_map">
+							<xsl:with-param name="var566_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var560_create_ReinsTag">
+						<xsl:with-param name="var559_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var571_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var570_CondTag">
+						<xsl:if test="@CondTag">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var570_CondTag))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var571_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var576_resultof_map">
+							<xsl:with-param name="var575_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var569_create_CondTag">
+						<xsl:with-param name="var568_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var580_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var579_CondPriority">
+						<xsl:if test="@CondPriority">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var579_CondPriority))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var580_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var585_resultof_map">
+							<xsl:with-param name="var584_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var578_create_CondPriority">
+						<xsl:with-param name="var577_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var589_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var588_LocDedCodeBuilding">
+						<xsl:if test="@LocDedCode1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var588_LocDedCodeBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var589_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var594_resultof_map">
+							<xsl:with-param name="var593_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var587_create_LocDedCodeBuilding">
+						<xsl:with-param name="var586_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var598_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var597_LocDedTypeBuilding">
+						<xsl:if test="@LocDedType1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var597_LocDedTypeBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var598_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var603_resultof_map">
+							<xsl:with-param name="var602_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var596_create_LocDedTypeBuilding">
+						<xsl:with-param name="var595_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var607_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var606_LocDedBuilding">
+						<xsl:if test="@LocDed1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var606_LocDedBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var607_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var612_resultof_map">
+							<xsl:with-param name="var611_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var605_create_LocDedBuilding">
+						<xsl:with-param name="var604_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var616_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var615_LocMinDedBuilding">
+						<xsl:if test="@LocMinDed1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var615_LocMinDedBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var616_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var621_resultof_map">
+							<xsl:with-param name="var620_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var614_create_LocMinDedBuilding">
+						<xsl:with-param name="var613_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var625_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var624_LocMaxDedBuilding">
+						<xsl:if test="@LocMaxDed1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var624_LocMaxDedBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var625_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var630_resultof_map">
+							<xsl:with-param name="var629_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var623_create_LocMaxDedBuilding">
+						<xsl:with-param name="var622_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var634_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var633_LocDedCodeOther">
+						<xsl:if test="@LocDedCode2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var633_LocDedCodeOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var634_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var639_resultof_map">
+							<xsl:with-param name="var638_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var632_create_LocDedCodeOther">
+						<xsl:with-param name="var631_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var643_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var642_LocDedTypeOther">
+						<xsl:if test="@LocDedType2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var642_LocDedTypeOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var643_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var648_resultof_map">
+							<xsl:with-param name="var647_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var641_create_LocDedTypeOther">
+						<xsl:with-param name="var640_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var652_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var651_LocDedOther">
+						<xsl:if test="@LocDed2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var651_LocDedOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var652_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var657_resultof_map">
+							<xsl:with-param name="var656_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var650_create_LocDedOther">
+						<xsl:with-param name="var649_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var661_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var660_LocMinDedOther">
+						<xsl:if test="@LocMinDed2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var660_LocMinDedOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var661_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var666_resultof_map">
+							<xsl:with-param name="var665_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var659_create_LocMinDedOther">
+						<xsl:with-param name="var658_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var670_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var669_LocMaxDedOther">
+						<xsl:if test="@LocMaxDed2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var669_LocMaxDedOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var670_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var675_resultof_map">
+							<xsl:with-param name="var674_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var668_create_LocMaxDedOther">
+						<xsl:with-param name="var667_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var679_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var678_LocDedCodeContents">
+						<xsl:if test="@LocDedCode3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var678_LocDedCodeContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var679_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var684_resultof_map">
+							<xsl:with-param name="var683_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var677_create_LocDedCodeContents">
+						<xsl:with-param name="var676_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var688_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var687_LocDedTypeContents">
+						<xsl:if test="@LocDedType3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var687_LocDedTypeContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var688_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var693_resultof_map">
+							<xsl:with-param name="var692_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var686_create_LocDedTypeContents">
+						<xsl:with-param name="var685_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var697_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var696_LocDedContents">
+						<xsl:if test="@LocDed3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var696_LocDedContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var697_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var702_resultof_map">
+							<xsl:with-param name="var701_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var695_create_LocDedContents">
+						<xsl:with-param name="var694_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var706_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var705_LocMinDedContents">
+						<xsl:if test="@LocMinDed3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var705_LocMinDedContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var706_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var711_resultof_map">
+							<xsl:with-param name="var710_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var704_create_LocMinDedContents">
+						<xsl:with-param name="var703_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var715_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var714_LocMaxDedContents">
+						<xsl:if test="@LocMaxDed3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var714_LocMaxDedContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var715_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var720_resultof_map">
+							<xsl:with-param name="var719_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var713_create_LocMaxDedContents">
+						<xsl:with-param name="var712_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var724_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var723_LocDedCodeBI">
+						<xsl:if test="@LocDedCode4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var723_LocDedCodeBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var724_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var729_resultof_map">
+							<xsl:with-param name="var728_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var722_create_LocDedCodeBI">
+						<xsl:with-param name="var721_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var733_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var732_LocDedTypeBI">
+						<xsl:if test="@LocDedType4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var732_LocDedTypeBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var733_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var738_resultof_map">
+							<xsl:with-param name="var737_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var731_create_LocDedTypeBI">
+						<xsl:with-param name="var730_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var742_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var741_LocDedBI">
+						<xsl:if test="@LocDed4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var741_LocDedBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var742_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var747_resultof_map">
+							<xsl:with-param name="var746_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var740_create_LocDedBI">
+						<xsl:with-param name="var739_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var751_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var750_LocMinDedBI">
+						<xsl:if test="@LocMinDed4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var750_LocMinDedBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var751_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var756_resultof_map">
+							<xsl:with-param name="var755_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var749_create_LocMinDedBI">
+						<xsl:with-param name="var748_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var760_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var759_LocMaxDedBI">
+						<xsl:if test="@LocMaxDed4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var759_LocMaxDedBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var760_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var765_resultof_map">
+							<xsl:with-param name="var764_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var758_create_LocMaxDedBI">
+						<xsl:with-param name="var757_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var769_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var768_LocDedCodePD">
+						<xsl:if test="@LocDedCode5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var768_LocDedCodePD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var769_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var774_resultof_map">
+							<xsl:with-param name="var773_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var767_create_LocDedCodePD">
+						<xsl:with-param name="var766_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var778_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var777_LocDedTypePD">
+						<xsl:if test="@LocDedType5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var777_LocDedTypePD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var778_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var783_resultof_map">
+							<xsl:with-param name="var782_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var776_create_LocDedTypePD">
+						<xsl:with-param name="var775_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var787_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var786_LocDedPD">
+						<xsl:if test="@LocDed5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var786_LocDedPD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var787_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var792_resultof_map">
+							<xsl:with-param name="var791_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var785_create_LocDedPD">
+						<xsl:with-param name="var784_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var796_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var795_LocMinDedPD">
+						<xsl:if test="@LocMinDed5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var795_LocMinDedPD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var796_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var801_resultof_map">
+							<xsl:with-param name="var800_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var794_create_LocMinDedPD">
+						<xsl:with-param name="var793_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var805_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var804_LocMaxDedPD">
+						<xsl:if test="@LocMaxDed5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var804_LocMaxDedPD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var805_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var810_resultof_map">
+							<xsl:with-param name="var809_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var803_create_LocMaxDedPD">
+						<xsl:with-param name="var802_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var814_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var813_LocDedCodeAll">
+						<xsl:if test="@LocDedCode6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var813_LocDedCodeAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var814_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var819_resultof_map">
+							<xsl:with-param name="var818_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var812_create_LocDedCodeAll">
+						<xsl:with-param name="var811_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var823_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var822_LocDedTypeAll">
+						<xsl:if test="@LocDedType6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var822_LocDedTypeAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var823_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var828_resultof_map">
+							<xsl:with-param name="var827_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var821_create_LocDedTypeAll">
+						<xsl:with-param name="var820_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var832_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var831_LocDedAll">
+						<xsl:if test="@LocDed6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var831_LocDedAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var832_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var837_resultof_map">
+							<xsl:with-param name="var836_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var830_create_LocDedAll">
+						<xsl:with-param name="var829_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var841_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var840_LocMinDedAll">
+						<xsl:if test="@LocMinDed6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var840_LocMinDedAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var841_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var846_resultof_map">
+							<xsl:with-param name="var845_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var839_create_LocMinDedAll">
+						<xsl:with-param name="var838_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var850_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var849_LocMaxDedAll">
+						<xsl:if test="@LocMaxDed6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var849_LocMaxDedAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var850_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var855_resultof_map">
+							<xsl:with-param name="var854_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var848_create_LocMaxDedAll">
+						<xsl:with-param name="var847_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var859_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var858_LocLimitCodeBuilding">
+						<xsl:if test="@LocLimitCode1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var858_LocLimitCodeBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var859_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var864_resultof_map">
+							<xsl:with-param name="var863_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var857_create_LocLimitCodeBuilding">
+						<xsl:with-param name="var856_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var868_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var867_LocLimitTypeBuilding">
+						<xsl:if test="@LocLimitType1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var867_LocLimitTypeBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var868_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var873_resultof_map">
+							<xsl:with-param name="var872_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var866_create_LocLimitTypeBuilding">
+						<xsl:with-param name="var865_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var877_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var876_LocLimitBuilding">
+						<xsl:if test="@LocLimit1Building">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var876_LocLimitBuilding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var877_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var882_resultof_map">
+							<xsl:with-param name="var881_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var875_create_LocLimitBuilding">
+						<xsl:with-param name="var874_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var886_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var885_LocLimitCodeOther">
+						<xsl:if test="@LocLimitCode2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var885_LocLimitCodeOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var886_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var891_resultof_map">
+							<xsl:with-param name="var890_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var884_create_LocLimitCodeOther">
+						<xsl:with-param name="var883_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var895_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var894_LocLimitTypeOther">
+						<xsl:if test="@LocLimitType2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var894_LocLimitTypeOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var895_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var900_resultof_map">
+							<xsl:with-param name="var899_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var893_create_LocLimitTypeOther">
+						<xsl:with-param name="var892_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var904_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var903_LocLimitOther">
+						<xsl:if test="@LocLimit2Other">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var903_LocLimitOther))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var904_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var909_resultof_map">
+							<xsl:with-param name="var908_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var902_create_LocLimitOther">
+						<xsl:with-param name="var901_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var913_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var912_LocLimitCodeContents">
+						<xsl:if test="@LocLimitCode3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var912_LocLimitCodeContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var913_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var918_resultof_map">
+							<xsl:with-param name="var917_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var911_create_LocLimitCodeContents">
+						<xsl:with-param name="var910_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var922_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var921_LocLimitTypeContents">
+						<xsl:if test="@LocLimitType3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var921_LocLimitTypeContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var922_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var927_resultof_map">
+							<xsl:with-param name="var926_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var920_create_LocLimitTypeContents">
+						<xsl:with-param name="var919_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var931_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var930_LocLimitContents">
+						<xsl:if test="@LocLimit3Contents">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var930_LocLimitContents))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var931_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var936_resultof_map">
+							<xsl:with-param name="var935_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var929_create_LocLimitContents">
+						<xsl:with-param name="var928_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var940_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var939_LocLimitCodeBI">
+						<xsl:if test="@LocLimitCode4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var939_LocLimitCodeBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var940_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var945_resultof_map">
+							<xsl:with-param name="var944_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var938_create_LocLimitCodeBI">
+						<xsl:with-param name="var937_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var949_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var948_LocLimitTypeBI">
+						<xsl:if test="@LocLimitType4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var948_LocLimitTypeBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var949_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var954_resultof_map">
+							<xsl:with-param name="var953_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var947_create_LocLimitTypeBI">
+						<xsl:with-param name="var946_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var958_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var957_LocLimitBI">
+						<xsl:if test="@LocLimit4BI">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var957_LocLimitBI))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var958_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var963_resultof_map">
+							<xsl:with-param name="var962_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var956_create_LocLimitBI">
+						<xsl:with-param name="var955_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var967_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var966_LocLimitCodePD">
+						<xsl:if test="@LocLimitCode5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var966_LocLimitCodePD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var967_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var972_resultof_map">
+							<xsl:with-param name="var971_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var965_create_LocLimitCodePD">
+						<xsl:with-param name="var964_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var976_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var975_LocLimitTypePD">
+						<xsl:if test="@LocLimitType5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var975_LocLimitTypePD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var976_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var981_resultof_map">
+							<xsl:with-param name="var980_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var974_create_LocLimitTypePD">
+						<xsl:with-param name="var973_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var985_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var984_LocLimitPD">
+						<xsl:if test="@LocLimit5PD">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var984_LocLimitPD))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var985_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var990_resultof_map">
+							<xsl:with-param name="var989_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var983_create_LocLimitPD">
+						<xsl:with-param name="var982_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var994_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var993_LocLimitCodeAll">
+						<xsl:if test="@LocLimitCode6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var993_LocLimitCodeAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var994_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var999_resultof_map">
+							<xsl:with-param name="var998_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var992_create_LocLimitCodeAll">
+						<xsl:with-param name="var991_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1003_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1002_LocLimitTypeAll">
+						<xsl:if test="@LocLimitType6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1002_LocLimitTypeAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1003_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1008_resultof_map">
+							<xsl:with-param name="var1007_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1001_create_LocLimitTypeAll">
+						<xsl:with-param name="var1000_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1012_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1011_LocLimitAll">
+						<xsl:if test="@LocLimit6All">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1011_LocLimitAll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1012_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1017_resultof_map">
+							<xsl:with-param name="var1016_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1010_create_LocLimitAll">
+						<xsl:with-param name="var1009_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1021_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1020_BIWaitingPeriod">
+						<xsl:if test="@BIWaitingPeriod">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1020_BIWaitingPeriod))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1021_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1026_resultof_map">
+							<xsl:with-param name="var1025_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1019_create_BIWaitingPeriod">
+						<xsl:with-param name="var1018_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1030_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1029_LocPeril">
+						<xsl:if test="@LocPeril">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1029_LocPeril))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1030_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1035_resultof_map">
+							<xsl:with-param name="var1034_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1028_create_LocPeril">
+						<xsl:with-param name="var1027_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1039_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1038_YearUpgraded">
+						<xsl:if test="@YearUpgraded">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1038_YearUpgraded))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1039_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1044_resultof_map">
+							<xsl:with-param name="var1043_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1037_create_YearUpgraded">
+						<xsl:with-param name="var1036_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1048_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1047_SurgeLeakage">
+						<xsl:if test="@SurgeLeakage">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1047_SurgeLeakage))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1048_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1053_resultof_map">
+							<xsl:with-param name="var1052_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1046_create_SurgeLeakage">
+						<xsl:with-param name="var1045_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1057_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1056_SprinklerType">
+						<xsl:if test="@SprinklerType">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1056_SprinklerType))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1057_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1062_resultof_map">
+							<xsl:with-param name="var1061_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1055_create_SprinklerType">
+						<xsl:with-param name="var1054_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1066_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1065_RoofCover">
+						<xsl:if test="@RoofCover">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1065_RoofCover))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1066_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1071_resultof_map">
+							<xsl:with-param name="var1070_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1064_create_RoofCover">
+						<xsl:with-param name="var1063_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1075_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1074_RoofYearBuilt">
+						<xsl:if test="@RoofYearBuilt">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1074_RoofYearBuilt))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1075_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1080_resultof_map">
+							<xsl:with-param name="var1079_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1073_create_RoofYearBuilt">
+						<xsl:with-param name="var1072_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1084_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1083_RoofGeometry">
+						<xsl:if test="@RoofGeometry">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1083_RoofGeometry))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1084_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1089_resultof_map">
+							<xsl:with-param name="var1088_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1082_create_RoofGeometry">
+						<xsl:with-param name="var1081_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1093_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1092_RoofEquipment">
+						<xsl:if test="@RoofEquipment">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1092_RoofEquipment))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1093_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1098_resultof_map">
+							<xsl:with-param name="var1097_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1091_create_RoofEquipment">
+						<xsl:with-param name="var1090_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1102_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1101_RoofFrame">
+						<xsl:if test="@RoofFrame">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1101_RoofFrame))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1102_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1107_resultof_map">
+							<xsl:with-param name="var1106_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1100_create_RoofFrame">
+						<xsl:with-param name="var1099_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1111_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1110_RoofMaintenance">
+						<xsl:if test="@RoofMaintenance">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1110_RoofMaintenance))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1111_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1116_resultof_map">
+							<xsl:with-param name="var1115_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1109_create_RoofMaintenance">
+						<xsl:with-param name="var1108_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1120_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1119_BuildingCondition">
+						<xsl:if test="@BuildingCondition">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1119_BuildingCondition))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1120_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1125_resultof_map">
+							<xsl:with-param name="var1124_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1118_create_BuildingCondition">
+						<xsl:with-param name="var1117_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1129_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1128_RoofAttachedStructure">
+						<xsl:if test="@RoofAttachedStructure">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1128_RoofAttachedStructure))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1129_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1134_resultof_map">
+							<xsl:with-param name="var1133_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1127_create_RoofAttachedStructure">
+						<xsl:with-param name="var1126_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1138_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1137_RoofDeck">
+						<xsl:if test="@RoofDeck">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1137_RoofDeck))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1138_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1143_resultof_map">
+							<xsl:with-param name="var1142_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1136_create_RoofDeck">
+						<xsl:with-param name="var1135_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1147_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1146_RoofPitch">
+						<xsl:if test="@RoofPitch">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1146_RoofPitch))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1147_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1152_resultof_map">
+							<xsl:with-param name="var1151_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1145_create_RoofPitch">
+						<xsl:with-param name="var1144_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1156_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1155_RoofAnchorage">
+						<xsl:if test="@RoofAnchorage">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1155_RoofAnchorage))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1156_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1161_resultof_map">
+							<xsl:with-param name="var1160_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1154_create_RoofAnchorage">
+						<xsl:with-param name="var1153_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1165_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1164_RoofDeckAttachment">
+						<xsl:if test="@RoofDeckAttachment">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1164_RoofDeckAttachment))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1165_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1170_resultof_map">
+							<xsl:with-param name="var1169_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1163_create_RoofDeckAttachment">
+						<xsl:with-param name="var1162_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1174_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1173_RoofCoverAttachment">
+						<xsl:if test="@RoofCoverAttachment">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1173_RoofCoverAttachment))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1174_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1179_resultof_map">
+							<xsl:with-param name="var1178_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1172_create_RoofCoverAttachment">
+						<xsl:with-param name="var1171_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1183_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1182_GlassType">
+						<xsl:if test="@GlassType">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1182_GlassType))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1183_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1188_resultof_map">
+							<xsl:with-param name="var1187_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1181_create_GlassType">
+						<xsl:with-param name="var1180_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1192_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1191_LatticeType">
+						<xsl:if test="@LatticeType">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1191_LatticeType))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1192_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1197_resultof_map">
+							<xsl:with-param name="var1196_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1190_create_LatticeType">
+						<xsl:with-param name="var1189_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1201_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1200_FloodZone">
+						<xsl:if test="@FloodZone">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1200_FloodZone))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1201_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1206_resultof_map">
+							<xsl:with-param name="var1205_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1199_create_FloodZone">
+						<xsl:with-param name="var1198_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1210_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1209_SoftStory">
+						<xsl:if test="@SoftStory">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1209_SoftStory))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1210_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1215_resultof_map">
+							<xsl:with-param name="var1214_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1208_create_SoftStory">
+						<xsl:with-param name="var1207_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1219_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1218_Basement">
+						<xsl:if test="@Basement">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1218_Basement))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1219_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1224_resultof_map">
+							<xsl:with-param name="var1223_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1217_create_Basement">
+						<xsl:with-param name="var1216_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1228_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1227_BasementLevelCount">
+						<xsl:if test="@BasementLevelCount">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1227_BasementLevelCount))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1228_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1233_resultof_map">
+							<xsl:with-param name="var1232_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1226_create_BasementLevelCount">
+						<xsl:with-param name="var1225_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1237_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1236_WindowProtection">
+						<xsl:if test="@WindowProtection">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1236_WindowProtection))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1237_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1242_resultof_map">
+							<xsl:with-param name="var1241_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1235_create_WindowProtection">
+						<xsl:with-param name="var1234_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1246_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1245_FoundationType">
+						<xsl:if test="@FoundationType">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1245_FoundationType))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1246_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1251_resultof_map">
+							<xsl:with-param name="var1250_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1244_create_FoundationType">
+						<xsl:with-param name="var1243_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1255_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1254_WallAttachedStructure">
+						<xsl:if test="@WallAttachedStructure">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1254_WallAttachedStructure))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1255_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1260_resultof_map">
+							<xsl:with-param name="var1259_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1253_create_WallAttachedStructure">
+						<xsl:with-param name="var1252_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1264_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1263_AppurtenantStructure">
+						<xsl:if test="@AppurtenantStructure">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1263_AppurtenantStructure))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1264_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1269_resultof_map">
+							<xsl:with-param name="var1268_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1262_create_AppurtenantStructure">
+						<xsl:with-param name="var1261_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1273_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1272_ConstructionQuality">
+						<xsl:if test="@ConstructionQuality">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1272_ConstructionQuality))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1273_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1278_resultof_map">
+							<xsl:with-param name="var1277_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1271_create_ConstructionQuality">
+						<xsl:with-param name="var1270_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1282_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1281_GroundEquipment">
+						<xsl:if test="@GroundEquipment">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1281_GroundEquipment))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1282_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1287_resultof_map">
+							<xsl:with-param name="var1286_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1280_create_GroundEquipment">
+						<xsl:with-param name="var1279_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1291_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1290_EquipmentBracing">
+						<xsl:if test="@EquipmentBracing">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1290_EquipmentBracing))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1291_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1296_resultof_map">
+							<xsl:with-param name="var1295_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1289_create_EquipmentBracing">
+						<xsl:with-param name="var1288_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1300_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1299_Flashing">
+						<xsl:if test="@Flashing">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1299_Flashing))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1300_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1305_resultof_map">
+							<xsl:with-param name="var1304_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1298_create_Flashing">
+						<xsl:with-param name="var1297_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1309_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1308_BuildingShape">
+						<xsl:if test="@BuildingShape">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1308_BuildingShape))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1309_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1314_resultof_map">
+							<xsl:with-param name="var1313_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1307_create_BuildingShape">
+						<xsl:with-param name="var1306_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1318_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1317_ShapeIrregularity">
+						<xsl:if test="@ShapeIrregularity">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1317_ShapeIrregularity))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1318_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1323_resultof_map">
+							<xsl:with-param name="var1322_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1316_create_ShapeIrregularity">
+						<xsl:with-param name="var1315_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1327_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1326_Pounding">
+						<xsl:if test="@Pounding">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1326_Pounding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1327_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1332_resultof_map">
+							<xsl:with-param name="var1331_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1325_create_Pounding">
+						<xsl:with-param name="var1324_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1336_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1335_Ornamentation">
+						<xsl:if test="@Ornamentation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1335_Ornamentation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1336_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1341_resultof_map">
+							<xsl:with-param name="var1340_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1334_create_Ornamentation">
+						<xsl:with-param name="var1333_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1345_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1344_SpecialEQConstruction">
+						<xsl:if test="@SpecialEQConstruction">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1344_SpecialEQConstruction))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1345_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1350_resultof_map">
+							<xsl:with-param name="var1349_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1343_create_SpecialEQConstruction">
+						<xsl:with-param name="var1342_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1354_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1353_Retrofit">
+						<xsl:if test="@Retrofit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1353_Retrofit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1354_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1359_resultof_map">
+							<xsl:with-param name="var1358_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1352_create_Retrofit">
+						<xsl:with-param name="var1351_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1363_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1362_CrippleWalls">
+						<xsl:if test="@CrippleWalls">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1362_CrippleWalls))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1363_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1368_resultof_map">
+							<xsl:with-param name="var1367_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1361_create_CrippleWalls">
+						<xsl:with-param name="var1360_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1372_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1371_FoundationConnection">
+						<xsl:if test="@FoundationConnection">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1371_FoundationConnection))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1372_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1377_resultof_map">
+							<xsl:with-param name="var1376_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1370_create_FoundationConnection">
+						<xsl:with-param name="var1369_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1381_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1380_ShortColumn">
+						<xsl:if test="@ShortColumn">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1380_ShortColumn))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1381_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1386_resultof_map">
+							<xsl:with-param name="var1385_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1379_create_ShortColumn">
+						<xsl:with-param name="var1378_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1390_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1389_Fatigue">
+						<xsl:if test="@Fatigue">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1389_Fatigue))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1390_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1395_resultof_map">
+							<xsl:with-param name="var1394_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1388_create_Fatigue">
+						<xsl:with-param name="var1387_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1399_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1398_Cladding">
+						<xsl:if test="@Cladding">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1398_Cladding))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1399_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1404_resultof_map">
+							<xsl:with-param name="var1403_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1397_create_Cladding">
+						<xsl:with-param name="var1396_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1408_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1407_BIPreparedness">
+						<xsl:if test="@BIPreparedness">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1407_BIPreparedness))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1408_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1413_resultof_map">
+							<xsl:with-param name="var1412_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1406_create_BIPreparedness">
+						<xsl:with-param name="var1405_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1417_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1416_BIRedundancy">
+						<xsl:if test="@BIRedundancy">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1416_BIRedundancy))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1417_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1422_resultof_map">
+							<xsl:with-param name="var1421_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1415_create_BIRedundancy">
+						<xsl:with-param name="var1414_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1426_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1425_BuildingElevation">
+						<xsl:if test="@BuildingElevation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1425_BuildingElevation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1426_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1431_resultof_map">
+							<xsl:with-param name="var1430_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1424_create_BuildingElevation">
+						<xsl:with-param name="var1423_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1435_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1434_BuildingElevationUnit">
+						<xsl:if test="@BuildingElevationUnit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1434_BuildingElevationUnit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1435_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1440_resultof_map">
+							<xsl:with-param name="var1439_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1433_create_BuildingElevationUnit">
+						<xsl:with-param name="var1432_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1444_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1443_Datum">
+						<xsl:if test="@Datum">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1443_Datum))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1444_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1449_resultof_map">
+							<xsl:with-param name="var1448_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1442_create_Datum">
+						<xsl:with-param name="var1441_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1453_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1452_GroundElevation">
+						<xsl:if test="@GroundElevation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1452_GroundElevation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1453_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1458_resultof_map">
+							<xsl:with-param name="var1457_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1451_create_GroundElevation">
+						<xsl:with-param name="var1450_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1462_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1461_GroundElevationUnit">
+						<xsl:if test="@GroundElevationUnit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1461_GroundElevationUnit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1462_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1467_resultof_map">
+							<xsl:with-param name="var1466_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1460_create_GroundElevationUnit">
+						<xsl:with-param name="var1459_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1471_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1470_Tank">
+						<xsl:if test="@Tank">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1470_Tank))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1471_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1476_resultof_map">
+							<xsl:with-param name="var1475_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1469_create_Tank">
+						<xsl:with-param name="var1468_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1480_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1479_Redundancy">
+						<xsl:if test="@Redundancy">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1479_Redundancy))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1480_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1485_resultof_map">
+							<xsl:with-param name="var1484_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1478_create_Redundancy">
+						<xsl:with-param name="var1477_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1489_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1488_InternalPartition">
+						<xsl:if test="@InternalPartition">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1488_InternalPartition))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1489_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1494_resultof_map">
+							<xsl:with-param name="var1493_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1487_create_InternalPartition">
+						<xsl:with-param name="var1486_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1498_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1497_ExternalDoors">
+						<xsl:if test="@ExternalDoors">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1497_ExternalDoors))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1498_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1503_resultof_map">
+							<xsl:with-param name="var1502_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1496_create_ExternalDoors">
+						<xsl:with-param name="var1495_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1507_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1506_Torsion">
+						<xsl:if test="@Torsion">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1506_Torsion))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1507_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1512_resultof_map">
+							<xsl:with-param name="var1511_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1505_create_Torsion">
+						<xsl:with-param name="var1504_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1516_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1515_MechanicalEquipmentSide">
+						<xsl:if test="@MechanicalEquipmentSide">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1515_MechanicalEquipmentSide))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1516_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1521_resultof_map">
+							<xsl:with-param name="var1520_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1514_create_MechanicalEquipmentSide">
+						<xsl:with-param name="var1513_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1525_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1524_ContentsWindVuln">
+						<xsl:if test="@ContentsWindVuln">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1524_ContentsWindVuln))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1525_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1530_resultof_map">
+							<xsl:with-param name="var1529_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1523_create_ContentsWindVuln">
+						<xsl:with-param name="var1522_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1534_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1533_ContentsFloodVuln">
+						<xsl:if test="@ContentsFloodVuln">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1533_ContentsFloodVuln))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1534_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1539_resultof_map">
+							<xsl:with-param name="var1538_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1532_create_ContentsFloodVuln">
+						<xsl:with-param name="var1531_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1543_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1542_ContentsQuakeVuln">
+						<xsl:if test="@ContentsQuakeVuln">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1542_ContentsQuakeVuln))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1543_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1548_resultof_map">
+							<xsl:with-param name="var1547_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1541_create_ContentsQuakeVuln">
+						<xsl:with-param name="var1540_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1552_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1551_SmallDebris">
+						<xsl:if test="@SmallDebris">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1551_SmallDebris))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1552_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1557_resultof_map">
+							<xsl:with-param name="var1556_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1550_create_SmallDebris">
+						<xsl:with-param name="var1549_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1561_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1560_FloorsOccupied">
+						<xsl:if test="@FloorsOccupied">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1560_FloorsOccupied))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1561_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1566_resultof_map">
+							<xsl:with-param name="var1565_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1559_create_FloorsOccupied">
+						<xsl:with-param name="var1558_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1570_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1569_FloodDefenseElevation">
+						<xsl:if test="@FloodDefenseElevation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1569_FloodDefenseElevation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1570_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1575_resultof_map">
+							<xsl:with-param name="var1574_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1568_create_FloodDefenseElevation">
+						<xsl:with-param name="var1567_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1579_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1578_FloodDefenseElevationUnit">
+						<xsl:if test="@FloodDefenseElevationUnit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1578_FloodDefenseElevationUnit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1579_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1584_resultof_map">
+							<xsl:with-param name="var1583_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1577_create_FloodDefenseElevationUnit">
+						<xsl:with-param name="var1576_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1588_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1587_FloodDebrisResilience">
+						<xsl:if test="@FloodDebrisResilience">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1587_FloodDebrisResilience))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1588_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1593_resultof_map">
+							<xsl:with-param name="var1592_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1586_create_FloodDebrisResilience">
+						<xsl:with-param name="var1585_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1597_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1596_BaseFloodElevation">
+						<xsl:if test="@BaseFloodElevation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1596_BaseFloodElevation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1597_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1602_resultof_map">
+							<xsl:with-param name="var1601_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1595_create_BaseFloodElevation">
+						<xsl:with-param name="var1594_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1606_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1605_BaseFloodElevationUnit">
+						<xsl:if test="@BaseFloodElevationUnit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1605_BaseFloodElevationUnit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1606_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1611_resultof_map">
+							<xsl:with-param name="var1610_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1604_create_BaseFloodElevationUnit">
+						<xsl:with-param name="var1603_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1615_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1614_BuildingHeight">
+						<xsl:if test="@BuildingHeight">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1614_BuildingHeight))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1615_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1620_resultof_map">
+							<xsl:with-param name="var1619_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1613_create_BuildingHeight">
+						<xsl:with-param name="var1612_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1624_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1623_BuildingHeightUnit">
+						<xsl:if test="@BuildingHeightUnit">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1623_BuildingHeightUnit))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1624_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1629_resultof_map">
+							<xsl:with-param name="var1628_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1622_create_BuildingHeightUnit">
+						<xsl:with-param name="var1621_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1633_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1632_BuildingValuation">
+						<xsl:if test="@BuildingValuation">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1632_BuildingValuation))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1633_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1638_resultof_map">
+							<xsl:with-param name="var1637_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1631_create_BuildingValuation">
+						<xsl:with-param name="var1630_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1642_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1641_TreeExposure">
+						<xsl:if test="@TreeExposure">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1641_TreeExposure))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1642_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1647_resultof_map">
+							<xsl:with-param name="var1646_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1640_create_TreeExposure">
+						<xsl:with-param name="var1639_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1651_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1650_Chimney">
+						<xsl:if test="@Chimney">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1650_Chimney))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1651_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1656_resultof_map">
+							<xsl:with-param name="var1655_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1649_create_Chimney">
+						<xsl:with-param name="var1648_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1660_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1659_BuildingType">
+						<xsl:if test="@BuildingType">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1659_BuildingType))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1660_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1665_resultof_map">
+							<xsl:with-param name="var1664_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1658_create_BuildingType">
+						<xsl:with-param name="var1657_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1669_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1668_Packaging">
+						<xsl:if test="@Packaging">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1668_Packaging))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1669_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1674_resultof_map">
+							<xsl:with-param name="var1673_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1667_create_Packaging">
+						<xsl:with-param name="var1666_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1678_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1677_Protection">
+						<xsl:if test="@Protection">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1677_Protection))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1678_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1683_resultof_map">
+							<xsl:with-param name="var1682_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1676_create_Protection">
+						<xsl:with-param name="var1675_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1687_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1686_SalvageProtection">
+						<xsl:if test="@SalvageProtection">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1686_SalvageProtection))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1687_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1692_resultof_map">
+							<xsl:with-param name="var1691_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1685_create_SalvageProtection">
+						<xsl:with-param name="var1684_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1696_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1695_ValuablesStorage">
+						<xsl:if test="@ValuablesStorage">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1695_ValuablesStorage))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1696_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1701_resultof_map">
+							<xsl:with-param name="var1700_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1694_create_ValuablesStorage">
+						<xsl:with-param name="var1693_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1705_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1704_DaysHeld">
+						<xsl:if test="@DaysHeld">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1704_DaysHeld))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1705_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1710_resultof_map">
+							<xsl:with-param name="var1709_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1703_create_DaysHeld">
+						<xsl:with-param name="var1702_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1714_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1713_BrickVeneer">
+						<xsl:if test="@BrickVeneer">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1713_BrickVeneer))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1714_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1719_resultof_map">
+							<xsl:with-param name="var1718_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1712_create_BrickVeneer">
+						<xsl:with-param name="var1711_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1723_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1722_FEMACompliance">
+						<xsl:if test="@FEMACompliance">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1722_FEMACompliance))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1723_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1728_resultof_map">
+							<xsl:with-param name="var1727_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1721_create_FEMACompliance">
+						<xsl:with-param name="var1720_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1732_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1731_CustomFloodSOP">
+						<xsl:if test="@CustomFloodSOP">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1731_CustomFloodSOP))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1732_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1737_resultof_map">
+							<xsl:with-param name="var1736_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1730_create_CustomFloodSOP">
+						<xsl:with-param name="var1729_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1741_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1740_CustomFloodZone">
+						<xsl:if test="@CustomFloodZone">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1740_CustomFloodZone))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1741_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1746_resultof_map">
+							<xsl:with-param name="var1745_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1739_create_CustomFloodZone">
+						<xsl:with-param name="var1738_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1750_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1749_MultiStoryHall">
+						<xsl:if test="@MultiStoryHall">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1749_MultiStoryHall))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1750_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1755_resultof_map">
+							<xsl:with-param name="var1754_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1748_create_MultiStoryHall">
+						<xsl:with-param name="var1747_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1759_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1758_BuildingExteriorOpening">
+						<xsl:if test="@BuildingExteriorOpening">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1758_BuildingExteriorOpening))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1759_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1764_resultof_map">
+							<xsl:with-param name="var1763_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1757_create_BuildingExteriorOpening">
+						<xsl:with-param name="var1756_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1768_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1767_ServiceEquipmentProtection">
+						<xsl:if test="@ServiceEquipmentProtection">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1767_ServiceEquipmentProtection))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1768_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1773_resultof_map">
+							<xsl:with-param name="var1772_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1766_create_ServiceEquipmentProtection">
+						<xsl:with-param name="var1765_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1777_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1776_TallOneStory">
+						<xsl:if test="@TallOneStory">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1776_TallOneStory))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1777_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1782_resultof_map">
+							<xsl:with-param name="var1781_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1775_create_TallOneStory">
+						<xsl:with-param name="var1774_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1786_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1785_TerrainRoughness">
+						<xsl:if test="@TerrainRoughness">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1785_TerrainRoughness))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1786_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1791_resultof_map">
+							<xsl:with-param name="var1790_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1784_create_TerrainRoughness">
+						<xsl:with-param name="var1783_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1795_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1794_NumberOfEmployees">
+						<xsl:if test="@NumberOfEmployees">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1794_NumberOfEmployees))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1795_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1800_resultof_map">
+							<xsl:with-param name="var1799_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1793_create_NumberOfEmployees">
+						<xsl:with-param name="var1792_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:variable name="var1804_resultof_filter">
+				<xsl:for-each select="$var1810_current/rec">
+					<xsl:variable name="var1803_Payroll">
+						<xsl:if test="@Payroll">
+							<xsl:value-of select="'1'"/>
+						</xsl:if>
+					</xsl:variable>
+					<xsl:if test="string(boolean(string($var1803_Payroll))) != 'false'">
+						<xsl:value-of select="'1'"/>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			<xsl:choose>
+				<xsl:when test="string(boolean(string($var1804_resultof_filter))) != 'false'">
+					<xsl:for-each select="$var1810_current/rec">
+						<xsl:call-template name="agt:MapToOED_CanLocA_var1809_resultof_map">
+							<xsl:with-param name="var1808_current" select="."/>
+						</xsl:call-template>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="agt:MapToOED_CanLocA_var1802_create_Payroll">
+						<xsl:with-param name="var1801_current" select="'0'"/>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</rec>
+	</xsl:template>
 	<xsl:template match="/">
 		<root>
-			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/ReinsuranceTestTool/Transformations/ValidationFiles/OED_CanLocA.xsd</xsl:attribute>
+			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/OasisPiWind/flamingo/PiWind/Files/ValidationFiles/OED_CanLocA.xsd</xsl:attribute>
 			<xsl:for-each select="root">
-				<xsl:call-template name="agt:MapToOED_CanLocA_var4_resultof_map">
-					<xsl:with-param name="var3_current" select="."/>
+				<xsl:call-template name="agt:MapToOED_CanLocA_var1811_create_rec">
+					<xsl:with-param name="var1810_current" select="."/>
 				</xsl:call-template>
 			</xsl:for-each>
 		</root>

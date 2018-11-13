@@ -23,12 +23,18 @@
 						<xs:attribute name="StreetAddress" type="xs:string"/>
 						<xs:attribute name="PostalCode" type="xs:string"/>
 						<xs:attribute name="City" type="xs:string"/>
-						<xs:attribute name="SubArea2" type="xs:string"/>
-						<xs:attribute name="SubArea" type="xs:string"/>
-						<xs:attribute name="LowResCresta" type="xs:string"/>
-						<xs:attribute name="HighResCresta" type="xs:string"/>
 						<xs:attribute name="AreaCode" type="xs:string"/>
 						<xs:attribute name="AreaName" type="xs:string"/>
+						<xs:attribute name="GeogScheme1" type="xs:string"/>
+						<xs:attribute name="GeogName1" type="xs:string"/>
+						<xs:attribute name="GeogScheme2" type="xs:string"/>
+						<xs:attribute name="GeogName2" type="xs:string"/>
+						<xs:attribute name="GeogScheme3" type="xs:string"/>
+						<xs:attribute name="GeogName3" type="xs:string"/>
+						<xs:attribute name="GeogScheme4" type="xs:string"/>
+						<xs:attribute name="GeogName4" type="xs:string"/>
+						<xs:attribute name="GeogScheme5" type="xs:string"/>
+						<xs:attribute name="GeogName5" type="xs:string"/>
 						<xs:attribute name="AddressMatch" type="xs:string"/>
 						<xs:attribute name="GeocodeQuality" type="xs:string"/>
 						<xs:attribute name="Geocoder" type="xs:string"/>
