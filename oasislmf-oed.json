@@ -7,6 +7,7 @@
     "canonical_accounts_profile_json_path": "canonical-oed-acc-profile.json",
     "source_to_canonical_accounts_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_CanAccA.xslt",
     "lookup_package_path": "src/keys_server",
+    "model_data_path": "model_data/PiWind",
     "analysis_settings_json_file_path": "analysis_settings.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
     "fm_agg_profile_path": "fm-oed-agg-profile.json"
