@@ -1,19 +1,19 @@
 {
     "CondDed6All": {
         "ProfileElementName": "CondDed6All",
-        "FieldName": "SubLimitDeductible",
+        "FieldName": "CondAllDeductible",
         "DeductibleType": "B",
-        "FMLevelName": "Sublimit",
-        "FMLevel": 4,
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
     },
     "CondLimit6All": {
         "ProfileElementName": "CondLimit6All",
-        "FieldName": "SubLimitLimit",
-        "FMLevelName": "Sublimit",
-        "FMLevel": 4,
+        "FieldName": "CondAllLimit",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
         "FMTermType": "Limit",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
@@ -22,8 +22,8 @@
         "ProfileElementName": "PolDed6All",
         "DeductibleType": "B",
         "FieldName": "BlanketDeductible",
-        "FMLevelName": "Account",
-        "FMLevel": 5,
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
@@ -32,8 +32,8 @@
         "ProfileElementName": "PolMinDed6All",
         "DeductibleType": "MI",
         "FieldName": "BlanketMinDeductible",
-        "FMLevelName": "Account",
-        "FMLevel": 5,
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
         "FMTermType": "DeductibleMin",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
@@ -42,8 +42,8 @@
         "ProfileElementName": "PolMaxDed6All",
         "DeductibleType": "MA",
         "FieldName": "BlanketMaxDeductible",
-        "FMLevelName": "Account",
-        "FMLevel": 5,
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
         "FMTermType": "DeductibleMax",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
@@ -52,8 +52,8 @@
         "ProfileElementName": "LayerAttachment",
         "DeductibleType": "B",
         "FieldName": "AttachmentPoint",
-        "FMLevelName": "Layer",
-        "FMLevel": 6,
+        "FMLevelName": "PolLayer",
+        "FMLevel": 10,
         "FMTermType": "Deductible",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
@@ -61,8 +61,8 @@
     "LayerLimit": {
         "ProfileElementName": "LayerLimit",
         "FieldName": "LayerLimit",
-        "FMLevelName": "Layer",
-        "FMLevel": 6,
+        "FMLevelName": "PolLayer",
+        "FMLevel": 10,
         "FMTermType": "Limit",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
@@ -70,8 +70,8 @@
     "LayerParticipation": {
         "ProfileElementName": "LayerParticipation",
         "FieldName": "LayerParticipation",
-        "FMLevelName": "Layer",
-        "FMLevel": 6,
+        "FMLevelName": "PolLayer",
+        "FMLevel": 10,
         "FMTermType": "Share",
         "FMTermGroupID": 1,
         "ProfileType": "Acc"
