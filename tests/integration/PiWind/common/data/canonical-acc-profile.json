@@ -1,0 +1,60 @@
+{
+    "BLANDEDAMT": {
+        "ProfileElementName": "BLANDEDAMT",
+        "DeductibleType": "B",
+        "FieldName": "BlanketDeductible",
+        "FMLevelName": "Account",
+        "FMLevel": 5,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "MINDEDAMT": {
+        "ProfileElementName": "MINDEDAMT",
+        "DeductibleType": "MI",
+        "FieldName": "BlanketMinDeductible",
+        "FMLevelName": "Account",
+        "FMLevel": 5,
+        "FMTermType": "DeductibleMin",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "MAXDEDAMT": {
+        "ProfileElementName": "MAXDEDAMT",
+        "DeductibleType": "MA",
+        "FieldName": "BlanketMaxDeductible",
+        "FMLevelName": "Account",
+        "FMLevel": 5,
+        "FMTermType": "DeductibleMax",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "UNDCOVAMT": {
+        "ProfileElementName": "UNDCOVAMT",
+        "DeductibleType": "B",
+        "FieldName": "AttachmentPoint",
+        "FMLevelName": "Layer",
+        "FMLevel": 6,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PARTOF": {
+        "ProfileElementName": "PARTOF",
+        "FieldName": "LayerLimit",
+        "FMLevelName": "Layer",
+        "FMLevel": 6,
+        "FMTermType": "Limit",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "BLANLIMAMT": {
+        "ProfileElementName": "BLANLIMAMT",
+        "FieldName": "BlanketLimit",
+        "FMLevelName": "Layer",
+        "FMLevel": 6,
+        "FMTermType": "Share",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    }
+}

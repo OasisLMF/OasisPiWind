@@ -3,15 +3,10 @@
         "FMLevel": 1,
         "FMLevelName": "Coverage",
         "FMAggKey": {
-            "LocID": {
+            "ItemID": {
                 "src": "FM",
-                "field": "canexp_id",
-                "name": "Location ID"
-            },
-            "CoverageID": {
-                "src": "FM",
-                "field": "coverage_id",
-                "name": "Coverage ID"
+                "field": "item_id",
+                "name": "Item ID"
             }
         }
     },
@@ -19,11 +14,10 @@
         "FMLevel": 2,
         "FMLevelName": "Combined",
         "FMAggKey": {
-            "LocID": {
+            "CoverageID": {
                 "src": "FM",
-                "field": "canexp_id",
-                "name": "Location ID",
-                "cov_types": [1, 3]
+                "field": "coverage_id",
+                "name": "Coverage ID"
             }
         }
     },

@@ -58,7 +58,7 @@ http://www.altova.com/mapforce
 	</xsl:template>
 	<xsl:template match="/">
 		<root>
-			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/PiWind/piwind_modelloc.xsd</xsl:attribute>
+			<xsl:attribute name="xsi:noNamespaceSchemaLocation" namespace="http://www.w3.org/2001/XMLSchema-instance">C:/Users/Administrator/Desktop/git/OasisPiWind/flamingo/PiWind/Files/ValidationFiles/piwind_modelloc.xsd</xsl:attribute>
 			<xsl:for-each select="root">
 				<xsl:call-template name="agt:MapTopiwind_modelloc_var7_resultof_map">
 					<xsl:with-param name="var6_current" select="."/>

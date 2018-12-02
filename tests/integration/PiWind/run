@@ -1,0 +1,112 @@
+#!/bin/bash
+set -exu
+
+## Global vars 
+MODEL_ID='PiWind'
+PROVIDER='OasisLMF'
+DIR_SCRIPT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+OUTPUT=$DIR_SCRIPT'/output'
+TEST_TYPE=$1   #type of test [Keys_server, Model_execution]
+TIMEOUT=2700
+
+
+# pass in two dirs to compare 
+#  test_output_result <path_to_expected> <path_to_result>
+test_output_result(){
+    export MODEL_OUTPUT_EXPECTED=$1
+    export MODEL_OUTPUT_FOUND=$2
+    echo "Path to expected: "$MODEL_OUTPUT_EXPECTED
+    echo "path to Results: "$MODEL_OUTPUT_FOUND
+    if [ ! -d $MODEL_OUTPUT_EXPECTED ]; then
+        echo "No expected data found in '${MODEL_OUTPUT_EXPECTED}'"
+        echo "Skipping output comparison"
+    fi
+
+    ## Check Test Output
+    cd /var/oasis/test/common
+    pip install -r requirements.txt
+    python -m unittest -v CheckOutput
+}
+
+
+test_keys_server(){
+    TEST_CASE=$1   #directory with test files
+    DIR_TEST=$DIR_SCRIPT'/keys_server'
+    DIR_OUTPUT=$OUTPUT'/keys_server'
+    DIR_RUN='/var/www/oasis/oasis_keys_server/tests'
+    if [ ! -d $DIR_OUTPUT/$TEST_CASE ]; then
+        mkdir -p $DIR_OUTPUT/$TEST_CASE
+    fi
+
+    # exec test
+    cp "${DIR_TEST}/${TEST_CASE}/KeysServerTests.ini" $DIR_RUN  # select test params
+    cd $DIR_RUN                                                             # switch to test dir
+    pip install -r requirements.txt                                         # install python deps
+    cat KeysServerTests.ini                                                 # Cat file for jenkins logs
+    timeout 1500 python -m unittest -v KeysServerTests                      # exec test
+
+    # Check Output
+    test_output_result ${DIR_TEST}/${TEST_CASE}/expected ${DIR_OUTPUT}/${TEST_CASE}
+}
+
+
+test_model_exec(){
+    TEST_CASE=$1   #directory with test files
+    DIR_TEST='/var/oasis/test/model_exec'
+    DIR_OASIS_FILES='/var/oasis/test/input'
+    RUN_LOG='run_output.log'
+    DIR_OUTPUT=$OUTPUT'/model_exec'
+    if [ ! -d $DIR_OUTPUT ]; then
+        mkdir -p $DIR_OUTPUT
+    fi
+
+    ## Override 
+    ANALYSIS_SETTINGS="${DIR_SCRIPT}/common/data/analysis_settings.json"
+
+    ## generate ktool input files from source exposure data 
+    oasislmf model generate-oasis-files -C $DIR_SCRIPT/model_exec/$TEST_CASE/generate_files.json
+
+    # Send analsys request to API 
+    timeout $TIMEOUT oasislmf test model-api  http://oasis_api_server \
+                             -a $ANALYSIS_SETTINGS \
+                             -i $DIR_OASIS_FILES \
+                             -o $OUTPUT | tee $RUN_LOG
+
+    set +exu
+    EXCEPTION_CHECK=$(cat $RUN_LOG | grep -ci exception)
+    ERROR_CHECK=$(cat $RUN_LOG | grep -ci error)
+    COMPLETE_CHECK=$(cat $RUN_LOG | grep -ci 'Finished: 1 completed, 0 failed')
+    if [ $ERROR_CHECK -ne 0 ] || [ $EXCEPTION_CHECK -ne 0 ]; then
+        echo "Error Detected"
+        exit 1
+    elif [ $COMPLETE_CHECK -ne 1 ]; then 
+        echo "Execution timed out at '${TIMEOUT}' seconds"
+        exit 1
+    else
+        set -exu
+        #check Output vs Execpted files
+        TAR_FILE=$(find $OUTPUT -maxdepth 1 -type f  -name "*.tar.gz")
+        echo $TAR_FILE
+        tar -zxvf $TAR_FILE -C $OUTPUT
+        mv $OUTPUT/output $DIR_OUTPUT/$TEST_CASE
+        rm $TAR_FILE
+
+        test_output_result ${DIR_TEST}/${TEST_CASE}/expected ${DIR_OUTPUT}/${TEST_CASE}
+    fi
+}
+
+
+# ----  main selection switch ----------------------------------------------- #
+
+case "$TEST_TYPE" in
+    keys_server)
+        test_keys_server ${@:2}
+        ;;
+    model_exec)
+        test_model_exec ${@:2}
+        ;;
+    *)
+        echo $"Usage: $0 {keys_server|model_exec}"
+        exit 1
+        ;;
+esac

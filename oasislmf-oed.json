@@ -1,16 +1,14 @@
 {
-    "source_exposures_file_path": null,
-    "source_exposures_validation_file_path": null,
-    "source_to_canonical_exposures_transformation_file_path": null,
+    "source_exposures_file_path": "tests/data/SourceLocOEDPiWind10.csv",
+    "source_to_canonical_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_CanLocA.xslt",
     "canonical_exposures_profile_json_path": "canonical-oed-loc-profile.json",
-    "canonical_exposures_validation_file_path": null,
-    "canonical_to_model_exposures_transformation_file_path": null,
-    "source_accounts_file_path": null,
+    "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_piwind_modelloc.xslt",
+    "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
     "canonical_accounts_profile_json_path": "canonical-oed-acc-profile.json",
-    "source_accounts_validation_file_path": null,
-    "source_to_canonical_accounts_transformation_file_path": null,
+    "source_to_canonical_accounts_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_CanAccA.xslt",
     "lookup_package_path": "src/keys_server",
+    "model_data_path": "model_data/PiWind",
     "analysis_settings_json_file_path": "analysis_settings.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
-    "fm_agg_profile_path": "oed-fm-agg-profile.json"
+    "fm_agg_profile_path": "fm-oed-agg-profile.json"
 }

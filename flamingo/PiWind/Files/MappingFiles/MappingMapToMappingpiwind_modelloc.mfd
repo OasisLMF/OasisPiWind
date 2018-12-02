@@ -17,11 +17,22 @@
 						<wsdl/>
 					</data>
 				</component>
+				<component name="constant" library="core" uid="4" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="12"/>
+					</targets>
+					<view ltx="547" lty="132" rbx="593" rby="150"/>
+					<data>
+						<constant value="1" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
 				<component name="Generic_Windstorm_CanLoc_B" library="xml" uid="2" kind="14">
 					<properties XSLTTargetEncoding="UTF-8"/>
 					<view rbx="399" rby="713"/>
 					<data>
-						<root scrollposition="35">
+						<root scrollposition="1">
 							<header>
 								<namespaces>
 									<namespace/>
@@ -40,7 +51,7 @@
 								</entry>
 							</entry>
 						</root>
-						<document schema="..\cookiecutter-OasisModel\{{cookiecutter.project_slug}}\flamingo\generic_model\ValidationFiles\Generic_Windstorm_CanLoc_B.xsd" outputinstance="..\cookiecutter-OasisModel\{{cookiecutter.project_slug}}\flamingo\generic_model\ValidationFiles\Generic_Windstorm_CanLoc_B.xml" instanceroot="{}root"/>
+						<document schema="..\ValidationFiles\Generic_Windstorm_CanLoc_B.xsd" outputinstance="..\cookiecutter-OasisModel\{{cookiecutter.project_slug}}\flamingo\generic_model\ValidationFiles\Generic_Windstorm_CanLoc_B.xml" instanceroot="{}root"/>
 						<wsdl/>
 					</data>
 				</component>
@@ -70,18 +81,7 @@
 								</entry>
 							</entry>
 						</root>
-						<document schema="piwind_modelloc.xsd" outputinstance="..\piwind_model.xml" instanceroot="{}root"/>
-						<wsdl/>
-					</data>
-				</component>
-				<component name="constant" library="core" uid="4" kind="2">
-					<properties/>
-					<targets>
-						<datapoint pos="0" key="12"/>
-					</targets>
-					<view ltx="547" lty="132" rbx="593" rby="150"/>
-					<data>
-						<constant value="1" datatype="string"/>
+						<document schema="..\ValidationFiles\piwind_modelloc.xsd" outputinstance="..\piwind_model.xml" instanceroot="{}root"/>
 						<wsdl/>
 					</data>
 				</component>
