@@ -45,6 +45,11 @@
                 "src": "FM",
                 "field": "canacc_id",
                 "name": "Account no."
+            },
+            "CondNum": {
+                "src": "CanAcc",
+                "field": "condnumber",
+                "name": "Condition no."
             }
         }
     },
