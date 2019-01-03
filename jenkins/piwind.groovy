@@ -6,18 +6,18 @@ node {
     // Default Multibranch config
     properties([
       parameters([
-        [$class: 'StringParameterValue',  name: 'BUILD_BRANCH', defaultValue: 'master'],
-        [$class: 'StringParameterValue',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
-        [$class: 'StringParameterValue',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
-        [$class: 'StringParameterValue',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
-        [$class: 'StringParameterValue',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
-        [$class: 'StringParameterValue',  name: 'RELEASE_TAG', defaultValue: BUILD_TAG],
-        [$class: 'StringParameterValue',  name: 'BASE_TAG', defaultValue: 'latest'],
-        [$class: 'StringParameterValue',  name: 'KEYSERVER_TESTS', defaultValue: 'case_0'],
-        [$class: 'StringParameterValue',  name: 'MODELEXEC_TESTS', defaultValue: 'case_0 case_1 case_2'],
-        [$class: 'BooleanParameterValue', name: 'PURGE', value: Boolean.valueOf(true)],
-        [$class: 'BooleanParameterValue', name: 'PUBLISH', value: Boolean.valueOf(false)],
-        [$class: 'BooleanParameterValue', name: 'SLACK_MESSAGE', value: Boolean.valueOf(false)]
+        [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
+        [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
+        [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: BUILD_TAG],
+        [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
+        [$class: 'StringParameterDefinition',  name: 'KEYSERVER_TESTS', defaultValue: 'case_0'],
+        [$class: 'StringParameterDefinition',  name: 'MODELEXEC_TESTS', defaultValue: 'case_0 case_1 case_2'],
+        [$class: 'BooleanParameterDefinition', name: 'PURGE', value: Boolean.valueOf(true)],
+        [$class: 'BooleanParameterDefinition', name: 'PUBLISH', value: Boolean.valueOf(false)],
+        [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', value: Boolean.valueOf(false)]
       ])
     ])
 
