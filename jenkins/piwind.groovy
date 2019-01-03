@@ -3,6 +3,24 @@ node {
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
 
+    // Default Multibranch config
+    properties([
+      parameters([
+        [$class: 'StringParameterValue',  name: 'BUILD_BRANCH', defaultValue: 'master'],
+        [$class: 'StringParameterValue',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
+        [$class: 'StringParameterValue',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
+        [$class: 'StringParameterValue',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
+        [$class: 'StringParameterValue',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
+        [$class: 'StringParameterValue',  name: 'RELEASE_TAG', defaultValue: BUILD_TAG],
+        [$class: 'StringParameterValue',  name: 'BASE_TAG', defaultValue: 'latest'],
+        [$class: 'StringParameterValue',  name: 'KEYSERVER_TESTS', defaultValue: 'case_0'],
+        [$class: 'StringParameterValue',  name: 'MODELEXEC_TESTS', defaultValue: 'case_0 case_1 case_2'],
+        [$class: 'BooleanParameterValue', name: 'PURGE', value: Boolean.valueOf(true)],
+        [$class: 'BooleanParameterValue', name: 'PUBLISH', value: Boolean.valueOf(false)],
+        [$class: 'BooleanParameterValue', name: 'SLACK_MESSAGE', value: Boolean.valueOf(false)]
+      ])
+    ])
+
     // Build vars
     String build_repo = 'git@github.com:OasisLMF/build.git'
     String build_branch = params.BUILD_BRANCH
@@ -49,7 +67,7 @@ node {
 
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
-    env.PATH_TEST_DIR    = model_test_dir         // Integration Test dir for model 
+    env.PATH_TEST_DIR    = model_test_dir         // Integration Test dir for model
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
@@ -88,7 +106,7 @@ node {
             stage("Keys_server: ${keys_server_tests[i]}"){
                 dir(build_workspace) {
                     sh PIPELINE + " run_test keys_server ${keys_server_tests[i]}"
-                }    
+                }
             }
         }
         model_exec_tests = params.MODELEXEC_TESTS.split()
@@ -96,7 +114,7 @@ node {
             stage("model_exec: ${model_exec_tests[i]}"){
                 dir(build_workspace) {
                     sh PIPELINE + " run_test  model_exec ${model_exec_tests[i]}"
-                }    
+                }
             }
         }
         if (params.PUBLISH){
