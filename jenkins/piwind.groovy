@@ -7,7 +7,7 @@ node {
     if (binding.hasVariable('CHANGE_BRANCH')) {
         auto_set_branch = CHANGE_BRANCH
     } else {
-        auto_set_branch = BUILD_BRANCH
+        auto_set_branch = BRANCH_NAME
     }    
 
     properties([
