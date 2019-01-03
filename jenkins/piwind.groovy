@@ -4,7 +4,12 @@ node {
     deleteDir() // wipe out the workspace
 
     // Default Multibranch config
-    String auto_set_branch = (CHANGE_BRANCH ? CHANGE_BRANCH:BRANCH_NAME)
+    if (binding.hasVariable('CHANGE_BRANCH')) {
+        auto_set_branch = CHANGE_BRANCH
+    } else {
+        auto_set_branch = BUILD_BRANCH
+    }    
+
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
