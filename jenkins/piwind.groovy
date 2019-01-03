@@ -11,7 +11,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
-        [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: BUILD_TAG],
+        [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_TESTS', defaultValue: 'case_0'],
         [$class: 'StringParameterDefinition',  name: 'MODELEXEC_TESTS', defaultValue: 'case_0 case_1 case_2'],
