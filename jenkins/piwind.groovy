@@ -4,11 +4,11 @@ node {
     deleteDir() // wipe out the workspace
 
     // Default Multibranch config
-    if (binding.hasVariable('CHANGE_BRANCH')) {
+    try {
         auto_set_branch = CHANGE_BRANCH
-    } else {
+    } catch (MissingPropertyException e) {
         auto_set_branch = BRANCH_NAME
-    }    
+    }
 
     properties([
       parameters([
