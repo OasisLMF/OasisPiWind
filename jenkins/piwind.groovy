@@ -4,11 +4,12 @@ node {
     deleteDir() // wipe out the workspace
 
     // Default Multibranch config
+    String auto_set_branch = (CHANGE_BRANCH ? CHANGE_BRANCH:BRANCH_NAME)
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
-        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: auto_set_branch],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
