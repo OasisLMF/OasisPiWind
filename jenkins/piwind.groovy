@@ -10,7 +10,6 @@ node {
         auto_set_branch = BRANCH_NAME
     }
 
-
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
@@ -22,9 +21,9 @@ node {
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_TESTS', defaultValue: 'case_0'],
         [$class: 'StringParameterDefinition',  name: 'MODELEXEC_TESTS', defaultValue: 'case_0 case_1 case_2'],
-        [$class: 'BooleanParameterDefinition', name: 'PURGE', value: Boolean.valueOf(true)],
-        [$class: 'BooleanParameterDefinition', name: 'PUBLISH', value: Boolean.valueOf(false)],
-        [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', value: Boolean.valueOf(false)]
+        [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
+        [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
+        [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', defaultValue: Boolean.valueOf(false)]
       ])
     ])
 
