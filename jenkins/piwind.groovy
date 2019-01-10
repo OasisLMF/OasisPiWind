@@ -1,22 +1,24 @@
+def getBranch() {
+    // Default Multibranch config
+    try {
+        return CHANGE_BRANCH
+    } catch (MissingPropertyException e) {
+        return BRANCH_NAME
+    }
+}    
+
+
 node {
     hasFailed = false
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
 
-    // Default Multibranch config
-    if (BRANCH_NAME || CHANGE_BRANCH) {
-        try {
-            auto_set_branch = CHANGE_BRANCH
-        } catch (MissingPropertyException e) {
-            auto_set_branch = BRANCH_NAME
-        }
-    }
 
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
-        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: auto_set_branch],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: getBranch()],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
