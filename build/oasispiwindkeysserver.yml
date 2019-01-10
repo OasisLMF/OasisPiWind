@@ -3,7 +3,7 @@ services:
 
   piwind_keys_server:
     restart: always
-    image: coreoasis/piwind_keys_server:latest
+    image: coreoasis/piwind_keys_server:__release_tag__
     container_name: piwind_keys_server
     ports:
-     - 9001:80
+     - __keys_service_port__:80
