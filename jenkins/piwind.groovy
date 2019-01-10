@@ -4,10 +4,12 @@ node {
     deleteDir() // wipe out the workspace
 
     // Default Multibranch config
-    try {
-        auto_set_branch = CHANGE_BRANCH
-    } catch (MissingPropertyException e) {
-        auto_set_branch = BRANCH_NAME
+    if (BRANCH_NAME || CHANGE_BRANCH) {
+        try {
+            auto_set_branch = CHANGE_BRANCH
+        } catch (MissingPropertyException e) {
+            auto_set_branch = BRANCH_NAME
+        }
     }
 
     properties([
