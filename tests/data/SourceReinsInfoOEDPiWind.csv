@@ -1,3 +1,2 @@
-ReinsNumber,PortNumber,AccNumber,PolNumber,LocationGroup,LocNumber,CedantName,ProducerName,LOB,CountryCode,ReinsuranceTag,CededPercent,RiskLevel
-1,0,11111,Layer1,,1,,,,,,0.1,LOC
-1,0,11111,Layer2,,2,,,,,,0.2,LOC
+ReinsNumber,ReinsLayerNumber,ReinsName,ReinsPerilCode,ReinsInceptionDate,ReinsExpiryDate,CededPercent,RiskLimit,RiskAttachment,OccLimit,OccAttachment,OccurenceFranchiseDed,OccurenceReverseFranchise,AggregateLimit,AggregateAttachmentPoint,ReinsCurrency,InuringPriority,ReinsType,AttachmentBasis,ReinstatementNumber,ReinstatementCharge,ReinsPremium,ReinsHoursClause,PlacedPercent,DeemedPercentPlaced,ReinsFXrate,TreatyShare,UseReinsDates
+1,1,ABC QS,WW1,01/01/2018,31/12/2018,1,0,0,0,0,0,0,0,0,USD,1,SS,LO,99,0,6,,1,1,1,1,No
