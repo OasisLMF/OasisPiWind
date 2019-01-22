@@ -1,18 +1,18 @@
 def getBranch() {
     // Default Multibranch config
-    try {
+    if (getBinding().hasVariable("CHANGE_BRANCH")){
         return CHANGE_BRANCH
-    } catch (MissingPropertyException e) {
+    } else if (getBinding().hasVariable("BRANCH_NAME")){
         return BRANCH_NAME
-    }
+    } else {
+       return params.MODEL_BRANCH
+    }    
 }    
-
 
 node {
     hasFailed = false
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
-
 
     properties([
       parameters([
