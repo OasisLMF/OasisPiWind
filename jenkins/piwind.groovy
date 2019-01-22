@@ -13,6 +13,9 @@ node {
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
 
+    println(getBinding().hasVariable("CHANGE_BRANCH"))
+    println(getBinding().hasVariable("BRANCH_NAME"))
+    println(getBinding().hasVariable("MODEL_BRANCH"))
 
     properties([
       parameters([
