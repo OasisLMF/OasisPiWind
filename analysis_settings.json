@@ -20,6 +20,7 @@
         ],
         "gul_threshold": 0,
         "il_output": true,
+        "ri_output": true,
         "il_summaries": [
             {
                 "aalcalc": true,
