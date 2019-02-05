@@ -1,5 +1,5 @@
 {
-    "analysis_settings_file_path": "analysis_settings.json",
+    "analysis_settings_json_file_path": "analysis_settings.json",
     "canonical_accounts_profile_json_path": "canonical-oed-acc-profile.json",
     "canonical_exposures_profile_json_path": "canonical-oed-loc-profile.json",
     "canonical_to_model_exposures_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_piwind_modelloc.xslt",
