@@ -113,7 +113,7 @@ node {
                 String MDK_RUN='ri'
 
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner --mdk-repo-branch ${model_branch} --model-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
+                sh "docker run mdk-runner --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
             }
         }
         keys_server_tests = params.KEYSERVER_TESTS.split()
