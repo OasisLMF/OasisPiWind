@@ -1,25 +1,21 @@
-def getBranch() {
-    // Default Multibranch config
-    if (getBinding().hasVariable("CHANGE_BRANCH")){
-        return CHANGE_BRANCH
-    } else if (getBinding().hasVariable("BRANCH_NAME")){
-        return BRANCH_NAME
-    } else {
-       return params.MODEL_BRANCH
-    }    
-}    
 
 node {
     hasFailed = false
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
 
-    sh env
+    // Set Default Multibranch config
+    try {
+        auto_set_branch = CHANGE_BRANCH
+    } catch (MissingPropertyException e) {
+        auto_set_branch = BRANCH_NAME
+    }
+
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
-        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: getBranch()],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: auto_set_branch],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
@@ -83,7 +79,6 @@ node {
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
 
-    sh 'env'
     try {
         parallel(
             clone_build: {
@@ -97,6 +92,7 @@ node {
                 stage('Clone: ' + model_func) {
                     sshagent (credentials: [git_creds]) {
                         dir(model_workspace) {
+                           println(getBinding().hasVariable("CHANGE_BRANCH"))
                            sh "git clone -b ${model_branch} ${model_git_url} ."
                         }
                     }
@@ -111,7 +107,15 @@ node {
                 sh PIPELINE + " build_image  docker/Dockerfile.oasislmf_piwind_keys_server ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE} ${env.TAG_BASE}"
             }
         }
+        stage('Run MDK: ' + model_func) {
+            dir(build_workspace) {
+                String MDK_BRANCH='master'
+                String MDK_RUN='ri'
 
+                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
+                sh "docker run mdk-runner --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
+            }
+        }
         keys_server_tests = params.KEYSERVER_TESTS.split()
         for(int i=0; i < keys_server_tests.size(); i++) {
             stage("Keys_server: ${keys_server_tests[i]}"){
