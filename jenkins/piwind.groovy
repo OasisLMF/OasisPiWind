@@ -109,8 +109,11 @@ node {
         }
         stage('Run MDK: ' + model_func) {
             dir(build_workspace) {
+                String MDK_BRANCH='master'
+                String MDK_RUN='ri'
+
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner --help" 
+                sh "docker run mdk-runner --mdk-repo-branch ${model_branch} --model-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
             }
         }
         keys_server_tests = params.KEYSERVER_TESTS.split()
