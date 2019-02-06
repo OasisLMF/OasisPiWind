@@ -1,18 +1,17 @@
 def getBranch() {
     // Default Multibranch config
-    try {
+    if (getBinding().hasVariable("CHANGE_BRANCH")){
         return CHANGE_BRANCH
-    } catch (MissingPropertyException e) {
+    } else {
         return BRANCH_NAME
     }
 }    
-
 
 node {
     hasFailed = false
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
-
+    //set_branch = getBranch()
 
     properties([
       parameters([
@@ -82,7 +81,6 @@ node {
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
 
-    sh 'env'
     try {
         parallel(
             clone_build: {
