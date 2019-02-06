@@ -96,6 +96,7 @@ node {
                 stage('Clone: ' + model_func) {
                     sshagent (credentials: [git_creds]) {
                         dir(model_workspace) {
+                           println(getBinding().hasVariable("CHANGE_BRANCH"))
                            sh "git clone -b ${model_branch} ${model_git_url} ."
                         }
                     }
