@@ -1,5 +1,7 @@
 def getBranch() {
     // Default Multibranch config
+    println(getBinding().hasVariable("env.CHANGE_BRANCH"))
+    println(getBinding().hasVariable("CHANGE_BRANCH"))
     if (getBinding().hasVariable("CHANGE_BRANCH")){
         return CHANGE_BRANCH
     } else {
