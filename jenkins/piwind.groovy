@@ -11,6 +11,7 @@ node {
         auto_set_branch = BRANCH_NAME
     }
 
+
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
