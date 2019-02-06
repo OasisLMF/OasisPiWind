@@ -87,7 +87,6 @@ node {
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
 
-    sh 'env'
     try {
         parallel(
             clone_build: {
