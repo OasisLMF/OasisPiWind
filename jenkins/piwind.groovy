@@ -110,7 +110,7 @@ node {
         }
         stage('Run MDK: ' + model_func) {
             dir(build_workspace) {
-                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .
+                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
                 sh "docker run mdk-runner --help" 
             }
         }
