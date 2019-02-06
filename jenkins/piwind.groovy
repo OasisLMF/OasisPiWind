@@ -93,7 +93,7 @@ node {
                     sshagent (credentials: [git_creds]) {
                         dir(model_workspace) {
                            println(getBinding().hasVariable("CHANGE_BRANCH"))
-                           sh "git clone -b ${model_branch} ${model_git_url} ."
+                           sh "git clone -b ${model_branch} --single-branch --no-tags ${model_git_url} ."
                         }
                     }
                 }
