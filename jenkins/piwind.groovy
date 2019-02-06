@@ -1,20 +1,17 @@
 def getBranch() {
     // Default Multibranch config
-    println(getBinding().hasVariable("env.CHANGE_BRANCH"))
-    println(getBinding().hasVariable("CHANGE_BRANCH"))
-    if (getBinding().hasVariable("CHANGE_BRANCH")){
+    try {
         return CHANGE_BRANCH
-    } else {
+    } catch (MissingPropertyException e) {
         return BRANCH_NAME
     }
-}    
+} 
 
 node {
     hasFailed = false
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
-    //set_branch = getBranch()
-    sh 'env'
+
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
