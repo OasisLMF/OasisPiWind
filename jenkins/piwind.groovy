@@ -108,7 +108,12 @@ node {
                 sh PIPELINE + " build_image  docker/Dockerfile.oasislmf_piwind_keys_server ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE} ${env.TAG_BASE}"
             }
         }
-
+        stage('Run MDK: ' + model_func) {
+            dir(build_workspace) {
+                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .
+                sh "docker run mdk-runner --help" 
+            }
+        }
         keys_server_tests = params.KEYSERVER_TESTS.split()
         for(int i=0; i < keys_server_tests.size(); i++) {
             stage("Keys_server: ${keys_server_tests[i]}"){
