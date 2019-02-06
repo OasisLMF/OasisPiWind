@@ -1,10 +1,13 @@
 def getBranch() {
     // Default Multibranch config
     if (getBinding().hasVariable("CHANGE_BRANCH")){
+        println(CHANGE_BRANCH)
         return CHANGE_BRANCH
     } else if (getBinding().hasVariable("BRANCH_NAME")){
+        println(BRANCH_NAME)
         return BRANCH_NAME
     } else {
+       return 'master' 
        return params.MODEL_BRANCH
     }    
 }    
