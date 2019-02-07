@@ -6,12 +6,12 @@ node {
 
     // Set Default Multibranch config
     try {
-        source_branch = CHANGE_BRANCH
+        model_branch = CHANGE_BRANCH
     } catch (MissingPropertyException e1) {
         try {
-            source_branch = BRANCH_NAME
+            model_branch = BRANCH_NAME
         } catch (MissingPropertyException e2) {
-             source_branch = ""
+             model_branch = ""
         }
     }
 
@@ -19,7 +19,7 @@ node {
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
-        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: auto_set_branch],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: model_branch],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
