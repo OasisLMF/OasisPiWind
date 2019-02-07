@@ -6,9 +6,13 @@ node {
 
     // Set Default Multibranch config
     try {
-        auto_set_branch = CHANGE_BRANCH
-    } catch (MissingPropertyException e) {
-        auto_set_branch = BRANCH_NAME
+        source_branch = CHANGE_BRANCH
+    } catch (MissingPropertyException e1) {
+        try {
+            source_branch = BRANCH_NAME
+        } catch (MissingPropertyException e2) {
+             source_branch = ""
+        }
     }
 
     properties([
