@@ -1,7 +1,7 @@
 {
     "analysis_settings_file_path": "analysis_settings.json",
-    "canonical_accounts_profile_path": "canonical-oed-acc-profile.json",
-    "canonical_exposure_profile_path": "canonical-oed-loc-profile.json",
+    "source_accounts_profile_path": "oed-acc-profile.json",
+    "source_exposure_profile_path": "oed-loc-profile.json",
     "fm_agg_profile_path": "fm-oed-agg-profile.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
     "lookup_package_path": "src/keys_server",
