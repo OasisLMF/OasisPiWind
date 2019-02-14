@@ -79,7 +79,7 @@
         "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY", "VULNERABILITY_ID"],
         "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY"],
         "col_dtypes": {
-            "PERIL_ID": "int", "COVERAGE_TYPE": "int", "OCCUPANCY": "int", "VULNERABILITY_ID": "int"
+            "PERIL_ID": "str", "COVERAGE_TYPE": "int", "OCCUPANCY": "int", "VULNERABILITY_ID": "int"
         },
         "sort_col": "VULNERABILITY_ID",
         "sort_ascending": true,
