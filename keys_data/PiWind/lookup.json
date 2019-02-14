@@ -74,19 +74,19 @@
         "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict2.csv",
         "file_type": "csv",
         "float_precision_high": true,
-        "num_vulnerabilities": 3,
-        "cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
-        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
-        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1"],
+        "num_vulnerabilities": 12,
+        "cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY", "VULNERABILITY_ID"],
+        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY", "VULNERABILITY_ID"],
+        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY"],
         "col_dtypes": {
-            "PERIL_ID": "int", "COVERAGE_TYPE": "int", "CLASS_1": "str", "VULNERABILITY_ID": "int"
+            "PERIL_ID": "int", "COVERAGE_TYPE": "int", "OCCUPANCY": "int", "VULNERABILITY_ID": "int"
         },
         "sort_col": "VULNERABILITY_ID",
         "sort_ascending": true,
         "vulnerability_id_col": "VULNERABILITY_ID"
     },
     "locations": {
-        "id_col": "id",
+        "id_col": "LocNumber",
         "coords_type": "lonlat",
         "coords_x_col": "lon",
         "coords_y_col": "lat",
@@ -94,9 +94,9 @@
         "coords_y_bounds": [-90, 90],
         "non_na_cols": ["id", "lon", "lat"],
         "col_dtypes": {
-            "id": "int", "lon": "float", "lat": "float"
+            "id": "int", "Longitude": "float", "Latitude": "float"
         },
-        "sort_col": "id",
+        "sort_col": "LocNumber",
         "sort_ascending": true
     }
 }
