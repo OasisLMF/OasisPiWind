@@ -17,7 +17,7 @@ node {
 
     properties([
       parameters([
-        [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
+        [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'feature/update-tests'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: model_branch],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
