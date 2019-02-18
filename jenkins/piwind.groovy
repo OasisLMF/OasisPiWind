@@ -24,8 +24,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
-        [$class: 'StringParameterDefinition',  name: 'KEYSERVER_TESTS', defaultValue: 'case_0'],
-        [$class: 'StringParameterDefinition',  name: 'MODELEXEC_TESTS', defaultValue: 'case_0 case_1 case_2'],
+        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 2_case'],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', defaultValue: Boolean.valueOf(false)]
@@ -51,7 +50,6 @@ node {
     String git_creds = "1335b248-336a-47a9-b0f6-9f7314d6f1f4"
 
     //Model data vars
-    String model_test_case = "case_0"
     String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/integration/${model_varient}"
     String model_vers = params.MODEL_VERSION
     String model_data = "${env.WORKSPACE}/${model_workspace}/model_data/PiWind"
@@ -59,29 +57,25 @@ node {
     String keys_data  = "${env.WORKSPACE}/${model_workspace}/keys_data/PiWind"
 
     // Set Global ENV
-    env.PIPELINE_LOAD =  script_dir + model_sh   // required for pipeline.sh calls
+    env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
+    env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
+    env.TAG_RELEASE          = params.RELEASE_TAG                       // Build TAG for TARGET image
+    env.TAG_RUN_PLATFORM     = params.BASE_TAG                          // Version of Oasis Platform to use for testing
+    env.TAG_RUN_WORKER       = env.TAG_RUN_PLATFORM                     // Version of Model to use for testing
+    env.OASIS_MODEL_DATA_DIR = "${env.WORKSPACE}/${model_workspace}"    // Model Repositry base, mounted in worker image
 
-    env.TAG_BASE          = params.BASE_TAG       // Build TAG for base set of images
-    env.TAG_RELEASE       = params.RELEASE_TAG    // Build TAG for TARGET image
-    env.TAG_RUN_PLATFORM  = params.BASE_TAG       // Version of Oasis Platform to use for testing
-    env.TAG_RUN_WORKER    = env.TAG_RUN_PLATFORM   // Version of Model to use for testing
-    env.TAG_RUN_KEYSERVER = params.RELEASE_TAG    // Version of Model to use for testing
-
-    env.IMAGE_WORKER     = "coreoasis/model_execution_worker"
-    env.IMAGE_KEYSERVER  = "coreoasis/${model_func}_keys_server"
+    env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
 
     env.MODEL_SUPPLIER   = model_name
     env.MODEL_VARIENT    = model_varient
 
     env.VERS_KEYS_DATA   = keys_vers              // keyserver version to run unittest againts
     env.VERS_MODEL_DATA  = model_vers             // keyserver version to run unittest againts
-
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
     env.PATH_TEST_DIR    = model_test_dir         // Integration Test dir for model
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
-
 
     try {
         parallel(
@@ -120,22 +114,16 @@ node {
                 sh "docker run mdk-runner --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
             }
         }
-        keys_server_tests = params.KEYSERVER_TESTS.split()
-        for(int i=0; i < keys_server_tests.size(); i++) {
-            stage("Keys_server: ${keys_server_tests[i]}"){
+
+        api_server_tests = params.RUN_TESTS.split()
+        for(int i=0; i < api_server_tests.size(); i++) {
+            stage("Run : ${api_server_tests[i]}"){
                 dir(build_workspace) {
-                    sh PIPELINE + " run_test keys_server ${keys_server_tests[i]}"
+                    sh PIPELINE + " run_test --test-case ${api_server_tests[i]}"
                 }
             }
         }
-        model_exec_tests = params.MODELEXEC_TESTS.split()
-        for(int i=0; i < model_exec_tests.size(); i++) {
-            stage("model_exec: ${model_exec_tests[i]}"){
-                dir(build_workspace) {
-                    sh PIPELINE + " run_test  model_exec ${model_exec_tests[i]}"
-                }
-            }
-        }
+
         if (params.PUBLISH){
             stage ('Publish: ' + model_func) {
                 dir(build_workspace) {
