@@ -68,6 +68,7 @@ node {
 
     env.MODEL_SUPPLIER   = model_name
     env.MODEL_VARIENT    = model_varient
+    env.MODEL_ID         = '1'
 
     env.VERS_KEYS_DATA   = keys_vers              // keyserver version to run unittest againts
     env.VERS_MODEL_DATA  = model_vers             // keyserver version to run unittest againts
