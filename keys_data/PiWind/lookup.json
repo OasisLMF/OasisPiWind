@@ -49,7 +49,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/areas-rtree-index-new-py3",
+            "filename": "%%KEYS_DATA_PATH%%/areas-rtree-index-new-py2",
             "fill_factor": 0.9,
             "idx_extension": "idx",
             "index_capacity": 100,
