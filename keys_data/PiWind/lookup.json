@@ -71,19 +71,19 @@
         }
     },
     "vulnerability": {
-        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict2.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict3.csv",
         "file_type": "csv",
         "float_precision_high": true,
-        "num_vulnerabilities": 3,
-        "cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
-        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "VULNERABILITY_ID"],
-        "key_cols": ["PERIL_ID", "COVERAGE_TYPE"],
+        "num_vulnerabilities": 151,
+        "cols": ["peril_id", "coverage_type", "occupancycode", "vulnerability_id"],
+        "non_na_cols": ["peril_id", "coverage_type", "occupancycode", "vulnerability_id"],
+        "key_cols": ["peril_id", "coverage_type", "occupancycode"],
         "col_dtypes": {
-            "PERIL_ID": "int", "COVERAGE_TYPE": "int", "VULNERABILITY_ID": "int"
+            "peril_id": "int", "coverage_type": "int", "occupancycode": "int", "vulnerability_id": "int"
         },
-        "sort_col": "VULNERABILITY_ID",
+        "sort_col": "vulnerability_id",
         "sort_ascending": true,
-        "vulnerability_id_col": "VULNERABILITY_ID"
+        "vulnerability_id_col": "vulnerability_id"
     },
     "exposure": {
         "id_col": "locnumber",
