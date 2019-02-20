@@ -85,7 +85,7 @@
         "sort_ascending": true,
         "vulnerability_id_col": "VULNERABILITY_ID"
     },
-    "locations": {
+    "exposure": {
         "id_col": "id",
         "coords_type": "lonlat",
         "coords_x_col": "lon",
