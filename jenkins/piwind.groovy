@@ -109,9 +109,12 @@ node {
         }
         stage('Run MDK: ' + model_func) {
             dir(build_workspace) {
-                String MDK_BRANCH='master'
+                if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
+                    String MDK_BRANCH='master'
+                } else {
+                    String MDK_BRANCH='develop'
+                }
                 String MDK_RUN='ri'
-
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
                 sh "docker run mdk-runner --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
             }
