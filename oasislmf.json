@@ -5,7 +5,6 @@
     "canonical_to_model_exposure_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToOED_piwind_modelloc.xslt",
     "fm_agg_profile_path": "fm-oed-agg-profile.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
-    "lookup_package_path": "src/keys_server",
     "model_data_path": "model_data/PiWind",
     "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
     "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv",
