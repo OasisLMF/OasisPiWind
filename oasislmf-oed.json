@@ -1,10 +1,6 @@
 {
     "analysis_settings_file_path": "analysis_settings.json",
-    "source_accounts_profile_path": "oed-acc-profile.json",
-    "source_exposure_profile_path": "oed-loc-profile.json",
-    "fm_agg_profile_path": "fm-oed-agg-profile.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
-    "lookup_package_path": "src/keys_server",
     "model_data_path": "model_data/PiWind",
     "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
     "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv",
