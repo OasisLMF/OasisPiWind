@@ -109,28 +109,23 @@ node {
         }
         stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
-                MDK_LOG="stage/log/mdk-runner-py3.6.log"
                 MDK_RUN='ri'
                 MDK_BRANCH='develop'
                 if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
                     MDK_BRANCH='master'
                 }
 
-                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner python run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} > ${MDK_LOG}" 
+                sh PIPELINE + " run_mdk python ${model_branch} ${MDK_BRANCH} ${MDK_RUN}"
             }
         }
         stage('Run MDK Py2.7: ' + model_func) {
             dir(build_workspace) {
-                MDK_LOG="stage/log/mdk-runner-py2.7.log"
                 MDK_RUN='ri'
                 MDK_BRANCH='develop'
                 if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
                     MDK_BRANCH='master'
                 }
-
-                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner python2.7 run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} > ${MDK_LOG}" 
+                sh PIPELINE + " run_mdk python2.7 ${model_branch} ${MDK_BRANCH} ${MDK_RUN}"
             }
         }
 
