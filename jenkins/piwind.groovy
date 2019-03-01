@@ -107,8 +107,9 @@ node {
                 sh PIPELINE + " build_image  docker/Dockerfile.oasislmf_piwind_keys_server ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE} ${env.TAG_BASE}"
             }
         }
-        stage('Run MDK: ' + model_func) {
+        stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
+                MDK_LOG="stage/log/mdk-runner-py3.6.log"
                 MDK_RUN='ri'
                 MDK_BRANCH='develop'
                 if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
@@ -116,9 +117,24 @@ node {
                 }
 
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}" 
+                sh "docker run mdk-runner python run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} | tee ${MDK_LOG}" 
             }
         }
+        stage('Run MDK Py2.7: ' + model_func) {
+            dir(build_workspace) {
+                MDK_LOG="stage/log/mdk-runner-py2.7.log"
+                MDK_RUN='ri'
+                MDK_BRANCH='develop'
+                if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
+                    MDK_BRANCH='master'
+                }
+
+                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
+                sh "docker run mdk-runner python2.7 run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} | tee ${MDK_LOG}" 
+            }
+        }
+
+
 
         api_server_tests = params.RUN_TESTS.split()
         for(int i=0; i < api_server_tests.size(); i++) {
