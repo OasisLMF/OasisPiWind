@@ -15,11 +15,17 @@ node {
         }
     }
 
+    set_mdk_branch='develop'
+    if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
+        set_mdk_branch='master'
+    }
+
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'feature/update-tests'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: model_branch],
+        [$class: 'StringParameterDefinition',  name: 'MDK_BRANCH', defaultValue: set_mdk_branch],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
@@ -110,22 +116,13 @@ node {
         stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
                 MDK_RUN='ri'
-                MDK_BRANCH='develop'
-                if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
-                    MDK_BRANCH='master'
-                }
-
-                sh PIPELINE + " run_mdk python ${model_branch} ${MDK_BRANCH} ${MDK_RUN}"
+                sh PIPELINE + " run_mdk python ${model_branch} ${params.MDK_BRANCH} ${MDK_RUN}"
             }
         }
         stage('Run MDK Py2.7: ' + model_func) {
             dir(build_workspace) {
                 MDK_RUN='ri'
-                MDK_BRANCH='develop'
-                if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
-                    MDK_BRANCH='master'
-                }
-                sh PIPELINE + " run_mdk python2.7 ${model_branch} ${MDK_BRANCH} ${MDK_RUN}"
+                sh PIPELINE + " run_mdk python2.7 ${model_branch} ${params.MDK_BRANCH} ${MDK_RUN}"
             }
         }
 
