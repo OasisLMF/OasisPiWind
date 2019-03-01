@@ -117,7 +117,7 @@ node {
                 }
 
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner python run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} | tee ${MDK_LOG}" 
+                sh "docker run mdk-runner python run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} > ${MDK_LOG}" 
             }
         }
         stage('Run MDK Py2.7: ' + model_func) {
@@ -130,7 +130,7 @@ node {
                 }
 
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner .'
-                sh "docker run mdk-runner python2.7 run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} | tee ${MDK_LOG}" 
+                sh "docker run mdk-runner python2.7 run_model.py --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN} > ${MDK_LOG}" 
             }
         }
 
