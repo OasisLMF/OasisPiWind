@@ -138,13 +138,13 @@ node {
             }
         }
 
-        if (params.PUBLISH){
-            stage ('Publish: ' + model_func) {
-                dir(build_workspace) {
-                    sh PIPELINE + " push_image ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE}"
-                }
-            }
-        }
+        // if (params.PUBLISH){
+        //     stage ('Publish: ' + model_func) {
+        //         dir(build_workspace) {
+        //             sh PIPELINE + " push_image ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE}"
+        //         }
+        //     }
+        // }
     } catch(hudson.AbortException | org.jenkinsci.plugins.workflow.steps.FlowInterruptedException buildException) {
         hasFailed = true
         error('Build Failed')
