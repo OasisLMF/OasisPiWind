@@ -108,11 +108,11 @@ node {
         stage('Shell Env'){
             sh  PIPELINE + ' print_model_vars'
         }
-        stage('Build: ' + model_func) {
-            dir(model_workspace) {
-                sh PIPELINE + " build_image  docker/Dockerfile.oasislmf_piwind_keys_server ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE} ${env.TAG_BASE}"
-            }
-        }
+        // stage('Build: ' + model_func) {
+        //     dir(model_workspace) {
+        //         sh PIPELINE + " build_image  docker/Dockerfile.oasislmf_piwind_keys_server ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE} ${env.TAG_BASE}"
+        //     }
+        // }
         stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
                 MDK_RUN='ri'
