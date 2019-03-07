@@ -1,16 +1,8 @@
 {
     "source_exposures_file_path": "tests/data/SourcelocOED.csv",
-    "source_to_canonical_exposures_transformation_file_path": "/home/kamal/Documents/OasisPiWind/flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_Windstorm_CanLoc_A.xslt",
-    "canonical_exposures_profile_json_path": "canonical-oed-loc-profile.json",
-    "canonical_to_model_exposures_transformation_file_path": "/home/kamal/Documents/OasisPiWind/flamingo/PiWind/Files/TransformationFiles/MappingMapToCatrisks_OED_ModelLoc_New_Lookup.xslt",
     "source_accounts_file_path": "/home/kamal/Documents/OasisPiWind/tests/data/SourceAccPiWind.csv",
-    "canonical_accounts_profile_json_path": "canonical-oed-acc-profile.json",
-    "source_to_canonical_accounts_transformation_file_path": "flamingo/PiWind/Files/TransformationFiles/MappingMapToGeneric_CanAcc_A.xslt",
     "model_data_path": "/home/kamal/Documents/OasisPiWind/model_data/PiWind",
-    "analysis_settings_json_file_path": "/home/kamal/Documents/OasisPiWind/model_data/analysis_settings.json",
+    "analysis_settings_file_path": "/home/kamal/Documents/OasisPiWind/model_data/analysis_settings.json",
     "lookup_config_file_path": "/home/kamal/Documents/OasisPiWind/keys_data/PiWind/lookup.json",
-    "fm_agg_profile_path": "/home/kamal/Documents/OasisPiWind/fm-agg-profile.json",
-    "keys_data_path": "/home/kamal/Documents/OasisPiWind/keys_data/PiWind",
-    "index_file_path": "/home/kamal/Documents/OasisPiWind/keys_data/PiWind/area_peril_dict7.csv"
-    "source_exposure_file_path": "tests/data/SourcelocOED.csv",
+    "keys_data_path": "/home/kamal/Documents/OasisPiWind/keys_data/PiWind"
 }
