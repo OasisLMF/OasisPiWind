@@ -79,9 +79,9 @@
         "col_dtypes": {
             "PERIL_ID": "str", "COVERAGE_TYPE": "int", "OCCUPANCYCODE": "int", "VULNERABILITY_ID": "int"
         },
-        "sort_col": "VULNERABILITY_ID",
+        "sort_col": "vulnerability_id",
         "sort_ascending": true,
-        "vulnerability_id_col": "VULNERABILITY_ID"
+        "vulnerability_id_col": "vulnerability_id"
     },
     "exposure": {
         "id_col": "LocNumber",

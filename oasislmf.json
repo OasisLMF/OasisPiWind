@@ -1,8 +1,10 @@
 {
-    "source_exposures_file_path": "tests/data/SourcelocOED.csv",
-    "source_accounts_file_path": "/home/kamal/Documents/OasisPiWind/tests/data/SourceAccPiWind.csv",
-    "model_data_path": "/home/kamal/Documents/OasisPiWind/model_data/PiWind",
-    "analysis_settings_file_path": "/home/kamal/Documents/OasisPiWind/model_data/analysis_settings.json",
-    "lookup_config_file_path": "/home/kamal/Documents/OasisPiWind/keys_data/PiWind/lookup.json",
-    "keys_data_path": "/home/kamal/Documents/OasisPiWind/keys_data/PiWind"
+    "source_exposure_file_path": "tests/data/SourceLocOEDNewPiWind10.csv",
+    "source_accounts_file_path": "tests/data/SourceAccPiWind.csv",
+    "model_data_path": "model_data/PiWind",
+    "analysis_settings_file_path": "analysis_settings.json",
+    "lookup_config_file_path": "keys_data/PiWind/lookup.json",
+    "keys_data_path": "keys_data/PiWind",
+    "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
+    "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv"
 }
