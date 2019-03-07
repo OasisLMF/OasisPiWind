@@ -6,18 +6,16 @@
     },
     "keys_data_path": "./",
     "coverage": {
-        "coverage_types": [1],
+        "coverage_types": [1,2],
         "coverage_type_col": "COVERAGE_TYPE"
     },
     "peril": {
-        "peril": "wind",
-        "peril_id": 1,
-        "peril_ids": [1],
+        "peril_ids": ["WTC", "WSS"],
         "peril_id_col": "PERIL_ID",
-        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict2.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dictOED.csv",
         "file_type": "csv",
         "float_precision_high": true,
-        "num_areas": 100,
+        "num_areas": 400,
         "cols": ["PERIL_ID", "COVERAGE_TYPE", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4", "AREA_PERIL_ID"],
         "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4", "AREA_PERIL_ID"],
         "col_dtypes": {
@@ -49,7 +47,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/areas-rtree-index-new-py2",
+            "filename": "%%KEYS_DATA_PATH%%/area_peril_dictOED",
             "fill_factor": 0.9,
             "idx_extension": "idx",
             "index_capacity": 100,
@@ -71,32 +69,32 @@
         }
     },
     "vulnerability": {
-        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict2.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dictOED.csv",
         "file_type": "csv",
         "float_precision_high": true,
-        "num_vulnerabilities": 3,
-        "cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
-        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1", "VULNERABILITY_ID"],
-        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "CLASS_1"],
+        "num_vulnerabilities": 684,
+        "cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCYCODE", "VULNERABILITY_ID"],
+        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCYCODE", "VULNERABILITY_ID"],
+        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCYCODE"],
         "col_dtypes": {
-            "PERIL_ID": "int", "COVERAGE_TYPE": "int", "CLASS_1": "str", "VULNERABILITY_ID": "int"
+            "PERIL_ID": "str", "COVERAGE_TYPE": "int", "OCCUPANCYCODE": "int", "VULNERABILITY_ID": "int"
         },
-        "sort_col": "VULNERABILITY_ID",
+        "sort_col": "vulnerability_id",
         "sort_ascending": true,
-        "vulnerability_id_col": "VULNERABILITY_ID"
+        "vulnerability_id_col": "vulnerability_id"
     },
-    "locations": {
-        "id_col": "id",
+    "exposure": {
+        "id_col": "LocNumber",
         "coords_type": "lonlat",
-        "coords_x_col": "lon",
-        "coords_y_col": "lat",
+        "coords_x_col": "Longitude",
+        "coords_y_col": "Latitude",
         "coords_x_bounds": [-180, 180],
         "coords_y_bounds": [-90, 90],
-        "non_na_cols": ["id", "lon", "lat"],
+        "non_na_cols": ["LocNumber", "Longitude", "Latitude"],
         "col_dtypes": {
-            "id": "int", "lon": "float", "lat": "float"
+            "LocNumber": "int", "Longitude": "float", "Latitude": "float"
         },
-        "sort_col": "id",
+        "sort_col": "LocNumber",
         "sort_ascending": true
     }
 }

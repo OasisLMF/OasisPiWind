@@ -1,0 +1,8 @@
+autoconf                                                                                       
+build-essential
+libspatialindex-dev
+python-pip
+python-dev
+unixodbc
+unixodbc-dev
+libgeos-dev
