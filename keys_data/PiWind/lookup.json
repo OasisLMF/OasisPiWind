@@ -10,9 +10,7 @@
         "coverage_type_col": "COVERAGE_TYPE"
     },
     "peril": {
-        "peril": "wind",
-        "peril_id": 1,
-        "peril_ids": [1],
+        "peril_ids": ["WTC", "WSS"],
         "peril_id_col": "PERIL_ID",
         "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict2.csv",
         "file_type": "csv",
