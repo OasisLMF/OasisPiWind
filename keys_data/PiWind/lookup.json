@@ -73,11 +73,11 @@
         "file_type": "csv",
         "float_precision_high": true,
         "num_vulnerabilities": 684,
-        "cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY", "VULNERABILITY_ID"],
-        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY", "VULNERABILITY_ID"],
-        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCY"],
+        "cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCYCODE", "VULNERABILITY_ID"],
+        "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCYCODE", "VULNERABILITY_ID"],
+        "key_cols": ["PERIL_ID", "COVERAGE_TYPE", "OCCUPANCYCODE"],
         "col_dtypes": {
-            "PERIL_ID": "str", "COVERAGE_TYPE": "int", "OCCUPANCY": "int", "VULNERABILITY_ID": "int"
+            "PERIL_ID": "str", "COVERAGE_TYPE": "int", "OCCUPANCYCODE": "int", "VULNERABILITY_ID": "int"
         },
         "sort_col": "VULNERABILITY_ID",
         "sort_ascending": true,
