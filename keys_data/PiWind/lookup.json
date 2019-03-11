@@ -47,7 +47,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/area_peril_dictOED",
+            "filename": "%%KEYS_DATA_PATH%%/piwind-new-areas-rtree-index-py2",
             "fill_factor": 0.9,
             "idx_extension": "idx",
             "index_capacity": 100,
