@@ -1,5 +1,5 @@
 {
-    "source_exposure_file_path": "tests/data/SourcelocOED.csv",
+    "source_exposure_file_path": "tests/data/SourceLocOEDNewPiWind10.csv",
     "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
     "model_data_path": "model_data/PiWind",
     "analysis_settings_file_path": "analysis_settings.json",
