@@ -19,7 +19,7 @@
         "cols": ["PERIL_ID", "COVERAGE_TYPE", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4", "AREA_PERIL_ID"],
         "non_na_cols": ["PERIL_ID", "COVERAGE_TYPE", "LON1", "LAT1", "LON2", "LAT2", "LON3", "LAT3", "LON4", "LAT4", "AREA_PERIL_ID"],
         "col_dtypes": {
-            "PERIL_ID": "int",
+            "PERIL_ID": "str",
             "COVERAGE_TYPE": "int",
             "AREA_PERIL_ID": "int",
             "LON1": "float",
