@@ -47,7 +47,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/new-rtree-idx",
+            "filename": "%%KEYS_DATA_PATH%%/rtree-index-test",
             "fill_factor": 0.9,
             "idx_extension": "idx",
             "index_capacity": 100,
