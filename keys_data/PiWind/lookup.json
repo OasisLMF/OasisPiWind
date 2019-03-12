@@ -92,7 +92,7 @@
         "coords_y_bounds": [-90, 90],
         "non_na_cols": ["LocNumber", "Longitude", "Latitude"],
         "col_dtypes": {
-            "LocNumber": "int", "Longitude": "float", "Latitude": "float"
+            "LocNumber": "str", "Longitude": "float", "Latitude": "float"
         },
         "sort_col": "LocNumber",
         "sort_ascending": true
