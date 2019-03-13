@@ -4,19 +4,8 @@ node {
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
 
-    // Set Default Multibranch config
-    try {
-        model_branch = CHANGE_BRANCH
-    } catch (MissingPropertyException e1) {
-        try {
-            model_branch = BRANCH_NAME
-        } catch (MissingPropertyException e2) {
-             model_branch = ""
-        }
-    }
-
     set_mdk_branch='develop'
-    if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
+    if (BRANCH_NAME.matches("master") || BRANCH_NAME.matches("hotfix/(.*)")){
         set_mdk_branch='master'
     }
 
@@ -24,11 +13,11 @@ node {
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'feature/update-tests'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
-        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: model_branch],
+        [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
         [$class: 'StringParameterDefinition',  name: 'MDK_BRANCH', defaultValue: set_mdk_branch],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
-        [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "build-${BUILD_NUMBER}"],
+        [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "${BRANCH_NAME}-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 2_case'],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
@@ -108,23 +97,18 @@ node {
         stage('Shell Env'){
             sh  PIPELINE + ' print_model_vars'
         }
-        // stage('Build: ' + model_func) {
-        //     dir(model_workspace) {
-        //         sh PIPELINE + " build_image  docker/Dockerfile.oasislmf_piwind_keys_server ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE} ${env.TAG_BASE}"
-        //     }
-        // }
         stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
                 MDK_RUN='ri'
-                sh 'docker build -f docker/Dockerfile.mdk-tester-3.6 -t mdk-runner-3.6 .'
-                sh "docker run mdk-runner-3.6 --model-repo-branch ${model_branch} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker build -f docker/Dockerfile.mdk-tester-3.6 -t mdk-runner-3.6:${env.TAG_RELEASE} ."
+                sh "docker run mdk-runner-3.6::${env.TAG_RELEASE} --model-repo-branch ${model_branch} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
             }
         }
         stage('Run MDK Py2.7: ' + model_func) {
             dir(build_workspace) {
                 MDK_RUN='ri'
-                sh 'docker build -f docker/Dockerfile.mdk-tester-2.7 -t mdk-runner-2.7 .'
-                sh "docker run mdk-runner-2.7 --model-repo-branch ${model_branch} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker build -f docker/Dockerfile.mdk-tester-2.7 -t mdk-runner-2.7:${env.TAG_RELEASE} ."
+                sh "docker run mdk-runner-2.7:${env.TAG_RELEASE} --model-repo-branch ${model_branch} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
             }
         }
 
@@ -137,21 +121,13 @@ node {
                 }
             }
         }
-
-        // if (params.PUBLISH){
-        //     stage ('Publish: ' + model_func) {
-        //         dir(build_workspace) {
-        //             sh PIPELINE + " push_image ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE}"
-        //         }
-        //     }
-        // }
     } catch(hudson.AbortException | org.jenkinsci.plugins.workflow.steps.FlowInterruptedException buildException) {
         hasFailed = true
         error('Build Failed')
     } finally {
         //Docker house cleaning
         dir(build_workspace) {
-            sh 'docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs server-db      > ./stage/log/server-db.log '                                               
+            sh 'docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs server-db      > ./stage/log/server-db.log '
             sh 'docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs server         > ./stage/log/server.log '
             sh 'docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs celery-db      > ./stage/log/celery-db.log '
             sh 'docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs rabbit         > ./stage/log/rabbit.log '
@@ -159,9 +135,10 @@ node {
             sh 'docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs worker-monitor > ./stage/log/worker-monitor.log '
             sh PIPELINE + " stop_docker ${env.COMPOSE_PROJECT_NAME}"
 
-            //if(params.PURGE){
-            //    sh PIPELINE + " purge_image ${env.IMAGE_KEYSERVER} ${env.TAG_RELEASE}"
-            //}
+            if(params.PURGE){
+                sh PIPELINE + " purge_image mdk-runner-3.6 ${env.TAG_RELEASE}"
+                sh PIPELINE + " purge_image mdk-runner-2.7 ${env.TAG_RELEASE}"
+            }
         }
         //Notify on slack
         if(params.SLACK_MESSAGE && (params.PUBLISH || hasFailed)){
