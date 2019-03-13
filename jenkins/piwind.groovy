@@ -118,14 +118,14 @@ node {
         }
         stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
-                sh "docker build -f docker/Dockerfile.mdk-tester-3.6 -t mdk-runner-3.6:${env.TAG_RELEASE} ."
-                sh "docker run mdk-runner-3.6:${env.TAG_RELEASE} --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker build -f docker/Dockerfile.mdk-tester-3.6 -t mdk-runner-3.6 ."
+                sh "docker run mdk-runner-3.6 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
             }
         }
         stage('Run MDK Py2.7: ' + model_func) {
             dir(build_workspace) {
-                sh "docker build -f docker/Dockerfile.mdk-tester-2.7 -t mdk-runner-2.7:${env.TAG_RELEASE} ."
-                sh "docker run mdk-runner-2.7:${env.TAG_RELEASE} --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker build -f docker/Dockerfile.mdk-tester-2.7 -t mdk-runner-2.7 ."
+                sh "docker run mdk-runner-2.7 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
             }
         }
 
