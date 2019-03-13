@@ -153,8 +153,8 @@ node {
             sh PIPELINE + " stop_docker ${env.COMPOSE_PROJECT_NAME}"
 
             if(params.PURGE){
-                sh PIPELINE + " purge_image mdk-runner-3.6 ${env.TAG_RELEASE}"
-                sh PIPELINE + " purge_image mdk-runner-2.7 ${env.TAG_RELEASE}"
+                //sh PIPELINE + " purge_image mdk-runner-3.6"
+                //sh PIPELINE + " purge_image mdk-runner-2.7"
             }
         }
         //Notify on slack
