@@ -51,6 +51,13 @@ node {
     String keys_vers  = params.KEYSERVER_VERSION
     String keys_data  = "${env.WORKSPACE}/${model_workspace}/keys_data/PiWind"
 
+    String MDK_RUN='ri'
+    String MDK_MODEL = model_branch
+    if (model_branch.matches("PR-[0-9]+")){
+        //Note will still fail on remote PR..
+        MDK_MODEL = CHANGE_BRANCH
+    }
+
     // Set Global ENV
     env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
     env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
@@ -111,16 +118,14 @@ node {
         }
         stage('Run MDK Py3.6: ' + model_func) {
             dir(build_workspace) {
-                MDK_RUN='ri'
                 sh "docker build -f docker/Dockerfile.mdk-tester-3.6 -t mdk-runner-3.6:${env.TAG_RELEASE} ."
-                sh "docker run mdk-runner-3.6::${env.TAG_RELEASE} --model-repo-branch ${model_branch} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker run mdk-runner-3.6::${env.TAG_RELEASE} --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
             }
         }
         stage('Run MDK Py2.7: ' + model_func) {
             dir(build_workspace) {
-                MDK_RUN='ri'
                 sh "docker build -f docker/Dockerfile.mdk-tester-2.7 -t mdk-runner-2.7:${env.TAG_RELEASE} ."
-                sh "docker run mdk-runner-2.7:${env.TAG_RELEASE} --model-repo-branch ${model_branch} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker run mdk-runner-2.7:${env.TAG_RELEASE} --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${params.MDK_BRANCH} --model-run-mode ${MDK_RUN}"
             }
         }
 
