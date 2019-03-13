@@ -87,8 +87,20 @@ node {
                 stage('Clone: ' + model_func) {
                     sshagent (credentials: [git_creds]) {
                         dir(model_workspace) {
-                           println(getBinding().hasVariable("CHANGE_BRANCH"))
-                           sh "git clone -b ${model_branch} --single-branch --no-tags ${model_git_url} ."
+                            sh "git clone --recursive ${model_git_url} ."
+                            if (model_branch.matches("PR-[0-9]+")){
+                                // Checkout PR and merge into target branch, test on the result
+                                sh "git fetch origin pull/$CHANGE_ID/head:$BRANCH_NAME"
+                                sh "git checkout $BRANCH_NAME"
+                                sh "git format-patch $CHANGE_TARGET --stdout > ${BRANCH_NAME}.patch"
+                                sh "git checkout $CHANGE_TARGET"
+                                sh "git apply --stat ${BRANCH_NAME}.patch"  // Print files changed
+                                sh "git apply --check ${BRANCH_NAME}.patch" // Check for merge conflicts
+                                sh "git apply ${BRANCH_NAME}.patch"         // Apply the patch
+                            } else {
+                                // Checkout branch
+                                sh "git checkout -b ${model_branch}"
+                            }
                         }
                     }
                 }
