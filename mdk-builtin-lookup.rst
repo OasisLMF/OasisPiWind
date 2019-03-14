@@ -319,16 +319,16 @@ These properties basically describe certain key columns in the source exposure f
     Out[30]: <oasislmf.model_preparation.lookup.OasisPerilLookup at 0x11168efd0>
 
     # Get the vuln. lookup from the combined lookup
-    In [29]: _vlookup = lookup.vulnerability_lookup
+    In [31]: _vlookup = lookup.vulnerability_lookup
 
-    In [30]: _vlookup
-    Out[30]: <oasislmf.model_preparation.lookup.OasisVulnerabilityLookup at 0x11168ea90>
+    In [32]: _vlookup
+    Out[32]: <oasislmf.model_preparation.lookup.OasisVulnerabilityLookup at 0x11168ea90>
 
     # Get the full combined config.
-    In [31]: config = lookup.config
+    In [33]: config = lookup.config
 
-    In [32]: config
-    Out [32]:
+    In [34]: config
+    Out [34]:
     {'model': {'supplier_id': 'OasisLMF',
     'model_id': 'PiWind',
     'model_version': '0.0.0.1'},
