@@ -3,8 +3,8 @@ The MDK Built-in Lookup Framework
 
 The MDK provides a way to implement a data- and configuration-driven keys lookup that doesn't require any custom code. This is done via a lookup class framework, contained in the ``oasislmf.model_preparation.lookup`` module, in which a point-polygon lookup for peril and a vulnerability dict. lookup for vulnerability can be implemented and integrated into a single lookup instance. This approach supports multiple perils and coverage types in the model.
 
-1. Peril lookup
----------------
+1. Peril
+--------
 
 1.1. The peril lookup (``oasismf.model_preparation.lookup.OasisPerilLookup``) requires a pre-generated Rtree spatial index (http://toblerity.org/rtree/) which represents the underlying area peril grid for the model. The grid can be of a regular or variable resolution, and the cells in the grid represent the area polygons against which locations in the exposure are looked up for area peril IDs. Internally, the lookup of a given location is implemented via Rtree index queries, and the grid uses two approaches for the lookup: the first is to find a closest intersecting grid cell to the location, and the second, if no intersecting grid cell can be found, is to look for the closest grid cell to the location by Euclidean distance. Multiple results are sorted in order of ascending distance to the location, and the lookup always results in choosing the closest cell to the location
 
