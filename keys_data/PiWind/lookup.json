@@ -12,7 +12,7 @@
     "peril": {
         "peril_ids": ["WTC", "WSS"],
         "peril_id_col": "PERIL_ID",
-        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict8.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dictfinal.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_areas": 400,
