@@ -16,7 +16,7 @@ The MDK provides a way to implement a data- and configuration-driven keys lookup
 
 to generate such an index from scratch from a source area peril dict. CSV file. The index is stored as a set of binary files, and it has a number of properties which be fine-tuned at the point of creation as well as when it is running.
 
-1.3. The columns of the area peril CSV file must represent mappings of an area peril function, which must be a function of the area polygon corner points, and peril and coverage type. For example, in an upcoming upgrade of the PiWind
+1.3. The columns of the area peril CSV file must represent mappings of an area peril function, which must be a function of the area polygons, and peril and coverage type. For example, in an upcoming upgrade of the PiWind
 model, which will support the wind storm surge (``WSS``) and wind tropical
 cyclone (``WTC``) perils, and buildings and contents coverage types (1, 3),
 the area peril dict. CSV file defines the columns
@@ -34,7 +34,9 @@ longitude/latitudes of the four-sided underlying area polygons, ``PERIL_ID`` and
 
     (PERIL_ID, COVERAGE_TYPE, LON1, LAT1, ... , LON4, LAT4) |--> AREA_PERIL_ID
 
-1.5. For a given area, with corners
+and the entries of the CSV file must be mappings of this function.
+
+1.5. For example, for a given area, with corner points given by 
 
 ::
 
@@ -220,7 +222,7 @@ Here ``**<LOC PROPS>`` represents a sequence of columns representing loc. proper
    # Inspect the vuln. section of the lookup config. (can also be done from the config.)
    In [20]: vlookup.config['vulnerability']
    Out[20]: 
-   {'file_path': '/Users/srm/Documents/sandeep/cst/dev/oasis/OasisPiWind/keys_data/PiWind/vulnerability_dictOED3.csv',
+   {'file_path': '/path/to/OasisPiWind/keys_data/PiWind/vulnerability_dictOED3.csv',
     'file_type': 'csv',
     'float_precision_high': True,
     'num_vulnerabilities': 684,
