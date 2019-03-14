@@ -5,5 +5,5 @@
     "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
     "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv",
     "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
-    "source_exposure_file_path": "tests/data/SourceLocOEDPiWind10.csv"
+    "source_exposure_file_path": "tests/data/SourceLocOEDPiWind10K.csv"
 }
