@@ -102,27 +102,32 @@ The relevant flags here are ``-c`` for the lookup config. file path, ``-d`` for 
 
 ::
 
-   In [1]: import os; from oasislmf.utils.data import get_json, get_dataframe; from oasislmf.model_preparation.lookup import OasisLookupFactory as olf
+   In [1]: import os
+
+   In [2]: from oasislmf.utils.data import get_json, get_dataframe
+
+   In [3]: from oasislmf.model_preparation.lookup import OasisLookupFactory as olf
 
    # Get the lookup config. dict from file
-   In [2]: config = get_json('keys_data/PiWind/lookup.json')
+   In [4]: config = get_json('keys_data/PiWind/lookup.json')
 
-   In [3]: config['keys_data_path'] = os.path.abspath('keys_data/PiWind')
+   # Set the local model keys data path
+   In [5]: config['keys_data_path'] = os.path.abspath('keys_data/PiWind')
 
    # Instantiate the lookup
-   In [4]: _, plookup = olf.create(lookup_config=config, lookup_type='peril')
+   In [6]: _, plookup = olf.create(lookup_config=config, lookup_type='peril')
 
-   In [5]: plookup
-   Out[5]: <oasislmf.model_preparation.lookup.OasisPerilLookup at 0x110fdb978>
+   In [7]: plookup
+   Out[7]: <oasislmf.model_preparation.lookup.OasisPerilLookup at 0x110fdb978>
 
    # Inspect the areas Rtree index
-   In [6]: idx = plookup.peril_areas_index
+   In [8]: idx = plookup.peril_areas_index
 
-   In [7]: idx.bounds
-   Out[7]: [-0.9176515, 52.7339933, -0.8569863999999999, 52.7946584]
+   In [9]: idx.bounds
+   Out[9]: [-0.9176515, 52.7339933, -0.8569863999999999, 52.7946584]
 
-   In [8]: idx.leaves()
-   Out[8]: 
+   In [10]: idx.leaves()
+   Out[10]: 
    [(0,
      [1,
       1,
@@ -132,22 +137,22 @@ The relevant flags here are ``-c`` for the lookup config. file path, ``-d`` for 
      [-0.9176515, 52.7339933, -0.8569863999999999, 52.7946584])]
 
    # Inspect the model-supported peril IDs and coverage types
-   In [9]: plookup.peril_ids
-   Out[9]: ('WTC', 'WSS')
+   In [11]: plookup.peril_ids
+   Out[11]: ('WTC', 'WSS')
 
-   In [10]: plookup.coverage_types
-   Out[10]: (1, 3)
+   In [12]: plookup.coverage_types
+   Out[12]: (1, 3)
 
    # Inspect the expected column identifier of loc. IDs in the exposure
-   In [11]: plookup.loc_id_col
-   Out[11]: 'locnumber'
+   In [13]: plookup.loc_id_col
+   Out[13]: 'locnumber'
 
    # Define a location inside the index bounds and run a lookup against it
    # for the (`WSS`, 1) peril and coverage type combination
-   In [12]: loc = {'locnumber': 1, 'longitude': -0.9176515, 'latitude': 52.7339933}
+   In [14]: loc = {'locnumber': 1, 'longitude': -0.9176515, 'latitude': 52.7339933}
 
-   In [13]: plookup.lookup({'locnumber': 1, 'longitude': -0.9176515, 'latitude': 52.7339933}, 'WSS', 1)
-   Out[13]: 
+   In [15]: plookup.lookup({'locnumber': 1, 'longitude': -0.9176515, 'latitude': 52.7339933}, 'WSS', 1)
+   Out[15]: 
    {'locnumber': 1,
     'longitude': -0.9176515,
     'latitude': 52.7339933,
@@ -165,8 +170,8 @@ The relevant flags here are ``-c`` for the lookup config. file path, ``-d`` for 
     'message': 'Successful peril area lookup: 40'}
 
    # Run a lookup against a location outside the index
-   In [14]: plookup.lookup({'locnumber': 1, 'longitude': -1.9176515, 'latitude': 52.7339933}, 'WSS', 1)
-   Out[14]: 
+   In [16]: plookup.lookup({'locnumber': 1, 'longitude': -1.9176515, 'latitude': 52.7339933}, 'WSS', 1)
+   Out[16]: 
    {'locnumber': 1,
     'longitude': -1.9176515,
     'latitude': 52.7339933,
@@ -199,22 +204,22 @@ Here ``**<LOC PROPS>`` represents a sequence of columns representing loc. proper
 ::
 
    # Instantiate the vuln. lookup
-   In [15]: _, vlookup = olf.create(lookup_config=config, lookup_type='vulnerability')
+   In [17]: _, vlookup = olf.create(lookup_config=config, lookup_type='vulnerability')
 
-   In [16]: vlookup
-   Out[16]: <oasislmf.model_preparation.lookup.OasisVulnerabilityLookup at 0x111127e10>
+   In [18]: vlookup
+   Out[18]: <oasislmf.model_preparation.lookup.OasisVulnerabilityLookup at 0x111127e10>
 
    # Inspect the vulnerability function dict. - should match the vuln. dict CSV file
-   In [17]: vlookup.vulnerabilities
-   Out[17]: 
+   In [19]: vlookup.vulnerabilities
+   Out[19]: 
    OrderedDict([(('WTC', 1, 1000), 1),
    ...
    ...
    , 3031), 12)])
 
    # Inspect the vuln. section of the lookup config. (can also be done from the config.)
-   In [18]: vlookup.config['vulnerability']
-   Out[18]: 
+   In [20]: vlookup.config['vulnerability']
+   Out[20]: 
    {'file_path': '/Users/srm/Documents/sandeep/cst/dev/oasis/OasisPiWind/keys_data/PiWind/vulnerability_dictOED3.csv',
     'file_type': 'csv',
     'float_precision_high': True,
@@ -234,17 +239,17 @@ Here ``**<LOC PROPS>`` represents a sequence of columns representing loc. proper
     'vulnerability_id_col': 'vulnerability_id'}
 
    # Inspect the peril and coverage types (can also be done from the config.)
-   In [19]: vlookup.peril_ids
-   Out[19]: ('WTC', 'WSS')
+   In [21]: vlookup.peril_ids
+   Out[21]: ('WTC', 'WSS')
 
-   In [20]: vlookup.coverage_types
-   Out[20]: (1, 3)
+   In [22]: vlookup.coverage_types
+   Out[22]: (1, 3)
 
    # Define a location with the properties required for the vuln. function
-   In [21]: loc = {'locnumber': 1, 'occupancycode': 1000}
+   In [23]: loc = {'locnumber': 1, 'occupancycode': 1000}
 
-   In [22]: vlookup.lookup(loc, 'WSS', 1)
-   Out[22]: 
+   In [24]: vlookup.lookup(loc, 'WSS', 1)
+   Out[24]: 
    {'locnumber': 1,
     'peril_id': 'WSS',
     'coverage_type': 1,
@@ -289,15 +294,15 @@ These properties basically describe certain key columns in the source exposure f
 
 ::
 
-   In [23]: _, lookup = olf.create(lookup_config=config)
+   In [25]: _, lookup = olf.create(lookup_config=config)
 
-   In [24]: lookup
-   Out[24]: <oasislmf.model_preparation.lookup.OasisLookup at 0x11168e0b8>
+   In [26]: lookup
+   Out[26]: <oasislmf.model_preparation.lookup.OasisLookup at 0x11168e0b8>
 
-   In [25]: loc = {'locnumber': 1, 'longitude': -0.9176515, 'latitude': 52.7339933, 'occupancycode': 1000}
+   In [27]: loc = {'locnumber': 1, 'longitude': -0.9176515, 'latitude': 52.7339933, 'occupancycode': 1000}
 
-   In [26]: lookup.lookup(loc, 'WTC', 1)
-   Out[26]: 
+   In [28]: lookup.lookup(loc, 'WTC', 1)
+   Out[28]: 
    {'locnumber': 1,
     'peril_id': 'WTC',
     'coverage_type': 1,
@@ -307,4 +312,38 @@ These properties basically describe certain key columns in the source exposure f
     'message': 'Successful peril area lookup: 40; Successful vulnerability lookup: 1',
     'occupancycode': 1000}
 
-3.5. 1.11. Like the peril and vulnerability lookups, the combined lookup also provides a bulk lookup method (``bulk_lookup``) which can accept a list, tuple, generator, pandas data frame or dict of location items, which can be dicts or Pandas series objects or any object which has as a dict-like interface.
+    # Get the peril lookup from the combined lookup
+    In [29]: _plookup = lookup.peril_lookup
+
+    In [30]: _plookup
+    Out[30]: <oasislmf.model_preparation.lookup.OasisPerilLookup at 0x11168efd0>
+
+    # Get the vuln. lookup from the combined lookup
+    In [31]: _vlookup = lookup.vulnerability_lookup
+
+    In [32]: _vlookup
+    Out[32]: <oasislmf.model_preparation.lookup.OasisVulnerabilityLookup at 0x11168ea90>
+
+    # Get the full combined config.
+    In [33]: config = lookup.config
+
+    In [34]: config
+    Out [34]:
+    {'model': {'supplier_id': 'OasisLMF',
+    'model_id': 'PiWind',
+    'model_version': '0.0.0.1'},
+    'keys_data_path': '/Users/srm/Documents/sandeep/cst/dev/oasis/OasisPiWind/keys_data/PiWind',
+    'coverage': {'coverage_types': [1, 3], 'coverage_type_col': 'COVERAGE_TYPE'},
+    'peril': {'peril_ids': ('WTC', 'WSS'),
+    ...
+    ...
+    'vulnerability': {'file_path': '/Users/srm/Documents/sandeep/cst/dev/oasis/OasisPiWind/keys_data/PiWind/vulnerability_dictOED3.csv',
+    ...
+    ...
+    'exposure': {'id_col': 'LocNumber',
+    ...
+    ...
+    'sort_ascending': True}}
+
+
+3.5. Like the peril and vulnerability lookups, the combined lookup also provides a bulk lookup method (``bulk_lookup``) which can accept a list, tuple, generator, pandas data frame or dict of location items, which can be dicts or Pandas series objects or any object which has as a dict-like interface.
