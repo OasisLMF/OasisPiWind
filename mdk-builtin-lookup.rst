@@ -179,6 +179,8 @@ The relevant flags here are ``-c`` for the lookup config. file path, ``-d`` for 
     'area_coordinates': None,
     'message': 'Peril area lookup: location is 1.0 units from the peril areas global boundary -  the required minimum distance is 0 units'}
 
+1.11. Apart from the location-level lookup method (``lookup``), the peril lookup provides a bulk lookup method (``bulk_lookup``) which can accept a list, tuple, generator, pandas data frame or dict of location items, which can be dicts or Pandas series objects or any object which has as a dict-like interface.
+
 2. Vulnerability
 ------------------
 
@@ -251,10 +253,14 @@ Here ``**<LOC PROPS>`` represents a sequence of columns representing loc. proper
     'message': 'Successful vulnerability lookup: 7',
     'occupancycode': 1000}
 
+2.3. Apart from the location-level lookup method (``lookup``), the vulnerability lookup, like the peril lookup, provides a bulk lookup method (``bulk_lookup``) which can accept a list, tuple, generator, pandas data frame or dict of location items, which can be dicts or Pandas series objects or any object which has as a dict-like interface.
+
 3. Integration and Configuration
 ----------------------------------
 
-3.1. The integrated lookup (``oasismf.model_preparation.lookup.OasisLookup``) combines the peril and vulnerability lookups, and contains them as attributes. It provides a location-level lookup accepting a location dict. or Pandas series, and a peril and coverage type combination, as well as a bulk lookup that accepts a iterable sequence of location dicts. or Pandas series.
+3.1. The integrated lookup (``oasismf.model_preparation.lookup.OasisLookup``) combines the peril and vulnerability lookups, and contains them as attributes. It provides a location-level lookup accepting a location dict. or Pandas series, and a peril and coverage type combination, as well as a bulk lookup that accepts a iterable sequence of location dicts. or Pandas series. The relationship between the peril, vulnerabilty and combined lookups can be seen in the following class diagram.
+
+    .. image:: mdk-builtin-lookup-class-framework.jpg
 
 3.2. The properties of the integrated lookup and also other properties such as the keys data path, and model-supported coverage types must be defined in the appropriate sections of the lookup configuration file. Again, the `PiWind lookup configuration file <https://github.com/OasisLMF/OasisPiWind/blob/kamdev/keys_data/PiWind/lookup.json>`_ is a good example to refer to.
 
@@ -300,3 +306,5 @@ These properties basically describe certain key columns in the source exposure f
     'status': 'success',
     'message': 'Successful peril area lookup: 40; Successful vulnerability lookup: 1',
     'occupancycode': 1000}
+
+3.5. 1.11. Like the peril and vulnerability lookups, the combined lookup also provides a bulk lookup method (``bulk_lookup``) which can accept a list, tuple, generator, pandas data frame or dict of location items, which can be dicts or Pandas series objects or any object which has as a dict-like interface.
