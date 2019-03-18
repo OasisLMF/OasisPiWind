@@ -1,0 +1,9 @@
+{
+    "analysis_settings_file_path": "analysis_settings.json",
+    "lookup_config_file_path": "keys_data/PiWind/lookup.json",
+    "model_data_path": "model_data/PiWind",
+    "ri_info_file_path": null,
+    "ri_scope_file_path": null,
+    "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
+    "source_exposure_file_path": "tests/data/SourceLocOEDPiWind10K.csv"
+}
