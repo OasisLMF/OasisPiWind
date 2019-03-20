@@ -12,7 +12,7 @@
     "peril": {
         "peril_ids": ["WTC", "WSS"],
         "peril_id_col": "PERIL_ID",
-        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dictfinal.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict_OED.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_areas": 400,
@@ -47,7 +47,7 @@
             "custom_storage_callbacks_size": 0,
             "dat_extension": "dat",
             "dimension": 2,
-            "filename": "%%KEYS_DATA_PATH%%/rtree-index-test",
+            "filename": "%%KEYS_DATA_PATH%%/area-peril-OED",
             "fill_factor": 0.9,
             "idx_extension": "idx",
             "index_capacity": 100,
