@@ -54,8 +54,7 @@ node {
     String MDK_RUN='ri'
     String MDK_MODEL = model_branch
     if (model_branch.matches("PR-[0-9]+")){
-        //Note will still fail on remote PR..
-        MDK_MODEL = CHANGE_BRANCH
+        MDK_MODEL = "refs/pull/$CHANGE_ID/merge"
     }
 
     // Set Global ENV
