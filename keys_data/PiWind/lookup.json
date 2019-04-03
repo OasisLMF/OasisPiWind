@@ -33,7 +33,7 @@
             "LON4": "float",
             "LAT4": "float"
         },
-        "sort_col": "AREA_PERIL_ID",
+        "sort_cols": ["AREA_PERIL_ID"],
         "sort_ascending": true,
         "peril_area_id_col": "AREA_PERIL_ID",
         "area_poly_coords_cols": {
@@ -81,7 +81,7 @@
         "col_dtypes": {
             "peril_id": "int", "coverage_type": "int", "occupancycode": "int", "vulnerability_id": "int"
         },
-        "sort_col": "vulnerability_id",
+        "sort_cols": ["vulnerability_id"],
         "sort_ascending": true,
         "vulnerability_id_col": "vulnerability_id"
     },
@@ -96,7 +96,7 @@
         "col_dtypes": {
             "LocNumber": "str", "Longitude": "float", "Latitude": "float"
         },
-        "sort_col": "locnumber",
+        "sort_cols": ["locnumber"],
         "sort_ascending": true
     }
 }
