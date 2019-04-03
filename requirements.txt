@@ -2,12 +2,7 @@ oasislmf>=1.3.3
 jupyter
 matplotlib==2.2.2
 Flask==0.12
-pandas==0.22.0
-geopandas==0.3.0
-Shapely==1.5.13
-numpy==1.14.2
 folium==0.5.0
 seaborn==0.8.1
-requests==2.18.4
 descartes==1.1.0
-Rtree==0.8.3
+
