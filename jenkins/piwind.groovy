@@ -53,9 +53,6 @@ node {
 
     String MDK_RUN='ri'
     String MDK_MODEL = model_branch
-    if (model_branch.matches("PR-[0-9]+")){
-        MDK_MODEL = "refs/pull/$CHANGE_ID/merge"
-    }
 
     // Set Global ENV
     env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
