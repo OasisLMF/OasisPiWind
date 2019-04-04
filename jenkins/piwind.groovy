@@ -53,10 +53,6 @@ node {
 
     String MDK_RUN='ri'
     String MDK_MODEL = model_branch
-    if (model_branch.matches("PR-[0-9]+")){
-        //Note will still fail on remote PR..
-        MDK_MODEL = CHANGE_BRANCH
-    }
 
     // Set Global ENV
     env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
@@ -116,7 +112,7 @@ node {
             dir(build_workspace) {
                 sh "sed -i 's/FROM.*/FROM python:3.6/g' docker/Dockerfile.mdk-tester"
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.6 .'
-                sh "docker run mdk-runner:3.6 --model-repo-branch ${model_branch} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "docker run mdk-runner:3.6 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
 
             }
         }
