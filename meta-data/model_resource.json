@@ -27,13 +27,15 @@
     ],
     "lookup_settings":[
         {
-        "PerilCodes":{
-            "type":"dictionary",
-            "values":{
-                "WW1": "Windstorm with storm surge",
-                "WW2": "Windstorm w/o storm surge"
+            "PerilCodes":{
+                "type":"dictionary",
+                "values":{
+                    "WSS": "Single Peril: Storm Surge",
+                    "WTC": "Single Peril: Tropical Cyclone",
+                    "WW1": "Group Peril: Windstorm with storm surge",
+                    "WW2": "Group Peril: Windstorm w/o storm surge"
+                }
             }
-         }
         }
     ]
 }
