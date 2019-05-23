@@ -1,0 +1,39 @@
+{
+    "model_settings":[
+        {
+            "event_set":{
+                "name": "Event Set",
+                "desc": "Either Probablistic or Historic",
+                "type":"dictionary",
+                "default": "P",
+                "values":{
+                    "P": "Proabilistic",
+                    "H": "Historic"
+                }
+             }
+         },
+         {
+            "event_occurrence_id":{
+                "name": "Occurrence Set",
+                "desc": "PiWind Occurrence selection",
+                "type":"dictionary",
+                "default": "1",
+                "values":{
+                   "1":"Long Term"
+                }
+            }
+
+         }
+    ],
+    "lookup_settings":[
+        {
+        "PerilCodes":{
+            "type":"dictionary",
+            "values":{
+                "WW1": "Windstorm with storm surge",
+                "WW2": "Windstorm w/o storm surge"
+            }
+         }
+        }
+    ]
+}
