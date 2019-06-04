@@ -45,7 +45,7 @@ node {
     String git_creds = "1335b248-336a-47a9-b0f6-9f7314d6f1f4"
 
     //Model data vars
-    String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/integration/${model_varient}"
+    String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/"
     String model_vers = params.MODEL_VERSION
     String model_data = "${env.WORKSPACE}/${model_workspace}/model_data/PiWind"
     String keys_vers  = params.KEYSERVER_VERSION
@@ -121,7 +121,7 @@ node {
         for(int i=0; i < api_server_tests.size(); i++) {
             stage("Run : ${api_server_tests[i]}"){
                 dir(build_workspace) {
-                    sh PIPELINE + " run_test --test-case ${api_server_tests[i]}"
+                    sh PIPELINE + " run_test --config integration/conf.ini --test-case ${api_server_tests[i]}"
                 }
             }
         }
