@@ -73,7 +73,7 @@ node {
     env.VERS_MODEL_DATA  = model_vers             // keyserver version to run unittest againts
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
-    env.PATH_TEST_DIR    = model_test_dir         // Integration Test dir for model
+    env.TEST_DATA_DIR    = model_test_dir         // Integration Test dir for model
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
