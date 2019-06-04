@@ -45,7 +45,7 @@ node {
     String git_creds = "1335b248-336a-47a9-b0f6-9f7314d6f1f4"
 
     //Model data vars
-    String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/integration/${model_varient}"
+    String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/"
     String model_vers = params.MODEL_VERSION
     String model_data = "${env.WORKSPACE}/${model_workspace}/model_data/PiWind"
     String keys_vers  = params.KEYSERVER_VERSION
@@ -73,7 +73,7 @@ node {
     env.VERS_MODEL_DATA  = model_vers             // keyserver version to run unittest againts
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
-    env.PATH_TEST_DIR    = model_test_dir         // Integration Test dir for model
+    env.TEST_DATA_DIR    = model_test_dir         // Integration Test dir for model
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
