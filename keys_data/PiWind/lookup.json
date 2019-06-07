@@ -84,7 +84,7 @@
         "vulnerability_id_col": "vulnerability_id"
     },
     "exposure": {
-        "id_col": "LocNumber",
+        "id_col": "loc_id",
         "coords_type": "lonlat",
         "coords_x_col": "Longitude",
         "coords_y_col": "Latitude",
@@ -94,7 +94,7 @@
         "col_dtypes": {
             "LocNumber": "str", "Longitude": "float", "Latitude": "float"
         },
-        "sort_cols": ["locnumber"],
+        "sort_cols": ["PortNumber", "AccNumber", "LocNumber"],
         "sort_ascending": true
     }
 }
