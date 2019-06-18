@@ -4,21 +4,16 @@ node {
     sh 'sudo /var/lib/jenkins/jenkins-chown'
     deleteDir() // wipe out the workspace
 
-    set_mdk_branch='develop'
-    if (BRANCH_NAME.matches("master") || BRANCH_NAME.matches("hotfix/(.*)")){
-        set_mdk_branch='master'
-    }
-
     properties([
       parameters([
         [$class: 'StringParameterDefinition',  name: 'BUILD_BRANCH', defaultValue: 'master'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_NAME', defaultValue: 'PiWind'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_BRANCH', defaultValue: BRANCH_NAME],
-        [$class: 'StringParameterDefinition',  name: 'MDK_BRANCH', defaultValue: set_mdk_branch],
+        [$class: 'StringParameterDefinition',  name: 'MDK_BRANCH', defaultValue: 'develop'],
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
-        [$class: 'StringParameterDefinition',  name: 'RELEASE_TAG', defaultValue: "${BRANCH_NAME}-${BUILD_NUMBER}"],
-        [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: '1.0.2'],
+        [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
+        [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 2_case'],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
@@ -44,6 +39,11 @@ node {
     String PIPELINE = script_dir + "/buildscript/pipeline.sh"
     String git_creds = "1335b248-336a-47a9-b0f6-9f7314d6f1f4"
 
+    // Update MDK branch based on model branch
+    if (BRANCH_NAME.matches("master") || BRANCH_NAME.matches("hotfix/(.*)")){
+        params.MDK_BRANCH='master'
+    }
+
     //Model data vars
     String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/"
     String model_vers = params.MODEL_VERSION
@@ -57,9 +57,9 @@ node {
     // Set Global ENV
     env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
     env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
-    env.TAG_RELEASE          = params.RELEASE_TAG                       // Build TAG for TARGET image
+    env.TAG_RELEASE          = params.TAG_RELEASE                       // Build TAG for TARGET image
     env.TAG_RUN_PLATFORM     = params.BASE_TAG                          // Version of Oasis Platform to use for testing
-    env.TAG_RUN_WORKER       = env.TAG_RUN_PLATFORM                     // Version of Model to use for testing
+    env.TAG_RUN_WORKER       = params.TAG_RELEASE
     env.OASIS_MODEL_DATA_DIR = "${env.WORKSPACE}/${model_workspace}"    // Model Repositry base, mounted in worker image
 
     env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
@@ -114,6 +114,11 @@ node {
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.6 .'
                 sh "docker run mdk-runner:3.6 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
 
+            }
+        }
+        stage('Build Worker'){
+            dir(build_workspace) {
+                sh  "docker build -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
             }
         }
 
