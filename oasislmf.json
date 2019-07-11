@@ -6,5 +6,6 @@
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
     "keys_data_path": "keys_data/PiWind",
     "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
-    "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv"
+    "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv",
+    "write_chunksize": 200000
 }
