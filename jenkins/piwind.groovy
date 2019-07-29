@@ -41,7 +41,7 @@ node {
 
     // Update MDK branch based on model branch
     if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
-        params.MDK_BRANCH='master'
+        MDK_BRANCH='master'
     }
 
     //Model data vars
