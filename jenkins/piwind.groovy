@@ -40,7 +40,7 @@ node {
     String git_creds = "1335b248-336a-47a9-b0f6-9f7314d6f1f4"
 
     // Update MDK branch based on model branch
-    if (BRANCH_NAME.matches("master") || BRANCH_NAME.matches("hotfix/(.*)")){
+    if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
         params.MDK_BRANCH='master'
     }
 
