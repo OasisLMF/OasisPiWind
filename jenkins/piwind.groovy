@@ -14,7 +14,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
-        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 2_case'],
+        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case control_set'],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', defaultValue: Boolean.valueOf(false)]
@@ -42,6 +42,8 @@ node {
     // Update MDK branch based on model branch
     if (model_branch.matches("master") || model_branch.matches("hotfix/(.*)")){
         MDK_BRANCH='master'
+    } else {
+        MDK_BRANCH=params.MDK_BRANCH
     }
 
     //Model data vars
@@ -126,7 +128,7 @@ node {
         for(int i=0; i < api_server_tests.size(); i++) {
             stage("Run : ${api_server_tests[i]}"){
                 dir(build_workspace) {
-                    sh PIPELINE + " run_test --test-case ${api_server_tests[i]}"
+                    sh PIPELINE + " run_test --test-output --test-case ${api_server_tests[i]}"
                 }
             }
         }
