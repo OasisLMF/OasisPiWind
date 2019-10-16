@@ -10,11 +10,9 @@
                 "id": 1,
                 "lec_output": true,
                 "leccalc": {
-                    "outputs": {
-                        "full_uncertainty_aep": true,
-                        "full_uncertainty_oep": true
-                    },
-                "return_period_file": true
+                    "full_uncertainty_aep": true,
+                    "full_uncertainty_oep": true,
+                    "return_period_file": true
                 }
             }
         ],
@@ -27,10 +25,8 @@
                 "id": 1,
                 "lec_output": true,
                 "leccalc": {
-                    "outputs": {
-                        "full_uncertainty_aep": true,
-                        "full_uncertainty_oep": true
-                    },
+                    "full_uncertainty_aep": true,
+                    "full_uncertainty_oep": true,
                     "return_period_file": true
                 }
             }
@@ -43,10 +39,8 @@
                 "id": 1,
                 "lec_output": true,
                 "leccalc": {
-                    "outputs": {
-                        "full_uncertainty_aep": true,
-                        "full_uncertainty_oep": true
-                    },
+                    "full_uncertainty_aep": true,
+                    "full_uncertainty_oep": true,
                     "return_period_file": true
                 }
             }
