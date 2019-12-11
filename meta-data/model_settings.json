@@ -1,41 +1,35 @@
 {
-    "model_settings":[
-        {
-            "event_set":{
-                "name": "Event Set",
-                "desc": "Either Probablistic or Historic",
-                "type":"dictionary",
-                "default": "P",
-                "values":{
-                    "P": "Proabilistic",
-                    "H": "Historic"
-                }
-             }
+    "model_settings":{
+        "event_set":{
+            "name": "Event Set",
+            "desc": "Either Probablistic or Historic",
+            "type":"selection",
+            "default": "P",
+            "options":[
+                {"id":"P", "desc": "Proabilistic"},
+                {"id":"H", "desc": "Historic"}
+            ]
          },
-         {
-            "event_occurrence_id":{
-                "name": "Occurrence Set",
-                "desc": "PiWind Occurrence selection",
-                "type":"dictionary",
-                "default": "1",
-                "values":{
-                   "1":"Long Term"
-                }
-            }
-
-         }
-    ],
-    "lookup_settings":[
-        {
-            "PerilCodes":{
-                "type":"dictionary",
-                "values":{
-                    "WSS": "Single Peril: Storm Surge",
-                    "WTC": "Single Peril: Tropical Cyclone",
-                    "WW1": "Group Peril: Windstorm with storm surge",
-                    "WW2": "Group Peril: Windstorm w/o storm surge"
-                }
-            }
-        }
-    ]
+        "event_occurrence_id":{
+            "name": "Occurrence Set",
+            "desc": "PiWind Occurrence selection",
+            "type":"selection",
+            "default": "1",
+            "options":[
+                {"id":"1", "desc": "Long Term"}
+            ]
+        }, 
+        "model_parameters": [
+            {"name": "some_bool", "desc":"Boolean option", "type":"boolean", "default": true},
+            {"name": "some_float", "desc":"Some float value", "type":"float", "default": 0.5, "max":1.0, "min":0.0}
+        ]
+     },
+    "lookup_settings":{
+        "supported_perils":[
+           {"id": "WSS", "desc": "Single Peril: Storm Surge"},
+           {"id": "WTC", "desc": "Single Peril: Tropical Cyclone"},
+           {"id": "WW1", "desc": "Group Peril: Windstorm with storm surge"},
+           {"id": "WW2", "desc": "Group Peril: Windstorm w/o storm surge"}
+        ]
+    }
 }
