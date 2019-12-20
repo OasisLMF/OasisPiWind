@@ -18,10 +18,8 @@
             ]
         }, 
         "boolean_parameters": [
-            {"name": "some_bool", "desc":"Boolean option", "default": true}
-        ],
-        "float_parameters": [
-            {"name": "some_float", "desc":"Some float value", "default": 0.5, "max":1.0, "min":0.0}
+            {"name":"peril_wind", "desc":"Boolean option", "default":false },
+            {"name":"peril_surge", "desc":"Boolean option", "default":true }
         ]
      },
     "lookup_settings":{
