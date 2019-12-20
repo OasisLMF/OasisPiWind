@@ -1,0 +1,35 @@
+{
+    "model_settings":{
+        "event_set":{
+            "name": "Event Set",
+            "desc": "Either Probablistic or Historic",
+            "default": "P",
+            "options":[
+                {"id":"P", "desc": "Proabilistic"},
+                {"id":"H", "desc": "Historic"}
+            ]
+         },
+        "event_occurrence_id":{
+            "name": "Occurrence Set",
+            "desc": "PiWind Occurrence selection",
+            "default": "1",
+            "options":[
+                {"id":"1", "desc": "Long Term"}
+            ]
+        }, 
+        "boolean_parameters": [
+            {"name": "some_bool", "desc":"Boolean option", "default": true}
+        ],
+        "float_parameters": [
+            {"name": "some_float", "desc":"Some float value", "default": 0.5, "max":1.0, "min":0.0}
+        ]
+     },
+    "lookup_settings":{
+        "supported_perils":[
+           {"id": "WSS", "desc": "Single Peril: Storm Surge"},
+           {"id": "WTC", "desc": "Single Peril: Tropical Cyclone"},
+           {"id": "WW1", "desc": "Group Peril: Windstorm with storm surge"},
+           {"id": "WW2", "desc": "Group Peril: Windstorm w/o storm surge"}
+        ]
+    }
+}
