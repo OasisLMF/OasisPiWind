@@ -3,6 +3,7 @@
       "event_set":{
          "name":"Event Set",
          "default":"P",
+		 "desc": "Lists of event sets",
          "options":[
             {
                "id":"P",
@@ -17,7 +18,7 @@
       "event_occurrence_id":{
          "name":"Occurrence Set",
          "desc":"PiWind Occurrence selection",
-         "default":1,
+         "default":"1",
          "options":[
             {
                "id":"1",
@@ -25,6 +26,27 @@
             }
          ]
       },
+      "string_parameters":[
+        {
+            "name": "option_name",
+            "desc": "Option for X, Y or Z",
+            "default": "some_string"
+        }
+      ],
+      "list_parameters":[
+        {
+            "name": "option_list",
+            "desc": "list is for A or B",
+            "default": ["str1", "str2"]
+        }
+      ],
+      "dictionary_parameters":[ 
+        {
+            "name": "dictionary_option",
+            "desc": "this Stores .. for ... etc",
+            "default": {"k1":"v1", "k2":"v2"}
+        }
+      ],
       "boolean_parameters":[
          {
             "name":"peril_wind",
@@ -37,7 +59,7 @@
             "default":true
          }
       ],
-      "float_parameter":[
+      "float_parameters":[
          {
             "name":"float_1",
             "desc":"Some float value",
@@ -57,15 +79,15 @@
    "lookup_settings":{
       "supported_perils":[
          {
-            "i":"WSS",
+            "id":"WSS",
             "desc":"Single Peril: Storm Surge"
          },
          {
             "id":"WTC",
-            "des":"Single Peril: Tropical Cyclone"
+            "desc":"Single Peril: Tropical Cyclone"
          },
          {
-            "id":"WW11",
+            "id":"WW1",
             "desc":"Group Peril: Windstorm with storm surge"
          },
          {
@@ -75,3 +97,4 @@
       ]
    }
 }
+
