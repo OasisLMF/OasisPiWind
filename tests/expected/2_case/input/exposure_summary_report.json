@@ -1,0 +1,86 @@
+{
+    "tropical cyclone": {
+        "all": {
+            "tiv": 1800406250.0,
+            "tiv_by_coverage": {
+                "buildings": 1440325000.0,
+                "other": 0.0,
+                "contents": 360081250.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 10502
+        },
+        "success": {
+            "tiv": 1800281250.0,
+            "tiv_by_coverage": {
+                "buildings": 1440225000.0,
+                "other": 0.0,
+                "contents": 360056250.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 10501
+        },
+        "fail": {
+            "tiv": 125000.0,
+            "tiv_by_coverage": {
+                "buildings": 100000.0,
+                "other": 0.0,
+                "contents": 25000.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 1
+        },
+        "nomatch": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0
+        }
+    },
+    "storm surge": {
+        "all": {
+            "tiv": 1517281250.0,
+            "tiv_by_coverage": {
+                "buildings": 1213825000.0,
+                "other": 0.0,
+                "contents": 303456250.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 8853
+        },
+        "success": {
+            "tiv": 1517156250.0,
+            "tiv_by_coverage": {
+                "buildings": 1213725000.0,
+                "other": 0.0,
+                "contents": 303431250.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 8852
+        },
+        "fail": {
+            "tiv": 125000.0,
+            "tiv_by_coverage": {
+                "buildings": 100000.0,
+                "other": 0.0,
+                "contents": 25000.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 1
+        },
+        "nomatch": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0
+        }
+    }
+}
