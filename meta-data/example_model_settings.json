@@ -22,7 +22,8 @@
          "options":[
             {
                "id":"1",
-               "desc":"Long Term"
+               "desc":"Long Term",
+               "max_periods": 10000
             }
          ]
       },
