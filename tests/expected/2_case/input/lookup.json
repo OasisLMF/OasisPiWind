@@ -6,7 +6,7 @@
     },
     "keys_data_path": "./",
     "coverage": {
-        "coverage_types": [1,3],
+        "coverage_types": [1, 3],
         "coverage_type_col": "COVERAGE_TYPE"
     },
     "peril": {
