@@ -120,7 +120,7 @@ node {
         }
         stage('Build Worker'){
             dir(build_workspace) {
-                sh  "docker build -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
+                sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
             }
         }
 
