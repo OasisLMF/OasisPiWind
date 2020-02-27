@@ -6,6 +6,5 @@
     "source_exposure_file_path": "tests/inputs/SourceLocOEDPiWind10.csv",
     "source_accounts_file_path": "tests/inputs/SourceAccOEDPiWind.csv",
     "ri_info_file_path": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
-    "ri_scope_file_path": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
-    "write_chunksize": 200000
+    "ri_scope_file_path": "tests/inputs/SourceReinsScopeOEDPiWind.csv"
 }
