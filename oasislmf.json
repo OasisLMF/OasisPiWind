@@ -1,12 +1,11 @@
 {
-    "source_exposure_file_path": "tests/data/SourceLocOEDPiWind10.csv",
-    "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
-    "model_data_path": "model_data/PiWind",
     "analysis_settings_file_path": "analysis_settings.json",
     "lookup_config_file_path": "keys_data/PiWind/lookup.json",
     "keys_data_path": "keys_data/PiWind",
-    "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
-    "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv",
-    "write_chunksize": 200000,
-    "api_server_login": "tests/data/api-default-access.json"
+    "model_data_path": "model_data/PiWind",
+    "source_exposure_file_path": "tests/inputs/SourceLocOEDPiWind10.csv",
+    "source_accounts_file_path": "tests/inputs/SourceAccOEDPiWind.csv",
+    "ri_info_file_path": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
+    "ri_scope_file_path": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
+    "write_chunksize": 200000
 }
