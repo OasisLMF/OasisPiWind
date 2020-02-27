@@ -32,6 +32,7 @@
                 }
             }
         ],
+        "ri_output": true,
         "ri_summaries": [
             {
                 "aalcalc": true,
