@@ -16,7 +16,10 @@
             "options":[
                 {"id":"1", "desc": "Long Term"}
             ]
-        }, 
+        },
+	"group_fields":{
+	    "default": ["PortNumber", "AccNumber", "LocNumber"]
+	},
         "boolean_parameters": [
             {"name":"peril_wind", "desc":"Boolean option", "default":false },
             {"name":"peril_surge", "desc":"Boolean option", "default":true }

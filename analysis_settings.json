@@ -47,7 +47,8 @@
         ],
         "model_settings": {
             "event_set": "P",
-            "peril_wind": true
+            "peril_wind": true,
+	    "group_fields": ["PortNumber", "AccNumber", "LocNumber"]
          },
         "model_version_id": "PiWind",
         "module_supplier_id": "OasisLMF",
