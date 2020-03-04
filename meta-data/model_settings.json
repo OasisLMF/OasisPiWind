@@ -18,6 +18,8 @@
             ]
         },
 	"group_fields":{
+	    "name": "Group Fields",
+	    "desc": "Group OED Fields selection from location file",
 	    "default": ["PortNumber", "AccNumber", "LocNumber"]
 	},
         "boolean_parameters": [
