@@ -1,12 +1,13 @@
 {
-    "source_exposure_file_path": "tests/data/SourceLocOEDPiWind10.csv",
-    "source_accounts_file_path": "tests/data/SourceAccOEDPiWind.csv",
-    "model_data_path": "model_data/PiWind",
-    "analysis_settings_file_path": "analysis_settings.json",
-    "lookup_config_file_path": "keys_data/PiWind/lookup.json",
-    "keys_data_path": "keys_data/PiWind",
-    "ri_info_file_path": "tests/data/SourceReinsInfoOEDPiWind.csv",
-    "ri_scope_file_path": "tests/data/SourceReinsScopeOEDPiWind.csv",
+    "oed_location_csv": "tests/data/SourceLocOEDPiWind10.csv",
+    "oed_accounts_csv": "tests/data/SourceAccOEDPiWind.csv",
+    "model_data_dir": "model_data/PiWind",
+    "analysis_settings_json": "analysis_settings.json",
+    "lookup_config_json": "keys_data/PiWind/lookup.json",
+    "lookup_data_dir": "keys_data/PiWind",
+    "oed_info_csv": "tests/data/SourceReinsInfoOEDPiWind.csv",
+    "oed_scope_csv": "tests/data/SourceReinsScopeOEDPiWind.csv",
     "write_chunksize": 200000,
-    "api_server_login": "tests/data/api-default-access.json"
+    "api_server_login": "tests/data/api-default-access.json",
+    "model_settings_json": "meta-data/model_settings.json"
 }
