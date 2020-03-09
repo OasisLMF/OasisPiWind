@@ -21,6 +21,9 @@
             {"name":"peril_surge", "desc":"Boolean option", "default":true }
         ]
      },
+    "data_settings": {
+        "group_fields": ["PortNumber", "AccNumber", "LocNumber"]
+    },
     "lookup_settings":{
         "supported_perils":[
            {"id": "WSS", "desc": "Single Peril: Storm Surge"},
