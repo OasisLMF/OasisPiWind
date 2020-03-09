@@ -48,6 +48,7 @@ node {
 
     //Model data vars
     String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/"
+    String model_test_ini  = "ci/conf.ini"
     String model_vers = params.MODEL_VERSION
     String model_data = "${env.WORKSPACE}/${model_workspace}/model_data/PiWind"
     String keys_vers  = params.KEYSERVER_VERSION
@@ -128,7 +129,7 @@ node {
         for(int i=0; i < api_server_tests.size(); i++) {
             stage("Run : ${api_server_tests[i]}"){
                 dir(build_workspace) {
-                    sh PIPELINE + " run_test --test-output --test-case ${api_server_tests[i]}"
+                    sh PIPELINE + " run_test --test-output --config ${model_test_ini} --test-case ${api_server_tests[i]}"
                 }
             }
         }
