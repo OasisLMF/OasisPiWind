@@ -5,26 +5,18 @@
         "gul_output": true,
         "gul_summaries": [
             {
-                "aalcalc": true,
                 "eltcalc": true,
                 "id": 1,
-                "lec_output": true,
-                "leccalc": {
-                    "full_uncertainty_aep": true,
-                    "full_uncertainty_oep": true,
-                    "return_period_file": true
-                }
+                "lec_output": false
             }
         ],
         "gul_threshold": 0,
         "model_settings": {
-            "event_set": "P",
-            "peril_wind": true
+            "event_set": "p"
          },
         "model_version_id": "PiWind",
         "module_supplier_id": "OasisLMF",
         "number_of_samples": 10,
-        "prog_id": 12,
         "source_tag": "piwind"
     }
 }

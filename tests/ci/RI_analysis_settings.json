@@ -46,13 +46,12 @@
             }
         ],
         "model_settings": {
-            "event_set": "P",
-            "peril_wind": true
+            "event_set": "p",
+            "event_occurrence_id": "lt"
          },
         "model_version_id": "PiWind",
         "module_supplier_id": "OasisLMF",
         "number_of_samples": 10,
-        "prog_id": 12,
         "source_tag": "piwind"
     }
 }

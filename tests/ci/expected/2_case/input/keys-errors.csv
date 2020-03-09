@@ -1,0 +1,5 @@
+LocID,PerilID,CoverageTypeID,Status,Message
+9907,WTC,1,fail,Successful peril area lookup: 66; Vulnerability lookup: invalid key column value(s) for location
+9907,WTC,3,fail,Successful peril area lookup: 66; Vulnerability lookup: invalid key column value(s) for location
+9907,WSS,1,fail,Successful peril area lookup: 166; Vulnerability lookup: invalid key column value(s) for location
+9907,WSS,3,fail,Successful peril area lookup: 166; Vulnerability lookup: invalid key column value(s) for location

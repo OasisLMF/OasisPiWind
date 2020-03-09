@@ -129,7 +129,7 @@ node {
         for(int i=0; i < api_server_tests.size(); i++) {
             stage("Run : ${api_server_tests[i]}"){
                 dir(build_workspace) {
-                    sh PIPELINE + " run_test --test-output --config ${model_test_ini} --test-case ${api_server_tests[i]}"
+                    sh PIPELINE + " run_test --test-output --config /var/oasis/test/${model_test_ini} --test-case ${api_server_tests[i]}"
                 }
             }
         }
