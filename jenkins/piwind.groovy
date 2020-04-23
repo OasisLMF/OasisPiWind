@@ -48,7 +48,7 @@ node {
 
     //Model data vars
     String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/"
-    String model_test_ini  = "ci/conf.ini"
+    String model_test_ini  = "test-config.ini"
     String model_vers = params.MODEL_VERSION
     String model_data = "${env.WORKSPACE}/${model_workspace}/model_data/PiWind"
     String keys_vers  = params.KEYSERVER_VERSION
