@@ -15,6 +15,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case control_set'],
+        [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', defaultValue: Boolean.valueOf(false)]
@@ -108,6 +109,20 @@ node {
                 }
             }
         )
+
+        if (params.BUILD_WORKER){
+            env.TAG_RUN_WORKER = params.TAG_RELEASE
+            stage('Build Worker'){
+                dir(build_workspace) {
+                    sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
+                }
+            }
+        } else {
+            sh "curl https://api.github.com/repos/OasisLMF/OasisPlatform/tags | jq -r '( first ) | .name' > last_release_tag"
+            env.LAST_RELEASE_TAG = readFile('last_release_tag').trim()
+            env.TAG_RUN_WORKER = env.LAST_RELEASE_TAG
+        }
+
         stage('Shell Env'){
             sh  PIPELINE + ' print_model_vars'
         }
@@ -117,11 +132,6 @@ node {
                 sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.6 .'
                 sh "docker run mdk-runner:3.6 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
 
-            }
-        }
-        stage('Build Worker'){
-            dir(build_workspace) {
-                sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
             }
         }
 
