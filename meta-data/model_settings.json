@@ -2,25 +2,23 @@
     "model_settings":{
         "event_set":{
             "name": "Event Set",
-            "desc": "Either Probablistic or Historic",
-            "default": "P",
+            "desc": "Piwind Event Set selection",
+            "default": "p",
             "options":[
-                {"id":"P", "desc": "Proabilistic"},
-                {"id":"H", "desc": "Historic"}
+                {"id":"p", "desc": "Proabilistic"}
             ]
          },
         "event_occurrence_id":{
             "name": "Occurrence Set",
             "desc": "PiWind Occurrence selection",
-            "default": "1",
+            "default": "lt",
             "options":[
-                {"id":"1", "desc": "Long Term"}
+                {"id":"lt", "desc": "Long Term"}
             ]
-        },
-        "boolean_parameters": [
-            {"name":"peril_wind", "desc":"Boolean option", "default":false },
-            {"name":"peril_surge", "desc":"Boolean option", "default":true }
-        ]
+        }
+     },
+    "data_settings": {
+        "group_fields": ["PortNumber", "AccNumber", "LocNumber"]
     },
     "lookup_settings":{
         "supported_perils":[

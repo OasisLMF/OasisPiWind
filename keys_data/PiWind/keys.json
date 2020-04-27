@@ -1,0 +1,105 @@
+{
+    "keys": {
+        "areaperil": [
+            {
+                "hierarchy": 1,
+                "label": "Coordinates",
+                "type": "lat-long",
+                "oed-fields": [
+                    "Latitude",
+                    "Longitude"
+                ],
+                "method": "point-in-polygon",
+                "system": "rtree",
+                "file": "areaperil_dict.idx"
+            },
+            {
+                "hierarchy": 2,
+                "label": "Postcode",
+                "type": "lookup",
+                "oed-fields": [
+                    "PostalCode"
+                ],
+                "lookup-file": "areaperil_dict_postcode.csv",
+                "target-field": "postcode_id"
+            }
+        ],
+        "vulnerability": [
+            {
+                "label": "BuildingCode",
+                "oed-fields": [
+                    "BuildingCode"
+                ],
+                "default-value;": {
+                    "BuildingCode": 5000
+                },
+                "lookup-type": "direct"
+            },
+            {
+                "label": "OccupancyCode",
+                "oed-fields": [
+                    "OccupancyCode"
+                ],
+                "default-values": {
+                    "OccupancyCode": 1000
+                },
+                "lookup-type": "direct"
+            },
+            {
+                "label": "BuildingHeight",
+                "oed-fields": [
+                    "BuildingHeight"
+                ],
+                "default-values": {
+                    "BuildingHeight": 0
+                },
+                "lookup-type": "range-map",
+                "parameters": [
+                    {
+                        "index": 1,
+                        "type": "exact",
+                        "value": 0
+                    },
+                    {
+                        "index": 2,
+                        "type": "range",
+                        "value_from": 0,
+                        "value_to": 2
+                    },
+                    {
+                        "index": 3,
+                        "type": "range",
+                        "value_from": 2,
+                        "value_to": 4
+                    },
+                    {
+                        "index": 4,
+                        "type": "greater_than",
+                        "value": 4
+                    }
+                ]
+            },
+            {
+                "label": "Basement-Storeys",
+                "oed-fields": [
+                    "NumberOfStoreys",
+                    "Basement"
+                ],
+                "lookup-type": "file-map",
+                "default-values": {
+                    "NumberOfStoreys": 0,
+                    "Basement": 0                    
+                },
+                "lookup-file": "vuln_mapping_1.csv",
+                "target-field": "basement_storey_id"
+            },
+            {
+                "label": "GeogScheme-XXX",
+                "lookup-type": "geog-scheme-map",
+                "geog_scheme": "XXX",
+                "lookup-file": "geog_scheme_xxx_dict.csv",
+                "target-field": "xxx_id"
+            }
+        ]
+    }
+}

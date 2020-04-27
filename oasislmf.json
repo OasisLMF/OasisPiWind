@@ -1,13 +1,11 @@
 {
-    "oed_location_csv": "tests/data/SourceLocOEDPiWind10.csv",
-    "oed_accounts_csv": "tests/data/SourceAccOEDPiWind.csv",
-    "model_data_dir": "model_data/PiWind",
     "analysis_settings_json": "analysis_settings.json",
     "lookup_config_json": "keys_data/PiWind/lookup.json",
     "lookup_data_dir": "keys_data/PiWind",
-    "oed_info_csv": "tests/data/SourceReinsInfoOEDPiWind.csv",
-    "oed_scope_csv": "tests/data/SourceReinsScopeOEDPiWind.csv",
-    "write_chunksize": 200000,
-    "api_server_login": "tests/data/api-default-access.json",
-    "model_settings_json": "meta-data/model_settings.json"
+    "model_data_dir": "model_data/PiWind",
+    "model_settings_json": "meta-data/model_settings.json",
+    "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10.csv",
+    "oed_accounts_csv": "tests/inputs/SourceAccOEDPiWind.csv",
+    "oed_info_csv": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
+    "oed_scope_csv": "tests/inputs/SourceReinsScopeOEDPiWind.csv"
 }
