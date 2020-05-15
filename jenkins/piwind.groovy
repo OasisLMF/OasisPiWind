@@ -15,6 +15,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case control_set'],
+        [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'SLACK_MESSAGE', defaultValue: Boolean.valueOf(false)]
@@ -48,6 +49,7 @@ node {
 
     //Model data vars
     String model_test_dir  = "${env.WORKSPACE}/${model_workspace}/tests/"
+    String model_test_ini  = "test-config.ini"
     String model_vers = params.MODEL_VERSION
     String model_data = "${env.WORKSPACE}/${model_workspace}/model_data/PiWind"
     String keys_vers  = params.KEYSERVER_VERSION
@@ -107,6 +109,20 @@ node {
                 }
             }
         )
+
+        if (params.BUILD_WORKER){
+            env.TAG_RUN_WORKER = params.TAG_RELEASE
+            stage('Build Worker'){
+                dir(build_workspace) {
+                    sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
+                }
+            }
+        } else {
+            sh "curl https://api.github.com/repos/OasisLMF/OasisPlatform/tags | jq -r '( first ) | .name' > last_release_tag"
+            env.LAST_RELEASE_TAG = readFile('last_release_tag').trim()
+            env.TAG_RUN_WORKER = env.LAST_RELEASE_TAG
+        }
+
         stage('Shell Env'){
             sh  PIPELINE + ' print_model_vars'
         }
@@ -118,17 +134,12 @@ node {
 
             }
         }
-        stage('Build Worker'){
-            dir(build_workspace) {
-                sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
-            }
-        }
 
         api_server_tests = params.RUN_TESTS.split()
         for(int i=0; i < api_server_tests.size(); i++) {
             stage("Run : ${api_server_tests[i]}"){
                 dir(build_workspace) {
-                    sh PIPELINE + " run_test --test-output --test-case ${api_server_tests[i]}"
+                    sh PIPELINE + " run_test --test-output --config /var/oasis/test/${model_test_ini} --test-case ${api_server_tests[i]}"
                 }
             }
         }
