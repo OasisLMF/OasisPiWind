@@ -3,6 +3,8 @@
     "lookup_data_dir": "keys_data/PiWind",
     "model_data_dir": "model_data/PiWind",
     "model_settings_json": "meta-data/model_settings.json",
+    "exposure_pre_analysis_module": "src/exposure_modification/exposure_pre_analysis_example.py",
+    "exposure_pre_analysis_setting_json": "tests/inputs/exposure_pre_analysis.json",
     "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10.csv",
     "oed_accounts_csv": "tests/inputs/SourceAccOEDPiWind.csv",
     "oed_info_csv": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
