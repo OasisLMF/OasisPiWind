@@ -63,7 +63,7 @@ node {
     env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
     env.TAG_RELEASE          = params.TAG_RELEASE                       // Build TAG for TARGET image
     env.TAG_RUN_PLATFORM     = params.BASE_TAG                          // Version of Oasis Platform to use for testing
-    env.TAG_RUN_WORKER       = params.TAG_RELEASE
+    env.TAG_RUN_WORKER       = params.BASE_TAG
     env.OASIS_MODEL_DATA_DIR = "${env.WORKSPACE}/${model_workspace}"    // Model Repositry base, mounted in worker image
 
     env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
@@ -78,6 +78,7 @@ node {
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
     env.TEST_DATA_DIR    = model_test_dir         // Integration Test dir for model
+    env.MULTI_PERIL      = '1'                    // Set the GUL alloc rule to 1 in compose
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
