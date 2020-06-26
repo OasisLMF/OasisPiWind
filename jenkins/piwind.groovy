@@ -63,7 +63,7 @@ node {
     env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
     env.TAG_RELEASE          = params.TAG_RELEASE                       // Build TAG for TARGET image
     env.TAG_RUN_PLATFORM     = params.BASE_TAG                          // Version of Oasis Platform to use for testing
-    env.TAG_RUN_WORKER       = params.TAG_RELEASE
+    env.TAG_RUN_WORKER       = params.BASE_TAG
     env.OASIS_MODEL_DATA_DIR = "${env.WORKSPACE}/${model_workspace}"    // Model Repositry base, mounted in worker image
 
     env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
