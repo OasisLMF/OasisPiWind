@@ -78,6 +78,7 @@ node {
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
     env.TEST_DATA_DIR    = model_test_dir         // Integration Test dir for model
+    env.MULTI_PERIL      = '1'                    // Set the GUL alloc rule to 1 in compose
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
