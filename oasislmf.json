@@ -1,4 +1,5 @@
 {
+    "analysis_settings_json": "analysis_settings.json",
     "lookup_config_json": "keys_data/PiWind/lookup.json",
     "lookup_data_dir": "keys_data/PiWind",
     "model_data_dir": "model_data/PiWind",
