@@ -13,7 +13,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
-        [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
+        [$class: 'StringParameterDefinition',  name: 'TAG_OASIS', defaultValue: 'latest'],
         [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 3_case 4_case control_set'],
         [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
@@ -60,10 +60,10 @@ node {
 
     // Set Global ENV
     env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
-    env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
+    env.TAG_OASIS = params.TAG_OASIS                          // Build TAG for base set of images
     env.TAG_RELEASE          = params.TAG_RELEASE                       // Build TAG for TARGET image
-    env.TAG_RUN_PLATFORM     = params.BASE_TAG                          // Version of Oasis Platform to use for testing
-    env.TAG_RUN_WORKER       = params.BASE_TAG
+    env.TAG_RUN_PLATFORM     = params.TAG_OASIS                          // Version of Oasis Platform to use for testing
+    env.TAG_RUN_WORKER       = params.TAG_OASIS
     env.OASIS_MODEL_DATA_DIR = "${env.WORKSPACE}/${model_workspace}"    // Model Repositry base, mounted in worker image
 
     env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
