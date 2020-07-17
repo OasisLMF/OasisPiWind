@@ -13,8 +13,8 @@ node {
         [$class: 'StringParameterDefinition',  name: 'MODEL_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
-        [$class: 'StringParameterDefinition',  name: 'BASE_TAG', defaultValue: 'latest'],
-        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case control_set'],
+        [$class: 'StringParameterDefinition',  name: 'TAG_OASIS', defaultValue: 'latest'],
+        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 3_case 4_case control_set'],
         [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
@@ -60,10 +60,10 @@ node {
 
     // Set Global ENV
     env.PIPELINE_LOAD =  script_dir + model_sh                          // required for pipeline.sh calls
-    env.TAG_BASE             = params.BASE_TAG                          // Build TAG for base set of images
+    env.TAG_OASIS = params.TAG_OASIS                          // Build TAG for base set of images
     env.TAG_RELEASE          = params.TAG_RELEASE                       // Build TAG for TARGET image
-    env.TAG_RUN_PLATFORM     = params.BASE_TAG                          // Version of Oasis Platform to use for testing
-    env.TAG_RUN_WORKER       = params.TAG_RELEASE
+    env.TAG_RUN_PLATFORM     = params.TAG_OASIS                          // Version of Oasis Platform to use for testing
+    env.TAG_RUN_WORKER       = params.TAG_OASIS
     env.OASIS_MODEL_DATA_DIR = "${env.WORKSPACE}/${model_workspace}"    // Model Repositry base, mounted in worker image
 
     env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
@@ -78,6 +78,7 @@ node {
     env.PATH_MODEL_DATA  = model_data             // mount point used when running worker containers
     env.PATH_KEYS_DATA   = keys_data              // see above
     env.TEST_DATA_DIR    = model_test_dir         // Integration Test dir for model
+    env.MULTI_PERIL      = '1'                    // Set the GUL alloc rule to 1 in compose
 
     env.COMPOSE_PROJECT_NAME = UUID.randomUUID().toString().replaceAll("-","")
 
@@ -114,7 +115,7 @@ node {
             env.TAG_RUN_WORKER = params.TAG_RELEASE
             stage('Build Worker'){
                 dir(build_workspace) {
-                    sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg worker_ver=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
+                    sh  "docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg BRANCH=${MDK_BRANCH} -t coreoasis/model_worker:${params.TAG_RELEASE} ."
                 }
             }
         } else {
