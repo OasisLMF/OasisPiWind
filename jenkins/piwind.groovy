@@ -119,9 +119,12 @@ node {
                 }
             }
         } else {
-            sh "curl https://api.github.com/repos/OasisLMF/OasisPlatform/tags | jq -r '( first ) | .name' > last_release_tag"
-            env.LAST_RELEASE_TAG = readFile('last_release_tag').trim()
-            env.TAG_RUN_WORKER = env.LAST_RELEASE_TAG
+            if (params.TAG_OASIS == 'latest'){
+                sh "curl https://api.github.com/repos/OasisLMF/OasisPlatform/tags | jq -r '( first ) | .name' > last_release_tag"
+                env.LAST_RELEASE_TAG = readFile('last_release_tag').trim()
+                env.TAG_RUN_WORKER = env.LAST_RELEASE_TAG
+                env.TAG_RUN_PLATFORM env.LAST_RELEASE_TAG
+            }    
         }
 
         stage('Shell Env'){
