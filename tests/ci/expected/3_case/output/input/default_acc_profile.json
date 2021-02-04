@@ -1,0 +1,186 @@
+{
+    "AccNumber": {
+        "ProfileElementName": "AccNumber",
+        "OEDHierarchy": "Account",
+        "Key": "AccNum"
+    },
+    "PortNumber": {
+        "ProfileElementName": "PortNumber",
+        "OEDHierarchy": "Portfolio",
+        "Key": "PortNum"
+    },
+    "PolNumber": {
+        "ProfileElementName": "PolNumber",
+        "OEDHierarchy": "Policy",
+        "Key": "PolNum"
+    },
+    "CondNumber": {
+        "ProfileElementName": "CondNumber",
+        "OEDHierarchy": "SpecialCondition",
+        "Key": "CondNum"
+    },
+    "LayerNumber": {
+	"ProfileElementName": "LayerNumber",
+	"OEDHierarchy": "Policy",
+	"Key": "LayerNum"
+    },
+    "CondDed6All": {
+        "ProfileElementName": "CondDed6All",
+        "DeductibleType": "B",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondDedCode6All": {
+        "ProfileElementName": "CondDedCode6All",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "DeductibleCode",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondDedType6All": {
+        "ProfileElementName": "CondDedType6All",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "DeductibleType",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondMinDed6All": {
+        "ProfileElementName": "CondMinDed6All",
+        "DeductibleType": "MI",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "DeductibleMin",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondMaxDed6All": {
+        "ProfileElementName": "CondMaxDed6All",
+        "DeductibleType": "MA",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "DeductibleMax",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondLimit6All": {
+        "ProfileElementName": "CondLimit6All",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "Limit",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondLimitCode6All": {
+        "ProfileElementName": "CondLimitCode6All",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "LimitCode",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "CondLimitType6All": {
+        "ProfileElementName": "CondLimitType6All",
+        "FMLevelName": "CondAll",
+        "FMLevel": 6,
+        "FMTermType": "LimitType",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolDed6All": {
+        "ProfileElementName": "PolDed6All",
+        "DeductibleType": "B",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "Deductible",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolDedCode6All": {
+        "ProfileElementName": "PolDedCode6All",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "DeductibleCode",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolDedType6All": {
+        "ProfileElementName": "PolDedType6All",
+        "DeductibleType": "B",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "DeductibleType",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolMinDed6All": {
+        "ProfileElementName": "PolMinDed6All",
+        "DeductibleType": "MI",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "DeductibleMin",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolMaxDed6All": {
+        "ProfileElementName": "PolMaxDed6All",
+        "DeductibleType": "MA",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "DeductibleMax",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolLimit6All": {
+        "ProfileElementName": "PolLimit6All",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "Limit",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolLimitCode6All": {
+        "ProfileElementName": "PolLimitCode6All",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "LimitCode",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "PolLimitType6All": {
+        "ProfileElementName": "PolLimitType6All",
+        "FMLevelName": "PolAll",
+        "FMLevel": 9,
+        "FMTermType": "LimitType",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "LayerAttachment": {
+        "ProfileElementName": "LayerAttachment",
+        "FMLevelName": "PolLayer",
+        "FMLevel": 10,
+        "FMTermType": "Attachment",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "LayerLimit": {
+        "ProfileElementName": "LayerLimit",
+        "FMLevelName": "PolLayer",
+        "FMLevel": 10,
+        "FMTermType": "Limit",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    },
+    "LayerParticipation": {
+        "ProfileElementName": "LayerParticipation",
+        "FMLevelName": "PolLayer",
+        "FMLevel": 10,
+        "FMTermType": "Share",
+        "FMTermGroupID": 1,
+        "ProfileType": "Acc"
+    }
+}
