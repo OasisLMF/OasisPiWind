@@ -1,0 +1,8 @@
+FROM coreoasis/model_worker:latest
+
+WORKDIR /home/worker
+
+COPY ./docker/oasislmf_deploy.json /home/worker/model/oasislmf.json
+COPY ./meta-data/model_settings.json /home/worker/model/meta-data/model_settings.json
+
+ENTRYPOINT ./startup.sh
