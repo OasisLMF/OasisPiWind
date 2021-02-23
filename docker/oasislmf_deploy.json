@@ -1,0 +1,5 @@
+{
+    "lookup_config_json": "/var/oasis/keys_data/lookup.json",
+    "lookup_data_dir": "/var/oasis/keys_data",
+    "model_data_dir": "/var/oasis/model_data"
+}
