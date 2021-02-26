@@ -24,7 +24,6 @@
     "IL": {
         "available": {
             "accnumber": "Account number",
-            "accperil": "Not an OED field",
             "buildingid": "Unique building identification number",
             "buildingtiv": "Building Total Insured Value",
             "constructioncode": "OED construction code",
@@ -33,19 +32,12 @@
             "coverage_type_id": "Oasis coverage type",
             "istenant": "Whether property is occupied by a tenant or not",
             "latitude": "Latitude in degrees (-90.0 to +90.0)",
-            "layerattachment": "Not an OED field",
-            "layerlimit": "Not an OED field",
-            "layernumber": "Not an OED field",
-            "layerparticipation": "Not an OED field",
             "loccurrency": "Location currency",
             "locnumber": "Location number",
             "locperilscovered": "Location perils covered",
             "longitude": "Longitude in degrees (-180.0 to +180.0)",
             "occupancycode": "OED occupancy code",
             "peril_id": "OED peril code",
-            "polexpirydate": "Not an OED field",
-            "polinceptiondate": "Not an OED field",
-            "polnumber": "Not an OED field",
             "portnumber": "Portfolio number",
             "postalcode": "Postcode: the highest resolution postcode most often used.",
             "streetaddress": "Street address including house number "
