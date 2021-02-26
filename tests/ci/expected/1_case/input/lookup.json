@@ -12,7 +12,7 @@
     "peril": {
         "peril_ids": ["WTC", "WSS"],
         "peril_id_col": "PERIL_ID",
-        "file_path": "%%KEYS_DATA_PATH%%/area_peril_dict_OED.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/areaperil_dict.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_areas": 400,
@@ -69,7 +69,7 @@
         }
     },
     "vulnerability": {
-        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dictOED3.csv",
+        "file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict.csv",
         "file_type": "csv",
         "float_precision_high": true,
         "num_vulnerabilities": 684,
