@@ -40,7 +40,7 @@ default_kwargs = {
 
 for case in test_list:
     kwargs = default_kwargs.copy()
-    kwargs['model_run_dir'] = os.path.join('runs', case)
+    kwargs['model_run_dir'] = os.path.abspath(os.path.join('runs', case))
 
     for param in test_options:
         val = config.get(f'{test_model}.{case}', param, fallback=None)
