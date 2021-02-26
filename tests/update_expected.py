@@ -36,6 +36,7 @@ default_kwargs = {
     "lookup_config_json": os.path.abspath("../keys_data/PiWind/lookup.json"),
     "lookup_data_dir": os.path.abspath("../keys_data/PiWind"),
     "model_data_dir": os.path.abspath("../model_data/PiWind"),                                                                                    
+    "ktools_alloc_rule_gul": 1
 }
 
 for case in test_list:
