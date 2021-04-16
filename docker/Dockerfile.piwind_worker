@@ -1,4 +1,5 @@
-FROM coreoasis/model_worker:latest
+ARG worker_ver=latest
+FROM coreoasis/model_worker:$worker_ver
 
 WORKDIR /home/worker
 
