@@ -13,7 +13,7 @@
             "number_of_locations": 10
         }
     },
-    "WTC": {
+    "WSS": {
         "all": {
             "tiv": 3400000.0,
             "tiv_by_coverage": {
@@ -143,7 +143,7 @@
             }
         }
     },
-    "WSS": {
+    "WTC": {
         "all": {
             "tiv": 3400000.0,
             "tiv_by_coverage": {
