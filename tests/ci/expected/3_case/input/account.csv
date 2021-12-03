@@ -1,3 +1,3 @@
-PortNumber,AccNumber,AccCurrency,PolNumber,PolPerilsCovered,PolInceptionDate,PolExpiryDate,LayerNumber,LayerParticipation,LayerLimit,LayerAttachment,PolDedType6All,PolDed6All,CondNumber,CondDedType6All,CondDed6All
-1,A11111,GBP,Layer1,WW1,1/1/1970,1/1/1970,1,0.3,5000000,500000,2,0.01,1,2,0.01
-1,A11111,GBP,Layer2,WW1,1/1/1970,1/1/1970,2,0.3,100000000,5500000,2,0.01,1,2,0.01
+PortNumber,AccNumber,AccCurrency,PolNumber,PolPerilsCovered,PolInceptionDate,PolExpiryDate,LayerNumber,LayerParticipation,LayerLimit,LayerAttachment,PolDedType6All,PolDed6All,CondTag,CondNumber,CondDedType6All,CondDed6All,OEDVersion
+1,A11111,GBP,Layer1,WW1,2018-01-01,2018-12-31,1,0.3,5000000,500000,2,0.01,1,1,2,0.01,2.0.0
+1,A11111,GBP,Layer2,WW1,2018-01-01,2018-12-31,2,0.3,100000000,5500000,2,0.01,1,1,2,0.01,2.0.0
