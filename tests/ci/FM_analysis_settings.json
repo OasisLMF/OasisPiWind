@@ -35,8 +35,8 @@
         "event_set": "p",
          "event_occurrence_id": "lt"
      },
-    "model_version_id": "PiWind",
-    "module_supplier_id": "OasisLMF",
+    "model_name_id": "PiWind",
+    "model_supplier_id": "OasisLMF",
     "number_of_samples": 10
 }
 

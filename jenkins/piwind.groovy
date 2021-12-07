@@ -14,7 +14,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'TAG_OASIS', defaultValue: 'latest'],
-        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 3_case 4_case control_set'],
+        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 3_case 4_case control_set parquet'],
         [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
@@ -130,11 +130,11 @@ node {
         stage('Shell Env'){
             sh  PIPELINE + ' print_model_vars'
         }
-        stage('Run MDK Py3.6: ' + model_func) {
+        stage('Run MDK Py3.8: ' + model_func) {
             dir(build_workspace) {
-                sh "sed -i 's/FROM.*/FROM python:3.6/g' docker/Dockerfile.mdk-tester"
-                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.6 .'
-                sh "docker run mdk-runner:3.6 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+                sh "sed -i 's/FROM.*/FROM python:3.8/g' docker/Dockerfile.mdk-tester"
+                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.8 .'
+                sh "docker run mdk-runner:3.8 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
 
             }
         }
