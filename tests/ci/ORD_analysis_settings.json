@@ -1,5 +1,5 @@
 {
-    "analysis_tag": "base_example",
+    "analysis_tag": "ORD_outputs_tests",
     "source_tag": "MDK",
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",
