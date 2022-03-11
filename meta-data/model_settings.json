@@ -5,7 +5,7 @@
             "desc": "Piwind Event Set selection",
             "default": "p",
             "options":[
-                {"id":"p", "desc": "Probabilistic"}
+                {"id":"p", "desc": "Probabilistic", "number_of_events": 1447}
             ]
          },
         "event_occurrence_id":{
