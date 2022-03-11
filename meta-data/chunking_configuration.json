@@ -1,0 +1,8 @@
+{
+  "lookup_strategy": "FIXED_CHUNKS",
+  "loss_strategy": "FIXED_CHUNKS",
+  "dynamic_locations_per_lookup": 10000,
+  "dynamic_events_per_analysis": 100,
+  "fixed_analysis_chunks": 10,
+  "fixed_lookup_chunks": 5
+}

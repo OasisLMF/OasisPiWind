@@ -1,0 +1,6 @@
+{
+  "scaling_strategy": "FIXED_WORKERS",
+  "worker_count_fixed": 1,
+  "worker_count_max": 10,
+  "chunks_per_worker": 10
+}
