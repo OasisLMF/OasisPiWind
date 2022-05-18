@@ -14,7 +14,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'TAG_OASIS', defaultValue: 'latest'],
-        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: 'control_set 0_case 1_case 2_case 3_case 4_case 5_case 6_case 7_case 8_case'],
+        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: 'control_set 0_case 1_case 3_case 4_case 5_case 6_case 7_case 8_case'],
         [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
