@@ -27,5 +27,6 @@
     },
     "data_settings": {
 	"group_fields": ["PortNumber", "AccNumber", "LocNumber"]
-    }
+    },
+    "model_default_samples" :10
 }
