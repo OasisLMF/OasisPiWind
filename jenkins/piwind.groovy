@@ -14,7 +14,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'KEYSERVER_VERSION', defaultValue: '0.0.0.1'],
         [$class: 'StringParameterDefinition',  name: 'TAG_RELEASE', defaultValue: BRANCH_NAME.split('/').last() + "-${BUILD_NUMBER}"],
         [$class: 'StringParameterDefinition',  name: 'TAG_OASIS', defaultValue: 'latest'],
-        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: '0_case 1_case 3_case 4_case control_set parquet'],
+        [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: 'control_set 0_case 1_case 3_case 4_case 5_case 6_case 7_case 8_case'],
         [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
@@ -120,11 +120,11 @@ node {
             }
         } else {
             if (params.TAG_OASIS == 'latest'){
-                sh "curl https://api.github.com/repos/OasisLMF/OasisPlatform/tags | jq -r '( first ) | .name' > last_release_tag"
+                sh "curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name' > last_release_tag"
                 env.LAST_RELEASE_TAG = readFile('last_release_tag').trim()
                 env.TAG_RUN_WORKER = env.LAST_RELEASE_TAG
                 env.TAG_RUN_PLATFORM = env.LAST_RELEASE_TAG
-            }    
+            }
         }
 
         stage('Shell Env'){
