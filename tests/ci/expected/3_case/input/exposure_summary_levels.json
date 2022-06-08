@@ -28,10 +28,10 @@
             "locperilscovered": "Location perils covered",
             "longitude": "Longitude in degrees (-180.0 to +180.0)",
             "occupancycode": "OED occupancy code",
-            "oedversion": "Not an OED field",
+            "oedversion": "The OED schema version of the file",
             "peril_id": "OED peril code",
             "portnumber": "Portfolio number",
-            "postalcode": "Postcode: the highest resolution postcode most often used.",
+            "postalcode": "Postcode: the highest resolution postcode most often used. (e.g. 5 digit zip for the US).",
             "streetaddress": "Street address including house number "
         }
     },
@@ -64,11 +64,11 @@
             "locperilscovered": "Location perils covered",
             "longitude": "Longitude in degrees (-180.0 to +180.0)",
             "occupancycode": "OED occupancy code",
-            "oedversion": "Not an OED field",
+            "oedversion": "The OED schema version of the file",
             "othertiv": "Not an OED field",
             "peril_id": "OED peril code",
             "portnumber": "Portfolio number",
-            "postalcode": "Postcode: the highest resolution postcode most often used.",
+            "postalcode": "Postcode: the highest resolution postcode most often used. (e.g. 5 digit zip for the US).",
             "streetaddress": "Street address including house number "
         }
     }
