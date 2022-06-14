@@ -3,7 +3,6 @@
     "source_tag": "MDK",
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",
-    "number_of_samples": 10,
     "gul_threshold": 0,
     "gul_output": true,
     "model_settings": {
@@ -28,7 +27,8 @@
                 "ept_per_sample_mean_aep": true,
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
-                "psept_oep": true
+                "psept_oep": true,
+                "return_period_file": true
             }
         }
     ],
@@ -52,7 +52,8 @@
                 "ept_per_sample_mean_aep": true,
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
-                "psept_oep": true
+                "psept_oep": true,
+                "return_period_file": true
             }
         }
     ],
@@ -75,7 +76,8 @@
                 "ept_per_sample_mean_aep": true,
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
-                "psept_oep": true
+                "psept_oep": true,
+                "return_period_file": true
             }
         }
     ]

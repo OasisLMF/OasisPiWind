@@ -8,5 +8,7 @@
     "oed_accounts_csv": "tests/inputs/SourceAccOEDPiWind.csv",
     "oed_info_csv": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
     "oed_scope_csv": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
+    "modelpy": true,
+    "gulpy": true,
     "ktools_alloc_rule_gul": 1
 }
