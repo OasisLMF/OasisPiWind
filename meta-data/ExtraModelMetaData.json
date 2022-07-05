@@ -1,0 +1,15 @@
+{
+    "Vendor": "Oasis Loss Modelling Framework",
+    "ReleasedOn": "11/04/2017",
+    "Region": "UK",
+    "Peril": "Wind;Flood",
+    "FrequencyDistribution": "Poisson",
+    "LossUncertaintyDistribution":"MultiModal;Normal;BiModal",
+    "SeasonalityDistribution":"None",
+    "ExtraModelMetaDataFiles": {
+        "Intensity":"intensity_bin_dict.csv",
+        "Events": "event_dict.csv",
+        "ReturnPeriods": "returnperiods.csv",
+        "Quantiles":"quantiles.csv"
+    }
+}
