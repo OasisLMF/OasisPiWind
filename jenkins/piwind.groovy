@@ -16,6 +16,7 @@ node {
         [$class: 'StringParameterDefinition',  name: 'TAG_OASIS', defaultValue: 'latest'],
         //[$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: 'control_set 0_case 1_case 3_case 4_case 5_case 6_case 7_case 8_case'],
         [$class: 'StringParameterDefinition',  name: 'RUN_TESTS', defaultValue: 'control_set 0_case 1_case 2_case 3_case 4_case 5_case 7_case'],
+        [$class: 'BooleanParameterDefinition', name: 'RUN_MDK', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'BUILD_WORKER', defaultValue: Boolean.valueOf(false)],
         [$class: 'BooleanParameterDefinition', name: 'PURGE', defaultValue: Boolean.valueOf(true)],
         [$class: 'BooleanParameterDefinition', name: 'PUBLISH', defaultValue: Boolean.valueOf(false)],
@@ -131,15 +132,17 @@ node {
         stage('Shell Env'){
             sh  PIPELINE + ' print_model_vars'
         }
-        stage('Run MDK Py3.8: ' + model_func) {
-            dir(build_workspace) {
-                sh "sed -i 's/FROM.*/FROM python:3.8/g' docker/Dockerfile.mdk-tester"
-                sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.8 .'
-                sh "docker run mdk-runner:3.8 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
 
+        if (params.RUN_MDK){
+            stage('Run MDK Py3.8: ' + model_func) {
+                dir(build_workspace) {
+                    sh "sed -i 's/FROM.*/FROM python:3.8/g' docker/Dockerfile.mdk-tester"
+                    sh 'docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.8 .'
+                    sh "docker run mdk-runner:3.8 --model-repo-branch ${MDK_MODEL} --mdk-repo-branch ${MDK_BRANCH} --model-run-mode ${MDK_RUN}"
+
+                }
             }
         }
-
         api_server_tests = params.RUN_TESTS.split()
         for(int i=0; i < api_server_tests.size(); i++) {
             stage("Run : ${api_server_tests[i]}"){
