@@ -69,7 +69,7 @@ node {
 
     env.IMAGE_WORKER     = "coreoasis/model_worker"                     // Docker image for worker
 
-    env.TEST_MAX_RUNTIME = '190'
+    env.TEST_MAX_RUNTIME = '3600'
     env.MODEL_SUPPLIER   = model_name
     env.MODEL_VARIENT    = model_varient
     env.MODEL_ID         = '1'
