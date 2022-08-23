@@ -5,7 +5,7 @@
             "number_of_locations": 12598
         },
         "not-modelled": {
-            "tiv": 1172187500.0,
+            "tiv": 2331281250.0,
             "number_of_locations": 12598
         },
         "portfolio": {
@@ -269,6 +269,136 @@
                 "buildings": 2096,
                 "other": 12598,
                 "contents": 2096,
+                "bi": 12598
+            }
+        }
+    },
+    "WEC": {
+        "all": {
+            "tiv": 2331281250.0,
+            "tiv_by_coverage": {
+                "buildings": 1726875000.0,
+                "other": 0.0,
+                "contents": 431718750.0,
+                "bi": 172687500.0
+            },
+            "number_of_locations": 12598,
+            "number_of_locations_by_coverage": {
+                "buildings": 12598,
+                "other": 12598,
+                "contents": 12598,
+                "bi": 12598
+            }
+        },
+        "success": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0,
+            "number_of_locations_by_coverage": {
+                "buildings": 0,
+                "other": 0,
+                "contents": 0,
+                "bi": 0
+            }
+        },
+        "fail": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0,
+            "number_of_locations_by_coverage": {
+                "buildings": 0,
+                "other": 0,
+                "contents": 0,
+                "bi": 0
+            }
+        },
+        "nomatch": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0,
+            "number_of_locations_by_coverage": {
+                "buildings": 0,
+                "other": 0,
+                "contents": 0,
+                "bi": 0
+            }
+        },
+        "fail_ap": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0,
+            "number_of_locations_by_coverage": {
+                "buildings": 0,
+                "other": 0,
+                "contents": 0,
+                "bi": 0
+            }
+        },
+        "fail_v": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0,
+            "number_of_locations_by_coverage": {
+                "buildings": 0,
+                "other": 0,
+                "contents": 0,
+                "bi": 0
+            }
+        },
+        "notatrisk": {
+            "tiv": 0.0,
+            "tiv_by_coverage": {
+                "buildings": 0.0,
+                "other": 0.0,
+                "contents": 0.0,
+                "bi": 0.0
+            },
+            "number_of_locations": 0,
+            "number_of_locations_by_coverage": {
+                "buildings": 0,
+                "other": 0,
+                "contents": 0,
+                "bi": 0
+            }
+        },
+        "noreturn": {
+            "tiv": 2331281250.0,
+            "tiv_by_coverage": {
+                "buildings": 1726875000.0,
+                "other": 0.0,
+                "contents": 431718750.0,
+                "bi": 172687500.0
+            },
+            "number_of_locations": 12598,
+            "number_of_locations_by_coverage": {
+                "buildings": 12598,
+                "other": 12598,
+                "contents": 12598,
                 "bi": 12598
             }
         }
