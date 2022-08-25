@@ -7,6 +7,7 @@
     "gul_output": true,
     "model_settings": {
         "event_set": "p",
+	"event_dict_set": "p",
         "event_occurrence_id": "lt"
     },
     "gul_summaries": [
@@ -20,6 +21,7 @@
                 "elt_quantile": true,
                 "elt_moment": true,
                 "alt_period": true,
+		"alct_convergence": true,
                 "ept_full_uncertainty_aep": true,
                 "ept_full_uncertainty_oep": true,
                 "ept_mean_sample_aep": true,
@@ -45,6 +47,7 @@
                 "elt_quantile": true,
                 "elt_moment": true,
                 "alt_period": true,
+		"alct_convergence": true,
                 "ept_full_uncertainty_aep": true,
                 "ept_full_uncertainty_oep": true,
                 "ept_mean_sample_aep": true,
@@ -69,6 +72,7 @@
                 "elt_quantile": true,
                 "elt_moment": true,
                 "alt_period": true,
+		"alct_convergence": true,
                 "ept_full_uncertainty_aep": true,
                 "ept_full_uncertainty_oep": true,
                 "ept_mean_sample_aep": true,
