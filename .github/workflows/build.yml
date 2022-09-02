@@ -9,6 +9,7 @@ env:
   BUILD_BRANCH: master
   BUILD_WORKER: false
   LAST_RELEASE_TAG: ''
+  TAG_OASIS: 'latest'
 
 jobs:
   build:
