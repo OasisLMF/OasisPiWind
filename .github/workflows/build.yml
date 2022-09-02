@@ -46,4 +46,4 @@ jobs:
           echo "TAG_RUN_WORKER=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
       - name: print vars
-        run: echo ${{ env.LAST_RELEASE_TAG }}; echo 'ciao'; echo ${{ steps.build-worker2.LAST_RELEASE_TAG }}
+        run: echo ${{ env.LAST_RELEASE_TAG }}; echo 'ciao'; echo ${{ steps.build-worker2.outputs.LAST_RELEASE_TAG }}
