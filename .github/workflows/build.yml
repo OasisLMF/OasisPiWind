@@ -10,6 +10,7 @@ env:
   BUILD_WORKER: false
   LAST_RELEASE_TAG: ''
   TAG_OASIS: 'latest'
+  TAG_RELEASE: ${{ github.ref_name }}-${{ inputs.build_id }}
 
 jobs:
   build:
@@ -26,6 +27,8 @@ jobs:
       #     ref: ${{ env.BUILD_BRANCH }}
       - name: set default vars
         run: |
+          echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
+          echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
 
       - name: build worker
