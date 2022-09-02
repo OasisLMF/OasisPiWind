@@ -11,26 +11,31 @@ env:
   LAST_RELEASE_TAG: ''
   TAG_OASIS: 'latest'
   TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # similar (split by / is missing)
+  BUILD_WORKSPACE: oasis_build
+  MODEL_WORKSPACE: piwind_workspace
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: clone PiWind repository
-      #   uses: actions/checkout@v3
-      #   with:
-      #     submodules: true
-      # - name: clone build repository
-      #   uses: actions/checkout@v3
-      #   with:
-      #     repository: ${{ env.BUILD_REPO }}
-      #     ref: ${{ env.BUILD_BRANCH }}
+      - name: clone PiWind repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          path: ${{ env.MODEL_WORKSPACE }}
+      - name: clone build repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.BUILD_REPO }}
+          ref: ${{ env.BUILD_BRANCH }}
+          path: ${{ env.BUILD_WORKSPACE }}
       - name: set default vars
         run: |
           echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
+          echo "PIPELINE=${BUILD_WORKSPACE} + "/buildscript/pipeline.sh"" >> $GITHUB_ENV 
 
       - name: build worker
         # see open issue on if statements 
@@ -49,3 +54,4 @@ jobs:
       - name: list
         run: |
           ls .
+          
