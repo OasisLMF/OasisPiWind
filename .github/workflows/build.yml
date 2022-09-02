@@ -77,4 +77,4 @@ jobs:
         run: |
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
-          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
+          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
