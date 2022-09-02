@@ -15,15 +15,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: clone PiWind repository
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-      - name: clone build repository
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ env.BUILD_REPO }}
-          ref: ${{ env.BUILD_BRANCH }}
+      # - name: clone PiWind repository
+      #   uses: actions/checkout@v3
+      #   with:
+      #     submodules: true
+      # - name: clone build repository
+      #   uses: actions/checkout@v3
+      #   with:
+      #     repository: ${{ env.BUILD_REPO }}
+      #     ref: ${{ env.BUILD_BRANCH }}
 
       - name: build worker
         # see open issue on if statements 
@@ -36,6 +36,6 @@ jobs:
           echo ${{ env.BUILD_WORKER }} 
           echo "LAST_RELEASE_TAG=$(curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name')" >> $GITHUB_ENV  
           echo "TAG_RUN_WORKER=$(echo $LAST_RELEASE_TAG)" >> $GITHUB_ENV  
-          echo "TAG_RUN_PLATFORM=${{ env.LAST_RELEASE_TAG }}" >> $GITHUB_ENV  
+          echo "TAG_RUN_PLATFORM=$LAST_RELEASE_TAG" >> $GITHUB_ENV  
       - name: print vars
         run: echo ${{ env.LAST_RELEASE_TAG }}
