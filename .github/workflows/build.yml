@@ -8,6 +8,7 @@ env:
   BUILD_REPO: OasisLMF/build
   BUILD_BRANCH: master
   BUILD_WORKER: false
+  LAST_RELEASE_TAG: ''
 
 jobs:
   build:
@@ -24,9 +25,14 @@ jobs:
           ref: ${{ env.BUILD_BRANCH }}
 
       - name: build worker
+        # see open issue on if statements 
+        # https://github.com/actions/runner/issues/1173
         if: env.BUILD_WORKER == 'true'
-        run: echo ${{ env.BUILD_WORKER }}
+        run: echo 'build worker: TBD'
       - name: build worker
-        if: env.BUILD_WORKER == 'false'
-        run: echo ${{ env.BUILD_WORKER }}     
-
+        if: env.BUILD_WORKER == 'false' && env.TAG_OASIS == 'latest'
+        run: |
+          echo ${{ env.BUILD_WORKER }} 
+          env.LAST_RELEASE_TAG=$(curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name')    
+      - name: print vars
+        run: echo ${{ env.LAST_RELEASE_TAG }}
