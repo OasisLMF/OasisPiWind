@@ -5,7 +5,7 @@ on:
 
 env:
   # model_git_url: OasisLMF/OasisPiWind.git
-  build_repo: OasisLMF/build
+  BUILD_REPO: OasisLMF/build
 
 
 jobs:
@@ -19,8 +19,12 @@ jobs:
       - name: clone build repository
         uses: actions/checkout@v3
         with:
-          repository: "$build_repo"
-       
+          repository: $BUILD_REPO
+      - name: clone build repository
+        uses: actions/checkout@v3
+        with:
+          repository: OasisLMF/build
+             
 
 
 
