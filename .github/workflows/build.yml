@@ -29,7 +29,7 @@ jobs:
         # see open issue on if statements 
         # https://github.com/actions/runner/issues/1173
         if: env.BUILD_WORKER == 'true'
-        run: echo 'build worker: TBD'
+        run: echo "build worker TBD"
       - name: build worker
         if: env.BUILD_WORKER == 'false' && env.TAG_OASIS == 'latest'
         run: |
