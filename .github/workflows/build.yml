@@ -24,9 +24,9 @@ jobs:
           ref: ${{ env.BUILD_BRANCH }}
 
       - name: build worker
-        if: env.BUILD_WORKER == true
+        if: env.BUILD_WORKER == 'true'
         run: echo ${{ env.BUILD_WORKER }}
       - name: build worker
-        if: env.BUILD_WORKER == false
+        if: env.BUILD_WORKER == 'false'
         run: echo ${{ env.BUILD_WORKER }}     
 
