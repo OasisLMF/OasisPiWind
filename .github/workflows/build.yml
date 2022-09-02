@@ -34,8 +34,11 @@ jobs:
         if: env.BUILD_WORKER == 'false' && env.TAG_OASIS == 'latest'
         run: |
           echo ${{ env.BUILD_WORKER }} 
-          echo "LAST_RELEASE_TAG=$(curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name')" >> $GITHUB_ENV  
-          echo "TAG_RUN_WORKER=$(echo $LAST_RELEASE_TAG)" >> $GITHUB_ENV  
-          echo "TAG_RUN_PLATFORM=${LAST_RELEASE_TAG}" >> $GITHUB_ENV  
+          LAST_RELEASE_TAG=$(curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name')
+          echo "LAST_RELEASE_TAG=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
+          # echo "TAG_RUN_WORKER=$(echo $LAST_RELEASE_TAG)" >> $GITHUB_ENV  
+          # echo "TAG_RUN_PLATFORM=${LAST_RELEASE_TAG}" >> $GITHUB_ENV  
       - name: print vars
+        env:
+          
         run: echo ${{ env.LAST_RELEASE_TAG }}
