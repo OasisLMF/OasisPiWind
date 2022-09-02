@@ -7,7 +7,7 @@ env:
   # model_git_url: OasisLMF/OasisPiWind.git
   BUILD_REPO: OasisLMF/build
   BUILD_BRANCH: master
-  BUILD_WORKER:  false
+  BUILD_WORKER: false
 
 jobs:
   build:
@@ -24,9 +24,9 @@ jobs:
           ref: ${{ env.BUILD_BRANCH }}
 
       - name: build worker
-        if: ${{ env.BUILD_WORKER == true }}
+        if: env.BUILD_WORKER == true
         run: echo ${{ env.BUILD_WORKER }}
       - name: build worker
-        if: ${{ env.BUILD_WORKER == false }}
+        if: env.BUILD_WORKER == false
         run: echo ${{ env.BUILD_WORKER }}     
 
