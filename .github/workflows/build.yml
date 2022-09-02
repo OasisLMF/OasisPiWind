@@ -14,6 +14,11 @@ env:
   BUILD_WORKSPACE: oasis_build
   MODEL_WORKSPACE: piwind_workspace
   MODEL_SH: "/buildscript/utils.sh"                       # path to model build script
+  MODEL_BRANCH: ${{ github.ref_name }}
+  MODEL_SUPPLIER: 'OasisLMF'
+  MODEL_NAME: PiWind
+  RUN_MDK: true
+  MDK_BRANCH: develop
 
 jobs:
   build:
@@ -38,6 +43,9 @@ jobs:
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "PIPELINE=${BUILD_WORKSPACE}/buildscript/pipeline.sh" >> $GITHUB_ENV 
           echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
+          echo "MDK_MODEL=${MODEL_BRANCH}" >> $GITHUB_ENV 
+          echo "MODEL_VARIENT=${MODEL_NAME}" >> $GITHUB_ENV 
+          # echo "MDK_MODEL=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
 
       - name: build worker
         # see open issue on if statements 
@@ -58,4 +66,13 @@ jobs:
           ls .
       - name: shell env
         run: $PIPELINE print_model_vars
-          
+      - name: set MDK branch
+        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
+        run: echo "MDK_BRANCH=master}" >> $GITHUB_ENV 
+      - name: run MDK
+        if: env.RUN_MDK == 'true'
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          sed -i 's/FROM.*/FROM python:3.8/g' docker/Dockerfile.mdk-tester
+          docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.8 .
+          echo "build worker TBD"         
