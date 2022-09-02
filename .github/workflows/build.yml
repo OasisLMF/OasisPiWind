@@ -7,7 +7,7 @@ env:
   # model_git_url: OasisLMF/OasisPiWind.git
   BUILD_REPO: OasisLMF/build
   BUILD_BRANCH: master
-  BUILD_WORKER: ${{ false }}
+  BUILD_WORKER:  false
 
 jobs:
   build:
