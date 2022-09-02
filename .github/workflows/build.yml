@@ -35,7 +35,7 @@ jobs:
           echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
-          echo "PIPELINE=${BUILD_WORKSPACE} + "/buildscript/pipeline.sh"" >> $GITHUB_ENV 
+          echo "PIPELINE=${BUILD_WORKSPACE}/buildscript/pipeline.sh" >> $GITHUB_ENV 
 
       - name: build worker
         # see open issue on if statements 
@@ -54,4 +54,6 @@ jobs:
       - name: list
         run: |
           ls .
+      - name: shell env
+        run: $(PIPELINE) print_model_vars
           
