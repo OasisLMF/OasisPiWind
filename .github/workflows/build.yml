@@ -15,12 +15,15 @@ env:
   MODEL_WORKSPACE: piwind_workspace
   MODEL_SH: /buildscript/utils.sh                      # path to model build script
   MODEL_BRANCH: ${{ github.ref_name }}
+  MODEL_ID: 1
   MODEL_SUPPLIER: OasisLMF
   MODEL_NAME: PiWind
   RUN_MDK: true
   MDK_BRANCH: develop
   MDK_RUN: ri
   RUN_TESTS: "control_set 0_case 1_case 2_case 3_case 4_case 5_case 6_case 7_case 8_case"
+  MODEL_VERSION: '0.0.0.1'
+  KEYSERVER_VERSION: '0.0.0.1'
 
 jobs:
   build:
@@ -52,8 +55,19 @@ jobs:
           echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
           echo "MDK_MODEL=${MODEL_BRANCH}" >> $GITHUB_ENV 
           echo "MODEL_VARIENT=${MODEL_NAME}" >> $GITHUB_ENV 
+          echo "MODEL_TEST_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
           echo "MODEL_TEST_INI=test-config.ini" >> $GITHUB_ENV 
+          echo "MODEL_DATA=${MODEL_WORKSPACE}/model_data/PiWind" >> $GITHUB_ENV 
+          echo "KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV 
+          echo "OASIS_MODEL_DATA_DIR=${MODEL_WORKSPACE}" >> $GITHUB_ENV 
           # echo "MDK_MODEL=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
+          echo "VERS_KEYS_DATA=${KEYSERVER_VERSION}" >> $GITHUB_ENV    # keyserver version to run unittest againts
+          echo "PATH_MODEL_DATA=${MODEL_VERSION}" >> $GITHUB_ENV 
+          echo "VERS_MODEL_DATA=${MODEL_WORKSPACE}/model_data/PiWind" >> $GITHUB_ENV   # same as MODEL_DATA
+          echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
+          echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
+          echo "MULTI_PERIL=1" >> $GITHUB_ENV     # Set the GUL alloc rule to 1 in compose
+
 
       - name: build worker
         # see open issue on if statements 
