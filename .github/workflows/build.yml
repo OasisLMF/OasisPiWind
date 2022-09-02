@@ -10,7 +10,7 @@ env:
   BUILD_WORKER: false
   LAST_RELEASE_TAG: ''
   TAG_OASIS: 'latest'
-  TAG_RELEASE: ${{ github.ref_name }}-${{ inputs.build_id }}
+  TAG_RELEASE: ${{ github.ref_name }}-$GITHUB_RUN_NUMBER
 
 jobs:
   build:
