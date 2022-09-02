@@ -9,17 +9,18 @@ env:
   BUILD_BRANCH: master
   BUILD_WORKER: false
   LAST_RELEASE_TAG: ''
-  TAG_OASIS: 'latest'
+  TAG_OASIS: latest
   TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # similar (split by / is missing)
   BUILD_WORKSPACE: oasis_build
   MODEL_WORKSPACE: piwind_workspace
-  MODEL_SH: "/buildscript/utils.sh"                       # path to model build script
+  MODEL_SH: /buildscript/utils.sh                      # path to model build script
   MODEL_BRANCH: ${{ github.ref_name }}
-  MODEL_SUPPLIER: 'OasisLMF'
+  MODEL_SUPPLIER: OasisLMF
   MODEL_NAME: PiWind
   RUN_MDK: true
   MDK_BRANCH: develop
-  MDK_RUN: 'ri'
+  MDK_RUN: ri
+  RUN_TESTS: "control_set 0_case 1_case 2_case 3_case 4_case 5_case 6_case 7_case 8_case"
 
 jobs:
   build:
@@ -51,6 +52,7 @@ jobs:
           echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
           echo "MDK_MODEL=${MODEL_BRANCH}" >> $GITHUB_ENV 
           echo "MODEL_VARIENT=${MODEL_NAME}" >> $GITHUB_ENV 
+          echo "MODEL_TEST_INI=test-config.ini" >> $GITHUB_ENV 
           # echo "MDK_MODEL=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
 
       - name: build worker
@@ -79,3 +81,5 @@ jobs:
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
           docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do echo "$TEST_BASE_CMD --test-case $t"; done
