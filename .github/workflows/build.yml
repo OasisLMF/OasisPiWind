@@ -39,6 +39,4 @@ jobs:
           # echo "TAG_RUN_WORKER=$(echo $LAST_RELEASE_TAG)" >> $GITHUB_ENV  
           # echo "TAG_RUN_PLATFORM=${LAST_RELEASE_TAG}" >> $GITHUB_ENV  
       - name: print vars
-        env:
-          
         run: echo ${{ env.LAST_RELEASE_TAG }}
