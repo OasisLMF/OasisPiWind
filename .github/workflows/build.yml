@@ -11,7 +11,7 @@ env:
   LAST_RELEASE_TAG: ''
   TAG_OASIS: 'latest'
   TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}
-  PROVA: "$GITHUB_RUN_NUMBER"
+  PROVA: "${GITHUB_RUN_NUMBER}"
 
 jobs:
   build:
