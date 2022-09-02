@@ -67,8 +67,8 @@ jobs:
       - name: shell env
         run: $PIPELINE print_model_vars
       - name: set MDK branch
-        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
-        run: echo "MDK_BRANCH=master}" >> $GITHUB_ENV 
+        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix') || contains(env.MODEL_BRANCH, 'actio')
+        run: echo "MDK_BRANCH=master" >> $GITHUB_ENV 
       - name: run MDK
         if: env.RUN_MDK == 'true'
         working-directory: ${{ env.BUILD_WORKSPACE }}
