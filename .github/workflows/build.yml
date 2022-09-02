@@ -14,6 +14,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TAG_RUN_WORKER: $TAG_OASIS
     steps:
       # - name: clone PiWind repository
       #   uses: actions/checkout@v3
