@@ -10,7 +10,7 @@ env:
   BUILD_WORKER: false
   LAST_RELEASE_TAG: ''
   TAG_OASIS: 'latest'
-  TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}
+  TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # similar (split by / is missing)
 
 jobs:
   build:
@@ -27,6 +27,7 @@ jobs:
       #     ref: ${{ env.BUILD_BRANCH }}
       - name: set default vars
         run: |
+          echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
@@ -45,8 +46,6 @@ jobs:
           echo "LAST_RELEASE_TAG=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
-        env:
-          LAST_RELEASE_TAG3: $(curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name')
-
-      - name: print vars
-        run: echo ${{ env.LAST_RELEASE_TAG }}; echo 'ciao'; echo ${{ steps.build-worker2.LAST_RELEASE_TAG3 }}
+      - name: list
+        run: |
+          ls .
