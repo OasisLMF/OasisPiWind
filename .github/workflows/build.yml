@@ -19,6 +19,7 @@ env:
   MODEL_NAME: PiWind
   RUN_MDK: true
   MDK_BRANCH: develop
+  MDK_RUN: 'ri'
 
 jobs:
   build:
