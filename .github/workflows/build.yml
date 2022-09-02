@@ -23,6 +23,11 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        py-version: [3.8, 3.9]
+
     steps:
       - name: clone PiWind repository
         uses: actions/checkout@v3
@@ -70,6 +75,6 @@ jobs:
         if: env.RUN_MDK == 'true'
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
-          sed -i 's/FROM.*/FROM python:3.8/g' docker/Dockerfile.mdk-tester
-          docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:3.8 .
-          docker run mdk-runner:3.8 --model-repo-branch ${{ env.MDK_MODEL} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
+          sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
+          docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
+          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
