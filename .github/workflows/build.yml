@@ -35,5 +35,6 @@ jobs:
         run: |
           echo ${{ env.BUILD_WORKER }} 
           echo "LAST_RELEASE_TAG=$(curl https://api.github.com/repos/OasisLMF/OasisPlatform/releases | jq -r '( first ) | .name')" >> $GITHUB_ENV  
+          echo ${{ env.LAST_RELEASE_TAG }}
       - name: print vars
         run: echo ${{ env.LAST_RELEASE_TAG }}
