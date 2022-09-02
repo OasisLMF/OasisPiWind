@@ -55,5 +55,5 @@ jobs:
         run: |
           ls .
       - name: shell env
-        run: $(PIPELINE) print_model_vars
+        run: $($PIPELINE) print_model_vars
           
