@@ -13,6 +13,7 @@ env:
   TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # similar (split by / is missing)
   BUILD_WORKSPACE: oasis_build
   MODEL_WORKSPACE: piwind_workspace
+  MODEL_SH: "/buildscript/utils.sh"                       # path to model build script
 
 jobs:
   build:
@@ -36,6 +37,7 @@ jobs:
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "PIPELINE=${BUILD_WORKSPACE}/buildscript/pipeline.sh" >> $GITHUB_ENV 
+          echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
 
       - name: build worker
         # see open issue on if statements 
