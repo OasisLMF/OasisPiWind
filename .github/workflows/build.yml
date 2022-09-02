@@ -27,6 +27,6 @@ jobs:
         if: ${{ env.BUILD_WORKER }}
         run: echo ciao
       - name: build worker
-        if: ! ${{ env.BUILD_WORKER }}
+        if: ${{ !env.BUILD_WORKER }}
         run: echo ciao     
 
