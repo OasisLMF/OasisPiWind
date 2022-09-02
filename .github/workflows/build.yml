@@ -5,7 +5,7 @@ on:
 
 env:
   # model_git_url: OasisLMF/OasisPiWind.git
-  build_repo: OasisLMF/build.git
+  build_repo: OasisLMF/build
 
 
 jobs:
