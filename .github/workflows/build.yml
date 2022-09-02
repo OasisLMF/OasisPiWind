@@ -19,7 +19,7 @@ jobs:
       - name: clone build repository
         uses: actions/checkout@v3
         with:
-          repository: $build_repo
+          repository: "$build_repo"
        
 
 
