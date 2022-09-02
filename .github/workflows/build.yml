@@ -1,0 +1,27 @@
+name: build
+
+on:
+  push
+
+env:
+  # model_git_url: OasisLMF/OasisPiWind.git
+  build_repo: OasisLMF/build.git
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone PiWind repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: clone build repository
+        uses: actions/checkout@v3
+        with:
+          repository: $build_repo
+       
+
+
+
+
