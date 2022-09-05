@@ -98,4 +98,4 @@ jobs:
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
           docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
           TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
-          for t in ${{ env.RUN_TESTS }}; do echo "$TEST_BASE_CMD --test-case $t"; done
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case $t ; done
