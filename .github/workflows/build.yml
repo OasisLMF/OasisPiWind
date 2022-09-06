@@ -75,9 +75,11 @@ jobs:
         # see open issue on if statements 
         # https://github.com/actions/runner/issues/1173
         if: env.BUILD_WORKER == 'true'
-        run: echo "build worker TBD"
-      - name: if not build worker, update tags
-        id: build-worker2
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          echo "TAG_RUN_WORKER=${TAG_RELEASE}" >> $GITHUB_ENV 
+          docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg BRANCH=${{ MDK_BRANCH }} -t coreoasis/model_worker:${{ env.TAG_RELEASE }} .
+      - name: do not build worker, update tags
         if: env.BUILD_WORKER == 'false' && env.TAG_OASIS == 'latest'
         run: |
           echo ${{ env.BUILD_WORKER }} 
@@ -92,7 +94,6 @@ jobs:
         run: echo "MDK_BRANCH=master" >> $GITHUB_ENV 
       - name: run MDK
         if: env.RUN_MDK == 'true'
-        working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
