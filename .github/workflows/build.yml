@@ -78,7 +78,7 @@ jobs:
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
           echo "TAG_RUN_WORKER=${TAG_RELEASE}" >> $GITHUB_ENV 
-          docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg BRANCH=${{ MDK_BRANCH }} -t coreoasis/model_worker:${{ env.TAG_RELEASE }} .
+          docker build --no-cache -f docker/Dockerfile.worker-git --pull --build-arg BRANCH=${{ env.MDK_BRANCH }} -t coreoasis/model_worker:${{ env.TAG_RELEASE }} .
       - name: do not build worker, update tags
         if: env.BUILD_WORKER == 'false' && env.TAG_OASIS == 'latest'
         run: |
@@ -91,7 +91,7 @@ jobs:
         run: $PIPELINE print_model_vars
       - name: udate MDK branch based on model branch
         if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
-        run: echo "MDK_BRANCH=master" >> $GITHUB_ENV 
+        run: echo "env.=master" >> $GITHUB_ENV 
       - name: run MDK
         if: env.RUN_MDK == 'true'
         run: |
