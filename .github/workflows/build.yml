@@ -54,7 +54,7 @@ jobs:
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "PIPELINE=buildscript/pipeline.sh" >> $GITHUB_ENV 
-          # echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
+          echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV  # needed by pipeline.sh
           echo "MDK_MODEL=${MODEL_BRANCH}" >> $GITHUB_ENV 
           echo "MODEL_VARIENT=${MODEL_NAME}" >> $GITHUB_ENV 
           echo "MODEL_TEST_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
