@@ -6,7 +6,7 @@ on:
 env:
   # model_git_url: OasisLMF/OasisPiWind.git
   BUILD_REPO: OasisLMF/build
-  BUILD_BRANCH: fix/mdk-runner-substring
+  BUILD_BRANCH: master
   BUILD_WORKER: false
   LAST_RELEASE_TAG: ''
   TAG_OASIS: latest
@@ -33,7 +33,7 @@ jobs:
 
     strategy:
       matrix:
-        py-version: [3.8]
+        py-version: [3.8, 3.9]
 
     steps:
       - name: clone PiWind repository
