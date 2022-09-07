@@ -34,9 +34,6 @@ jobs:
     strategy:
       matrix:
         py-version: [3.8, 3.9]
-
-    env:
-      MODEL_DATA_job: ${{ env.MODEL_WORKSPACE }}/model_data/PiWind
     steps:
       - name: clone PiWind repository
         uses: actions/checkout@v3
@@ -49,13 +46,8 @@ jobs:
           repository: ${{ env.BUILD_REPO }}
           ref: ${{ env.BUILD_BRANCH }}
           path: ${{ env.BUILD_WORKSPACE }}
-      - name: test export
-        run: |
-          export VAR1=$TAG_OASIS
-          echo $VAR1
       - name: set default vars
         run: |
-          echo $VAR1
           echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
