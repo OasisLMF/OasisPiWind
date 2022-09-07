@@ -12,7 +12,7 @@ env:
   TAG_OASIS: latest
   TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # similar (split by / is missing)
   BUILD_WORKSPACE: oasis_build
-  MODEL_WORKSPACE: piwind_workspace
+  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
   MODEL_SH: /buildscript/utils.sh                      # path to model build script
   MODEL_BRANCH: ${{ github.ref_name }}
   MODEL_ID: 1
@@ -69,7 +69,6 @@ jobs:
           echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
           echo "MULTI_PERIL=1" >> $GITHUB_ENV     # Set the GUL alloc rule to 1 in compose
-
 
       - name: build worker
         # see open issue on if statements 
