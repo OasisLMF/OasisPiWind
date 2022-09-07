@@ -36,7 +36,7 @@ jobs:
         py-version: [3.8, 3.9]
 
     env:
-      MODEL_DATA_job: $MODEL_WORKSPACE/model_data/PiWind
+      MODEL_DATA_job: ${{ env.MODEL_WORKSPACE}}/model_data/PiWind
     steps:
       - name: clone PiWind repository
         uses: actions/checkout@v3
