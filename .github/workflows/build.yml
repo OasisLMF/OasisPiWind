@@ -53,8 +53,8 @@ jobs:
           echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
-          echo "PIPELINE=${BUILD_WORKSPACE}/buildscript/pipeline.sh" >> $GITHUB_ENV 
-          echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
+          echo "PIPELINE=buildscript/pipeline.sh" >> $GITHUB_ENV 
+          # echo "PIPELINE_LOAD=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
           echo "MDK_MODEL=${MODEL_BRANCH}" >> $GITHUB_ENV 
           echo "MODEL_VARIENT=${MODEL_NAME}" >> $GITHUB_ENV 
           echo "MODEL_TEST_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
@@ -88,12 +88,14 @@ jobs:
           echo "TAG_RUN_WORKER=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${LAST_RELEASE_TAG}" >> $GITHUB_ENV 
       - name: print model vars
+        working-directory: ${{ env.BUILD_WORKSPACE }}
         run: $PIPELINE print_model_vars
       - name: udate MDK branch based on model branch
         if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
         run: echo "env.=master" >> $GITHUB_ENV 
       - name: run MDK
         if: env.RUN_MDK == 'true'
+        working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
