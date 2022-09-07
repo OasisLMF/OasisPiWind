@@ -47,8 +47,13 @@ jobs:
           repository: ${{ env.BUILD_REPO }}
           ref: ${{ env.BUILD_BRANCH }}
           path: ${{ env.BUILD_WORKSPACE }}
+      - name: test export
+        run: |
+          export VAR1=$TAG_OASIS
+          echo $VAR1
       - name: set default vars
         run: |
+          echo $VAR1
           echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV 
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV 
