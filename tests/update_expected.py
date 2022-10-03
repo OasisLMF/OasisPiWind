@@ -7,9 +7,9 @@ import shutil
 import json
 
 """
-quick and dirty script to read the CI test config.ini and run default test cases using the MDK 
+quick and dirty script to read the CI test config.ini and run default test cases using the MDK
 
-needs cleanup 
+needs cleanup
 """
 
 config_file = 'test-config.ini'
@@ -19,15 +19,15 @@ config.read(os.path.abspath(os.path.join(config_dir, config_file)))
 
 
 expected_dir = 'ci/expected/'
-expected_update = True   #toggle to auto copy new resuslts to expected 
+expected_update = True   #toggle to auto copy new resuslts to expected
 
 test_model = config.get('default','test_model').lower()
 test_list = config.get(test_model,'run_test_cases').split()
 test_options = {
-    'loc_file': "oed_location_csv", 
-    'acc_file': "oed_accounts_csv", 
-    'inf_file': "oed_info_csv", 
-    'scp_file': "oed_scope_csv", 
+    'loc_file': "oed_location_csv",
+    'acc_file': "oed_accounts_csv",
+    'inf_file': "oed_info_csv",
+    'scp_file': "oed_scope_csv",
     'settings_run': "analysis_settings_json"}
 
 
@@ -35,7 +35,8 @@ test_options = {
 default_kwargs = {
     "lookup_config_json": os.path.abspath("../keys_data/PiWind/lookup_config.json"),
     "lookup_data_dir": os.path.abspath("../keys_data/PiWind"),
-    "model_data_dir": os.path.abspath("../model_data/PiWind"),                                                                                    
+    "model_data_dir": os.path.abspath("../model_data/PiWind"),
+    "model_settings_json": os.path.abspath("../meta-data/model_settings.json"),
     "ktools_alloc_rule_gul": 1
 }
 
@@ -51,15 +52,15 @@ for case in test_list:
     print(json.dumps(kwargs, indent=4))
     OasisManager().run_model(**kwargs)
 
-    if expected_update: 
-        # Copy input files 
+    if expected_update:
+        # Copy input files
         shutil.copytree(
             os.path.join(kwargs['model_run_dir'], 'input'),
             os.path.join(expected_dir, case, 'input'),
             dirs_exist_ok=True
         )
 
-        # copy output files  
+        # copy output files
         shutil.copytree(
             os.path.join(kwargs['model_run_dir'], 'output'),
             os.path.join(expected_dir, case, 'output'),
