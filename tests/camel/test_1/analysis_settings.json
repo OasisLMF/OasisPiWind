@@ -5,6 +5,7 @@
     "model_supplier_id": "OasisLMF",
     "gul_threshold": 0,
     "gul_output": true,
+    "number_of_samples": 10,
     "model_settings": {
         "event_set": "p",
         "event_occurrence_id": "lt"
