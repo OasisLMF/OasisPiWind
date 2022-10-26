@@ -2,23 +2,23 @@ name: check_results
 
 on:
   workflow_dispatch:
-  inputs:
-    build_branch:
-      description: 'Branch of build script repo - https://github.com/OasisLMF/build'
-      required: true
-      default: master
-    platform_version:
-      description: 'OasisPlatform Version to test using'
-      required: true
-      default: latest
-    mdk_branch:
-      description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
-      required: true
-      default: develop
-    build_worker:
-      description: 'Build new worker based on "mdk_branch" value'
-      required: true
-      default: false
+    inputs:
+      build_branch:
+        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
+        required: true
+        default: master
+      platform_version:
+        description: 'OasisPlatform Version to test using'
+        required: true
+        default: latest
+      mdk_branch:
+        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
+        required: true
+        default: develop
+      build_worker:
+        description: 'Build new worker based on "mdk_branch" value'
+        required: true
+        default: false
   push:
 
 

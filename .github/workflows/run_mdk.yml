@@ -5,15 +5,15 @@ on:
   workflow_dispatch:
     inputs:
       build_branch:
-        description: 'Branch of build script repo - https://github.com/OasisLMF/build'     
+        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
         required: true
         default: master
       mdk_branch:
         description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
         required: true
         default: develop
-      mdk_run_type:  
-        description: 'Loss modes to test, options are one of "[gul, il, ri]"'     
+      mdk_run_type:
+        description: 'Loss modes to test, options are one of "[gul, il, ri]"'
         required: true
         default: ri
   push:
@@ -30,7 +30,6 @@ env:
 jobs:
   run_mdk:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         py-version: [3.8, 3.9]
