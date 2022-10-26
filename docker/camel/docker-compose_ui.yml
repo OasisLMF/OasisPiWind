@@ -1,0 +1,25 @@
+version: '3'
+services:
+  shiny_proxy:
+    restart: always
+    container_name: oasisui_proxy
+    image: coreoasis/oasisui_proxy:$OASIS_UI_VERSION
+    ports:
+     - 8080:8080
+    environment:
+     #- API_IP=<FOR_REMOTE_IPs>
+     - UI_DOCKER_IMAGE=coreoasis/oasisui_app:$OASIS_UI_VERSION
+     - API_PORT=8000
+     - API_VERSION=v1
+     - API_SHARE_FILEPATH=./downloads
+     - OASIS_ENVIRONMENT=oasis_localhost
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+     - shiny-net
+
+networks:
+  shiny-net:
+    external: true
+
+

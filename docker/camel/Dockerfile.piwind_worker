@@ -1,0 +1,9 @@
+ARG worker_ver=$OASIS_WORKER_VERSION
+FROM coreoasis/model_worker:$worker_ver
+
+WORKDIR /home/worker
+
+COPY ./docker/camel/oasislmf.json /home/worker/model/oasislmf.json
+COPY ./meta-data/model_settings.json /home/worker/model/meta-data/model_settings.json
+
+ENTRYPOINT ./startup.sh
