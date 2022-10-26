@@ -145,10 +145,9 @@ jobs:
           docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs worker         > ./stage/log/worker.log
           docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs worker-monitor > ./stage/log/worker-monitor.log
       - name: 'Store docker logs'
-        working-directory: ${{ env.BUILD_WORKSPACE }}
         uses: actions/upload-artifact@v3
         with:
           name: docker-logs
           path: |
-            stage/log/*.log
+            ${{ env.BUILD_WORKSPACE }}/stage/log/*.log
           retention-days: 5
