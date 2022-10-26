@@ -4,18 +4,23 @@ on:
   push
 
 env:
-  # model_git_url: OasisLMF/OasisPiWind.git
-  BUILD_REPO: OasisLMF/build
-  BUILD_BRANCH: master
-  BUILD_WORKER: false
-  LAST_RELEASE_TAG: ''
-  TAG_OASIS: latest
-  TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # similar (split by / is missing)
-  BUILD_WORKSPACE: oasis_build
-  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
-  MODEL_SH: /buildscript/utils.sh                      # path to model build script
+  # Build repo vars 
+  BUILD_REPO: OasisLMF/build       # fixed repo for shared build scripts
+  BUILD_WORKSPACE: oasis_build     # dir to clone build repo to
+  BUILD_BRANCH: master             # build repo branch to use
+  MODEL_SH: /buildscript/utils.sh  # Bash script functions (loads the shared build bash functions)
+
+  # 'Create' a new `coreoasis/model_worker` image but git installing oasislmf using the "MDK_BRANCH" value  
+  BUILD_WORKER: false   # enable / disable 
+  MDK_BRANCH: develop   # branch to git install from 
+  TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # tag for new `coreoasis/model_worker` image
+
+  # OasisPlatform options 
+  LAST_RELEASE_TAG: ''    #  (Not needed here)
+  TAG_OASIS: latest       # Verion of OasisPlatform to run tests with 
+  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace  # PiWind path month for model_worker 
   MODEL_BRANCH: ${{ github.ref_name }}
-  IMAGE_WORKER: coreoasis/model_worker                     # Docker image for worker
+  IMAGE_WORKER: coreoasis/model_worker                       # Docker image to use as worker
 
   # OasisPlatform - model identifiers 
   MODEL_ID: 1
@@ -28,9 +33,6 @@ env:
 jobs:
   check_results:
     runs-on: ubuntu-latest
-    #strategy:
-    #  matrix:
-    #    test_name: ['control_set', '0_case', '1_case', '2_case', '3_case', '4_case', '5_case', '6_case', '7_case', '8_case']
     steps:
       - name: clone PiWind repository
         uses: actions/checkout@v3
@@ -57,7 +59,6 @@ jobs:
           echo "MODEL_DATA=${MODEL_WORKSPACE}/model_data/PiWind" >> $GITHUB_ENV 
           echo "KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV 
           echo "OASIS_MODEL_DATA_DIR=${MODEL_WORKSPACE}" >> $GITHUB_ENV 
-          # echo "MDK_MODEL=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
           echo "VERS_MODEL_DATA=${MODEL_WORKSPACE}/model_data/PiWind" >> $GITHUB_ENV   # same as MODEL_DATA
           echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
@@ -85,11 +86,6 @@ jobs:
       - name: udate MDK branch based on model branch
         if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
         run: echo "env.=master" >> $GITHUB_ENV 
-      #- name: Run ${{ matrix.test_name }}         
-      #  working-directory: ${{ env.BUILD_WORKSPACE }}
-      #  run: |
-      #    TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
-      #    $TEST_BASE_CMD --test-case ${{ matrix.test_name }} 
       - name: Run - control_set
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
