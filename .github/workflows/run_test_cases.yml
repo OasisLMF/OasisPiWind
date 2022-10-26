@@ -18,7 +18,7 @@ env:
   MODEL_ID: 1
   MODEL_SUPPLIER: OasisLMF
   MODEL_NAME: PiWind
-  RUN_MDK: true
+  RUN_MDK: false
   MDK_BRANCH: develop
   MDK_RUN: ri
   RUN_TESTS: "control_set 0_case 1_case 2_case 3_case 4_case 5_case 6_case 7_case 8_case"
@@ -33,8 +33,6 @@ jobs:
 
     strategy:
       matrix:
-        #py-version: [3.8, 3.9]
-        py-version: [3.9]
         test_name: ['control_set', '0_case', '1_case', '2_case', '3_case', '4_case', '5_case', '6_case', '7_case', '8_case']
     steps:
       - name: clone PiWind repository
