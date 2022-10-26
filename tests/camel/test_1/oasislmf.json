@@ -1,8 +1,8 @@
 {
     "analysis_settings_json": "analysis_settings.json",
-    "lookup_config_json": "/home/ubuntu/data/keys_data/PiWind/lookup_config.json",
-    "lookup_data_dir": "/home/ubuntu/data/keys_data/PiWind",
-    "model_data_dir": "/home/ubuntu/data/model_data/PiWind",
+    "lookup_config_json": "/home/ubuntu/data/keys_data/lookup_config.json",
+    "lookup_data_dir": "/home/ubuntu/data/keys_data",
+    "model_data_dir": "/home/ubuntu/data/model_data",
     "model_settings_json": "/home/ubuntu/OasisPiWind/meta-data/model_settings.json",
     "oed_location_csv": "/home/ubuntu/OasisPiWind/tests/inputs/SourceLocOEDPiWind10.csv",
     "oed_accounts_csv": "/home/ubuntu/OasisPiWind/tests/inputs/SourceAccOEDPiWind.csv",
