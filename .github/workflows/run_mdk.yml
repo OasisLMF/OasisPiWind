@@ -15,7 +15,7 @@ env:
   MDK_RUN: ri
 
 jobs:
-  build:
+  run_mdk:
     runs-on: ubuntu-latest
 
     strategy:
