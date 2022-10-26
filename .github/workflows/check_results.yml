@@ -18,13 +18,10 @@ env:
   MODEL_ID: 1
   MODEL_SUPPLIER: OasisLMF
   MODEL_NAME: PiWind
-  RUN_MDK: false
-  MDK_BRANCH: develop
-  MDK_RUN: ri
   MODEL_VERSION: '0.0.0.1'
   KEYSERVER_VERSION: '0.0.0.1'
   IMAGE_WORKER: coreoasis/model_worker                     # Docker image for worker
-  TEST_MAX_RUNTIME: 190  # units to be checked
+  TEST_MAX_RUNTIME: 300  # units to be checked
 
 jobs:
   check_results:
@@ -52,7 +49,6 @@ jobs:
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV 
           echo "PIPELINE=buildscript/pipeline.sh" >> $GITHUB_ENV 
           echo "PIPELINE_LOAD=buildscript/utils.sh" >> $GITHUB_ENV  # needed by pipeline.sh
-          echo "MDK_MODEL=${MODEL_BRANCH}" >> $GITHUB_ENV 
           echo "MODEL_VARIENT=${MODEL_NAME}" >> $GITHUB_ENV 
           echo "MODEL_TEST_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
           echo "MODEL_TEST_INI=test-config.ini" >> $GITHUB_ENV 
@@ -89,14 +85,6 @@ jobs:
       - name: udate MDK branch based on model branch
         if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
         run: echo "env.=master" >> $GITHUB_ENV 
-      - name: run MDK
-        if: env.RUN_MDK == 'true'
-        working-directory: ${{ env.BUILD_WORKSPACE }}
-        run: |
-          sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
-          docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
-          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
-
       - name: Run ${{ matrix.test_name }}         
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
