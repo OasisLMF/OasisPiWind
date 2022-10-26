@@ -150,7 +150,7 @@ jobs:
       - name: 'Store loss outputs'
         uses: actions/upload-artifact@v3
         with:
-          name: docker-logs
+          name: loss-outputs
           path: |
             ${{ env.BUILD_WORKSPACE }}/stage/output/**/*.*
           retention-days: 5
