@@ -26,9 +26,9 @@ env:
 jobs:
   check_results:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test_name: ['control_set', '0_case', '1_case', '2_case', '3_case', '4_case', '5_case', '6_case', '7_case', '8_case']
+    #strategy:
+    #  matrix:
+    #    test_name: ['control_set', '0_case', '1_case', '2_case', '3_case', '4_case', '5_case', '6_case', '7_case', '8_case']
     steps:
       - name: clone PiWind repository
         uses: actions/checkout@v3
@@ -85,8 +85,53 @@ jobs:
       - name: udate MDK branch based on model branch
         if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
         run: echo "env.=master" >> $GITHUB_ENV 
-      - name: Run ${{ matrix.test_name }}         
+      #- name: Run ${{ matrix.test_name }}         
+      #  working-directory: ${{ env.BUILD_WORKSPACE }}
+      #  run: |
+      #    TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+      #    for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case ${{ matrix.test_name }} ; done
+      - name: Run - control_set
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
           TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
-          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case ${{ matrix.test_name }} ; done
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case control_set ; done
+      - name: Run - 0_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 0_case; done
+      - name: Run - 1_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 1_case; done
+      - name: Run - 2_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 2_case; done
+      - name: Run - 3_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 3_case; done
+      - name: Run - 4_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 4_case; done
+      - name: Run - 5_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 5_case; done
+      - name: Run - 7_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 7_case; done
+      - name: Run - 8_case
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case 8_case; done
