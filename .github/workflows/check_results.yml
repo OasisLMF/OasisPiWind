@@ -21,16 +21,14 @@ env:
   RUN_MDK: false
   MDK_BRANCH: develop
   MDK_RUN: ri
-  RUN_TESTS: "control_set 0_case 1_case 2_case 3_case 4_case 5_case 6_case 7_case 8_case"
   MODEL_VERSION: '0.0.0.1'
   KEYSERVER_VERSION: '0.0.0.1'
   IMAGE_WORKER: coreoasis/model_worker                     # Docker image for worker
   TEST_MAX_RUNTIME: 190  # units to be checked
 
 jobs:
-  build:
+  check_results:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         test_name: ['control_set', '0_case', '1_case', '2_case', '3_case', '4_case', '5_case', '6_case', '7_case', '8_case']
