@@ -15,13 +15,15 @@ env:
   MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
   MODEL_SH: /buildscript/utils.sh                      # path to model build script
   MODEL_BRANCH: ${{ github.ref_name }}
+  IMAGE_WORKER: coreoasis/model_worker                     # Docker image for worker
+
+  # OasisPlatform - model identifiers 
   MODEL_ID: 1
   MODEL_SUPPLIER: OasisLMF
   MODEL_NAME: PiWind
-  MODEL_VERSION: '0.0.0.1'
-  KEYSERVER_VERSION: '0.0.0.1'
-  IMAGE_WORKER: coreoasis/model_worker                     # Docker image for worker
-  TEST_MAX_RUNTIME: 300  # units to be checked
+
+  # Docker test max timeout (seconds)
+  TEST_MAX_RUNTIME: 300
 
 jobs:
   check_results:
@@ -56,8 +58,6 @@ jobs:
           echo "KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV 
           echo "OASIS_MODEL_DATA_DIR=${MODEL_WORKSPACE}" >> $GITHUB_ENV 
           # echo "MDK_MODEL=${BUILD_WORKSPACE}/buildscript/utils.sh" >> $GITHUB_ENV 
-          echo "VERS_KEYS_DATA=${KEYSERVER_VERSION}" >> $GITHUB_ENV    # keyserver version to run unittest againts
-          echo "PATH_MODEL_DATA=${MODEL_VERSION}" >> $GITHUB_ENV 
           echo "VERS_MODEL_DATA=${MODEL_WORKSPACE}/model_data/PiWind" >> $GITHUB_ENV   # same as MODEL_DATA
           echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV 
@@ -150,4 +150,11 @@ jobs:
           name: docker-logs
           path: |
             ${{ env.BUILD_WORKSPACE }}/stage/log/*.log
+          retention-days: 5
+      - name: 'Store loss outputs'
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-logs
+          path: |
+            ${{ env.BUILD_WORKSPACE }}/stage/output/**/*.*
           retention-days: 5
