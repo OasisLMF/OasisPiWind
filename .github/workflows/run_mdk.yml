@@ -2,17 +2,30 @@ name: build
 
 on:
   push
+  workflow_dispatch:
+    inputs:
+      build_branch:
+        description: 'Branch of build script repo - https://github.com/OasisLMF/build'     
+        required: true
+        default: master
+      mdk_branch:
+        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
+        required: true
+        default: develop
+      mdk_run_type:  
+        description: 'Loss modes to test, options are one of "[gul, il, ri]"'     
+        required: true
+        default: ri
 
 env:
   # model_git_url: OasisLMF/OasisPiWind.git
   BUILD_REPO: OasisLMF/build
-  BUILD_BRANCH: master
+  BUILD_BRANCH: ${{ github.event.inputs.build_branch: }}
   BUILD_WORKSPACE: oasis_build
   MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
   MODEL_BRANCH: ${{ github.ref_name }}
-  RUN_MDK: true
-  MDK_BRANCH: develop
-  MDK_RUN: ri
+  MDK_BRANCH: ${{ github.event.inputs.build_branch }}
+  MDK_RUN: ${{ github.event.inputs.mdk_branch }}
 
 jobs:
   run_mdk:
@@ -33,11 +46,7 @@ jobs:
           repository: ${{ env.BUILD_REPO }}
           ref: ${{ env.BUILD_BRANCH }}
           path: ${{ env.BUILD_WORKSPACE }}
-      - name: udate MDK branch based on model branch
-        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
-        run: echo "env.=master" >> $GITHUB_ENV 
       - name: run MDK
-        if: env.RUN_MDK == 'true'
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
