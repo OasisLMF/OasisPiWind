@@ -1,9 +1,7 @@
 name: build
 
 on:
-  push
-
-on:
+  push:
   workflow_dispatch:
     inputs:
       build_branch:
