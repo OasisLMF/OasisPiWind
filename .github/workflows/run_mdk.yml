@@ -1,8 +1,8 @@
-name: build
+name: run_mdk
 
 on:
-  push:
-  workflow_dispatch:
+  #workflow_dispatch:
+  repository_dispatch:
     inputs:
       build_branch:
         description: 'Branch of build script repo - https://github.com/OasisLMF/build'     
@@ -16,16 +16,23 @@ on:
         description: 'Loss modes to test, options are one of "[gul, il, ri]"'     
         required: true
         default: ri
+  push:
 
 env:
-  # model_git_url: OasisLMF/OasisPiWind.git
   BUILD_REPO: OasisLMF/build
-  BUILD_BRANCH: ${{ github.event.inputs.build_branch }}
   BUILD_WORKSPACE: oasis_build
-  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
   MODEL_BRANCH: ${{ github.ref_name }}
-  MDK_BRANCH: ${{ github.event.inputs.build_branch }}
-  MDK_RUN: ${{ github.event.inputs.mdk_branch }}
+  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
+
+  if: ${{ github.event_name }} == 'repository_dispatch'
+    BUILD_BRANCH: ${{ github.event.inputs.build_branch }}
+    MDK_BRANCH: ${{ github.event.inputs.build_branch }}
+    MDK_RUN: ${{ github.event.inputs.mdk_branch }}
+  if: ${{ github.event_name }} == 'push'  
+    BUILD_BRANCH: master
+    MDK_BRANCH: develop
+    MDK_RUN: ri
+
 
 jobs:
   run_mdk:

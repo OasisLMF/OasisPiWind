@@ -1,4 +1,4 @@
-name: build
+name: check_results
 
 on:
   push
