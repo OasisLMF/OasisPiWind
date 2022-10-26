@@ -33,7 +33,9 @@ jobs:
 
     strategy:
       matrix:
-        py-version: [3.8, 3.9]
+        #py-version: [3.8, 3.9]
+        py-version: [3.9]
+        test_name: ['control_set', '0_case', '1_case', '2_case', '3_case', '4_case', '5_case', '6_case', '7_case', '8_case']
     steps:
       - name: clone PiWind repository
         uses: actions/checkout@v3
@@ -98,5 +100,9 @@ jobs:
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
           docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MDK_MODEL}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
+
+      - name: Run ${{ matrix.test_name }}         
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
           TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
-          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case $t ; done
+          for t in ${{ env.RUN_TESTS }}; do $TEST_BASE_CMD --test-case ${{ matrix.test_name }} ; done
