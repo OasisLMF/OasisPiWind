@@ -22,7 +22,7 @@ on:
 env:
   # model_git_url: OasisLMF/OasisPiWind.git
   BUILD_REPO: OasisLMF/build
-  BUILD_BRANCH: ${{ github.event.inputs.build_branch: }}
+  BUILD_BRANCH: ${{ github.event.inputs.build_branch }}
   BUILD_WORKSPACE: oasis_build
   MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
   MODEL_BRANCH: ${{ github.ref_name }}
