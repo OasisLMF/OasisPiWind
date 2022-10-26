@@ -135,3 +135,20 @@ jobs:
         run: |
           TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
           $TEST_BASE_CMD --test-case 8_case
+      - name: create_docker_logs 
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        run: |
+          docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs server-db      > ./stage/log/server-db.log
+          docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs server         > ./stage/log/server.log
+          docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs celery-db      > ./stage/log/celery-db.log
+          docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs rabbit         > ./stage/log/rabbit.log
+          docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs worker         > ./stage/log/worker.log
+          docker-compose -f compose/oasis.platform.yml -f compose/model.worker.yml logs worker-monitor > ./stage/log/worker-monitor.log
+      - name: 'Store docker logs'
+        working-directory: ${{ env.BUILD_WORKSPACE }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-logs
+          path: |
+            stage/log/*.log
+          retention-days: 5

@@ -1,8 +1,8 @@
 name: run_mdk
 
 on:
-  #workflow_dispatch:
-  repository_dispatch:
+  #repository_dispatch:
+  workflow_dispatch:
     inputs:
       build_branch:
         description: 'Branch of build script repo - https://github.com/OasisLMF/build'     
