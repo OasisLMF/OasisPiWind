@@ -1,4 +1,4 @@
-EventID,SummaryID,SampleID,Loss,ImpactedExposure
+EventId,SummaryId,SampleId,Loss,ImpactedExposure
 1,1,-1,349520.00,3400000.00
 1,1,1,980915.69,3400000.00
 1,1,2,168710.92,3400000.00
