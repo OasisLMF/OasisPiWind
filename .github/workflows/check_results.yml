@@ -6,6 +6,10 @@
 #    If the generated output differs from the expected results folder then that step is failed.
 #    Each test 'case' is executed via the OasisPlatform by running docker-compose
 #
+#    Note: there are two test modes set by the 'build_worker' option
+#      1) build_worker=false - Test piwind on the most recent docker image release of 'coreoasis/model_worker'
+#      2) build_worker=true  - Build a new worker imagee by git installing the an oasislmf branch set by 'mdk_branch'
+#
 #
 #  Stored artifacts:
 #    'docker-logs': A zip file containing the docker logs from each container running the oasis stack.
