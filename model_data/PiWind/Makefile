@@ -23,9 +23,9 @@ damage_bin_dict.bin \
 footprint.bin \
 footprint.idx \
 vulnerability.bin \
-events.bin \
 events_p.bin \
-occurrence.bin \
+occurrence_lt.bin \
+quantile.bin \
 returnperiods.bin 
 
 
@@ -55,20 +55,20 @@ vulnerability.bin: vulnerability.csv
 	vulnerabilitytobin -d $(DAMAGE_BINS) \
 		< vulnerability.csv > vulnerability.bin
 
-events.bin: events.csv
-	evetobin < events.csv > events.bin
-
-events_p.bin: events.bin
-	cp events.bin events_p.bin
+events_p.bin: events_p.csv
+	evetobin < events_p.csv > events_p.bin
 
 items.bin: items.csv
 	itemtobin < items.csv > items.bin
 
-occurrence.bin: occurrence.csv intensity_bin_dict.csv
-	occurrencetobin -P$(MAX_PERIODS) < occurrence.csv > occurrence.bin
+occurrence_lt.bin: occurrence_lt.csv intensity_bin_dict.csv
+	occurrencetobin -P$(MAX_PERIODS) < occurrence_lt.csv > occurrence_lt.bin
 
 returnperiods.bin: returnperiods.csv
 	returnperiodtobin < returnperiods.csv > returnperiods.bin 
 
 periods.bin: periods.csv
 	periodstobin < periods.csv > periods.bin
+
+quantile.bin: quantile.csv
+	quantiletobin < quantile.csv > quantile.bin

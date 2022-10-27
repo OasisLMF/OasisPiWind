@@ -112,7 +112,7 @@ jobs:
       - name: set default vars
         run: |
           echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV
-          echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV
+          echo "TAG_RELEASE=${TAG_RELEASE#*\/}" >> $GITHUB_ENV
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV
           echo "PIPELINE=buildscript/pipeline.sh" >> $GITHUB_ENV
@@ -127,6 +127,9 @@ jobs:
           echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV
           echo "MULTI_PERIL=1" >> $GITHUB_ENV     # Set the GUL alloc rule to 1 in compose
+      - name: Disable MDK worker build for master based branches
+        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
+        run: echo "BUILD_WORKER=false" >> $GITHUB_ENV
       - name: build worker
         # see open issue on if statements
         # https://github.com/actions/runner/issues/1173
@@ -146,9 +149,6 @@ jobs:
       - name: print model vars
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: $PIPELINE print_model_vars
-      - name: udate MDK branch based on model branch
-        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
-        run: echo "env.=master" >> $GITHUB_ENV
       - name: Run - control_set
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
