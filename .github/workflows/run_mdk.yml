@@ -4,7 +4,7 @@
 #    Multiple versions of python are tested and be extending via  
 #    the `py-version` test matrix.
 #
-#    Loss results are not check and the workflow should only fail on:
+#    Loss results are not checked and the workflow should only fail on:
 #      1. Package installation failure when pip installing 'oasislmf'
 #      2. An invocation error or python exception when executing 'oasislmf model run ..'
 #      3. Empty files are produced (either input files / or results)
