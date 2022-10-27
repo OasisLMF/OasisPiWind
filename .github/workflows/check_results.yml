@@ -8,7 +8,7 @@
 #
 #    Note: there are two test modes set by the 'build_worker' option
 #      1) build_worker=false - Test piwind on the most recent docker image release of 'coreoasis/model_worker'
-#      2) build_worker=true  - Build a new worker imagee by git installing the an oasislmf branch set by 'mdk_branch'
+#      2) build_worker=true  - Build a new worker image by git installing an oasislmf branch (set by 'mdk_branch')
 #
 #
 #  Stored artifacts:
@@ -189,11 +189,11 @@ jobs:
         run: |
           TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
           $TEST_BASE_CMD --test-case 7_case
-      - name: Run - 8_case
-        working-directory: ${{ env.BUILD_WORKSPACE }}
-        run: |
-          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
-          $TEST_BASE_CMD --test-case 8_case
+#      - name: Run - 8_case
+#        working-directory: ${{ env.BUILD_WORKSPACE }}
+#        run: |
+#          TEST_BASE_CMD="$PIPELINE run_test --test-output --config /var/oasis/test/$MODEL_TEST_INI"
+#          $TEST_BASE_CMD --test-case 8_case
       - name: create_docker_logs
         working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
