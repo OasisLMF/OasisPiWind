@@ -60,7 +60,7 @@ on:
       build_worker:
         description: 'Build new worker based on "mdk_branch" value'
         required: true
-        default: false
+        default: true
   push:
 
 env:
@@ -71,7 +71,7 @@ env:
   MODEL_SH: /buildscript/utils.sh  # Bash script functions (loads the shared build bash functions)
 
   # 'Create' a new `coreoasis/model_worker` image but git installing oasislmf using the "MDK_BRANCH" value
-  BUILD_WORKER: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.build_worker || 'false' }}"   # enable / disable
+  BUILD_WORKER: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.build_worker || 'true' }}"   # enable / disable
   MDK_BRANCH: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.mdk_branch || 'develop' }}"  # branch to git install from
   TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # tag for new `coreoasis/model_worker` image
 
