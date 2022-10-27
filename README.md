@@ -1,6 +1,6 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![Build Status](https://ci.oasislmfdev.org/buildStatus/icon?job=oasis_PiWind/master)](https://ci.oasislmfdev.org/view/Oasis/job/oasis_PiWind/job/master/)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![results check](https://github.com/OasisLMF/OasisPiWind/actions/workflows/check_results.yml/badge.svg)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/check_results.yml)  [![mdk check](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml/badge.svg)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml)
 
 # Oasis PiWind
 Toy UK windstorm model.
