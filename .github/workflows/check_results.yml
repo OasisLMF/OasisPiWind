@@ -22,7 +22,7 @@
 #    'loss-outputs': A zip file containing the generated 'oasis-files' and 'losses'.
 #                    Each test is stored within a sub-dir following the same structure
 #                    as the dir 'OasisPiWind/tests/ci/expected' from the piwind repo.
-#                    These are results and logs intended to help with debugging so are only stored for 5 days.
+#                    These results and logs intended to help with debugging, so are only stored for 5 days.
 #
 #          loss-outputs
 #          ├── 0_case
