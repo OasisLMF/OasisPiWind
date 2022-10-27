@@ -112,7 +112,7 @@ jobs:
       - name: set default vars
         run: |
           echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV
-          echo "TAG_RELEASE=${TAG_RELEASE}" >> $GITHUB_ENV
+          echo "TAG_RELEASE=${TAG_RELEASE#*\/}" >> $GITHUB_ENV
           echo "TAG_RUN_PLATFORM=${TAG_OASIS}" >> $GITHUB_ENV
           echo "TAG_RUN_WORKER=${TAG_OASIS}" >> $GITHUB_ENV
           echo "PIPELINE=buildscript/pipeline.sh" >> $GITHUB_ENV
