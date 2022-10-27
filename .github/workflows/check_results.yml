@@ -1,3 +1,45 @@
+#  =============================================================================
+#  Workflow description:
+#    Runs the quantitative tests on the PiWind model and checks for differences in output compared to
+#    https://github.com/OasisLMF/OasisPiWind/tree/master/tests/ci/expected
+#
+#    If the generated output differs from the expected results folder then that steps marked as failed.
+#    Each 'case' is executed via the OasisPlatform by running docker-compose
+#
+#
+#  Stored artifacts:
+#    'docker-logs': A zip file containing the docker logs from each container running the oasis stack.
+#                   Any 'Oasislmf' will generally be stored in 'worker.log'
+#
+#          docker-logs
+#          ├── celery-db.log
+#          ├── rabbit.log
+#          ├── server-db.log
+#          ├── server.log
+#          ├── worker.log
+#          └── worker-monitor.log
+#
+#    'loss-outputs': A zip file containing the generated 'oasis-files' and 'losses'.
+#                    Each test is stored in a sub-dir following the same structure
+#                    as the 'OasisPiWind/tests/ci/expected' from the piwind repo.
+#                    These are intended to help with debugging so are only stored for 5 days.
+#
+#          loss-outputs
+#          ├── 0_case
+#          │   ├── input              # (Generated ktools files)
+#                    ...
+#          │   └── output             # (output csv files)
+#          │       ├── gul_S1_eltcalc.csv
+#          │       └── gul_S1_summary-info.csv
+#              ...
+#          ├── 8_case
+#          │   ├── input
+#          │   └── output
+#          └── control_set
+#              ├── input
+#              └── output
+#  ==============================================================================
+
 name: check_results
 
 on:
@@ -20,9 +62,6 @@ on:
         required: true
         default: false
   push:
-
-
-
 
 env:
   # Build repo vars
@@ -84,7 +123,6 @@ jobs:
           echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV
           echo "MULTI_PERIL=1" >> $GITHUB_ENV     # Set the GUL alloc rule to 1 in compose
-
       - name: build worker
         # see open issue on if statements
         # https://github.com/actions/runner/issues/1173

@@ -1,3 +1,15 @@
+#  ==============================================================================
+#  Workflow description:
+#    Runs the command line interface of OasisLMF on the PiWind model using
+#    multiple versions of python. More python versions can be added by extending
+#    the `py-version` test matrix.
+#
+#    Loss results are not check and the workflow should only fail if:
+#      1. Package installation failure when pip installing 'oasislmf'
+#      2. An invocation error or python exception when executing 'oasislmf model run ..'
+#      3. Empty files are produced (either input files / or results)
+#  ==============================================================================
+
 name: run_mdk
 
 on:
