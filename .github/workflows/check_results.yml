@@ -1,15 +1,15 @@
 #  =============================================================================
 #  Workflow description:
-#    Runs the quantitative tests on the PiWind model and checks for differences in output compared to
+#    Runs the quantitative tests on the PiWind model and checks for differences in output vs
 #    https://github.com/OasisLMF/OasisPiWind/tree/master/tests/ci/expected
 #
-#    If the generated output differs from the expected results folder then that steps marked as failed.
-#    Each 'case' is executed via the OasisPlatform by running docker-compose
+#    If the generated output differs from the expected results folder then that step is failed.
+#    Each test 'case' is executed via the OasisPlatform by running docker-compose
 #
 #
 #  Stored artifacts:
 #    'docker-logs': A zip file containing the docker logs from each container running the oasis stack.
-#                   Any 'Oasislmf' will generally be stored in 'worker.log'
+#                   Any execution errors will generally be stored in 'worker.log' file.
 #
 #          docker-logs
 #          ├── celery-db.log
@@ -20,9 +20,9 @@
 #          └── worker-monitor.log
 #
 #    'loss-outputs': A zip file containing the generated 'oasis-files' and 'losses'.
-#                    Each test is stored in a sub-dir following the same structure
-#                    as the 'OasisPiWind/tests/ci/expected' from the piwind repo.
-#                    These are intended to help with debugging so are only stored for 5 days.
+#                    Each test is stored within a sub-dir following the same structure
+#                    as the dir 'OasisPiWind/tests/ci/expected' from the piwind repo.
+#                    These are results and logs intended to help with debugging so are only stored for 5 days.
 #
 #          loss-outputs
 #          ├── 0_case
