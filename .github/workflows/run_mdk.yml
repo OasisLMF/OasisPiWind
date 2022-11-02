@@ -65,6 +65,8 @@ jobs:
       matrix:
         py-version: [3.8, 3.9]
     steps:
+      - name: DEBUG 
+        run: echo ${{ github.event_name }}
       - name: Set Production mode for testing master branch
         if: |
           github.event_name == 'push' &&
