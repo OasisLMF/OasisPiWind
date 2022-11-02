@@ -28,10 +28,24 @@ on:
         description: 'Loss modes to test, options are one of "[gul, il, ri]"'
         required: true
         default: ri
+
+  workflow_call:
+      build_branch:
+        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
+        required: true
+        type: string
+      mdk_branch:
+        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
+        required: true
+        type: string
+      mdk_run_type:
+        description: 'Loss modes to test, options are one of "[gul, il, ri]"'
+        required: true
+        type: string
       piwind_branch:
         description: 'Branch of PiWind to test (Only needed for remote triggers)'
-        required: false
-        default: master
+        required: true
+        type: string
 
 env:
   BUILD_REPO: OasisLMF/build
@@ -58,9 +72,9 @@ jobs:
           echo "BUILD_WORKER=false" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
 
-      - name: Update PiWind branch selection
+      - name: Update PiWind branch selection (remote call)
         if:
-          github.event_name == 'workflow_dispatch' &&
+          github.event_name == 'workflow_call' &&
           inputs.piwind_branch != ''
         run:
           echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
