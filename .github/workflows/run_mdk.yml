@@ -70,16 +70,16 @@ jobs:
 
       - name: Set env (MODEL_BRANCH)
         if: inputs.piwind_branch != ''
-          echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+        run: echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
       - name: Set env (BUILD_BRANCH)
         if: inputs.build_branch != ''
-          echo "BUILD_BRANCH=${{ inputs.build_branch }}" >> $GITHUB_ENV
+        run: echo "BUILD_BRANCH=${{ inputs.build_branch }}" >> $GITHUB_ENV
       - name: Set env (MDK_BRANCH)
         if: inputs.mdk_branch != ''
-          echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
+        run: echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
       - name: Set env (MDK_RUN)
         if: inputs.mdk_run_type != ''
-          echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
+        run: echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
 
       - name: Set Production mode for testing master branch
         if: |
