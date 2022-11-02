@@ -163,7 +163,7 @@ jobs:
       - name: Set Production mode for testing master branch
         if: |
           github.event_name == 'push' &&
-          (env.OASISLMF_BRANCH == 'master' || contains(env.OASISLMF_BRANCH, 'hotfix'))
+          (env.MDK_BRANCH == 'master' || contains(env.MDK_BRANCH, 'hotfix'))
         run: |
           echo "BUILD_WORKER=false" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
