@@ -159,14 +159,21 @@ jobs:
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV
           echo "MULTI_PERIL=1" >> $GITHUB_ENV     # Set the GUL alloc rule to 1 in compose
 
-
-      - name: Set Production mode for testing master branch
+      - name: Set Production mode for testing master branch (MDK)
         if: |
           github.event_name == 'push' &&
           (env.MDK_BRANCH == 'master' || contains(env.MDK_BRANCH, 'hotfix'))
         run: |
           echo "BUILD_WORKER=false" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
+      - name: Set Production mode for testing master branch (PiWind)
+        if: |
+          github.event_name == 'push' &&
+          (env.PIWIND_BRANCH == 'master' || contains(env.PIWIND_BRANCH, 'hotfix'))
+        run: |
+          echo "BUILD_WORKER=false" >> $GITHUB_ENV
+          echo "MDK_BRANCH=master" >> $GITHUB_ENV
+
       - name: clone PiWind repository
         uses: actions/checkout@v3
         with:
