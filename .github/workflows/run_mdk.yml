@@ -54,8 +54,8 @@ env:
   BUILD_WORKSPACE: oasis_build
   MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
 
-  # variable
-  MODEL_BRANCH:  ${{ github.ref_name }}
+  # Input vars (defaults)
+  PIWIND_BRANCH:  ${{ github.ref_name }}
   BUILD_BRANCH: 'master'
   MDK_BRANCH: 'develop'
   MDK_RUN: 'ri'
@@ -68,16 +68,16 @@ jobs:
         py-version: [3.8, 3.9]
     steps:
 
-      - name: Set env (MODEL_BRANCH)
+      - name: Set input - PIWIND_BRANCH
         if: inputs.piwind_branch != ''
-        run: echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
-      - name: Set env (BUILD_BRANCH)
+        run: echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+      - name: Set input - BUILD_BRANCH
         if: inputs.build_branch != ''
         run: echo "BUILD_BRANCH=${{ inputs.build_branch }}" >> $GITHUB_ENV
-      - name: Set env (MDK_BRANCH)
+      - name: Set input - MDK_BRANCH
         if: inputs.mdk_branch != ''
         run: echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
-      - name: Set env (MDK_RUN)
+      - name: Set input - MDK_RUN
         if: inputs.mdk_run_type != ''
         run: echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
 
@@ -89,11 +89,6 @@ jobs:
           echo "BUILD_WORKER=false" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
 
-      - name: clone PiWind repository
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-          path: ${{ env.MODEL_WORKSPACE }}
       - name: clone build repository
         uses: actions/checkout@v3
         with:
@@ -105,4 +100,4 @@ jobs:
         run: |
           sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
           docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
-          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.MODEL_BRANCH}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
+          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.PIWIND_BRANCH}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
