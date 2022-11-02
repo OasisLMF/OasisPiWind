@@ -30,6 +30,7 @@ on:
         default: ri
 
   workflow_call:
+    inputs:
       build_branch:
         description: 'Branch of build script repo - https://github.com/OasisLMF/build'
         required: true
