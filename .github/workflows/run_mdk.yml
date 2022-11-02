@@ -49,14 +49,16 @@ on:
         type: string
 
 env:
+  # Fixed
   BUILD_REPO: OasisLMF/build
   BUILD_WORKSPACE: oasis_build
-
-  MODEL_BRANCH:  ${{ github.ref_name }}
   MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
-  BUILD_BRANCH: "${{ github.event_name == 'push' && 'master' || inputs.build_branch }}"
-  MDK_BRANCH: "${{ github.event_name == 'push' && 'develop' || inputs.mdk_branch }}"
-  MDK_RUN: "${{ github.event_name == 'push' && 'ri' || inputs.mdk_run_type }}"
+
+  # variable
+  MODEL_BRANCH:  ${{ github.ref_name }}
+  BUILD_BRANCH: 'master'
+  MDK_BRANCH: 'develop'
+  MDK_RUN: 'ri'
 
 jobs:
   run_mdk:
@@ -65,6 +67,20 @@ jobs:
       matrix:
         py-version: [3.8, 3.9]
     steps:
+
+      - name: Set env (MODEL_BRANCH)
+        if: inputs.piwind_branch != ''
+          echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+      - name: Set env (BUILD_BRANCH)
+        if: inputs.build_branch != ''
+          echo "BUILD_BRANCH=${{ inputs.build_branch }}" >> $GITHUB_ENV
+      - name: Set env (MDK_BRANCH)
+        if: inputs.mdk_branch != ''
+          echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
+      - name: Set env (MDK_RUN)
+        if: inputs.mdk_run_type != ''
+          echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
+
       - name: Set Production mode for testing master branch
         if: |
           github.event_name == 'push' &&
@@ -76,7 +92,6 @@ jobs:
       - name: Update PiWind branch selection (remote call)
         if: inputs.piwind_branch != ''
         run:
-          echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
 
       - name: clone PiWind repository
         uses: actions/checkout@v3
