@@ -74,9 +74,7 @@ jobs:
           echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
 
       - name: Update PiWind branch selection (remote call)
-        if:
-          github.event_name == 'workflow_call' &&
-          inputs.piwind_branch != ''
+        if: github.event_name == 'workflow_call'
         run:
           echo "MODEL_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
 
