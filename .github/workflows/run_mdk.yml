@@ -89,10 +89,6 @@ jobs:
           echo "BUILD_WORKER=false" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
 
-      - name: Update PiWind branch selection (remote call)
-        if: inputs.piwind_branch != ''
-        run:
-
       - name: clone PiWind repository
         uses: actions/checkout@v3
         with:
