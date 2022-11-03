@@ -47,6 +47,7 @@
 name: check_results
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       build_branch:
@@ -65,23 +66,41 @@ on:
         description: 'Build new worker based on "mdk_branch" value'
         required: true
         default: true
-  push:
+
+
+  workflow_call:
+    inputs:
+      build_branch:
+        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
+        required: true
+        type: string
+      platform_version:
+        description: 'OasisPlatform Version to test using'
+        required: true
+        type: string
+      mdk_branch:
+        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
+        required: true
+        type: string
+      build_worker:
+        description: 'Build new worker based on "mdk_branch" value'
+        required: true
+        type: string
+      piwind_branch:
+        description: 'Branch of PiWind to test (Only needed for remote triggers)'
+        required: true
+        type: string
+
 
 env:
   # Build repo vars
   BUILD_REPO: OasisLMF/build       # fixed repo for shared build scripts
   BUILD_WORKSPACE: oasis_build     # dir to clone build repo to
-  BUILD_BRANCH: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.build_branch || 'master' }}" # build repo branch to use
   MODEL_SH: /buildscript/utils.sh  # Bash script functions (loads the shared build bash functions)
 
-  # 'Create' a new `coreoasis/model_worker` image but git installing oasislmf using the "MDK_BRANCH" value
-  BUILD_WORKER: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.build_worker || 'true' }}"   # enable / disable
-  MDK_BRANCH: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.mdk_branch || 'develop' }}"  # branch to git install from
-  TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # tag for new `coreoasis/model_worker` image
-
   # OasisPlatform options
+  TAG_RELEASE: ${{ github.ref_name }}-${{ github.run_number }}  # tag for new `coreoasis/model_worker` image
   LAST_RELEASE_TAG: ''    #  (Not needed here)
-  TAG_OASIS: "${{ github.event_name == 'repository_dispatch' && github.event.inputs.platform_version || 'latest' }}"  # Verion of OasisPlatform to run tests with
   MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace  # PiWind path month for model_worker
   MODEL_BRANCH: ${{ github.ref_name }}
   IMAGE_WORKER: coreoasis/model_worker                       # Docker image to use as worker
@@ -94,22 +113,34 @@ env:
   # Docker test max timeout (seconds)
   TEST_MAX_RUNTIME: 300
 
+  # Input vars (defaults)
+  PIWIND_BRANCH: ${{ github.ref_name }}
+  BUILD_BRANCH: 'master'  # build repo branch to use
+  BUILD_WORKER: 'true'    # enable / disable
+  MDK_BRANCH: 'develop'   # branch to git install from
+  TAG_OASIS: 'latest'     # Verion of OasisPlatform to run tests with
+
 jobs:
   check_results:
     runs-on: ubuntu-latest
     steps:
-      - name: clone PiWind repository
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-          path: ${{ env.MODEL_WORKSPACE }}
-      - name: clone build repository
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ env.BUILD_REPO }}
-          ref: ${{ env.BUILD_BRANCH }}
-          path: ${{ env.BUILD_WORKSPACE }}
-      - name: set default vars
+      - name: Set input - piwind_branch
+        if: inputs.piwind_branch != ''
+        run: echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+      - name: Set input - build_branch
+        if: inputs.build_branch != ''
+        run: echo "BUILD_BRANCH=${{ inputs.build_branch }}" >> $GITHUB_ENV
+      - name: Set input - build_worker
+        if: inputs.build_worker != ''
+        run: echo "BUILD_WORKER=${{ inputs.build_worker }}" >> $GITHUB_ENV
+      - name: Set input - mdk_branch
+        if: inputs.mdk_branch != ''
+        run: echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
+      - name: Set input - platform_version
+        if: inputs.platform_version != ''
+        run: echo "TAG_OASIS=${{ inputs.platform_version }}" >> $GITHUB_ENV
+
+      - name: Set Docker compose ENV
         run: |
           echo "TAG_OASIS=${TAG_OASIS}" >> $GITHUB_ENV
           echo "TAG_RELEASE=${TAG_RELEASE#*\/}" >> $GITHUB_ENV
@@ -127,9 +158,38 @@ jobs:
           echo "PATH_KEYS_DATA=${MODEL_WORKSPACE}/keys_data/PiWind" >> $GITHUB_ENV   # same as keys_data
           echo "TEST_DATA_DIR=${MODEL_WORKSPACE}/tests" >> $GITHUB_ENV
           echo "MULTI_PERIL=1" >> $GITHUB_ENV     # Set the GUL alloc rule to 1 in compose
-      - name: Disable MDK worker build for master based branches
-        if: env.MODEL_BRANCH == 'master' || contains(env.MODEL_BRANCH, 'hotfix')
-        run: echo "BUILD_WORKER=false" >> $GITHUB_ENV
+
+      - name: Set Production mode for testing master branch (MDK)
+        if: |
+          github.event_name == 'push' &&
+          (env.MDK_BRANCH == 'master' || contains(env.MDK_BRANCH, 'hotfix'))
+        run: |
+          echo "BUILD_WORKER=false" >> $GITHUB_ENV
+          echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
+      - name: Set Production mode for testing master branch (PiWind)
+        if: |
+          github.event_name == 'push' &&
+          (env.PIWIND_BRANCH == 'master' || contains(env.PIWIND_BRANCH, 'hotfix'))
+        run: |
+          echo "BUILD_WORKER=false" >> $GITHUB_ENV
+          echo "MDK_BRANCH=master" >> $GITHUB_ENV
+
+      - name: clone PiWind repository
+        uses: actions/checkout@v3
+        with:
+          repository: OasisLMF/OasisPiWind
+          fetch-depth: 1
+          ref: ${{ env.PIWIND_BRANCH }}
+          path: ${{ env.MODEL_WORKSPACE }}
+      - name: clone build repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.BUILD_REPO }}
+          fetch-depth: 1
+          ref: ${{ env.BUILD_BRANCH }}
+          path: ${{ env.BUILD_WORKSPACE }}
+
+
       - name: build worker
         # see open issue on if statements
         # https://github.com/actions/runner/issues/1173
