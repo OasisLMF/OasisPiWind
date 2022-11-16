@@ -1,0 +1,100 @@
+name: Build worker
+
+# echo 'coreoasis/model_worker:latest' | cut -d: -f1  -> image repo
+# echo 'coreoasis/model_worker:latest' | cut -d: -f2  -> image tag
+
+on:
+  push:  # TESTING ONLY
+  workflow_dispatch:
+    inputs:
+      docker_push:
+        description: 'Push the docker image to dockerhub and outout reference'
+        required: false
+        type: boolean
+
+      from_image:
+        description: 'The worker image to build piwind'
+        required: false
+        default: 'coreoasis/model_worker:latest'
+
+      piwind_image:
+        description: 'Output image name and tag'
+        default: 'coreoasis/github-actions:piwind_worker-<sha>'
+        required: false
+
+  workflow_call:
+    inputs:
+      docker_push:
+        description: 'Push the docker image to dockerhub and outout reference'
+        required: false
+        type: boolean
+
+      from_image:
+        description: 'The worker image to build piwind'
+        required: false
+        type: string
+
+      piwind_image:
+        description: 'Output image name and tag'
+        required: false
+        type: string
+
+
+
+
+    outputs:
+      piwind_image:
+        description:
+        value: ${{ jobs.build_piwind.outputs.image }}
+jobs:
+  build_piwind:
+    env:
+      PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
+      FROM_IMAGE: 'coreoasis/model_worker'             # the worker image to build from
+      FROM_TAG:   'latest'                             # the worker version to build from
+      DOCKERFILE: 'docker/Dockerfile.piwind_worker'
+
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker_push.outputs.image }}
+    steps:
+    - name: Set inputs
+      run: |
+        [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
+        if [[ ! -z "${{ inputs.from_image }}" ]]; then
+           echo "FROM_IMAGE=$(echo "${{ inputs.from_image }}" | cut -d: -f1)" >> $GITHUB_ENV
+           echo "FROM_TAG=$(echo "${{ inputs.from_image }}" | cut -d: -f2)" >> $GITHUB_ENV
+        fi
+
+    - name: Github context
+      run:   echo "$GITHUB_CONTEXT"
+      shell: bash
+      env:
+       GITHUB_CONTEXT: ${{ toJson(github) }}
+
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref_name }}
+
+    - name: Docker Build
+      run: |
+        echo "Build from Branch ${{ github.ref_name }}"
+        docker build -f ${{ env.DOCKERFILE }} \
+          --pull \
+          --build-arg worker_img=${{ env.FROM_IMAGE }} \
+          --build-arg worker_ver=${{ env.FROM_TAG }} \
+          -t ${{ env.PIWIND_IMAGE }} .
+
+    - name: Login to Docker Hub
+      if: inputs.docker_push == 'true'
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Docker push
+      #id: docker_push
+      if: inputs.docker_push
+      run: |
+        docker push ${{ env.PIWIND_IMAGE }}
+        echo "image=${{ env.PIWIND_IMAGE }}" >> $GITHUB_OUTPUT

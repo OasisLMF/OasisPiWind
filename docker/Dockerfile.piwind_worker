@@ -1,5 +1,6 @@
 ARG worker_ver=latest
-FROM coreoasis/model_worker:$worker_ver
+ARG worker_img=coreoasis/model_worker
+FROM $worker_img:$worker_ver
 
 WORKDIR /home/worker
 
