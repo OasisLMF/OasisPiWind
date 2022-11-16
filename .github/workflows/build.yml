@@ -1,7 +1,7 @@
 name: Build worker
 
 on:
-  push:  # TESTING ONLY
+  #push:  # TESTING ONLY
   workflow_dispatch:
     inputs:
       docker_push:
@@ -96,3 +96,9 @@ jobs:
       run: |
         docker push ${{ env.PIWIND_IMAGE }}
         echo "image=${{ env.PIWIND_IMAGE }}" >> $GITHUB_OUTPUT
+        # link image url to run summary
+        REPO=$(echo "${{ env.PIWIND_IMAGE }}" | cut -d: -f1)
+        TAG=$(echo "${{ env.PIWIND_IMAGE }}" | cut -d: -f2)
+        echo "### Docker Image:  [${{ env.PIWIND_IMAGE }}](https://hub.docker.com/r/${REPO}/tags?name=${TAG)" >> $GITHUB_STEP_SUMMARY
+
+
