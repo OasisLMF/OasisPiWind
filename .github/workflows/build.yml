@@ -1,7 +1,7 @@
 name: Build worker
 
 on:
-  #push:  # TESTING ONLY
+  push:  # TESTING ONLY
   workflow_dispatch:
     inputs:
       docker_push:
