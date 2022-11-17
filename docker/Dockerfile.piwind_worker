@@ -1,6 +1,5 @@
-ARG worker_ver=latest
-ARG worker_img=coreoasis/model_worker
-FROM $worker_img:$worker_ver
+ARG worker_img=coreoasis/model_worker:latest
+FROM $worker_img
 
 
 # Instal local MDK package in worker 

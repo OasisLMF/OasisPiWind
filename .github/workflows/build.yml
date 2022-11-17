@@ -96,11 +96,7 @@ jobs:
         push: true
         tags: ${{ env.PIWIND_IMAGE }}
         build-args: |
-          worker_img=${{ env.FROM_IMAGE }}
-          worker_ver=${{ env.FROM_TAG }}
-    #- name: Docker Build
-    #  run: |
-    #    echo "Build from Branch ${{ github.ref_name }}"
+          worker_img=${{ env.FROM_IMAGE }}:${{ env.FROM_TAG }
     #    docker build -f ${{ env.DOCKERFILE }} --pull --build-arg worker_img=${{ env.FROM_IMAGE }} --build-arg worker_ver=${{ env.FROM_TAG }} -t ${{ env.PIWIND_IMAGE }} .
 
     - name: Output image 
