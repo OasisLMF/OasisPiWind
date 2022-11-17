@@ -93,7 +93,7 @@ jobs:
       with:
         file: ${{ env.DOCKERFILE }}
         context: .
-        push: true
+        push: ${{ inputs.docker_push }}
         tags: ${{ env.PIWIND_IMAGE }}
         build-args: |
           worker_img=${{ env.FROM_IMAGE }}:${{ env.FROM_TAG }}
