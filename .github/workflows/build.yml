@@ -47,8 +47,7 @@ jobs:
     env:
       PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
       PIWIND_BRANCH: ${{ github.ref_name }}
-      FROM_IMAGE: 'coreoasis/model_worker'             # the worker image to build from
-      FROM_TAG:   'latest'                             # the worker version to build from
+      FROM_IMAGE: 'coreoasis/model_worker:latest'
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       DOCKER_PUSH: 'false'
 
@@ -63,8 +62,7 @@ jobs:
         [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.ppiwind_branch }}" >> $GITHUB_ENV
         if [[ ! -z "${{ inputs.from_image }}" ]]; then
-           echo "FROM_IMAGE=$(echo "${{ inputs.from_image }}" | cut -d: -f1)" >> $GITHUB_ENV
-           echo "FROM_TAG=$(echo "${{ inputs.from_image }}" | cut -d: -f2)" >> $GITHUB_ENV
+           echo "FROM_IMAGE=${{ inputs.from_image }}" >> $GITHUB_ENV
         fi
 
     - name: Github context
@@ -96,7 +94,7 @@ jobs:
         push: ${{ env.DOCKER_PUSH }}
         tags: ${{ env.PIWIND_IMAGE }}
         build-args: |
-          worker_img=${{ env.FROM_IMAGE }}:${{ env.FROM_TAG }}
+          worker_img=${{ env.FROM_IMAGE }}
 
     - name: Store image ref
       if: inputs.docker_push == 'true'
