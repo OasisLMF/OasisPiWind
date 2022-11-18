@@ -41,15 +41,18 @@ on:
         description:
         value: ${{ jobs.build_piwind.outputs.image }}
 
+
+env:
+  PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
+  PIWIND_BRANCH: ${{ github.ref_name }}
+  FROM_IMAGE: 'coreoasis/model_worker:latest'
+  DOCKERFILE: 'docker/Dockerfile.piwind_worker'
+  DOCKER_PUSH: 'false'
+
+
 jobs:
   build_piwind:
     name: Build PiWind Worker
-    env:
-      PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
-      PIWIND_BRANCH: ${{ github.ref_name }}
-      FROM_IMAGE: 'coreoasis/model_worker:latest'
-      DOCKERFILE: 'docker/Dockerfile.piwind_worker'
-      DOCKER_PUSH: 'false'
 
     runs-on: ubuntu-latest
     outputs:
@@ -61,6 +64,9 @@ jobs:
         [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.ppiwind_branch }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.from_image }}" ]] || echo "FROM_IMAGE=${{ inputs.from_image }}" >> $GITHUB_ENV
+
+        # TESTING
+        [[ "${{ env.FROM_IMAGE }}" = "coreoasis/model_worker:latest" ]] && exit 1
 
     - name: Github context
       run:   echo "$GITHUB_CONTEXT"
