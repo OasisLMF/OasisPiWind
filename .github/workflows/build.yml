@@ -1,7 +1,6 @@
 name: Build worker
 
 on:
-  push:  # TESTING ONLY
   workflow_dispatch:
     inputs:
       docker_push:
@@ -25,7 +24,7 @@ on:
         type: string
       from_image:
         description: 'The worker image to build piwind'
-        required: false
+        required: true
         type: string
       piwind_image:
         description: 'Output image name and tag'
@@ -42,17 +41,17 @@ on:
         value: ${{ jobs.build_piwind.outputs.image }}
 
 
-env:
-  PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
-  PIWIND_BRANCH: ${{ github.ref_name }}
-  FROM_IMAGE: 'coreoasis/model_worker:latest'
-  DOCKERFILE: 'docker/Dockerfile.piwind_worker'
-  DOCKER_PUSH: 'false'
 
 
 jobs:
   build_piwind:
     name: Build PiWind Worker
+    env:
+      PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
+      PIWIND_BRANCH: ${{ github.ref_name }}
+      DOCKERFILE: 'docker/Dockerfile.piwind_worker'
+      DOCKER_PUSH: 'false'
+      #FROM_IMAGE: 'coreoasis/model_worker:latest'
 
     runs-on: ubuntu-latest
     outputs:
@@ -62,11 +61,8 @@ jobs:
       run: |
         [[ -z "${{ inputs.docker_push }}" ]] || echo "DOCKER_PUSH=${{ inputs.docker_push }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
-        [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.ppiwind_branch }}" >> $GITHUB_ENV
-        [[ -z "${{ inputs.from_image }}" ]] || echo "FROM_IMAGE=${{ inputs.from_image }}" >> $GITHUB_ENV
-
-        # TESTING
-        [[ "${{ env.FROM_IMAGE }}" = "coreoasis/model_worker:latest" ]] && exit 1
+        [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+       # [[ -z "${{ inputs.from_image }}" ]] || echo "FROM_IMAGE=${{ inputs.from_image }}" >> $GITHUB_ENV
 
     - name: Github context
       run:   echo "$GITHUB_CONTEXT"
@@ -97,7 +93,7 @@ jobs:
         push: ${{ env.DOCKER_PUSH }}
         tags: ${{ env.PIWIND_IMAGE }}
         build-args: |
-          worker_img=${{ env.FROM_IMAGE }}
+          worker_img=${{ inputs.from_image }}
 
     - name: Store image ref
       if: inputs.docker_push == 'true'
