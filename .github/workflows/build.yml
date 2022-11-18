@@ -92,8 +92,7 @@ jobs:
         context: .
         push: ${{ env.DOCKER_PUSH }}
         tags: ${{ env.PIWIND_IMAGE }}
-        build-args: |
-          worker_img=${{ inputs.from_image }}
+        build-args: WORKER_IMG=${{ inputs.from_image }}
 
     - name: Store image ref
       if: inputs.docker_push == 'true'
