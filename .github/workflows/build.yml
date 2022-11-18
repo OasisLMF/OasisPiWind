@@ -57,13 +57,10 @@ jobs:
     steps:
     - name: Set inputs
       run: |
-
         [[ -z "${{ inputs.docker_push }}" ]] || echo "DOCKER_PUSH=${{ inputs.docker_push }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.ppiwind_branch }}" >> $GITHUB_ENV
-        if [[ ! -z "${{ inputs.from_image }}" ]]; then
-           echo "FROM_IMAGE=${{ inputs.from_image }}" >> $GITHUB_ENV
-        fi
+        [[ -z "${{ inputs.from_image }}" ]] || echo "FROM_IMAGE=${{ inputs.from_image }}" >> $GITHUB_ENV
 
     - name: Github context
       run:   echo "$GITHUB_CONTEXT"
