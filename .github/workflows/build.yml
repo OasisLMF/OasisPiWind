@@ -106,4 +106,4 @@ jobs:
         # link image url to run summary
         REPO=$(echo ${{ env.PIWIND_IMAGE }} | cut -d: -f1)
         TAG=$(echo ${{ env.PIWIND_IMAGE }} | cut -d: -f2)
-        echo '### Docker Image:  [${{ env.PIWIND_IMAGE }}](https://hub.docker.com/r/${REPO}/tags?name=${TAG)' >> $GITHUB_STEP_SUMMARY
+        echo '### Docker Image:  [${{ env.PIWIND_IMAGE }}](https://hub.docker.com/r/'$REPO'/tags?name=${TAG)' >> $GITHUB_STEP_SUMMARY
