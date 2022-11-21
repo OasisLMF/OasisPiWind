@@ -25,7 +25,7 @@ x-oasis-env: &oasis-env
   OASIS_CELERY_DB_USER: celery
   OASIS_CELERY_DB_NAME: celery
   OASIS_CELERY_DB_PORT: 5432
-  STARTUP_RUN_MIGRATIONS: true
+  STARTUP_RUN_MIGRATIONS: 'true'
 
 services:
   server:
