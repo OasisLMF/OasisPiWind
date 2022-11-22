@@ -1,3 +1,10 @@
 pytest
 pytest-docker-compose
 oasislmf
+pathlib
+tarfile
+urllib3
+urllib
+requests
+pandas 
+parametrize

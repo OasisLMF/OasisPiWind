@@ -21,11 +21,11 @@ pytest_plugins = ["docker_compose"]
 file_path = os.path.dirname(os.path.realpath(__file__))
 
 # Set Oasis Version
-os.environ["SERVER_IMG"] = "coreoasis/api_server"
-os.environ["SERVER_TAG"] = "1.26.4"
-os.environ["WORKER_IMG"] = "coreoasis/model_worker"
-os.environ["WORKER_TAG"] = "1.26.4"
-os.environ["DEBUG"] = "0"
+#os.environ["SERVER_IMG"] = "coreoasis/api_server"
+#os.environ["SERVER_TAG"] = "1.26.4"
+#os.environ["WORKER_IMG"] = "coreoasis/model_worker"
+#os.environ["WORKER_TAG"] = "1.26.4"
+#os.environ["DEBUG"] = "0"
 
 # expected output dirs
 exp_case_ctl = os.path.join(file_path, 'ci', 'expected', 'control_set')
