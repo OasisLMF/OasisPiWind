@@ -8,7 +8,7 @@ volumes:
 x-oasis-env: &oasis-env
   OASIS_ADMIN_USER: admin
   OASIS_ADMIN_PASS: password
-  OASIS_DEBUG: 1
+  OASIS_DEBUG: ${DEBUG:-0}
   OASIS_RABBIT_HOST: rabbit
   OASIS_RABBIT_PORT: 5672
   OASIS_RABBIT_USER: rabbit
