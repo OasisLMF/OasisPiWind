@@ -6,6 +6,7 @@ from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 import tarfile
 import glob
+import pathlib
 
 from unittest import TestCase
 from parametrize import parametrize
@@ -13,21 +14,20 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 
 from oasislmf.platform.client import APIClient
-from oasislmf.computation.run.platform import PlatformRunInputs, PlatformRunLosses
 
 
 # Test vars
 pytest_plugins = ["docker_compose"]
 file_path = os.path.dirname(os.path.realpath(__file__))
 
-# Set Oasis Version 
+# Set Oasis Version
 os.environ["SERVER_IMG"] = "coreoasis/api_server"
 os.environ["SERVER_TAG"] = "1.26.4"
 os.environ["WORKER_IMG"] = "coreoasis/model_worker"
 os.environ["WORKER_TAG"] = "1.26.4"
 os.environ["DEBUG"] = "0"
 
-# expected output dirs 
+# expected output dirs
 exp_case_ctl = os.path.join(file_path, 'ci', 'expected', 'control_set')
 exp_case_0 = os.path.join(file_path, 'ci', 'expected', 'case_0')
 exp_case_1 = os.path.join(file_path, 'ci', 'expected', 'case_1')
@@ -39,11 +39,11 @@ exp_case_6 = os.path.join(file_path, 'ci', 'expected', 'case_6')
 exp_case_7 = os.path.join(file_path, 'ci', 'expected', 'case_7')
 exp_case_8 = os.path.join(file_path, 'ci', 'expected', 'case_8')
 
-# analysis settings files 
+# analysis settings files
 GUL = os.path.join(file_path, 'ci', 'GUL_analysis_settings.json')
 IL = os.path.join(file_path, 'ci', 'FM_analysis_settings.json')
 RI = os.path.join(file_path, 'ci', 'RI_analysis_settings.json')
-ORD_CSV = os.path.join(file_path, 'ci', 'ORD_csv_analysis_settings.json') 
+ORD_CSV = os.path.join(file_path, 'ci', 'ORD_csv_analysis_settings.json')
 ORD_PQ = os.path.join(file_path, 'ci', 'ORD_parquet_analysis_settings.json')
 
 
@@ -80,15 +80,15 @@ class TestPiWind(TestCase):
 
     @classmethod
     def setUpClass(cls, expected_dir=None, results_tar=None, params=None):
-        
-        # Default 
+
+        # Default
         cls.expected_dir=None
-        cls.results_tar = f'{file_path}/result/base_case.tar.gz' 
+        cls.results_tar = f'{file_path}/result/base_case.tar.gz'
         cls.params = {
             "analysis_settings_json": GUL,
             "oed_location_csv": f"{file_path}/inputs/SourceLocOEDPiWind10.csv",
         }
-        
+
         # SubClass vars
         if expected_dir:
             cls.expected_dir = expected_dir
@@ -100,31 +100,72 @@ class TestPiWind(TestCase):
         # clear any prev results
         if os.path.isfile(cls.results_tar):
             os.remove(cls.results_tar)
-        # run loss analysis and download output tar
-        cls.params['analysis_id'] = PlatformRunInputs(**cls.params).run() # use this to skip portfolio/analysis create 
-        cls.api.run_analysis(cls.params['analysis_id'])
-        cls.api.analyses.output_file.download(cls.params['analysis_id'], cls.results_tar)
+        # Find PiWind's model id
+        cls.model_id = cls.api.models.search(
+            {'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}).json().pop()['id']
+        # Create portfolio
+        cls.portfolio_id = cls.api.upload_inputs(
+            portfolio_name=cls.__name__,
+            location_fp=cls.params.get('oed_location_csv'),
+            accounts_fp=cls.params.get('oed_accounts_csv'),
+            ri_info_fp=cls.params.get('oed_info_csv'),
+            ri_scope_fp=cls.params.get('oed_scope_csv')
+        )['id']
+        # Create analysis
+        cls.analysis_id = cls.api.create_analysis(
+            portfolio_id=cls.portfolio_id,
+            model_id=cls.model_id,
+            analysis_name=cls.__name__,
+            analysis_settings_fp=cls.params.get('analysis_settings_json')
+        )['id']
+        # Run Loss analysis
+        cls.api.run_generate(cls.analysis_id)
+        cls.api.run_analysis(cls.analysis_id)
+        # Download output
+        cls.api.analyses.output_file.download(cls.analysis_id, cls.results_tar)
 
-    def _result_from_tar(self, result_file):
+    @classmethod
+    def tearDownClass(cls):
+        # if a portfolio was created this will cacade delete
+        # that and also its linked analysis
+        if cls.portfolio_id:
+            cls.api.portfolios.delete(cls.portfolio_id)
+
+
+    def _func_to_dataframe(self, filename):
+        file_ext = pathlib.Path(filename).suffix[1:].lower()
+        file_type = 'parquet' if file_ext in ['parquet', 'pq'] else 'csv'
+        return getattr(pd, f"read_{file_type}")
+
+    def _result_from_tar(self, result_file, insensitive_col=True):
         tar_key = result_file.replace(self.expected_dir,'').strip('/')
-        with tarfile.open(self.results_tar) as tar:
-            return pd.read_csv(tar.extractfile(tar_key))
+        pd_read = self._func_to_dataframe(tar_key)
 
-    def _expect_from_dir(self, result_file):
-        return pd.read_csv(result_file)
+        with tarfile.open(self.results_tar) as tar:
+            df = pd_read(tar.extractfile(tar_key))
+            if insensitive_col:
+                df = df.rename(columns=str.lower)
+            return df
+
+    def _expect_from_dir(self, result_file, insensitive_col=True):
+        pd_read = self._func_to_dataframe(result_file)
+        df = pd_read(result_file)
+
+        if insensitive_col:
+            df = df.rename(columns=str.lower)
+        return df
 
     def _compare_output(self, filename):
         df_result = self._result_from_tar(filename)
         df_expect = self._expect_from_dir(filename)
         assert_frame_equal(df_result, df_expect)
-        
+
     def test_loss_output_generated(self):
-        analysis_id = self.params.get('analysis_id')
-        self.assertEqual(self.api.analyses.status(analysis_id), 'RUN_COMPLETED')
+        self.assertEqual(self.api.analyses.status(self.analysis_id), 'RUN_COMPLETED')
         assert(os.path.isfile(self.results_tar))
 
-    def test_check_missing_files(self):
-        # check that all expected files are there in the output tar 
+    def test_for_missing_files(self):
+        # check that all expected files are there in the output tar
         if self.expected_dir:
             with tarfile.open(self.results_tar) as tar:
                 results = set([member.path for member in tar.getmembers()])
@@ -132,7 +173,7 @@ class TestPiWind(TestCase):
                 print(f'result: {results}')
                 print(f'expect: {expected}')
                 self.assertEqual(expected.difference(results), set())
-            
+
 
 class ControlSet(TestPiWind):
     expected_files = glob.glob(f"{exp_case_ctl}/output/*")
@@ -167,7 +208,7 @@ class case_0(TestPiWind):
                 "analysis_settings_json": GUL,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
             }
-        )    
+        )
 
     @parametrize("filename", expected_files)
     def test_output_file(self, filename):
@@ -269,7 +310,7 @@ class case_5(TestPiWind):
                 "oed_info_csv":  os.path.join(file_path, 'inputs', 'SourceReinsInfoOEDPiWind.csv'),
                 "oed_scope_csv": os.path.join(file_path, 'inputs', 'SourceReinsScopeOEDPiWind.csv'),
             }
-        )    
+        )
 
     @parametrize("filename", expected_files)
     def test_output_file(self, filename):
