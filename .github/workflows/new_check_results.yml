@@ -55,5 +55,5 @@ jobs:
         pip-compile tests/requirements.in -o tests/requirements.txt
         pip install -r tests/requirements.txt
 
-    - name: Run case_4 
-      run: pytest -v -k case_4
+    - name: Run Checks 
+      run: pytest -v
