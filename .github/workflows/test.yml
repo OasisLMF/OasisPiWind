@@ -28,7 +28,7 @@ jobs:
       worker_image: ${{ steps.export_param.outputs.worker_image }}
       worker_tag: ${{ steps.export_param.outputs.worker_tag }}
     
-    step: 
+    steps: 
     - name: Update params 
       run: | 
         [[ "${{ env.piwind_branch }}" = "master" ]] && echo "oasislmf_branch=master" >> $GITHUB_ENV
