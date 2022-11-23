@@ -31,7 +31,9 @@ jobs:
     steps: 
     - name: Update params 
       run: | 
-        [[ "${{ env.piwind_branch }}" = "master" ]] && echo "oasislmf_branch=master" >> $GITHUB_ENV
+        if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
+          echo "oasislmf_branch=master" >> $GITHUB_ENV
+        fi   
 
     - id: export_param
       name: Output params
