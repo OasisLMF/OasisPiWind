@@ -31,7 +31,8 @@ jobs:
     steps: 
     - name: Update params 
       run: | 
-        if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
+        #if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
+        if [[ "${{ env.piwind_branch }}" = "dockerbuild/github-actions" ]]; then 
           echo "oasislmf_branch=master" >> $GITHUB_ENV
         fi   
 
