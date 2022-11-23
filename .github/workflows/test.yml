@@ -17,7 +17,7 @@ jobs:
   # https://github.com/actions/runner/issues/480#issuecomment-1055373623
   # Workaround because 'env' is not in context
   params:
-    name: Update params based on current branch
+    name: Update params
     runs-on: ubuntu-latest
     outputs:
       # build params  
@@ -45,6 +45,7 @@ jobs:
 
   build:
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     needs: [params]
     with:
       docker_push: 'true'
@@ -54,8 +55,9 @@ jobs:
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
 
   test:
-    name: PiWind Integration ()
+    name: PiWind Integration
     uses: ./.github/workflows/integration.yml
+    secrets: inherit
     needs: [params, build]
     with:
       pwind_branch: ${{ github.ref_name }}
