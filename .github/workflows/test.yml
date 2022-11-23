@@ -1,18 +1,22 @@
 name: PiWind Testing 
 
 
-on: push
-
-
+on: 
+  push:
+  workflow_dispatch:
+    inputs:
+      oasislmf_branch: 
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: True
+        default: 'develop'
+        type: string
+    
 env:
   oasislmf_branch: 'develop'
   piwind_branch: ${{  github.ref_name }}
   piwind_img_repo: 'coreoasis/github-actions'
   piwind_img_tag: 'piwind_worker-${{ github.sha }}'
 
-
-
-# run piwind build 
 jobs:
   # https://github.com/actions/runner/issues/480#issuecomment-1055373623
   # Workaround because 'env' is not in context
@@ -23,7 +27,6 @@ jobs:
       # build params  
       piwind_image: ${{ steps.export_param.outputs.piwind_image }}
       oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
-
       # test params 
       worker_image: ${{ steps.export_param.outputs.worker_image }}
       worker_tag: ${{ steps.export_param.outputs.worker_tag }}
@@ -31,10 +34,13 @@ jobs:
     steps: 
     - name: Update params 
       run: | 
-        #if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
-        if [[ "${{ env.piwind_branch }}" = "dockerbuild/github-actions" ]]; then 
+        if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
           echo "oasislmf_branch=master" >> $GITHUB_ENV
         fi   
+
+    - name: Set oasislmf branch
+      if: github.event_name == 'workflow_dispatch'
+      run: echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_OUTPUT
 
     - id: export_param
       name: Output params
