@@ -19,16 +19,16 @@ jobs:
   params:
     name: Update params based on current branch
     runs-on: ubuntu-latest
-    
     outputs:
       # build params  
-      piwind_image: ${{ steps.export_param.outputs._ }}
-      oasislmf_branch: ${{ steps.export_param.outputs._ }}
+      piwind_image: ${{ steps.export_param.outputs.piwind_image }}
+      oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
 
       # test params 
-      worker_image: ${{ steps.export_param.outputs._ }}
-      worker_tag: ${{ steps.export_param.outputs._ }}
-
+      worker_image: ${{ steps.export_param.outputs.worker_image }}
+      worker_tag: ${{ steps.export_param.outputs.worker_tag }}
+    
+    step: 
     - name: Update params 
       run: | 
         [[ "${{ env.piwind_branch }}" = "master" ]] && echo "oasislmf_branch=master" >> $GITHUB_ENV
