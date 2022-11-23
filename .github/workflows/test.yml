@@ -56,7 +56,6 @@ jobs:
     uses: ./.github/workflows/integration.yml
     needs: [params, build]
     with:
-    inputs:
       pwind_branch: ${{ github.ref_name }}
       worker_image: ${{ needs.build.outputs.worker_image }}
       worker_tag: ${{ needs.params.outputs.worker_tag }}
