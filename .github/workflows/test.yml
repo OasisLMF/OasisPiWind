@@ -61,7 +61,7 @@ jobs:
     needs: [params, build]
     with:
       pwind_branch: ${{ github.ref_name }}
-      worker_image: ${{ needs.build.outputs.worker_image }}
+      worker_image: ${{ needs.params.outputs.worker_image }}
       worker_tag: ${{ needs.params.outputs.worker_tag }}
       server_tag: "latest"
       debug_mode: 0
