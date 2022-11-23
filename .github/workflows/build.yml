@@ -4,36 +4,53 @@ on:
   workflow_dispatch:
     inputs:
       docker_push:
-        description: 'Push the docker image to dockerhub and outout reference'
+        description: 'Push image to dockerhub and outout reference [true, false]'
         required: false
         type: boolean
       from_image:
-        description: 'The worker image to build piwind'
+        description: 'The worker image to build piwind [img:tag]'
         required: false
         default: 'coreoasis/model_worker:latest'
       piwind_image:
-        description: 'Output image name and tag'
+        description: 'Output image name and tag [img:tag]'
         default: 'coreoasis/github-actions:piwind_worker-<sha>'
         required: false
+      oasislmf_branch:
+        description: 'If set, pip install oasislmf branch [git ref]'
+        required: false
+        type: string
+      oasislmf_package:
+        description: 'If set, pip install local oasislmf package [pkg-filename.whl]'
+        required: false
+        type: string
 
   workflow_call:
     inputs:
       docker_push:
-        description: 'Push the docker image to dockerhub and outout reference'
+        description: 'Push image to dockerhub and outout reference [true, false]'
         required: false
         type: string
       from_image:
-        description: 'The worker image to build piwind'
+        description: 'The worker image to build piwind [img:tag]'
         required: true
         type: string
       piwind_image:
-        description: 'Output image name and tag'
+        description: 'Output image name and tag [img:tag]'
         required: false
         type: string
       piwind_branch:
         description: '(Remote call) branch to build piwind worker from'
         required: false
         type: string
+      oasislmf_branch:
+        description: 'If set, pip install oasislmf branch [git ref]'
+        required: false
+        type: string
+      oasislmf_package:
+        description: 'If set, pip install local oasislmf package [pkg-filename.whl]'
+        required: false
+        type: string
+
 
     outputs:
       piwind_image:
@@ -48,6 +65,8 @@ jobs:
       PIWIND_BRANCH: ${{ github.ref_name }}
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       DOCKER_PUSH: 'false'
+      BUILD_PACKAGE: ''
+      BUILD_BRANCH: ''
 
     runs-on: ubuntu-latest
     outputs:
@@ -58,6 +77,19 @@ jobs:
         [[ -z "${{ inputs.docker_push }}" ]] || echo "DOCKER_PUSH=${{ inputs.docker_push }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+
+    - name: Set build arg 
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      run: |
+        [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]] && \
+          (echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"; exit 1)
+        [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "BUILD_PACKAGE=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "BUILD_BRANCH=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
+
+        # special case - if piwind branch is master override oasislmf with master too 
+        [[ "${{ env.PIWIND_BRANCH }}" = "master" && -n '${{ inputs.oasislmf_branch }}' ]] && echo "BUILD_BRANCH=master" >> $GITHUB_ENV
+
+
 
     - name: Github context
       run:   echo "$GITHUB_CONTEXT"
@@ -90,6 +122,9 @@ jobs:
         context: .
         push: ${{ env.DOCKER_PUSH }}
         tags: ${{ env.PIWIND_IMAGE }}
+        build-args: |
+          oasislmf_package=${{ env.BUILD_PACKAGE }}
+          oasislmf_branch=${{ env.BUILD_BRANCH }}
 
     - name: Store image ref
       if: inputs.docker_push == 'true'

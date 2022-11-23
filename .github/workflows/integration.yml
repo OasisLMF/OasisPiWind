@@ -2,12 +2,8 @@
 name: PiWind Integration
 
 on:
-  push:
   workflow_dispatch:
     inputs:
-      pwind_branch:
-        description: 'PiWind branch to test'
-        required: false
       server_image:
         description: 'Server image [coreoasis/api_server]'
         required: false
@@ -28,6 +24,33 @@ on:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
         default: '0'
+
+  workflow_call:
+    inputs:
+      pwind_branch:
+        description: 'PiWind branch to test'
+        type: string
+      server_image:
+        description: 'Server image [coreoasis/api_server]'
+        required: false
+        type: string
+      server_tag:
+        description: 'Server tag [semvar]'
+        required: false
+        type: string
+      worker_image:
+        description: 'Worker image [coreoasis/model_worker]'
+        required: false
+        type: string
+      worker_tag:
+        description: 'Worker image [semvar]'
+        required: false
+        type: string
+      debug_mode:
+        description: 'Enable verbose logging for containers [0, 1]'
+        required: false
+        type: string
+
 
 jobs:
   check_results:

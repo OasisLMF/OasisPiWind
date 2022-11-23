@@ -1,0 +1,36 @@
+name: PiWind Testing 
+
+
+on: push
+
+
+env:
+  oasislmf_branch: 'develop'
+
+
+# run piwind build 
+jobs:
+
+  build:
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      docker_push: 'true'
+      from_image: 'coreoasis/model_worker:latest'
+      piwind_branch: ${{ github.ref_name }}
+      oasislmf_branch: "${{ env.oasislmf_branch }}"
+
+
+# run testing with the output worker image from build 
+  test:
+    name: PiWind Integration ()
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+    with:
+    inputs:
+      pwind_branch: ${{ github/ref_name }}
+      worker_image: ${{ needs.build.outputs.piwind_image }}
+      worker_tag: ""
+      server_tag: ""
+      debug_mode: 0
+
