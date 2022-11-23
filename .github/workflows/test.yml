@@ -24,7 +24,7 @@ jobs:
 # run testing with the output worker image from build 
   test:
     name: PiWind Integration ()
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/integration.yml
     secrets: inherit
     with:
     inputs:
