@@ -89,8 +89,6 @@ jobs:
             echo "oasislmf_package=" >> $GITHUB_ENV
         fi
 
-    - name: Set Platform Version
-
     - id: export_param
       name: Output params
       run: |
