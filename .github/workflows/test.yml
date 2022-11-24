@@ -1,21 +1,48 @@
-name: PiWind Testing 
+name: PiWind Testing
 
 
-on: 
+on:
   push:
   workflow_dispatch:
     inputs:
-      oasislmf_branch: 
+      oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: True
         default: 'develop'
         type: string
-    
+
+  workflow_call:
+    inputs:
+      piwind_branch:
+        description: "PiWind branch to test results [git ref]"
+        required: True
+        type: string
+
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+        default: 'develop'
+        type: string
+
+      oasislmf_package:
+        description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+        default: ''
+        type: string
+
+      platform_version:
+        description: "Platform Version tag [semvar]"
+        required: false
+        default: ''
+        type: string
+
 env:
-  oasislmf_branch: 'develop'
-  piwind_branch: ${{  github.ref_name }}
+  oasislmf_branch: ${{ inputs.oasislmf_package != '' inputs.oasislmf_package || 'develop' }}
+  oasislmf_package: ${{ inputs.oasislmf_package != '' inputs.oasislmf_package || '' }}
+  piwind_branch: ${{ github.event_name == 'push' && github.ref_name || inputs.piwind_branch }}
   piwind_img_repo: 'coreoasis/github-actions'
   piwind_img_tag: 'piwind_worker-${{ github.sha }}'
+  platform_tag: ${{ inputs.platform_version != '' inputs.platform_version || 'latest' }}
 
 jobs:
   # https://github.com/actions/runner/issues/480#issuecomment-1055373623
@@ -24,34 +51,43 @@ jobs:
     name: Update params
     runs-on: ubuntu-latest
     outputs:
-      # build params  
+      # build params
       piwind_image: ${{ steps.export_param.outputs.piwind_image }}
       oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
-      # test params 
+      # test params
       worker_image: ${{ steps.export_param.outputs.worker_image }}
       worker_tag: ${{ steps.export_param.outputs.worker_tag }}
-    
-    steps: 
-    - name: Update params 
-      run: | 
-        if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
+
+    steps:
+    - name: Update params
+      run: |
+        if [[ "${{ env.piwind_branch }}" = "master" ]]; then
           echo "oasislmf_branch=master" >> $GITHUB_ENV
-        fi   
+        fi
         if [[ "${{ env.piwind_branch }}" = backports* ]]; then
           echo "oasislmf_branch=${{ env.piwind_branch }}" >> $GITHUB_ENV
-        fi 
+        fi
 
     - name: Set oasislmf branch
-      if: github.event_name == 'workflow_dispatch'
+      if: github.event_name != 'push'
       run: echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_OUTPUT
+
+    - name: Set oasislmf Package
+      if: github.event_name != 'push'
+      run: echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
+
+    - name: Set Platform Version
+      run: echo "from_image=coreoasis/model_worker:${{ env.platform_tag }}" >> $GITHUB_OUTPUT
+
 
     - id: export_param
       name: Output params
       run: |
-        echo "piwind_image=${{ env.piwind_img_repo }}:${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT       
-        echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT       
-        echo "worker_image=${{ env.piwind_img_repo }}" >> $GITHUB_OUTPUT       
-        echo "worker_tag=${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT       
+        echo "piwind_image=${{ env.piwind_img_repo }}:${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
+        echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
+        echo "worker_image=${{ env.piwind_img_repo }}" >> $GITHUB_OUTPUT
+        echo "worker_tag=${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
+        echo "server_tag=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
   build:
     uses: ./.github/workflows/build.yml
@@ -59,10 +95,11 @@ jobs:
     needs: [params]
     with:
       docker_push: 'true'
-      from_image: 'coreoasis/model_worker:latest'
+      from_image: ${{ needs.params.outputs.from_image }}
       piwind_branch: ${{ github.ref_name }}
       piwind_image: ${{ needs.params.outputs.piwind_image }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
+      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
 
   test:
     name: PiWind Integration
@@ -73,5 +110,5 @@ jobs:
       pwind_branch: ${{ github.ref_name }}
       worker_image: ${{ needs.params.outputs.worker_image }}
       worker_tag: ${{ needs.params.outputs.worker_tag }}
-      server_tag: "latest"
+      server_tag: ${{ needs.params.outputs.server_tag }}
       debug_mode: 0

@@ -78,7 +78,7 @@ jobs:
         [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
 
-    - name: Set build arg 
+    - name: Set build arg
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
       run: |
         [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]] && \
@@ -86,7 +86,7 @@ jobs:
         [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "BUILD_PACKAGE=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "BUILD_BRANCH=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
 
-        # special case - if piwind branch is master override oasislmf with master too 
+        # special case - if piwind branch is master override oasislmf with master too
         #[[ "${{ env.PIWIND_BRANCH }}" = "master" && -n '${{ inputs.oasislmf_branch }}' ]] && echo "BUILD_BRANCH=master" >> $GITHUB_ENV
 
 
