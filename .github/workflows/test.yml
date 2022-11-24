@@ -37,8 +37,8 @@ on:
         type: string
 
 env:
-  oasislmf_branch: ${{ inputs.oasislmf_package != '' inputs.oasislmf_package || 'develop' }}
-  oasislmf_package: ${{ inputs.oasislmf_package != '' inputs.oasislmf_package || '' }}
+  oasislmf_branch: 'develop'
+  oasislmf_package: ''
   piwind_branch: ${{ github.event_name == 'push' && github.ref_name || inputs.piwind_branch }}
   piwind_img_repo: 'coreoasis/github-actions'
   piwind_img_tag: 'piwind_worker-${{ github.sha }}'
@@ -74,7 +74,7 @@ jobs:
 
     - name: Set oasislmf Package
       if: github.event_name != 'push'
-      run: echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
+      run: echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_OUTPUT
 
     - name: Set Platform Version
       run: echo "from_image=coreoasis/model_worker:${{ env.platform_tag }}" >> $GITHUB_OUTPUT
@@ -85,6 +85,7 @@ jobs:
       run: |
         echo "piwind_image=${{ env.piwind_img_repo }}:${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
         echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
+        echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
         echo "worker_image=${{ env.piwind_img_repo }}" >> $GITHUB_OUTPUT
         echo "worker_tag=${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
         echo "server_tag=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
@@ -98,8 +99,8 @@ jobs:
       from_image: ${{ needs.params.outputs.from_image }}
       piwind_branch: ${{ github.ref_name }}
       piwind_image: ${{ needs.params.outputs.piwind_image }}
-      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
+      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
 
   test:
     name: PiWind Integration
