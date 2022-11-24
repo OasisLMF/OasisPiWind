@@ -42,7 +42,7 @@ env:
   piwind_branch: ${{ github.event_name == 'push' && github.ref_name || inputs.piwind_branch }}
   piwind_img_repo: 'coreoasis/github-actions'
   piwind_img_tag: 'piwind_worker-${{ github.sha }}'
-  platform_tag: ${{ inputs.platform_version != '' inputs.platform_version || 'latest' }}
+  platform_tag: 'latest'
 
 jobs:
   # https://github.com/actions/runner/issues/480#issuecomment-1055373623
@@ -68,17 +68,18 @@ jobs:
           echo "oasislmf_branch=${{ env.piwind_branch }}" >> $GITHUB_ENV
         fi
 
-    - name: Set oasislmf branch
+    - name: Set Inputs
       if: github.event_name != 'push'
-      run: echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_OUTPUT
+      run: |
+        echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_OUTPUT
+        echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_OUTPUT
+        echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_OUTPUT
 
     - name: Set oasislmf Package
       if: github.event_name != 'push'
-      run: echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_OUTPUT
 
     - name: Set Platform Version
       run: echo "from_image=coreoasis/model_worker:${{ env.platform_tag }}" >> $GITHUB_OUTPUT
-
 
     - id: export_param
       name: Output params
