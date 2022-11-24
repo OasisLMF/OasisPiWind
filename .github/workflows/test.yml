@@ -85,7 +85,7 @@ jobs:
         fi
         # If oasislmf package is given remove branch install option
         if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
-            echo "oasislmf_package=''" >> $GITHUB_ENV
+            echo "oasislmf_package=" >> $GITHUB_ENV
         fi
 
     - name: Set Platform Version
