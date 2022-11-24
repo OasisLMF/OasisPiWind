@@ -26,7 +26,7 @@ on:
 
   workflow_call:
     inputs:
-      pwind_branch:
+      piwind_branch:
         description: 'PiWind branch to test'
         type: string
       server_image:
@@ -55,7 +55,7 @@ jobs:
   check_results:
     runs-on: ubuntu-latest
     env:
-      PWIND_BRANCH: ${{ github.ref_name }}
+      PIWIND_BRANCH: ${{ github.ref_name }}
       SERVER_IMG: 'coreoasis/api_server'
       SERVER_TAG: 'latest'
       WORKER_IMG: 'coreoasis/model_worker'
@@ -65,7 +65,7 @@ jobs:
     steps:
     - name: Set inputs
       run: |
-       [[ -z "${{ inputs.pwind_branch }}" ]] || echo "PWIND_BRANCH=${{ inputs.pwind_branch }}" >> $GITHUB_ENV
+       [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.server_image }}" ]] || echo "SERVER_IMG=${{ inputs.server_image }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.server_tag }}"   ]] || echo "SERVER_TAG=${{ inputs.server_tag }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.worker_image }}" ]] || echo "WORKER_IMG=${{ inputs.worker_image }}" >> $GITHUB_ENV
