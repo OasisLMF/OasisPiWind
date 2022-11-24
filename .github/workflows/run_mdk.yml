@@ -41,10 +41,9 @@ on:
         type: string
 
 env:
-  # Fixed
-  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
-
   # Input vars (defaults)
+  #SCRIPT_BRANCH: 'master'
+  SCRIPT_BRANCH: 'dockerbuild/github-actions' # Testing ONLY
   PIWIND_BRANCH:  ${{ github.ref_name }}
   MDK_BRANCH: 'develop'
   MDK_RUN: 'ri'
@@ -56,12 +55,11 @@ jobs:
       matrix:
         py-version: [3.8, 3.9]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          repository: OasisLMF/OasisPiWind
-          ref: ${{ env.PIWIND_BRANCH }}
-
+      - name: Fetch CLI test script
+        run: |
+          BASE_URL="https://raw.githubusercontent.com/OasisLMF/OasisPiWind/${{ env.SCRIPT_BRANCH }}/tests"
+          wget $BASE_URL/run_mdk.py
+          chmod +x run_mdk.py
 
       - name: Set input - piwind_branch
         if: inputs.piwind_branch != ''
