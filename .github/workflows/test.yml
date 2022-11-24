@@ -37,6 +37,9 @@ jobs:
         if [[ "${{ env.piwind_branch }}" = "master" ]]; then 
           echo "oasislmf_branch=master" >> $GITHUB_ENV
         fi   
+        if [[ "${{ env.piwind_branch }}" = backports* ]]; then
+          echo "oasislmf_branch=${{ env.piwind_branch }}" >> $GITHUB_ENV
+        fi 
 
     - name: Set oasislmf branch
       if: github.event_name == 'workflow_dispatch'

@@ -56,8 +56,12 @@ jobs:
       matrix:
         py-version: [3.8, 3.9]
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
+        with:
+          repository: OasisLMF/OasisPiWind
+          ref: ${{ env.PIWIND_BRANCH }}
+
 
       - name: Set input - piwind_branch
         if: inputs.piwind_branch != ''
