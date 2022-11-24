@@ -118,7 +118,7 @@ jobs:
     secrets: inherit
     needs: [params, build]
     with:
-      pwind_branch: ${{ github.ref_name }}
+      pwind_branch: ${{ needs.params.outputs.piwind_branch }}
       worker_image: ${{ needs.params.outputs.worker_image }}
       worker_tag: ${{ needs.params.outputs.worker_tag }}
       server_tag: ${{ needs.params.outputs.server_tag }}
