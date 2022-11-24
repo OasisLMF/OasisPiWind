@@ -55,6 +55,7 @@ jobs:
       piwind_image: ${{ steps.export_param.outputs.piwind_image }}
       oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
       oasislmf_package: ${{ steps.export_param.outputs.oasislmf_package }}
+      from_image: ${{ steps.export_param.outputs.from_image }}
       worker_image: ${{ steps.export_param.outputs.worker_image }}
       worker_tag: ${{ steps.export_param.outputs.worker_tag }}
       server_tag: ${{ steps.export_param.outputs.server_tag }}
@@ -89,7 +90,6 @@ jobs:
         fi
 
     - name: Set Platform Version
-      run: echo "from_image=coreoasis/model_worker:${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
     - id: export_param
       name: Output params
@@ -98,6 +98,7 @@ jobs:
         echo "piwind_image=${{ env.piwind_img_repo }}:${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
         echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
+        echo "from_image=coreoasis/model_worker:${{ env.platform_tag }}" >> $GITHUB_OUTPUT
         echo "worker_image=${{ env.piwind_img_repo }}" >> $GITHUB_OUTPUT
         echo "worker_tag=${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
         echo "server_tag=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
@@ -110,7 +111,6 @@ jobs:
       docker_push: 'true'
       from_image: ${{ needs.params.outputs.from_image }}
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
-      piwind_image: ${{ needs.params.outputs.piwind_image }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
 
