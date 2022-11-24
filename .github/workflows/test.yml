@@ -75,9 +75,6 @@ jobs:
         echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_OUTPUT
         echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_OUTPUT
 
-    - name: Set oasislmf Package
-      if: github.event_name != 'push'
-
     - name: Set Platform Version
       run: echo "from_image=coreoasis/model_worker:${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
