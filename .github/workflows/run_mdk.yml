@@ -94,6 +94,6 @@ jobs:
 
       - name: run MDK
         run: |
-           ./tests/run_mdk.py --model-repo-branch ${{ env.PIWIND_BRANCH}} \
+           ./run_mdk.py --model-repo-branch ${{ env.PIWIND_BRANCH}} \
                               --mdk-repo-branch ${{ env.MDK_BRANCH }} \
                               --model-run-mode ${{ env.MDK_RUN }}
