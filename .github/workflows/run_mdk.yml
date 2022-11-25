@@ -14,6 +14,13 @@ name: PiWind MDK
 
 on:
   push:
+  pull_request:
+    branches:
+      - master
+      - develop                                                                                                                               
+      - backports**
+      - hotfix/dockerbuild-actions # TESTING  
+
   workflow_dispatch:
     inputs:
       mdk_branch:
