@@ -116,7 +116,7 @@ jobs:
     name: PiWind Integration
     uses: ./.github/workflows/integration.yml
     secrets: inherit
-    needs: [params, build]
+    needs: [params]
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
