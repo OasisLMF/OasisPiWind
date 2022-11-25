@@ -101,16 +101,16 @@ jobs:
         echo "worker_tag=${{ env.piwind_img_tag }}" >> $GITHUB_OUTPUT
         echo "server_tag=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
-  build:
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-    needs: [params]
-    with:
-      docker_push: 'true'
-      from_image: ${{ needs.params.outputs.from_image }}
-      piwind_branch: ${{ needs.params.outputs.piwind_branch }}
-      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
-      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
+#  build:
+#    uses: ./.github/workflows/build.yml
+#    secrets: inherit
+#    needs: [params]
+#    with:
+#      docker_push: 'true'
+#      from_image: ${{ needs.params.outputs.from_image }}
+#      piwind_branch: ${{ needs.params.outputs.piwind_branch }}
+#      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
+#      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
 
   test:
     name: PiWind Integration
@@ -119,7 +119,9 @@ jobs:
     needs: [params, build]
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
-      worker_image: ${{ needs.params.outputs.worker_image }}
+      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
+      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
+      #worker_image: ${{ needs.params.outputs.worker_image }}
       worker_tag: ${{ needs.params.outputs.worker_tag }}
       server_tag: ${{ needs.params.outputs.server_tag }}
       debug_mode: 0

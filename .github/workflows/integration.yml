@@ -24,6 +24,17 @@ on:
         required: false
         default: '0'
 
+      # If set build a piwind worker with / branch package 
+      # otherwise use the default worker image 
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+      oasislmf_package:
+        description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+      
+
+
   workflow_call:
     inputs:
       piwind_branch:
@@ -49,7 +60,17 @@ on:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
         type: string
-
+     
+      # If set build a piwind worker with / branch package 
+      # otherwise use the default worker image 
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+        type: string
+      oasislmf_package:
+        description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+        type: string
 
 jobs:
   check_results:
@@ -77,6 +98,40 @@ jobs:
       with:
         repository: OasisLMF/OasisPiWind
         ref: ${{ env.PIWIND_BRANCH }}
+
+    # Add image build within the same workflow to avoid needing to push/pull to dockerhub 
+    # ----------------------------------------------
+    - name: Set build arg
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      run: |
+        [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]] && \
+          (echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"; exit 1)
+
+    - name: Set up Docker Buildx
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      uses: docker/setup-buildx-action@v2
+
+    - name: replace default image with input
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      run: sed -i "/FROM /c\FROM ${{ env.WORKER_IMG }}:${{ env.WORKER_TAG }}" docker/Dockerfile.piwind_worker
+
+    - name: Build and push
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      uses: docker/build-push-action@v3
+      with:
+        file: ${{ env.DOCKERFILE }}
+        context: .
+        push: 'false'
+        tags: "${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }}"
+        build-args: |
+          oasislmf_package=${{ env.BUILD_PACKAGE }}
+          oasislmf_branch=${{ env.BUILD_BRANCH }}
+
+    - name: Override Worker image env
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      run: echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV 
+
+    # ----------------------------------------------
 
     - name: Setup Python
       uses: actions/setup-python@v4
