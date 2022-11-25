@@ -33,8 +33,6 @@ on:
         description: "Oasislmf package build to test [pkg_filename]"
         required: false
 
-
-
   workflow_call:
     inputs:
       piwind_branch:
@@ -100,8 +98,6 @@ jobs:
         repository: OasisLMF/OasisPiWind
         ref: ${{ env.PIWIND_BRANCH }}
 
-    # Add image build within the same workflow to avoid needing to push/pull to dockerhub
-    # ----------------------------------------------
     - name: Set build arg
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
       run: |
@@ -134,8 +130,6 @@ jobs:
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
       run: echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV
 
-    # ----------------------------------------------
-
     - name: Setup Python
       uses: actions/setup-python@v4
       with:
@@ -148,8 +142,6 @@ jobs:
         pip-compile tests/requirements.in -o tests/requirements.txt
         pip install -r tests/requirements.txt
 
-      # the flag '--use-running-containers' will keep the containers up after the tests complete
-      # This is to store the docker-compose logs before removal
     - name: Run Checks
       run: pytest -v --use-running-containers
 

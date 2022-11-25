@@ -1,6 +1,5 @@
 name: PiWind Testing
 
-
 on:
   push:
   workflow_dispatch:
@@ -40,13 +39,9 @@ env:
   oasislmf_branch: 'develop'
   oasislmf_package: ''
   piwind_branch: ${{ github.ref_name }}
-  #piwind_img_repo: 'coreoasis/github-actions'
-  #piwind_img_tag: 'piwind_worker-${{ github.sha }}'
   platform_tag: 'latest'
 
 jobs:
-  # https://github.com/actions/runner/issues/480#issuecomment-1055373623
-  # Workaround because 'env' is not in context
   params:
     name: Update params
     runs-on: ubuntu-latest
