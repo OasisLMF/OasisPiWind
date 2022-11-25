@@ -55,6 +55,12 @@ jobs:
       matrix:
         py-version: [3.8, 3.9]
     steps:
+      - name: Github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+
       - name: Fetch CLI test script
         run: |
           BASE_URL="https://raw.githubusercontent.com/OasisLMF/OasisPiWind/${{ env.SCRIPT_BRANCH }}/tests"
