@@ -81,8 +81,10 @@ jobs:
     - name: Set build arg
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
       run: |
-        [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]] && \
-          (echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"; exit 1)
+        if [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]]; then 
+          echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"
+          exit 1
+        fi  
         [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "BUILD_PACKAGE=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "BUILD_BRANCH=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
 

@@ -24,15 +24,15 @@ on:
         required: false
         default: '0'
 
-      # If set build a piwind worker with / branch package 
-      # otherwise use the default worker image 
+      # If set build a piwind worker with / branch package
+      # otherwise use the default worker image
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: false
       oasislmf_package:
         description: "Oasislmf package build to test [pkg_filename]"
         required: false
-      
+
 
 
   workflow_call:
@@ -60,9 +60,9 @@ on:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
         type: string
-     
-      # If set build a piwind worker with / branch package 
-      # otherwise use the default worker image 
+
+      # If set build a piwind worker with / branch package
+      # otherwise use the default worker image
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: false
@@ -99,13 +99,15 @@ jobs:
         repository: OasisLMF/OasisPiWind
         ref: ${{ env.PIWIND_BRANCH }}
 
-    # Add image build within the same workflow to avoid needing to push/pull to dockerhub 
+    # Add image build within the same workflow to avoid needing to push/pull to dockerhub
     # ----------------------------------------------
     - name: Set build arg
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
       run: |
-        [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]] && \
-          (echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"; exit 1)
+        if [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]]; then
+          echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"
+          exit 1
+        fi
 
     - name: Set up Docker Buildx
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
@@ -129,7 +131,7 @@ jobs:
 
     - name: Override Worker image env
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
-      run: echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV 
+      run: echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV
 
     # ----------------------------------------------
 
