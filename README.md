@@ -1,13 +1,15 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![results check](https://github.com/OasisLMF/OasisPiWind/actions/workflows/check_results.yml/badge.svg)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/check_results.yml)  [![mdk check](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml/badge.svg)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master)
+[![PiWind Testing](https://github.com/OasisLMF/OasisPiWind/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/test.yml)
+[![PiWind MDK](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml/badge.svg?branch=master)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml)
 
 # Oasis PiWind
 Toy UK windstorm model.
 
 ## Cloning the repository
 
-You can clone this repository from <a href="https://github.com/OasisLMF/OasisPiWind" target="_blank">GitHub</a>. 
+You can clone this repository from <a href="https://github.com/OasisLMF/OasisPiWind" target="_blank">GitHub</a>.
 
 ## Running via the Oasis MDK
 
