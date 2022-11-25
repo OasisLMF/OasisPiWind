@@ -1,3 +1,13 @@
+# workflow is for testing a version of Oasislmf vs piwind's 
+# expected results:
+#     either: 
+#       1) given an oasislmf package file "oasislmf_package" build 
+#          a new model worker with that package and run tests 
+#
+#       2) given an oasislmf git branch "oasislmf_branch", pip install 
+#          the the oasislmf into a worker image and run tests
+
+
 name: PiWind Testing
 
 on:
