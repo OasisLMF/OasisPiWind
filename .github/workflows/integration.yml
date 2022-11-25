@@ -76,6 +76,7 @@ jobs:
   check_results:
     runs-on: ubuntu-latest
     env:
+      DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       PIWIND_BRANCH: ${{ github.ref_name }}
       SERVER_IMG: 'coreoasis/api_server'
       SERVER_TAG: 'latest'
@@ -115,7 +116,7 @@ jobs:
 
     - name: replace default image with input
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
-      run: sed -i "/FROM /c\FROM ${{ env.WORKER_IMG }}:${{ env.WORKER_TAG }}" docker/Dockerfile.piwind_worker
+      run: sed -i "/FROM /c\FROM ${{ env.WORKER_IMG }}:${{ env.WORKER_TAG }}" ${{ env.DOCKERFILE }}
 
     - name: Build and push
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
