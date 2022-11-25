@@ -120,7 +120,8 @@ jobs:
       with:
         file: ${{ env.DOCKERFILE }}
         context: .
-        push: 'false'
+        load: true    # needed for local testing       
+        push: false
         tags: "${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }}"
         build-args: |
           oasislmf_package=${{ inputs.oasislmf_package }}

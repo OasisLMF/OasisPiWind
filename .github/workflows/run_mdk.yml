@@ -42,7 +42,8 @@ on:
 
 env:
   # Input vars (defaults)
-  SCRIPT_BRANCH: 'master'
+  #SCRIPT_BRANCH: 'master'
+  SCRIPT_BRANCH: 'hotfix/dockerbuild-actions' # TESTING 
   PIWIND_BRANCH:  ${{ github.ref_name }}
   MDK_BRANCH: 'develop'
   MDK_RUN: 'ri'
