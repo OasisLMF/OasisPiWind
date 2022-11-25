@@ -75,31 +75,43 @@ jobs:
           wget $BASE_URL/run_mdk.py
           chmod +x run_mdk.py
 
-      - name: Set input - piwind_branch
-        if: inputs.piwind_branch != ''
-        run: echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
 
-      - name: Set input - mdk_branch
-        if: inputs.mdk_branch != ''
-        run: echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
-
-      - name: Set input - mdk_run
-        if: inputs.mdk_run_type != ''
-        run: echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
-
-      - name: Set Production mode for testing master branch (MDK)
-        if: |
-          github.event_name == 'push' &&
-          (env.MDK_BRANCH == 'master' || contains(env.MDK_BRANCH, 'hotfix'))
+      - name: Set inputs 
         run: |
-          echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
+        [ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV    
+        [ -z "${{ inputs.mdk_branch }}" ]] || echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV    
+        [ -z "${{ inputs.mdk_run_type }}" ]] || echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV    
+        [ -z "${{ inputs.@ }}" ]] || echo "=${{ inputs.@ }}" >> $GITHUB_ENV    
 
-      - name: Set Production mode for testing master branch (PiWind)
-        if: |
-          github.event_name == 'push' &&
-          (env.PIWIND_BRANCH == 'master' || contains(env.PIWIND_BRANCH, 'hotfix'))
+      - name: Update Params (Push)
+        if: github.event_name == 'push'
         run: |
-          echo "MDK_BRANCH=master" >> $GITHUB_ENV
+          # Match Oasislmf branch to PiWind
+          if [[ "${{ env.MDK_BRANCH }}" = "master" || "${{ env.MDK_BRANCH }}" = hotfix* ]]; then
+            echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
+          fi   
+          if [[ "${{ env.MDK_BRANCH }}" = backports* ]]; then
+            echo "PIWIND_BRANCH=${{ env.MDK_BRANCH }}" >> $GITHUB_ENV
+          fi
+          # Match PiWind branch to Oasislmf
+          if [[ "${{ env.PIWIND_BRANCH }}" = "master" || "${{ env.PIWIND_BRANCH }}" = hotfix* ]]; then
+            echo "MDK_BRANCH=master" >> $GITHUB_ENV
+          fi   
+          if [[ "${{ env.PIWIND_BRANCH }}" = backports* ]]; then
+            echo "MDK_BRANCH=${{ env.PIWIND_BRANCH }}" >> $GITHUB_ENV
+          fi
+
+      - name: Update Params (Pull Request)
+        if: github.event_name == 'pull_request'
+        run: |
+          # Check if PR is from OasisPiWind / OasisLMF and set other target 
+          if [[ -z "${{ inputs.piwind_branch }}" ]]; then 
+            # Pull Request from PiWind (Set MDK)
+            echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          else
+            # Pull Request from OasisLMF (Set piwind)
+            echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          fi     
 
       - name: Setup Python ${{ matrix.py-version }}
         uses: actions/setup-python@v4

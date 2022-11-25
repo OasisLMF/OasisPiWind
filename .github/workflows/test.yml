@@ -79,7 +79,8 @@ jobs:
         [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.platform_version }}" ]] || echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_ENV
 
-    - name: Update params
+    - name: Update params (Push)
+      if: github.event_name == 'push'
       run: |
         # Match PiWind branch to Oasislmf
         if [[ "${{ env.piwind_branch }}" = "master" || "${{ env.piwind_branch }}" = hotfix* ]]; then
@@ -95,14 +96,27 @@ jobs:
         if [[ "${{ env.oasislmf_branch }}" = backports* ]]; then
           echo "piwind_branch=${{ env.oasislmf_branch }}" >> $GITHUB_ENV
         fi
-        # If oasislmf package is given remove branch install option
-        if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
-            echo "oasislmf_package=" >> $GITHUB_ENV
-        fi
+
+    - name: Update params (Pull Request)
+      if: github.event_name == 'pull_request'
+      run: |
+        # Check if PR is from OasisPiWind / OasisLMF and set other target 
+        if [[ -z "${{ inputs.piwind_branch }}" ]]; then 
+          # Pull Request from PiWind (Set MDK)
+          echo "oasislmf_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+        else
+          # Pull Request from OasisLMF (Set piwind)
+          echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+        fi     
+    
 
     - id: export_param
       name: Output params
       run: |
+        # If oasislmf package is given remove branch install option
+        if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
+            echo "oasislmf_package=" >> $GITHUB_ENV
+        fi
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
