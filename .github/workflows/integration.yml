@@ -123,8 +123,8 @@ jobs:
         push: 'false'
         tags: "${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }}"
         build-args: |
-          oasislmf_package=${{ env.BUILD_PACKAGE }}
-          oasislmf_branch=${{ env.BUILD_BRANCH }}
+          oasislmf_package=${{ inputs.oasislmf_package }}
+          oasislmf_branch=${{ inputs.oasislmf_branch }}
 
     - name: Override Worker image env
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
