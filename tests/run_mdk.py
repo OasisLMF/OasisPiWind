@@ -141,7 +141,7 @@ def clone_repo(repo_name, target, repo_branch='master', user_or_org_name='OasisL
 
     run_command('git clone {}'.format(repo_url))
     os.chdir(repo_target)
-    if repo_branch[:3] == "PR-":
+    if repo_branch[:3] == "PR-" or 'refs/pull' in repo_branch:
         # Fetch Pull Request
         pull_id = int(''.join(d for d in repo_branch if d.isdigit()))
         run_command('git fetch origin pull/{}/head:{}'.format(pull_id,repo_branch))
