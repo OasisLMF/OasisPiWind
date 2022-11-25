@@ -45,7 +45,7 @@ on:
 env:
   oasislmf_branch: 'develop'
   oasislmf_package: ''
-  piwind_branch: ${{ github.ref_name }}
+  piwind_branch: ${{ github.ref }}
   platform_tag: 'latest'
 
 jobs:
