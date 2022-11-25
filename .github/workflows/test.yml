@@ -67,14 +67,14 @@ jobs:
     - name: Update params
       run: |
         # Match PiWind branch to Oasislmf
-        if [[ "${{ env.piwind_branch }}" = "master" ]]; then
+        if [[ "${{ env.piwind_branch }}" = "master" || "${{ env.piwind_branch }}" = hotfix* ]]; then
           echo "oasislmf_branch=master" >> $GITHUB_ENV
         fi
         if [[ "${{ env.piwind_branch }}" = backports* ]]; then
           echo "oasislmf_branch=${{ env.piwind_branch }}" >> $GITHUB_ENV
         fi
         # Match Oasislmf branch to PiWind
-        if [[ "${{ env.oasislmf_branch }}" = "master" ]]; then
+        if [[ "${{ env.oasislmf_branch }}" = "master" || "${{ env.oasislmf_branch }}" = hotfix* ]]; then
           echo "piwind_branch=master" >> $GITHUB_ENV
         fi
         if [[ "${{ env.oasislmf_branch }}" = backports* ]]; then
