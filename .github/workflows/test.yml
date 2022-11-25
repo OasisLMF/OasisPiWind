@@ -12,6 +12,7 @@ name: PiWind Testing
 
 on:
   push:
+    branches:
       - master
       - develop
       - backports**
