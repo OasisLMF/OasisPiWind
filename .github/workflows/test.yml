@@ -1,10 +1,10 @@
-# workflow is for testing a version of Oasislmf vs piwind's 
+# workflow is for testing a version of Oasislmf vs piwind's
 # expected results:
-#     either: 
-#       1) given an oasislmf package file "oasislmf_package" build 
-#          a new model worker with that package and run tests 
+#     either:
+#       1) given an oasislmf package file "oasislmf_package" build
+#          a new model worker with that package and run tests
 #
-#       2) given an oasislmf git branch "oasislmf_branch", pip install 
+#       2) given an oasislmf git branch "oasislmf_branch", pip install
 #          the the oasislmf into a worker image and run tests
 
 
@@ -82,33 +82,27 @@ jobs:
     - name: Update params (Push)
       if: github.event_name == 'push'
       run: |
-        # Match PiWind branch to Oasislmf
-        if [[ "${{ env.piwind_branch }}" = "master" || "${{ env.piwind_branch }}" = hotfix* ]]; then
-          echo "oasislmf_branch=master" >> $GITHUB_ENV
-        fi
-        if [[ "${{ env.piwind_branch }}" = backports* ]]; then
-          echo "oasislmf_branch=${{ env.piwind_branch }}" >> $GITHUB_ENV
-        fi
-        # Match Oasislmf branch to PiWind
-        if [[ "${{ env.oasislmf_branch }}" = "master" || "${{ env.oasislmf_branch }}" = hotfix* ]]; then
-          echo "piwind_branch=master" >> $GITHUB_ENV
-        fi
-        if [[ "${{ env.oasislmf_branch }}" = backports* ]]; then
-          echo "piwind_branch=${{ env.oasislmf_branch }}" >> $GITHUB_ENV
+        # Check if PR is from OasisPiWind / OasisLMF and set other target
+        if [[ -z "${{ inputs.piwind_branch }}" ]]; then
+          # Pull Request from PiWind (Set MDK)
+          echo "oasislmf_branch=${{ github.ref_name }}" >> $GITHUB_ENV
+        else
+          # Pull Request from OasisLMF (Set piwind)
+          echo "piwind_branch=${{ github.ref_name }}" >> $GITHUB_ENV
         fi
 
     - name: Update params (Pull Request)
       if: github.event_name == 'pull_request'
       run: |
-        # Check if PR is from OasisPiWind / OasisLMF and set other target 
-        if [[ -z "${{ inputs.piwind_branch }}" ]]; then 
+        # Check if PR is from OasisPiWind / OasisLMF and set other target
+        if [[ -z "${{ inputs.piwind_branch }}" ]]; then
           # Pull Request from PiWind (Set MDK)
           echo "oasislmf_branch=${{ github.base_ref }}" >> $GITHUB_ENV
         else
           # Pull Request from OasisLMF (Set piwind)
           echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
-        fi     
-    
+        fi
+
 
     - id: export_param
       name: Output params
