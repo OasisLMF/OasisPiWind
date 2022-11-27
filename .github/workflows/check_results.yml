@@ -1,73 +1,12 @@
 #  =============================================================================
-#  Workflow description:
-#    Runs the quantitative tests on the PiWind model and checks for differences in output vs
-#    https://github.com/OasisLMF/OasisPiWind/tree/master/tests/ci/expected
-#
-#    If the generated output differs from the expected results folder then that step is failed.
-#    Each test 'case' is executed via the OasisPlatform by running docker-compose
-#
-#    Note: there are two test modes set by the 'build_worker' option
-#      1) build_worker=false - Test piwind on the most recent docker image release of 'coreoasis/model_worker'
-#      2) build_worker=true  - Build a new worker image by git installing an oasislmf branch (set by 'mdk_branch')
-#
-#
-#  Stored artifacts:
-#    'docker-logs': A zip file containing the docker logs from each container running the oasis stack.
-#                   Any execution errors will generally be stored in 'worker.log' file.
-#
-#          docker-logs
-#          ├── celery-db.log
-#          ├── rabbit.log
-#          ├── server-db.log
-#          ├── server.log
-#          ├── worker.log
-#          └── worker-monitor.log
-#
-#    'loss-outputs': A zip file containing the generated 'oasis-files' and 'losses'.
-#                    Each test is stored within a sub-dir following the same structure
-#                    as the dir 'OasisPiWind/tests/ci/expected' from the piwind repo.
-#                    These results and logs intended to help with debugging, so are only stored for 5 days.
-#
-#          loss-outputs
-#          ├── 0_case
-#          │   ├── input              # (Generated ktools files)
-#                    ...
-#          │   └── output             # (output csv files)
-#          │       ├── gul_S1_eltcalc.csv
-#          │       └── gul_S1_summary-info.csv
-#              ...
-#          ├── 8_case
-#          │   ├── input
-#          │   └── output
-#          └── control_set
-#              ├── input
-#              └── output
+#  Workflow description: THIS WORKFLOW IS REPLACED WITH 'test.yml'
+#                        keep the file here until other oasislmf branch have been 
+#                        updated to call the newer script
 #  ==============================================================================
 
 name: check_results
 
 on:
-  push:
-  workflow_dispatch:
-    inputs:
-      build_branch:
-        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
-        required: true
-        default: master
-      platform_version:
-        description: 'OasisPlatform Version to test using'
-        required: true
-        default: latest
-      mdk_branch:
-        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
-        required: true
-        default: develop
-      build_worker:
-        description: 'Build new worker based on "mdk_branch" value'
-        required: true
-        default: true
-
-
   workflow_call:
     inputs:
       build_branch:
