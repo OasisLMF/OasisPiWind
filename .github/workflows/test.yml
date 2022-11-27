@@ -97,7 +97,6 @@ jobs:
           echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
         fi
 
-
     - id: export_param
       name: Output params
       run: |
