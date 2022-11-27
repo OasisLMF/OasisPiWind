@@ -10,16 +10,22 @@
 #      3. Empty files are produced (either input files / or results)
 #  ==============================================================================
 
-name: run_mdk
+name: PiWind MDK
 
 on:
   push:
+    branches:
+      - master
+      - develop
+      - backports**
+  pull_request:
+    branches:
+      - master
+      - develop
+      - backports**
+
   workflow_dispatch:
     inputs:
-      build_branch:
-        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
-        required: true
-        default: master
       mdk_branch:
         description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
         required: true
@@ -31,10 +37,6 @@ on:
 
   workflow_call:
     inputs:
-      build_branch:
-        description: 'Branch of build script repo - https://github.com/OasisLMF/build'
-        required: true
-        type: string
       mdk_branch:
         description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
         required: true
@@ -49,14 +51,7 @@ on:
         type: string
 
 env:
-  # Fixed
-  BUILD_REPO: OasisLMF/build
-  BUILD_WORKSPACE: oasis_build
-  MODEL_WORKSPACE: ${{ github.workspace }}/piwind_workspace
-
-  # Input vars (defaults)
-  PIWIND_BRANCH:  ${{ github.ref_name }}
-  BUILD_BRANCH: 'master'
+  PIWIND_BRANCH:  ${{ github.ref }}
   MDK_BRANCH: 'develop'
   MDK_RUN: 'ri'
 
@@ -67,44 +62,52 @@ jobs:
       matrix:
         py-version: [3.8, 3.9]
     steps:
+      - name: Github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: Set input - piwind_branch
-        if: inputs.piwind_branch != ''
-        run: echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
-      - name: Set input - build_branch
-        if: inputs.build_branch != ''
-        run: echo "BUILD_BRANCH=${{ inputs.build_branch }}" >> $GITHUB_ENV
-      - name: Set input - mdk_branch
-        if: inputs.mdk_branch != ''
-        run: echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
-      - name: Set input - mdk_run
-        if: inputs.mdk_run_type != ''
-        run: echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
-
-      - name: Set Production mode for testing master branch (MDK)
-        if: |
-          github.event_name == 'push' &&
-          (env.MDK_BRANCH == 'master' || contains(env.MDK_BRANCH, 'hotfix'))
+      - name: Set inputs
         run: |
-          echo "BUILD_WORKER=false" >> $GITHUB_ENV
-          echo "PIWIND_BRANCH=master" >> $GITHUB_ENV
-      - name: Set Production mode for testing master branch (PiWind)
-        if: |
-          github.event_name == 'push' &&
-          (env.PIWIND_BRANCH == 'master' || contains(env.PIWIND_BRANCH, 'hotfix'))
-        run: |
-          echo "BUILD_WORKER=false" >> $GITHUB_ENV
-          echo "MDK_BRANCH=master" >> $GITHUB_ENV
+          [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+          [[ -z "${{ inputs.mdk_branch }}" ]] || echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
+          [[ -z "${{ inputs.mdk_run_type }}" ]] || echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
 
-      - name: clone build repository
-        uses: actions/checkout@v3
+      - name: Update Params (Push)
+        if: github.event_name == 'push'
+        run: |
+          echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "SCRIPT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+
+      - name: Update Params (Pull Request)
+        if: github.event_name == 'pull_request'
+        run: |
+          # Check if PR is from OasisPiWind / OasisLMF and set other target
+          if [[ -z "${{ inputs.piwind_branch }}" ]]; then
+            # Pull Request from PiWind (Set MDK)
+            echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          else
+            # Pull Request from OasisLMF (Set piwind)
+            echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          fi
+
+      - name: Fetch CLI test script
+        run: |
+          BASE_URL="https://raw.githubusercontent.com/OasisLMF/OasisPiWind/${{ env.SCRIPT_BRANCH }}/tests"
+          wget $BASE_URL/run_mdk.py
+          chmod +x run_mdk.py
+
+      - name: Setup Python ${{ matrix.py-version }}
+        uses: actions/setup-python@v4
         with:
-          repository: ${{ env.BUILD_REPO }}
-          ref: ${{ env.BUILD_BRANCH }}
-          path: ${{ env.BUILD_WORKSPACE }}
+          python-version: ${{ matrix.py-version }}
+
       - name: run MDK
-        working-directory: ${{ env.BUILD_WORKSPACE }}
         run: |
-          sed -i 's/FROM.*/FROM python:${{ matrix.py-version }}/g' docker/Dockerfile.mdk-tester
-          docker build -f docker/Dockerfile.mdk-tester -t mdk-runner:${{ matrix.py-version }} .
-          docker run mdk-runner:${{ matrix.py-version }} --model-repo-branch ${{ env.PIWIND_BRANCH}} --mdk-repo-branch ${{ env.MDK_BRANCH }} --model-run-mode ${{ env.MDK_RUN }}
+           ./run_mdk.py --model-repo-branch ${{ env.PIWIND_BRANCH}} \
+                              --mdk-repo-branch ${{ env.MDK_BRANCH }} \
+                              --model-run-mode ${{ env.MDK_RUN }}
