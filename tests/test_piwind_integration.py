@@ -363,7 +363,7 @@ class case_7(TestPiWind):
 
 
 class case_8(TestPiWind):
-    __test__ = False  # skip this test until updated
+    #__test__ = False  # skip this test until updated
     expected_files = glob.glob(f"{exp_case_0}/output/*")
 
     @classmethod
