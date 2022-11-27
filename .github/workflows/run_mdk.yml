@@ -85,14 +85,8 @@ jobs:
       - name: Update Params (Push)
         if: github.event_name == 'push'
         run: |
-          # Check if PR is from OasisPiWind / OasisLMF and set other target
-          if [[ -z "${{ inputs.piwind_branch }}" ]]; then
-            # Pull Request from PiWind (Set MDK)
-            echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
-          else
-            # Pull Request from OasisLMF (Set piwind)
-            echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
-          fi
+          echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Update Params (Pull Request)
         if: github.event_name == 'pull_request'
