@@ -1,0 +1,133 @@
+name: Build worker
+
+on:
+  workflow_dispatch:
+    inputs:
+      docker_push:
+        description: 'Push image to dockerhub and outout reference [true, false]'
+        required: false
+        type: boolean
+      from_image:
+        description: 'The worker image to build piwind [img:tag]'
+        required: false
+        default: 'coreoasis/model_worker:latest'
+      piwind_image:
+        description: 'Output image name and tag [img:tag]'
+        default: 'coreoasis/github-actions:piwind_worker-<sha>'
+        required: false
+      oasislmf_branch:
+        description: 'If set, pip install oasislmf branch [git ref]'
+        required: false
+        type: string
+      oasislmf_package:
+        description: 'If set, pip install local oasislmf package [pkg-filename.whl]'
+        required: false
+        type: string
+
+  workflow_call:
+    inputs:
+      docker_push:
+        description: 'Push image to dockerhub and outout reference [true, false]'
+        required: false
+        type: string
+      from_image:
+        description: 'The worker image to build piwind [img:tag]'
+        required: true
+        type: string
+      piwind_image:
+        description: 'Output image name and tag [img:tag]'
+        required: false
+        type: string
+      piwind_branch:
+        description: '(Remote call) branch to build piwind worker from'
+        required: false
+        type: string
+      oasislmf_branch:
+        description: 'If set, pip install oasislmf branch [git ref]'
+        required: false
+        type: string
+      oasislmf_package:
+        description: 'If set, pip install local oasislmf package [pkg-filename.whl]'
+        required: false
+        type: string
+
+    outputs:
+      piwind_image:
+        description:
+        value: ${{ jobs.build_piwind.outputs.image }}
+
+jobs:
+  build_piwind:
+    name: Build PiWind Worker
+    env:
+      PIWIND_IMAGE: 'coreoasis/github-actions:piwind_worker-${{ github.sha }}'
+      PIWIND_BRANCH: ${{ github.ref_name }}
+      DOCKERFILE: 'docker/Dockerfile.piwind_worker'
+      DOCKER_PUSH: 'false'
+      BUILD_PACKAGE: ''
+      BUILD_BRANCH: ''
+
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker_ref.outputs.image }}
+    steps:
+    - name: Set inputs
+      run: |
+        [[ -z "${{ inputs.docker_push }}" ]] || echo "DOCKER_PUSH=${{ inputs.docker_push }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.piwind_image }}" ]] || echo "PIWIND_IMAGE=${{ inputs.piwind_image }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+
+    - name: Set build arg
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
+      run: |
+        if [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]]; then
+          echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"
+          exit 1
+        fi
+        [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "BUILD_PACKAGE=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "BUILD_BRANCH=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
+
+    - name: Github context
+      run:   echo "$GITHUB_CONTEXT"
+      shell: bash
+      env:
+       GITHUB_CONTEXT: ${{ toJson(github) }}
+
+    - uses: actions/checkout@v3
+      with:
+        repository: OasisLMF/OasisPiWind
+        ref: ${{ env.PIWIND_BRANCH }}
+
+    - name: Login to Docker Hub
+      if: inputs.docker_push == 'true'
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: replace default image with input
+      run: sed -i "/FROM /c\FROM ${{ inputs.from_image }}" docker/Dockerfile.piwind_worker
+
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        file: ${{ env.DOCKERFILE }}
+        context: .
+        push: ${{ env.DOCKER_PUSH }}
+        tags: ${{ env.PIWIND_IMAGE }}
+        build-args: |
+          oasislmf_package=${{ env.BUILD_PACKAGE }}
+          oasislmf_branch=${{ env.BUILD_BRANCH }}
+
+    - name: Store image ref
+      if: inputs.docker_push == 'true'
+      id: docker_ref
+      run: |
+        echo "image=${{ env.PIWIND_IMAGE }}" >> $GITHUB_OUTPUT
+        # link image url to run summary
+        REPO=$(echo ${{ env.PIWIND_IMAGE }} | cut -d: -f1)
+        TAG=$(echo ${{ env.PIWIND_IMAGE }} | cut -d: -f2)
+        echo '#### Docker Image:  [${{ env.PIWIND_IMAGE }}](https://hub.docker.com/r/'$REPO'/tags?name='$TAG')' >> $GITHUB_STEP_SUMMARY

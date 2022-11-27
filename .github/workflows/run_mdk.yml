@@ -1,0 +1,113 @@
+#  ==============================================================================
+#  Workflow description:
+#    Runs the command line interface of OasisLMF package on the PiWind model.
+#    Multiple versions of python are tested and be extending via
+#    the `py-version` test matrix.
+#
+#    Loss results are not checked and the workflow should only fail on:
+#      1. Package installation failure when pip installing 'oasislmf'
+#      2. An invocation error or python exception when executing 'oasislmf model run ..'
+#      3. Empty files are produced (either input files / or results)
+#  ==============================================================================
+
+name: PiWind MDK
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - backports**
+  pull_request:
+    branches:
+      - master
+      - develop
+      - backports**
+
+  workflow_dispatch:
+    inputs:
+      mdk_branch:
+        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
+        required: true
+        default: develop
+      mdk_run_type:
+        description: 'Loss modes to test, options are one of "[gul, il, ri]"'
+        required: true
+        default: ri
+
+  workflow_call:
+    inputs:
+      mdk_branch:
+        description: 'Branch to test from Oasislmf repo - https://github.com/OasisLMF/OasisLMF'
+        required: true
+        type: string
+      mdk_run_type:
+        description: 'Loss modes to test, options are one of "[gul, il, ri]"'
+        required: true
+        type: string
+      piwind_branch:
+        description: 'Branch of PiWind to test (Only needed for remote triggers)'
+        required: true
+        type: string
+
+env:
+  PIWIND_BRANCH:  ${{ github.ref }}
+  MDK_BRANCH: 'develop'
+  MDK_RUN: 'ri'
+
+jobs:
+  run_mdk:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        py-version: [3.8, 3.9]
+    steps:
+      - name: Github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+
+      - name: Set inputs
+        run: |
+          [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+          [[ -z "${{ inputs.mdk_branch }}" ]] || echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
+          [[ -z "${{ inputs.mdk_run_type }}" ]] || echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
+
+      - name: Update Params (Push)
+        if: github.event_name == 'push'
+        run: |
+          echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "SCRIPT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+
+      - name: Update Params (Pull Request)
+        if: github.event_name == 'pull_request'
+        run: |
+          # Check if PR is from OasisPiWind / OasisLMF and set other target
+          if [[ -z "${{ inputs.piwind_branch }}" ]]; then
+            # Pull Request from PiWind (Set MDK)
+            echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          else
+            # Pull Request from OasisLMF (Set piwind)
+            echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          fi
+
+      - name: Fetch CLI test script
+        run: |
+          BASE_URL="https://raw.githubusercontent.com/OasisLMF/OasisPiWind/${{ env.SCRIPT_BRANCH }}/tests"
+          wget $BASE_URL/run_mdk.py
+          chmod +x run_mdk.py
+
+      - name: Setup Python ${{ matrix.py-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.py-version }}
+
+      - name: run MDK
+        run: |
+           ./run_mdk.py --model-repo-branch ${{ env.PIWIND_BRANCH}} \
+                              --mdk-repo-branch ${{ env.MDK_BRANCH }} \
+                              --model-run-mode ${{ env.MDK_RUN }}
