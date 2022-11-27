@@ -51,7 +51,6 @@ on:
         type: string
 
 env:
-  SCRIPT_BRANCH: 'master'
   PIWIND_BRANCH:  ${{ github.ref }}
   MDK_BRANCH: 'develop'
   MDK_RUN: 'ri'
@@ -69,13 +68,6 @@ jobs:
         env:
          GITHUB_CONTEXT: ${{ toJson(github) }}
 
-      - name: Fetch CLI test script
-        run: |
-          BASE_URL="https://raw.githubusercontent.com/OasisLMF/OasisPiWind/${{ env.SCRIPT_BRANCH }}/tests"
-          wget $BASE_URL/run_mdk.py
-          chmod +x run_mdk.py
-
-
       - name: Set inputs
         run: |
           [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
@@ -87,6 +79,7 @@ jobs:
         run: |
           echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "SCRIPT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Update Params (Pull Request)
         if: github.event_name == 'pull_request'
@@ -95,10 +88,18 @@ jobs:
           if [[ -z "${{ inputs.piwind_branch }}" ]]; then
             # Pull Request from PiWind (Set MDK)
             echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.github.ref_name }}" >> $GITHUB_ENV
           else
             # Pull Request from OasisLMF (Set piwind)
             echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
           fi
+
+      - name: Fetch CLI test script
+        run: |
+          BASE_URL="https://raw.githubusercontent.com/OasisLMF/OasisPiWind/${{ env.SCRIPT_BRANCH }}/tests"
+          wget $BASE_URL/run_mdk.py
+          chmod +x run_mdk.py
 
       - name: Setup Python ${{ matrix.py-version }}
         uses: actions/setup-python@v4
