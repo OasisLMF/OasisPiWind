@@ -1,0 +1,123 @@
+# workflow is for testing a version of Oasislmf vs piwind's
+# expected results:
+#     either:
+#       1) given an oasislmf package file "oasislmf_package" build
+#          a new model worker with that package and run tests
+#
+#       2) given an oasislmf git branch "oasislmf_branch", pip install
+#          the the oasislmf into a worker image and run tests
+
+
+name: PiWind Testing
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - backports**
+  pull_request:
+    branches:
+      - master
+      - develop
+      - backports**
+
+  workflow_dispatch:
+    inputs:
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: True
+        default: 'develop'
+        type: string
+
+  workflow_call:
+    inputs:
+      piwind_branch:
+        description: "PiWind branch to test results [git ref]"
+        required: True
+        type: string
+
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+        default: 'develop'
+        type: string
+
+      oasislmf_package:
+        description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+        default: ''
+        type: string
+
+      platform_version:
+        description: "Platform Version tag [semvar]"
+        required: false
+        default: ''
+        type: string
+
+env:
+  oasislmf_branch: 'develop'
+  oasislmf_package: ''
+  piwind_branch: ${{ github.ref }}
+  platform_tag: 'latest'
+
+jobs:
+  params:
+    name: Update params
+    runs-on: ubuntu-latest
+    outputs:
+      piwind_branch: ${{ steps.export_param.outputs.piwind_branch }}
+      oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
+      oasislmf_package: ${{ steps.export_param.outputs.oasislmf_package }}
+      platform_version: ${{ steps.export_param.outputs.platform_version }}
+
+    steps:
+    - name: Set Inputs
+      run: |
+        [[ -z "${{ inputs.piwind_branch }}" ]] || echo "piwind_branch=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.platform_version }}" ]] || echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_ENV
+
+    - name: Update params (Push)
+      if: github.event_name == 'push'
+      run: |
+        echo "oasislmf_branch=${{ github.ref_name }}" >> $GITHUB_ENV
+        echo "piwind_branch=${{ github.ref_name }}" >> $GITHUB_ENV
+
+    - name: Update params (Pull Request)
+      if: github.event_name == 'pull_request'
+      run: |
+        # Check if PR is from OasisPiWind / OasisLMF and set other target
+        if [[ -z "${{ inputs.piwind_branch }}" ]]; then
+          # Pull Request from PiWind (Set MDK)
+          echo "oasislmf_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+        else
+          # Pull Request from OasisLMF (Set piwind)
+          echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+        fi
+
+    - id: export_param
+      name: Output params
+      run: |
+        # If oasislmf package is given remove branch install option
+        if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
+            echo "oasislmf_package=" >> $GITHUB_ENV
+        fi
+        echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
+        echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
+        echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
+        echo "platform_version=${{ env.platform_version }}" >> $GITHUB_OUTPUT
+
+  test:
+    name: PiWind Integration
+    uses: ./.github/workflows/integration.yml
+    secrets: inherit
+    needs: [params]
+    with:
+      piwind_branch: ${{ needs.params.outputs.piwind_branch }}
+      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
+      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
+      worker_tag: ${{ needs.params.outputs.platform_version }}
+      server_tag: ${{ needs.params.outputs.platform_version }}
+      debug_mode: 0
