@@ -150,7 +150,7 @@ class TestPiWind(TestCase):
                     raise
             sleep = (backoff_factor * 2 ** r + random.uniform(0, 1))
             time.sleep(sleep)
-            x += 1
+            r += 1
 
     def _func_to_dataframe(self, filename):
         file_ext = pathlib.Path(filename).suffix[1:].lower()
