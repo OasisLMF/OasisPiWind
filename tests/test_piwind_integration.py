@@ -7,6 +7,8 @@ from requests.adapters import HTTPAdapter
 import tarfile
 import glob
 import pathlib
+import time
+import random
 
 from unittest import TestCase
 from parametrize import parametrize
@@ -100,9 +102,10 @@ class TestPiWind(TestCase):
         # clear any prev results
         if os.path.isfile(cls.results_tar):
             os.remove(cls.results_tar)
+
         # Find PiWind's model id
-        cls.model_id = cls.api.models.search(
-            {'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}).json().pop()['id']
+        cls.model_id = cls._wait_for_model(cls)
+
         # Create portfolio
         cls.portfolio_id = cls.api.upload_inputs(
             portfolio_name=cls.__name__,
@@ -131,6 +134,23 @@ class TestPiWind(TestCase):
         if cls.portfolio_id:
             cls.api.portfolios.delete(cls.portfolio_id)
 
+    def _get_model_id(self, model_search_dict={'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}):
+        return self.api.models.search(model_search_dict).json().pop()['id']
+
+    def _wait_for_model(self, retries = 5, backoff_factor = 1):
+        """ The tests can fail if the API is ready but the model has yet to add itself to the
+        list of available models, this func, retries with a backoff factor (in seconds)
+        """
+        r = 0
+        while True:
+            try:
+                return self._get_model_id(self)
+            except:
+                if r == retries:
+                    raise
+            sleep = (backoff_factor * 2 ** r + random.uniform(0, 1))
+            time.sleep(sleep)
+            x += 1
 
     def _func_to_dataframe(self, filename):
         file_ext = pathlib.Path(filename).suffix[1:].lower()
