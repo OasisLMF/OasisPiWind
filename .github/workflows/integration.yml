@@ -72,6 +72,10 @@ on:
         description: 'pass extra options to pytest'
         required: false
         type: string
+      storage_suffix:
+        description: 'Edit storage name'
+        required: false
+        type: string
 
 
       # If set build a piwind worker with / branch package
@@ -172,7 +176,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: docker-logs
+        name: docker-logs${{ inputs.storage_suffix }}
         path: ./docker_logs
         retention-days: 3
 
@@ -180,6 +184,6 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: output-tars
+        name: output-tars${{ inputs.storage_suffix }}
         path: ./tests/result/
         retention-days: 3
