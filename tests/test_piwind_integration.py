@@ -104,16 +104,16 @@ class TestPiWind(TestCase):
             os.remove(cls.results_tar)
 
         # Find PiWind's model id
-        cls.model_id = cls._wait_for_model(cls)
+        cls.model_id = cls._wait_for_func(cls, cls._get_model_id(cls))
 
         # Create portfolio
-        cls.portfolio_id = cls.api.upload_inputs(
+        cls.portfolio_id = cls._wait_for_func(cls, cls.api.upload_inputs(
             portfolio_name=cls.__name__,
             location_fp=cls.params.get('oed_location_csv'),
             accounts_fp=cls.params.get('oed_accounts_csv'),
             ri_info_fp=cls.params.get('oed_info_csv'),
             ri_scope_fp=cls.params.get('oed_scope_csv')
-        )['id']
+        )['id'] )
         # Create analysis
         cls.analysis_id = cls.api.create_analysis(
             portfolio_id=cls.portfolio_id,
@@ -137,14 +137,14 @@ class TestPiWind(TestCase):
     def _get_model_id(self, model_search_dict={'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}):
         return self.api.models.search(model_search_dict).json().pop()['id']
 
-    def _wait_for_model(self, retries = 5, backoff_factor = 1):
+    def _wait_for_func(self, func, retries = 5, backoff_factor = 1):
         """ The tests can fail if the API is ready but the model has yet to add itself to the
         list of available models, this func, retries with a backoff factor (in seconds)
         """
         r = 0
         while True:
             try:
-                return self._get_model_id(self)
+                return func
             except:
                 if r == retries:
                     raise
