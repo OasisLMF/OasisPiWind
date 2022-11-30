@@ -36,7 +36,7 @@ services:
     image: localstack-s3:latest
     build:
      context: .
-     dockerfile: Dockerfile.localstack-S3
+     dockerfile: Dockerfile.localstack-s3
     ports:
       - "4567-4599:4567-4599" 
 

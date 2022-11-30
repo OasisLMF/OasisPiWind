@@ -1,12 +1,12 @@
 # This workflow tests the PiWind expected results from 'tests/ci/expected'
-# its tested using 'tests/test_piwind_integration.py' which runs a set of 
-# checks using the OasisLMF API client 
+# its tested using 'tests/test_piwind_integration.py' which runs a set of
+# checks using the OasisLMF API client
 #  vs the docker-compose file `docker-compose.yml` and ENV variables
 #    SERVER_IMG: server image name "coreoasis/api_server"
-#    SERVER_TAG: server image tag  "latest" 
+#    SERVER_TAG: server image tag  "latest"
 #    WORKER_IMG: worker image name "coreoasis/model_worker"
 #    WORKER_TAG: worker image tag  ""latest
-#          
+#
 
 name: PiWind Integration
 
@@ -68,6 +68,11 @@ on:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
         type: string
+      pytest_opts:
+        description: 'pass extra options to pytest'
+        required: false
+        type: string
+
 
       # If set build a piwind worker with / branch package
       # otherwise use the default worker image
@@ -130,7 +135,7 @@ jobs:
       with:
         file: ${{ env.DOCKERFILE }}
         context: .
-        load: true    # needed for local testing       
+        load: true    # needed for local testing
         push: false
         tags: "${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }}"
         build-args: |
@@ -154,7 +159,7 @@ jobs:
         pip install -r tests/requirements.txt
 
     - name: Run Checks
-      run: pytest -v --use-running-containers
+      run: pytest -v --use-running-containers ${{ inputs.pytest_opts }}
 
     - name: Create docker logs
       if: always()
