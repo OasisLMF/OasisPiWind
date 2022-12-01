@@ -55,18 +55,32 @@ ORD_PQ = os.path.join(file_path, 'ci', 'ORD_parquet_analysis_settings.json')
 #"""Wait for the api from my_api_service to become responsive"""
 @pytest.fixture(scope='module')
 def wait_for_api(module_scoped_container_getter):
-
     request_session = requests.Session()
     retries = Retry(total=5,
                     backoff_factor=2,
-                    status_forcelist=[500, 502, 503, 504])
+                    status_forcelist=[500, 502, 503, 504, 404])
 
+    try:
+        localstack = module_scoped_container_getter.get("localstack-s3").network_info[0]
+    except:
+        localstack = None
+
+    # Wait for server
     request_session.mount('http://', HTTPAdapter(max_retries=retries))
-    service = module_scoped_container_getter.get("server").network_info[0]
-    api_url = f"http://{service.hostname}:{service.host_port}"
+    server = module_scoped_container_getter.get("server").network_info[0]
+    api_url = f"http://{server.hostname}:{server.host_port}"
     assert request_session.get(f"{api_url}/healthcheck/")
-    return APIClient(api_url=api_url)
 
+    # Wait for localstack (only if in compose file)
+    if localstack:
+        localstack_url = f"http://{localstack.hostname}:4572/example-bucket"
+        assert request_session.get(localstack_url)
+
+    # Wait for Model
+    oasis_client = APIClient(api_url=api_url)
+    oasis_client.api.mount('http://', HTTPAdapter(max_retries=retries))
+    assert oasis_client.models.get(1)
+    return oasis_client
 
 
 # Attach the oasislmf api client to each test class
@@ -104,17 +118,11 @@ class TestPiWind(TestCase):
             os.remove(cls.results_tar)
 
         # Find PiWind's model id
-        cls.model_id = cls._wait_for_model(cls)
+        cls.model_id = cls._get_model_id(cls)
 
         # Create portfolio
-        cls.portfolio_id = cls.api.upload_inputs(
-            portfolio_name=cls.__name__,
-            location_fp=cls.params.get('oed_location_csv'),
-            accounts_fp=cls.params.get('oed_accounts_csv'),
-            ri_info_fp=cls.params.get('oed_info_csv'),
-            ri_scope_fp=cls.params.get('oed_scope_csv')
-        )['id']
-        # Create analysis
+        cls.portfolio_id = cls._create_portfolio(cls)
+
         cls.analysis_id = cls.api.create_analysis(
             portfolio_id=cls.portfolio_id,
             model_id=cls.model_id,
@@ -137,20 +145,12 @@ class TestPiWind(TestCase):
     def _get_model_id(self, model_search_dict={'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}):
         return self.api.models.search(model_search_dict).json().pop()['id']
 
-    def _wait_for_model(self, retries = 5, backoff_factor = 1):
-        """ The tests can fail if the API is ready but the model has yet to add itself to the
-        list of available models, this func, retries with a backoff factor (in seconds)
-        """
-        r = 0
-        while True:
-            try:
-                return self._get_model_id(self)
-            except:
-                if r == retries:
-                    raise
-            sleep = (backoff_factor * 2 ** r + random.uniform(0, 1))
-            time.sleep(sleep)
-            r += 1
+    def _create_portfolio(self):
+        return self.api.upload_inputs(portfolio_name=self.__name__,
+                                      location_fp=self.params.get('oed_location_csv'),
+                                      accounts_fp=self.params.get('oed_accounts_csv'),
+                                      ri_info_fp=self.params.get('oed_info_csv'),
+                                      ri_scope_fp=self.params.get('oed_scope_csv'))['id']
 
     def _func_to_dataframe(self, filename):
         file_ext = pathlib.Path(filename).suffix[1:].lower()

@@ -1,0 +1,4 @@
+from localstack/localstack:0.11.0
+
+ENV SERVICES=s3
+COPY create-bucket.sh /docker-entrypoint-initaws.d/create-bucket.sh
