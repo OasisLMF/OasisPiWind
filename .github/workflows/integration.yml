@@ -92,6 +92,7 @@ on:
 jobs:
   check_results:
     runs-on: ubuntu-latest
+    name: Check Results
     env:
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       PIWIND_BRANCH: ${{ github.ref_name }}
@@ -169,8 +170,9 @@ jobs:
       if: always()
       run: |
          mkdir -p docker_logs
-         docker-compose ps | tail -n +3 | awk '{print $1}' | xargs -I CONTAINER bash -c "docker logs CONTAINER > docker_logs/CONTAINER.log"
-         docker-compose down
+         docker ps --format '{{.Names}}' | xargs -I CONTAINER bash -c "docker logs CONTAINER > docker_logs/CONTAINER.log"
+         docker ps -aq | xargs -r docker stop
+         docker ps -aq | xargs -r docker rm
 
     - name: Store docker logs
       if: always()
