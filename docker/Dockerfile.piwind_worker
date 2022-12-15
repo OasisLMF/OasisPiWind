@@ -1,22 +1,34 @@
 FROM coreoasis/model_worker:latest
 
 
-# Instal local MDK package in worker 
-#    'docker build --build-arg oasislmf_package=oasislmf-1.27.0rc3-py3-none-manylinux1_x86_64.whl ...'
-ARG oasislmf_package   
-
 # Install MDK from git branch
 #    'docker build --build-arg oasislmf_branch=develop ...'
 ARG oasislmf_branch
+
+# Instal local MDK package in worker
+#    'docker build --build-arg oasislmf_package=oasislmf-1.27.0rc3-py3-none-manylinux1_x86_64.whl ...'
+ARG oasislmf_package
+
+# Instal local ods_tools package
+#    'docker build --build-arg ods_tools_package=<package-name>.whl ...'
+ARG ods_package
+
 
 WORKDIR /home/worker
 COPY ./docker/oasislmf_deploy.json /home/worker/model/oasislmf.json
 COPY ./meta-data/model_settings.json /home/worker/model/meta-data/model_settings.json
 ENTRYPOINT ./startup.sh
 
-# Install MDK from package file (Optional)
+# Copy in packages if given
+COPY $ods_package ./
 COPY $oasislmf_package ./
-RUN test -z "$oasislmf_package" || pip install $oasislmf_package
+
+# Install MDK from package file (Optional)
+RUN test -z "$oasislmf_package" || pip install $oasislmf_package --force-reinstall
+
+# Install ods_tools from package file (Optional)
+RUN test -z "$ods_package" || pip install $ods_package --force-reinstall
+
 
 # install MDK from git branch (Optional)
 RUN if [ ! -z "$oasislmf_branch" ] ; then \
