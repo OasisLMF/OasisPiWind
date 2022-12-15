@@ -35,6 +35,9 @@ on:
       ods_branch:
         description: ''
         required: false
+      piwind_branch:
+        description: 'Branch of PiWind to test (Only needed for remote triggers)'
+        required: true
 
 
   workflow_call:
@@ -84,14 +87,12 @@ jobs:
          GITHUB_CONTEXT: ${{ toJson(github) }}
       - name: Set inputs
         run: |
-          if [[ ${{ github.event_name }} != 'workflow_dispatch' ]]; then
-            [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
-          fi
+          [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
           [[ -z "${{ inputs.mdk_branch }}" ]] || echo "MDK_BRANCH=${{ inputs.mdk_branch }}" >> $GITHUB_ENV
           [[ -z "${{ inputs.mdk_run_type }}" ]] || echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
 
       - name: Update Params (Push)
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' 
         run: |
           echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
