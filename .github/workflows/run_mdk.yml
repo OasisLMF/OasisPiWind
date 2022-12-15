@@ -70,8 +70,7 @@ jobs:
     uses: OasisLMF/ODS_OpenExposureData/.github/workflows/build.yml@master
     secrets: inherit
     with:
-      ods_branch: ${{ (github.event_name == 'workflow_call' || github.event_name == 'workflow_dispatch') && inputs.ods_branch || 'feature/oed_interface'}}
-      #ods_branch: ${{ (github.event_name == 'workflow_call' || github.event_name == 'workflow_dispatch') && inputs.ods_branch || 'develop'}}
+      ods_branch: ${{ (github.event_name == 'workflow_call' || github.event_name == 'workflow_dispatch') && inputs.ods_branch || 'develop'}}
 
   run_mdk:
     runs-on: ubuntu-latest
@@ -92,7 +91,7 @@ jobs:
           [[ -z "${{ inputs.mdk_run_type }}" ]] || echo "MDK_RUN=${{ inputs.mdk_run_type }}" >> $GITHUB_ENV
 
       - name: Update Params (Push)
-        if: github.event_name == 'push' 
+        if: github.event_name == 'push'
         run: |
           echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
