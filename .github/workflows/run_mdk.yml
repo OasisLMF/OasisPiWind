@@ -67,12 +67,14 @@ env:
 
 jobs:
   ods_tools:
+    if: inputs.ods_branch != ''
     uses: OasisLMF/ODS_OpenExposureData/.github/workflows/build.yml@master
     secrets: inherit
     with:
-      ods_branch: ${{ (github.event_name == 'workflow_call' || github.event_name == 'workflow_dispatch') && inputs.ods_branch || 'develop'}}
+      ods_branch: ${{ inputs.ods_branch }}
 
   run_mdk:
+    if: ${{ ! failure() || ! cancelled() }}
     runs-on: ubuntu-latest
     needs: ods_tools
     strategy:
