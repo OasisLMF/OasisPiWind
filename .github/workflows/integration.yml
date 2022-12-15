@@ -133,6 +133,20 @@ jobs:
           exit 1
         fi
 
+    - name: Download package (oasislmf)
+      if: inputs.oasislmf_package != ''
+      uses: actions/download-artifact@v3
+      with:
+        name: oasislmf-bin-pkg_linux
+        path: ${{ github.workspace }}/
+
+    - name: Download package (ods_tools)
+      if: inputs.ods_package != ''
+      uses: actions/download-artifact@v3
+      with:
+        name: bin_package
+        path: ${{ github.workspace }}/
+
     - name: Set up Docker Buildx
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != ''
       uses: docker/setup-buildx-action@v2

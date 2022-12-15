@@ -49,6 +49,12 @@ on:
         default: ''
         type: string
 
+      ods_package:
+        description: "ods_tools package build to test [pkg_filename]"
+        required: false
+        default: ''
+        type: string
+
       platform_version:
         description: "Platform Version tag [semvar]"
         required: false
@@ -69,6 +75,7 @@ jobs:
       piwind_branch: ${{ steps.export_param.outputs.piwind_branch }}
       oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
       oasislmf_package: ${{ steps.export_param.outputs.oasislmf_package }}
+      ods_package: ${{ steps.export_param.outputs.ods_package }}
       platform_version: ${{ steps.export_param.outputs.platform_version }}
 
     steps:
@@ -77,6 +84,7 @@ jobs:
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "piwind_branch=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        [[ -z "${{ inputs.ods_package }}" ]] || echo "ods_package=${{ inputs.ods_package }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.platform_version }}" ]] || echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_ENV
 
     - name: Update params (Push)
@@ -107,6 +115,7 @@ jobs:
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
+        echo "ods_package=${{ env.ods_package }}" >> $GITHUB_OUTPUT
         echo "platform_version=${{ env.platform_version }}" >> $GITHUB_OUTPUT
 
   test:
@@ -116,6 +125,7 @@ jobs:
     needs: [params]
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
+      ods_package: ${{ needs.params.outputs.ods_package }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
       worker_tag: ${{ needs.params.outputs.platform_version }}
