@@ -50,6 +50,7 @@ on:
       ods_branch:
         description: ''
         required: false
+        type: string
       piwind_branch:
         description: 'Branch of PiWind to test (Only needed for remote triggers)'
         required: true
