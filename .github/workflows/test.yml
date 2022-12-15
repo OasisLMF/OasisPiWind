@@ -7,7 +7,6 @@
 #       2) given an oasislmf git branch "oasislmf_branch", pip install
 #          the the oasislmf into a worker image and run tests
 
-
 name: PiWind Testing
 
 on:
