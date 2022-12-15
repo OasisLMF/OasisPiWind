@@ -27,7 +27,6 @@ on:
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: True
-        default: 'develop'
         type: string
 
   workflow_call:
@@ -40,25 +39,21 @@ on:
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: false
-        default: 'develop'
         type: string
 
       oasislmf_package:
         description: "Oasislmf package build to test [pkg_filename]"
         required: false
-        default: ''
         type: string
 
       ods_package:
         description: "ods_tools package build to test [pkg_filename]"
         required: false
-        default: ''
         type: string
 
       platform_version:
         description: "Platform Version tag [semvar]"
         required: false
-        default: ''
         type: string
 
 env:
