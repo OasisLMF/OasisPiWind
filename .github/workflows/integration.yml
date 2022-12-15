@@ -176,7 +176,7 @@ jobs:
     #    tags: "${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }}"
     #    build-args: |
     #      oasislmf_package=${{ inputs.oasislmf_package }}
-    #      ods_tools_package=${{ inputs.ods_package }}
+    #      ods_package=${{ inputs.ods_package }}
     #      oasislmf_branch=${{ inputs.oasislmf_branch }}
 
     - name: Override Worker image env
