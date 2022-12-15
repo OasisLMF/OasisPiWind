@@ -82,10 +82,10 @@ jobs:
     - name: Set Inputs
       run: |
         [[ -z "${{ inputs.piwind_branch }}" ]] || echo "piwind_branch=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
-        [[ -z "${{ inputs.oasislmf_branch }}" ]] || echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
-        [[ -z "${{ inputs.oasislmf_package }}" ]] || echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
-        [[ -z "${{ inputs.ods_package }}" ]] || echo "ods_package=${{ inputs.ods_package }}" >> $GITHUB_ENV
         [[ -z "${{ inputs.platform_version }}" ]] || echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_ENV
+        echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
+        echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        echo "ods_package=${{ inputs.ods_package }}" >> $GITHUB_ENV
 
     - name: Update params (Push)
       if: github.event_name == 'push'
