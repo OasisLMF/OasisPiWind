@@ -33,7 +33,7 @@ on:
         description: 'Loss modes to test, options are one of "[gul, il, ri]"'
         required: true
       ods_branch:
-        description: ''
+        description: 'Build ods_tools package before test [git ref]'
         required: false
       piwind_branch:
         description: 'Branch of PiWind to test (Only needed for remote triggers)'
@@ -51,7 +51,7 @@ on:
         required: true
         type: string
       ods_branch:
-        description: ''
+        description: 'Build ods_tools package before test [git ref]'
         required: false
         type: string
       piwind_branch:
