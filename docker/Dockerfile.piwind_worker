@@ -23,12 +23,11 @@ ENTRYPOINT ./startup.sh
 COPY $ods_package ./
 COPY $oasislmf_package ./
 
-# Install MDK from package file (Optional)
-RUN test -z "$oasislmf_package" || pip install $oasislmf_package --force-reinstall
-
 # Install ods_tools from package file (Optional)
 RUN test -z "$ods_package" || pip install $ods_package --force-reinstall
 
+# Install MDK from package file (Optional)
+RUN test -z "$oasislmf_package" || pip install $oasislmf_package --force-reinstall
 
 # install MDK from git branch (Optional)
 RUN if [ ! -z "$oasislmf_branch" ] ; then \
