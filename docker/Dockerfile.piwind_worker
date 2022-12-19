@@ -24,10 +24,16 @@ COPY $ods_package ./
 COPY $oasislmf_package ./
 
 # Install ods_tools from package file (Optional)
-RUN test -z "$ods_package" || pip install $ods_package --force-reinstall
+RUN if [ ! -z "$ods_package" ];  then \
+    pip uninstall ods-tools -y; \
+    pip install $ods_package; \
+  fi    
 
 # Install MDK from package file (Optional)
-RUN test -z "$oasislmf_package" || pip install $oasislmf_package --force-reinstall
+RUN if [ ! -z "$oasislmf_package" ]; then \ 
+    pip uninstall oasislmf -y; \
+    pip install $oasislmf_package; \
+  fi 
 
 # install MDK from git branch (Optional)
 RUN if [ ! -z "$oasislmf_branch" ] ; then \
