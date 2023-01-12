@@ -102,10 +102,11 @@ jobs:
     - id: export_param
       name: Output params
       run: |
-        # If oasislmf package is given remove branch install option
         if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
-            echo "oasislmf_package=" >> $GITHUB_ENV
+            # If oasislmf package is given remove branch install option
+            echo "oasislmf_branch=" >> $GITHUB_ENV
         fi
+
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
