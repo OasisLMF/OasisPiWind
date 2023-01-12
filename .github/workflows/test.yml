@@ -105,10 +105,11 @@ jobs:
         if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
             # If oasislmf package is given remove branch install option
             echo "oasislmf_branch=" >> $GITHUB_ENV
+        else
+            echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
         fi
 
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
-        echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
         echo "ods_package=${{ env.ods_package }}" >> $GITHUB_OUTPUT
         echo "platform_version=${{ env.platform_version }}" >> $GITHUB_OUTPUT
