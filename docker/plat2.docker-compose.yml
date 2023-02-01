@@ -29,9 +29,6 @@ services:
    restart: always
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
    command: ["./wsgi/run-wsgi.sh"]
-   build:
-     context: .
-     dockerfile: Dockerfile.api_server
    ports:
      - 8000:8000
      - 51970:51970
@@ -46,7 +43,6 @@ services:
      OASIS_ADMIN_PASS: password
    volumes:
      - filestore-OasisData:/shared-fs:rw
-     - ./src/server/oasisapi/analyses:/var/www/oasis/src/server/oasisapi/analyses
   server_websocket:
    restart: always
    image: coreoasis/api_server:dev
@@ -62,7 +58,6 @@ services:
      <<: *shared-env
    volumes:
      - filestore-OasisData:/shared-fs:rw
-     - ./src/server/oasisapi/analyses:/var/www/oasis/src/server/oasisapi/analyses
   worker-monitor:
    restart: always
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
@@ -75,7 +70,6 @@ services:
      <<: *shared-env
    volumes:
      - filestore-OasisData:/shared-fs:rw
-     - ./src/server/oasisapi/analyses:/var/www/oasis/src/server/oasisapi/analyses
   task-controller:
    restart: always
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
@@ -88,7 +82,6 @@ services:
      <<: *shared-env
    volumes:
      - filestore-OasisData:/shared-fs:rw
-     - ./src/server/oasisapi/analyses:/var/www/oasis/src/server/oasisapi/analyses
   celery-beat:
    restart: always
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
@@ -103,9 +96,6 @@ services:
   worker:
     restart: always
     image: ${WORKER_IMG:-coreoasis/model_worker}:${WORKER_TAG:-2.1.0-dev}
-    build:
-      context: .
-      dockerfile: Dockerfile.model_worker
     links:
      - celery-db
      - broker:mybroker
