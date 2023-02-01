@@ -25,13 +25,12 @@ x-shared-env: &shared-env
 x-volumes: &shared-volumes
   - filestore-OasisData:/shared-fs:rw
 services:
-  server_http:
+  server:
    restart: always
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
    command: ["./wsgi/run-wsgi.sh"]
    ports:
      - 8000:8000
-     - 51970:51970
    links:
      - server-db
      - celery-db
@@ -43,7 +42,7 @@ services:
      OASIS_ADMIN_PASS: password
    volumes:
      - filestore-OasisData:/shared-fs:rw
-  server_websocket:
+  websocket:
    restart: always
    image: coreoasis/api_server:dev
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
