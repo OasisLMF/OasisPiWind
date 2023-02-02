@@ -55,8 +55,9 @@ ORD_PQ = os.path.join(file_path, 'ci', 'ORD_parquet_analysis_settings.json')
 #"""Wait for the api from my_api_service to become responsive"""
 @pytest.fixture(scope='module')
 def wait_for_api(module_scoped_container_getter):
+    import ipdb; ipdb.set_trace()
     request_session = requests.Session()
-    retries = Retry(total=5,
+    retries = Retry(total=10,
                     backoff_factor=2,
                     status_forcelist=[500, 502, 503, 504, 404])
 
@@ -95,11 +96,12 @@ class TestPiWind(TestCase):
     expected_files = None
 
     @classmethod
-    def setUpClass(cls, expected_dir=None, results_tar=None, params=None):
+    def setUpClass(cls, expected_dir=None, input_tar=None, results_tar=None, params=None):
 
         # Default
         cls.expected_dir=None
-        cls.results_tar = f'{file_path}/result/base_case.tar.gz'
+        cls.input_tar = f'{file_path}/result/input_base_case.tar.gz'
+        cls.results_tar = f'{file_path}/result/loss_base_case.tar.gz'
         cls.params = {
             "analysis_settings_json": GUL,
             "oed_location_csv": f"{file_path}/inputs/SourceLocOEDPiWind10.csv",
@@ -110,6 +112,8 @@ class TestPiWind(TestCase):
             cls.expected_dir = expected_dir
         if results_tar:
             cls.results_tar = results_tar
+        if input_tar:
+            cls.input_tar = input_tar
         if params:
             cls.params = params
 
@@ -132,7 +136,8 @@ class TestPiWind(TestCase):
         # Run Loss analysis
         cls.api.run_generate(cls.analysis_id)
         cls.api.run_analysis(cls.analysis_id)
-        # Download output
+        # Download outputs
+        cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
         cls.api.analyses.output_file.download(cls.analysis_id, cls.results_tar)
 
     @classmethod
@@ -202,7 +207,8 @@ class ControlSet(TestPiWind):
     def setUpClass(cls):
         super(ControlSet, cls).setUpClass(
             expected_dir = exp_case_ctl,
-            results_tar = os.path.join(file_path, 'result', 'control-set.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_control-set.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_control-set.tar.gz'),
             params = {
                 "analysis_settings_json": RI,
                 'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
@@ -223,7 +229,8 @@ class case_0(TestPiWind):
     def setUpClass(cls):
         super(case_0, cls).setUpClass(
             expected_dir = exp_case_0,
-            results_tar = os.path.join(file_path, 'result', 'case_0.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_0.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_0.tar.gz'),
             params = {
                 "analysis_settings_json": GUL,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
@@ -242,7 +249,8 @@ class case_1(TestPiWind):
     def setUpClass(cls):
         super(case_1, cls).setUpClass(
             expected_dir = exp_case_1,
-            results_tar = os.path.join(file_path, 'result', 'case_1.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_1.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_1.tar.gz'),
             params = {
                 "analysis_settings_json": IL,
                 'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
@@ -262,7 +270,8 @@ class case_2(TestPiWind):
     def setUpClass(cls):
         super(case_2, cls).setUpClass(
             expected_dir = exp_case_2,
-            results_tar = os.path.join(file_path, 'result', 'case_2.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_2.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_2.tar.gz'),
             params = {
                 "analysis_settings_json": IL,
                 'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind.csv'),
@@ -282,7 +291,8 @@ class case_3(TestPiWind):
     def setUpClass(cls):
         super(case_3, cls).setUpClass(
             expected_dir = exp_case_3,
-            results_tar = os.path.join(file_path, 'result', 'case_3.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_3.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_3.tar.gz'),
             params = {
                 "analysis_settings_json": IL,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10Type2Ded.csv'),
@@ -302,7 +312,8 @@ class case_4(TestPiWind):
     def setUpClass(cls):
         super(case_4, cls).setUpClass(
             expected_dir = exp_case_4,
-            results_tar = os.path.join(file_path, 'result', 'case_4.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_4.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_4.tar.gz'),
             params = {
                 "analysis_settings_json": IL,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10Type2Lim.csv'),
@@ -322,7 +333,8 @@ class case_5(TestPiWind):
     def setUpClass(cls):
         super(case_5, cls).setUpClass(
             expected_dir = exp_case_5,
-            results_tar = os.path.join(file_path, 'result', 'case_5.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_5.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_5.tar.gz'),
             params = {
                 "analysis_settings_json": ORD_CSV,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
@@ -344,7 +356,8 @@ class case_6(TestPiWind):
     def setUpClass(cls):
         super(case_6, cls).setUpClass(
             expected_dir = exp_case_6,
-            results_tar = os.path.join(file_path, 'result', 'case_6.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_6.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_6.tar.gz'),
             params = {
                 "analysis_settings_json": ORD_PQ,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.parquet'),
@@ -366,7 +379,8 @@ class case_7(TestPiWind):
     def setUpClass(cls):
         super(case_7, cls).setUpClass(
             expected_dir = exp_case_7,
-            results_tar = os.path.join(file_path, 'result', 'case_7.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_7.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_7.tar.gz'),
             params = {
                 "analysis_settings_json": ORD_CSV,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.parquet'),
@@ -390,7 +404,8 @@ class case_8(TestPiWind):
     def setUpClass(cls):
         super(case_8, cls).setUpClass(
             expected_dir = exp_case_8,
-            results_tar = os.path.join(file_path, 'result', 'case_8.tar.gz'),
+            input_tar = os.path.join(file_path, 'result', 'input_case_8.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_8.tar.gz'),
             params = {
                 "analysis_settings_json": ORD_PQ,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.parquet'),
