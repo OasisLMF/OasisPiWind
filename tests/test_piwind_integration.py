@@ -55,9 +55,8 @@ ORD_PQ = os.path.join(file_path, 'ci', 'ORD_parquet_analysis_settings.json')
 #"""Wait for the api from my_api_service to become responsive"""
 @pytest.fixture(scope='module')
 def wait_for_api(module_scoped_container_getter):
-    import ipdb; ipdb.set_trace()
     request_session = requests.Session()
-    retries = Retry(total=10,
+    retries = Retry(total=6,
                     backoff_factor=2,
                     status_forcelist=[500, 502, 503, 504, 404])
 
