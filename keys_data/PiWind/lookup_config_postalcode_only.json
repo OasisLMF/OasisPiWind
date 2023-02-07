@@ -1,0 +1,41 @@
+{
+    "model": {
+        "supplier_id": "OasisLMF",
+        "model_id": "PiWind",
+        "model_version": "1.0.0.1"
+    },
+    "builtin_lookup_type": "new_lookup",
+    "keys_data_path": "./",
+    "step_definition": {
+        "peril":{
+            "type": "merge",
+            "columns": ["peril_id", "postalcode"],
+            "parameters": {
+                "file_path": "%%KEYS_DATA_PATH%%/areaperil_dict_postalcode.csv",
+                "id_columns": ["area_peril_id"]
+            }
+        },
+        "split_loc_perils_covered":{
+            "type": "split_loc_perils_covered" ,
+            "columns": ["locperilscovered"],
+            "parameters": {
+                "model_perils_covered": ["WTC", "WSS"]
+            }
+        },
+        "create_coverage_type": {
+            "type": "simple_pivot",
+            "parameters": {
+                "pivots": [{"new_cols": {"coverage_type": 1}},
+                           {"new_cols": {"coverage_type": 3}}]
+            }
+        },
+        "vulnerability": {
+            "type": "merge",
+            "columns": ["peril_id", "coverage_type", "occupancycode"],
+            "parameters": {"file_path": "%%KEYS_DATA_PATH%%/vulnerability_dict.csv",
+                           "id_columns": ["vulnerability_id"]
+                          }
+        }
+    },
+    "strategy": ["split_loc_perils_covered", "peril", "create_coverage_type", "vulnerability"]
+}
