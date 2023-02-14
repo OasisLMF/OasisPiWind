@@ -4,7 +4,7 @@
     "lookup_data_dir": "keys_data/PiWind",
     "model_data_dir": "model_data/PiWind",
     "model_settings_json": "meta-data/model_settings.json",
-    "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10Occ1000.csv",
+    "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10PostalCode.csv",
     "oed_accounts_csv": "tests/inputs/SourceAccOEDPiWind.csv",
     "oed_info_csv": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
     "oed_scope_csv": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
