@@ -1,4 +1,8 @@
 version: '3'
+volumes:
+  server-db-OasisData:
+  celery-db-OasisData:
+  filestore-OasisData:
 services:
   server:
    restart: always
@@ -11,7 +15,7 @@ services:
      - rabbit
    environment:
      - OASIS_ADMIN_USER=admin
-     - OASIS_ADMIN_PASS=password 
+     - OASIS_ADMIN_PASS=password
      - OASIS_DEBUG=1
      - OASIS_RABBIT_HOST=rabbit
      - OASIS_RABBIT_PORT=5672
@@ -29,9 +33,9 @@ services:
      - OASIS_CELERY_DB_NAME=celery
      - OASIS_CELERY_DB_PORT=3306
      - STARTUP_RUN_MIGRATIONS=true
+     - OASIS_DEBUG=True
    volumes:
-     - ./docker-shared-fs:/shared-fs:rw
-
+     - filestore-OasisData:/shared-fs:rw
   worker-monitor:
    restart: always
    image: coreoasis/api_server:$OASIS_PLATFORM_VERSION
@@ -58,8 +62,7 @@ services:
      - OASIS_CELERY_DB_NAME=celery
      - OASIS_CELERY_DB_PORT=3306
    volumes:
-     - ./docker-shared-fs:/shared-fs:rw
-
+     - filestore-OasisData:/shared-fs:rw
   server-db:
     restart: always
     image: mysql:8.0
@@ -71,8 +74,7 @@ services:
       - MYSQL_PASSWORD=oasis
       - MYSQL_DATABASE=oasis
     volumes:
-      - ./db-data/server:/var/lib/mysql/:rw
-
+      - /home/ubuntu/data/db-data/server:/var/lib/mysql:rw
   celery-db:
     restart: always
     image: mysql
@@ -84,29 +86,13 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=celery
     volumes:
-      - ./db-data/celery:/var/lib/mysql/:rw
-
+      - /home/ubuntu/data/db-data/celery:/var/lib/mysql:rw
   rabbit:
     restart: always
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8.14-management
     environment:
       - RABBITMQ_DEFAULT_USER=rabbit
       - RABBITMQ_DEFAULT_PASS=rabbit
     ports:
       - 5672:5672
       - 15672:15672
-
-  flower:
-    restart: always
-    image: iserko/docker-celery-flower 
-    ports:
-      - 5555:5555
-    environment:
-      - CELERY_BROKER_URL=amqp://rabbit:rabbit@rabbit:5672
-    entrypoint:
-      - flower 
-      - --port=5555 
-      - --broker_api=http://rabbit:rabbit@rabbit:15672/api/
-    links:
-     - celery-db
-     - rabbit
