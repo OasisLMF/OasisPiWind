@@ -1,5 +1,5 @@
-ARG worker_ver=latest
-FROM coreoasis/model_worker:$worker_ver
+ARG OASIS_WORKER_VERSION
+FROM coreoasis/model_worker:$OASIS_WORKER_VERSION
 
 WORKDIR /home/worker
 
