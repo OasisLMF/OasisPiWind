@@ -184,7 +184,7 @@ jobs:
       if: always()
       run: |
          mkdir -p docker_logs
-         docker ps --format '{{.Names}}' | xargs -I CONTAINER bash -c "docker logs CONTAINER > docker_logs/CONTAINER.log"
+         docker ps --format '{{.Names}}' | xargs -I CONTAINER bash -c "docker logs CONTAINER >> docker_logs/CONTAINER.log 2>&1"
          docker ps -aq | xargs -r docker stop
          docker ps -aq | xargs -r docker rm
 
