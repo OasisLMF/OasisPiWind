@@ -1,4 +1,5 @@
 {
+    "version": 3,
     "analysis_tag": "base_example",
     "source_tag": "MDK",
     "model_name_id": "PiWind",

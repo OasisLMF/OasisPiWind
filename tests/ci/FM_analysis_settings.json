@@ -1,4 +1,5 @@
 {
+    "version": 3,
     "source_tag": "piwind",
     "analysis_tag": "FM_integration_test",
     "exposure_location": "L:",
