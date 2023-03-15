@@ -1,0 +1,14 @@
+{
+    "analysis_settings_json": "analysis_settings.json",
+    "lookup_config_json": "keys_data/PiWind/lookup_config_postalcode_only.json",
+    "lookup_data_dir": "keys_data/PiWind",
+    "model_data_dir": "model_data/PiWind",
+    "model_settings_json": "meta-data/model_settings.json",
+    "oed_location_csv": "tests/inputs/SourceLoc2_LE131DX.csv",
+    "oed_accounts_csv": "tests/inputs/SourceAccOEDPiWind.csv",
+    "oed_info_csv": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
+    "oed_scope_csv": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
+    "ktools_alloc_rule_gul": 1,
+    "exposure_pre_analysis_module": "src/exposure_modification/exposure_pre_analysis_disagg.py",
+    "exposure_pre_analysis_setting_json": "tests/inputs/exposure_pre_analysis.json"
+}
