@@ -82,11 +82,11 @@ on:
         description: 'Edit storage name'
         required: false
         type: string
-      generate_results:  
+      generate_results:
         description: 'Instead of test, create new results [true, false]'
         required: false
         type: string
-    
+
 
       # If set build a piwind worker with / branch package
       # otherwise use the default worker image
@@ -198,21 +198,21 @@ jobs:
         pip install -r tests/requirements.txt
 
     - name: Run Checks
-      if: inputs.generate_results == ''
+      if: inputs.generate_results != 'true'
       run: pytest -v --use-running-containers ${{ inputs.pytest_opts }}
 
 
     # Don't allow results generation to break dev/master -->> only accept update as PR
     - name: Test branch for result gen
-      if: ${{ inputs.generate_results == 'true' && 
-        startsWith(github.ref_name , 'master') && 
-        startsWith(github.ref_name , 'develop') && 
+      if: ${{ inputs.generate_results == 'true' &&
+        startsWith(github.ref_name , 'master') &&
+        startsWith(github.ref_name , 'develop') &&
         startsWith(github.ref_name, 'backports/') }}
       run: |
         echo "Result generation must not be directly executed on protected branches, run on a PR branch"
         exit 1
 
-    - name: Create results 
+    - name: Create results
       if: inputs.generate_results == 'true'
       run: pytest -v --use-running-containers --generate-expected ${{ inputs.pytest_opts }}
 
@@ -229,13 +229,13 @@ jobs:
     - name: Commit results
       if: inputs.generate_results == 'true'
       run: |
-        git add tests/ci/expected/*
+        git add -A tests/ci/expected
         if [[ -z $(git status -s) ]]; then
-            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/${{ github.run_id }}'    
+            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/${{ github.run_id }}'
             git push
         else
             echo 'No changes detected'
-        fi    
+        fi
 
     - name: Create docker logs
       if: always()
