@@ -1,0 +1,34 @@
+name: PiWind Generate expected results
+
+on:
+  workflow_call:
+    inputs:
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+        type: string
+
+      ods_branch:
+        description: "Branch from ods-tools to test piwind with [git ref]"
+        required: false
+        type: string
+
+      platform_version:
+        description: "Platform Version tag [semvar]"
+        required: false
+        type: string
+
+jobs:
+  generate:
+    name: PiWind generate results
+    uses: ./.github/workflows/integration.yml
+    secrets: inherit
+    needs: [params]
+    with:
+      piwind_branch: 
+      ods_branch: ${{ inputs.ods_branch }}
+      oasislmf_branch: ${{ inputs.oasislmf_branch }}
+      worker_tag: ${{ inputs.platform_version }}
+      server_tag: ${{ inputs.platform_version }}
+      debug_mode: 0
+      generate_results: 'true'
