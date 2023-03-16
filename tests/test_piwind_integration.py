@@ -202,7 +202,6 @@ class TestPiWind(TestCase):
         if not self.generate_expected:
             return
         else:
-            import ipdb; ipdb.set_trace()
             with tarfile.open(self.input_tar) as tar:
                 tar.extractall(path=os.path.join(self.expected_dir, 'input'))
             with tarfile.open(self.results_tar) as tar:
