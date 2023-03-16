@@ -1,22 +1,19 @@
 name: PiWind Generate expected results
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: false
-        type: string
 
       ods_branch:
         description: "Branch from ods-tools to test piwind with [git ref]"
         required: false
-        type: string
 
       platform_version:
         description: "Platform Version tag [semvar]"
         required: false
-        type: string
 
 jobs:
   generate:
