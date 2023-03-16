@@ -1,4 +1,4 @@
-name: PiWind Generate expected results
+name: PiWind Generate results
 
 on:
   workflow_dispatch:
@@ -20,9 +20,8 @@ jobs:
     name: PiWind generate results
     uses: ./.github/workflows/integration.yml
     secrets: inherit
-    needs: [params]
     with:
-      piwind_branch: 
+      piwind_branch:
       ods_branch: ${{ inputs.ods_branch }}
       oasislmf_branch: ${{ inputs.oasislmf_branch }}
       worker_tag: ${{ inputs.platform_version }}
