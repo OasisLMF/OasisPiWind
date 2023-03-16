@@ -236,6 +236,8 @@ jobs:
         else
             echo 'No changes detected'
         fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.BUILD_GIT_TOKEN }}
 
     - name: Create docker logs
       if: always()
