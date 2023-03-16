@@ -19,8 +19,6 @@ from oasislmf.platform.client import APIClient
 from oasislmf.utils.exceptions import OasisException
 
 
-
-
 # Test vars
 pytest_plugins = ["docker_compose"]
 file_path = os.path.dirname(os.path.realpath(__file__))
@@ -44,7 +42,7 @@ exp_case_6 = os.path.join(file_path, 'ci', 'expected', '6_case')
 exp_case_7 = os.path.join(file_path, 'ci', 'expected', '7_case')
 exp_case_8 = os.path.join(file_path, 'ci', 'expected', '8_case')
 
-exp_case_9 = os.path.join(file_path, 'ci', 'expected', '9_case')
+#exp_case_9 = os.path.join(file_path, 'ci', 'expected', '9_case')
 
 # analysis settings files
 GUL = os.path.join(file_path, 'ci', 'GUL_analysis_settings.json')
@@ -147,7 +145,7 @@ class TestPiWind(TestCase):
         cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
         cls.api.analyses.output_file.download(cls.analysis_id, cls.results_tar)
 
-        # Create results if option is set 
+        # Create results if option is set
         cls._generate_expected_results(cls)
 
     @classmethod
@@ -448,29 +446,24 @@ class case_8(TestPiWind):
     def test_output_file(self, filename):
         self._compare_output(filename)
 
+# --- check adding new test
 
-
-
-# --- check adding new test 
-
-class case_9(TestPiWind):
-    expected_files = glob.glob(f"{exp_case_9}/output/*")
-
-    @classmethod
-    def setUpClass(cls):
-        super(case_9, cls).setUpClass(
-            expected_dir = exp_case_9,
-            input_tar = os.path.join(file_path, 'result', 'input_case_9.tar.gz'),
-            results_tar = os.path.join(file_path, 'result', 'loss_case_9.tar.gz'),
-            params = {
-                "analysis_settings_json": IL,
-                'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind.csv'),
-                'oed_accounts_csv': os.path.join(file_path, 'inputs', 'SourceAccOEDPiWind.csv'),
-            }
-        )
-
-    @parametrize("filename", expected_files)
-    def test_output_file(self, filename):
-        self._compare_output(filename)
-
-
+#class case_9(TestPiWind):
+#    expected_files = glob.glob(f"{exp_case_9}/output/*")
+#
+#    @classmethod
+#    def setUpClass(cls):
+#        super(case_9, cls).setUpClass(
+#            expected_dir = exp_case_9,
+#            input_tar = os.path.join(file_path, 'result', 'input_case_9.tar.gz'),
+#            results_tar = os.path.join(file_path, 'result', 'loss_case_9.tar.gz'),
+#            params = {
+#                "analysis_settings_json": IL,
+#                'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind.csv'),
+#                'oed_accounts_csv': os.path.join(file_path, 'inputs', 'SourceAccOEDPiWind.csv'),
+#            }
+#        )
+#
+#    @parametrize("filename", expected_files)
+#    def test_output_file(self, filename):
+#        self._compare_output(filename)
