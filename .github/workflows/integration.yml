@@ -121,6 +121,16 @@ jobs:
       DEBUG: 1
 
     steps:
+    # Don't allow results generation to break dev/master -->> only accept update as PR
+    - name: Test branch for result gen
+      if: ${{ inputs.generate_results == 'true' &&
+        startsWith(github.ref_name , 'master') &&
+        startsWith(github.ref_name , 'develop') &&
+        startsWith(github.ref_name, 'backports/') }}
+      run: |
+        echo "Result generation must not be directly executed on protected branches, run on a PR branch"
+        exit 1
+
     - name: Set inputs
       run: |
        [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
@@ -200,17 +210,6 @@ jobs:
     - name: Run Checks
       if: inputs.generate_results != 'true'
       run: pytest -v --use-running-containers ${{ inputs.pytest_opts }}
-
-
-    # Don't allow results generation to break dev/master -->> only accept update as PR
-    - name: Test branch for result gen
-      if: ${{ inputs.generate_results == 'true' &&
-        startsWith(github.ref_name , 'master') &&
-        startsWith(github.ref_name , 'develop') &&
-        startsWith(github.ref_name, 'backports/') }}
-      run: |
-        echo "Result generation must not be directly executed on protected branches, run on a PR branch"
-        exit 1
 
     - name: Create results
       if: inputs.generate_results == 'true'
