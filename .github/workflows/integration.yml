@@ -110,7 +110,7 @@ on:
 jobs:
   check_results:
     runs-on: ubuntu-latest
-    name: Check Results
+    name: Run Pytest
     env:
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       PIWIND_BRANCH: ${{ github.ref_name }}
