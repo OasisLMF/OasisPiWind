@@ -229,8 +229,9 @@ jobs:
       if: inputs.generate_results == 'true'
       run: |
         git add -A tests/ci/expected
-        if [[ -z $(git status -s) ]]; then
-            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/${{ github.run_id }}'
+        git status
+        if [[ ! -z $(git status -s) ]]; then
+            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
             git push
         else
             echo 'No changes detected'
