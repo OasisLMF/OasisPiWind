@@ -79,7 +79,6 @@ class case_2(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_2,
             params = {
                 "analysis_settings_json": IL,
                 'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind.csv'),
@@ -99,7 +98,6 @@ class case_3(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_3,
             params = {
                 "analysis_settings_json": IL,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10Type2Ded.csv'),
@@ -119,7 +117,6 @@ class case_4(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_4,
             params = {
                 "analysis_settings_json": IL,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10Type2Lim.csv'),
@@ -139,7 +136,6 @@ class case_5(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_5,
             params = {
                 "analysis_settings_json": ORD_CSV,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
@@ -161,7 +157,6 @@ class case_6(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_6,
             params = {
                 "analysis_settings_json": ORD_PQ,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.parquet'),
@@ -183,7 +178,6 @@ class case_7(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_7,
             params = {
                 "analysis_settings_json": ORD_CSV,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.parquet'),
@@ -205,7 +199,6 @@ class case_8(TestOasisModel):
     @classmethod
     def setUpClass(cls):
         super().setUpClass(
-            expected_dir = exp_case_8,
             params = {
                 "analysis_settings_json": ORD_PQ,
                 "oed_location_csv": os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.parquet'),
