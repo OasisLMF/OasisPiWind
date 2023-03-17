@@ -346,7 +346,7 @@ class TestOasisModel(TestCase):
         self.assertTrue(downloaded_settings)
 
     def test_loss_output_generated(self):
-            """
+        """
         Test if the loss output has been generated and asserts that the `analyses/{id}`
         has the status 'RUN_COMPLETED'
 
