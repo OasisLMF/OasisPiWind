@@ -170,7 +170,7 @@ class TestOasisModel(TestCase):
         cls.base_dir = os.path.dirname(os.path.realpath(__file__))
         cls.input_tar = f'{cls.base_dir}/result/input_{cls.__name__}.tar.gz'
         cls.results_tar = f'{cls.base_dir}/result/loss_{cls.__name__}.tar.gz'
-        cls.expected_dir = cls.exp_dir
+        cls.expected_dir = getattr(cls, 'exp_dir', None)
         cls.params = {}
 
         # SubClass vars
@@ -186,6 +186,10 @@ class TestOasisModel(TestCase):
         # clear any prev results
         if os.path.isfile(cls.results_tar):
             os.remove(cls.results_tar)
+
+        # skip run if paramters are missing
+        if not cls.params:
+            pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")    
 
         # Find PiWind's model id
         cls.model_id = cls._get_model_id(cls)
