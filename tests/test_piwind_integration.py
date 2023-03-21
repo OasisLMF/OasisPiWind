@@ -16,6 +16,9 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 
 from oasislmf.platform.client import APIClient
+from oasislmf.utils.exceptions import OasisException
+
+
 
 
 # Test vars
@@ -40,6 +43,8 @@ exp_case_5 = os.path.join(file_path, 'ci', 'expected', '5_case')
 exp_case_6 = os.path.join(file_path, 'ci', 'expected', '6_case')
 exp_case_7 = os.path.join(file_path, 'ci', 'expected', '7_case')
 exp_case_8 = os.path.join(file_path, 'ci', 'expected', '8_case')
+
+exp_case_9 = os.path.join(file_path, 'ci', 'expected', '9_case')
 
 # analysis settings files
 GUL = os.path.join(file_path, 'ci', 'GUL_analysis_settings.json')
@@ -88,6 +93,7 @@ def wait_for_api(module_scoped_container_getter):
 @pytest.fixture(autouse=True, scope='class')
 def _class_server_conn(request, wait_for_api):
     request.cls.api = wait_for_api
+    request.cls.generate_expected = request.config.getoption('--generate-expected', False)
 
 
 class TestPiWind(TestCase):
@@ -132,12 +138,17 @@ class TestPiWind(TestCase):
             analysis_name=cls.__name__,
             analysis_settings_fp=cls.params.get('analysis_settings_json')
         )['id']
+
         # Run Loss analysis
         cls.api.run_generate(cls.analysis_id)
         cls.api.run_analysis(cls.analysis_id)
+
         # Download outputs
         cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
         cls.api.analyses.output_file.download(cls.analysis_id, cls.results_tar)
+
+        # Create results if option is set 
+        cls._generate_expected_results(cls)
 
     @classmethod
     def tearDownClass(cls):
@@ -180,15 +191,35 @@ class TestPiWind(TestCase):
         return df
 
     def _compare_output(self, filename):
+        if self.generate_expected:
+            pytest.skip(f"Skipping file check, generate_expected={self.generate_expected}")
+
         df_result = self._result_from_tar(filename)
         df_expect = self._expect_from_dir(filename)
         assert_frame_equal(df_result, df_expect)
+
+    def _generate_expected_results(self):
+        if not self.generate_expected:
+            return
+        else:
+            import ipdb; ipdb.set_trace()
+            with tarfile.open(self.input_tar) as tar:
+                tar.extractall(path=os.path.join(self.expected_dir, 'input'))
+            with tarfile.open(self.results_tar) as tar:
+                tar.extractall(path=self.expected_dir)
+
+    def test_model_settings(self):
+        downloaded_settings = self.api.models.settings.get(self.model_id).json()
+        self.assertTrue(downloaded_settings)
 
     def test_loss_output_generated(self):
         self.assertEqual(self.api.analyses.status(self.analysis_id), 'RUN_COMPLETED')
         assert(os.path.isfile(self.results_tar))
 
     def test_for_missing_files(self):
+        if self.generate_expected:
+            pytest.skip(f"Skipping file check, generate_expected={self.generate_expected}")
+
         # check that all expected files are there in the output tar
         if self.expected_dir:
             with tarfile.open(self.results_tar) as tar:
@@ -417,3 +448,30 @@ class case_8(TestPiWind):
     @parametrize("filename", expected_files)
     def test_output_file(self, filename):
         self._compare_output(filename)
+
+
+
+
+# --- check adding new test 
+
+class case_9(TestPiWind):
+    expected_files = glob.glob(f"{exp_case_9}/output/*")
+
+    @classmethod
+    def setUpClass(cls):
+        super(case_9, cls).setUpClass(
+            expected_dir = exp_case_9,
+            input_tar = os.path.join(file_path, 'result', 'input_case_9.tar.gz'),
+            results_tar = os.path.join(file_path, 'result', 'loss_case_9.tar.gz'),
+            params = {
+                "analysis_settings_json": IL,
+                'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind.csv'),
+                'oed_accounts_csv': os.path.join(file_path, 'inputs', 'SourceAccOEDPiWind.csv'),
+            }
+        )
+
+    @parametrize("filename", expected_files)
+    def test_output_file(self, filename):
+        self._compare_output(filename)
+
+

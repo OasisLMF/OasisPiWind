@@ -32,7 +32,7 @@ on:
       debug_mode:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
-        default: '0'
+        default: '1'
 
       # If set build a piwind worker with / branch package
       # otherwise use the default worker image
@@ -41,6 +41,9 @@ on:
         required: false
       oasislmf_package:
         description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+      ods_branch:
+        description: "ods_tools package build to test [pkg_filename]"
         required: false
       ods_package:
         description: "ods_tools package build to test [pkg_filename]"
@@ -79,6 +82,10 @@ on:
         description: 'Edit storage name'
         required: false
         type: string
+      generate_results:
+        description: 'Instead of test, create new results [true, false]'
+        required: false
+        type: string
 
 
       # If set build a piwind worker with / branch package
@@ -89,6 +96,10 @@ on:
         type: string
       oasislmf_package:
         description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+        type: string
+      ods_branch:
+        description: "Branch from ods-tools to test piwind with [git ref]"
         required: false
         type: string
       ods_package:
@@ -107,7 +118,7 @@ jobs:
       SERVER_TAG: 'latest'
       WORKER_IMG: 'coreoasis/model_worker'
       WORKER_TAG: 'latest'
-      DEBUG: 0
+      DEBUG: 1
 
     steps:
     - name: Set inputs
@@ -125,11 +136,19 @@ jobs:
         repository: OasisLMF/OasisPiWind
         ref: ${{ env.PIWIND_BRANCH }}
 
-    - name: Set build arg
-      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != ''
+    - name: check oasislmf build arg
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != ''
       run: |
         if [[ -n "${{ inputs.oasislmf_package }}" && -n "${{ inputs.oasislmf_branch }}" ]]; then
           echo "set either 'oasislmf_package' or 'oasislmf_branch' not both"
+          exit 1
+        fi
+
+    - name: check ods-tools build arg
+      if: inputs.ods_package != '' || inputs.ods_branch != ''
+      run: |
+        if [[ -n "${{ inputs.ods_package }}" && -n "${{ inputs.ods_branch }}" ]]; then
+          echo "set either 'ods_package' or 'ods_branch' not both"
           exit 1
         fi
 
@@ -152,13 +171,14 @@ jobs:
       run: sed -i "/FROM /c\FROM ${{ env.WORKER_IMG }}:${{ env.WORKER_TAG }}" ${{ env.DOCKERFILE }}
 
     - name: Docker Build
-      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != ''
+      if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != '' || inputs.ods_branch != ''
       run: |
         docker build -f ${{ env.DOCKERFILE }} \
                      --pull \
                      --build-arg oasislmf_package=${{ inputs.oasislmf_package }} \
-                     --build-arg ods_package=${{ inputs.ods_package }} \
                      --build-arg oasislmf_branch=${{ inputs.oasislmf_branch }} \
+                     --build-arg ods_package=${{ inputs.ods_package }} \
+                     --build-arg ods_branch=${{ inputs.ods_branch }} \
                      -t ${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }} .
 
     - name: Override Worker image env
@@ -178,13 +198,52 @@ jobs:
         pip install -r tests/requirements.txt
 
     - name: Run Checks
+      if: inputs.generate_results != 'true'
       run: pytest -v --use-running-containers ${{ inputs.pytest_opts }}
+
+
+    # Don't allow results generation to break dev/master -->> only accept update as PR
+    - name: Test branch for result gen
+      if: ${{ inputs.generate_results == 'true' &&
+        startsWith(github.ref_name , 'master') &&
+        startsWith(github.ref_name , 'develop') &&
+        startsWith(github.ref_name, 'backports/') }}
+      run: |
+        echo "Result generation must not be directly executed on protected branches, run on a PR branch"
+        exit 1
+
+    - name: Create results
+      if: inputs.generate_results == 'true'
+      run: pytest -v --use-running-containers --generate-expected ${{ inputs.pytest_opts }}
+
+    - name: Setup github user
+      if: inputs.generate_results == 'true'
+      run: |
+        git config --global user.email ${{ env.GIT_EMAIL }}
+        git config --global user.name ${{ env.GIT_USERNAME }}
+        git config --global pull.ff only
+      env:
+        GIT_EMAIL: ${{ secrets.BUILD_GIT_EMAIL }}
+        GIT_USERNAME: ${{ secrets.BUILD_GIT_USERNAME }}
+
+    - name: Commit results
+      if: inputs.generate_results == 'true'
+      run: |
+        git add -A tests/ci/expected
+        if [[ -z $(git status -s) ]]; then
+            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/${{ github.run_id }}'
+            git push
+        else
+            echo 'No changes detected'
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.BUILD_GIT_TOKEN }}
 
     - name: Create docker logs
       if: always()
       run: |
          mkdir -p docker_logs
-         docker ps --format '{{.Names}}' | xargs -I CONTAINER bash -c "docker logs CONTAINER > docker_logs/CONTAINER.log"
+         docker ps --format '{{.Names}}' | xargs -I CONTAINER bash -c "docker logs CONTAINER >> docker_logs/CONTAINER.log 2>&1"
          docker ps -aq | xargs -r docker stop
          docker ps -aq | xargs -r docker rm
 
