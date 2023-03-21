@@ -110,7 +110,7 @@ on:
 jobs:
   check_results:
     runs-on: ubuntu-latest
-    name: Check Results
+    name: Run Pytest
     env:
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       PIWIND_BRANCH: ${{ github.ref_name }}
@@ -121,6 +121,16 @@ jobs:
       DEBUG: 1
 
     steps:
+    # Don't allow results generation to break dev/master -->> only accept update as PR
+    - name: Test branch for result gen
+      if: ${{ inputs.generate_results == 'true' &&
+        startsWith(github.ref_name , 'master') &&
+        startsWith(github.ref_name , 'develop') &&
+        startsWith(github.ref_name, 'backports/') }}
+      run: |
+        echo "Result generation must not be directly executed on protected branches, run on a PR branch"
+        exit 1
+
     - name: Set inputs
       run: |
        [[ -z "${{ inputs.piwind_branch }}" ]] || echo "PIWIND_BRANCH=${{ inputs.piwind_branch }}" >> $GITHUB_ENV
@@ -201,17 +211,6 @@ jobs:
       if: inputs.generate_results != 'true'
       run: pytest -v --use-running-containers ${{ inputs.pytest_opts }}
 
-
-    # Don't allow results generation to break dev/master -->> only accept update as PR
-    - name: Test branch for result gen
-      if: ${{ inputs.generate_results == 'true' &&
-        startsWith(github.ref_name , 'master') &&
-        startsWith(github.ref_name , 'develop') &&
-        startsWith(github.ref_name, 'backports/') }}
-      run: |
-        echo "Result generation must not be directly executed on protected branches, run on a PR branch"
-        exit 1
-
     - name: Create results
       if: inputs.generate_results == 'true'
       run: pytest -v --use-running-containers --generate-expected ${{ inputs.pytest_opts }}
@@ -230,8 +229,9 @@ jobs:
       if: inputs.generate_results == 'true'
       run: |
         git add -A tests/ci/expected
-        if [[ -z $(git status -s) ]]; then
-            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/${{ github.run_id }}'
+        git status
+        if [[ ! -z $(git status -s) ]]; then
+            git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
             git push
         else
             echo 'No changes detected'
