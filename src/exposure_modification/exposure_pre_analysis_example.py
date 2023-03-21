@@ -1,7 +1,9 @@
 class ExposurePreAnalysis:
     """
-    Example of custum module called by oasislmf/model_preparation/ExposurePreAnalysis.py
-    Exposure pre analysis modules need to modify exposure_data object (mostly probably the dataframes) to have an effect
+    Template for a custom exposure pre-analysis module.
+    This module is called by ExposurePreAnalysis() in oasislmf/computation/hooks/pre_analysis.py to produce customized outputs.
+    In order to have an effect, customized exposure pre-analysis modules need to modify the `exposure_data` instance member
+    (mostly typically, its dataframes).
     """
 
     def __init__(self, exposure_data, exposure_pre_analysis_setting, **kwargs):
@@ -10,5 +12,5 @@ class ExposurePreAnalysis:
 
     def run(self):
         """example of adding a new column to exposure_data.location.dataframe"""
-        panda_df= self.exposure_data.location.dataframe
-        panda_df['BuildingTIV_new'] = panda_df['BuildingTIV'] * self.exposure_pre_analysis_setting['BuildingTIV_multiplyer']
+        df = self.exposure_data.location.dataframe
+        df['BuildingTIV_new'] = df['BuildingTIV'] * self.exposure_pre_analysis_setting['BuildingTIV_multiplyer']
