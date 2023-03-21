@@ -1,9 +1,26 @@
 import pandas as pd
+
 counter_dict = {}
+
+# Function to make LocNumbers unique when disaggregated to multiple rows
+
+def update_loc_number(row):
+
+    global counter_dict
+    loc_number_value = row['LocNumber']
+
+    if loc_number_value not in counter_dict:
+        counter_dict[loc_number_value] = 1
+    else:
+        counter_dict[loc_number_value] += 1
+
+    row['LocNumber'] = f'{loc_number_value}_{counter_dict[loc_number_value]}'
+
+    return row
 
 class ExposurePreAnalysis:
     """
-    Example of custum module called by oasislmf/model_preparation/ExposurePreAnalysis.py
+    Example of custom module called by oasislmf/model_preparation/ExposurePreAnalysis.py
 
     This module splits aggregate location records (NumberOfBuildings>1) where OccupancyCode=1000 (unknown) into many rows and proportionally
     allocates TIV and NumberOfBuildings to specific OccupancyCode's, where this data exists in the reference dataset (OEDLocBuildEnv) representing 
@@ -13,7 +30,7 @@ class ExposurePreAnalysis:
     the partially disaggregated risks can be split equally into individual buildings during the model execution.
 
     This routine enables the model provider to augment the source location data with information that is important for the model (to make the best choice of
-    vulnerability functions) using known built environment data in a standard format, without performing a full disaggregation to individual building level, 
+    vulnerability functions) using known built environment data in OED location format, without performing a full disaggregation to individual building level 
     pre-analysis. 
     """
 
@@ -22,22 +39,6 @@ class ExposurePreAnalysis:
         self.exposure_data = exposure_data
         self.exposure_pre_analysis_setting = exposure_pre_analysis_setting
 
-    
-
-    # Function to make LocNumbers unique when disaggregated to multiple rows
-    def update_loc_number(row):
-
-        global counter_dict
-        loc_number_value = row['LocNumber']
-
-        if loc_number_value not in counter_dict:
-            counter_dict[loc_number_value] = 1
-        else:
-            counter_dict[loc_number_value] += 1
-
-        row['LocNumber'] = f'{loc_number_value}_{counter_dict[loc_number_value]}'
-
-        return row
 
     def run(self):
 
@@ -102,7 +103,7 @@ class ExposurePreAnalysis:
         df_source_disagg['NumberOfBuildings_new']= df_source_disagg['NumberOfBuildings_new'].round(decimals=0).astype(int) # ! Need to make sure sum adds up to original NumberOfBuildings
     
         # Reindex LocNumbers to be unique 'LocNumber_counter'
-        # df_source_disagg = df_source_disagg.apply(update_loc_number,axis=1) Need to make this work
+        df_source_disagg = df_source_disagg.apply(update_loc_number,axis=1) 
 
         # Tidy up and set the original OED field values to use the calculated values. Use FlexiLoc fields for the original values which we don't want to use for disaggregated locations.
         df_source_disagg = df_source_disagg.drop(columns=['BuildingTIV_Occ','ContentsTIV_Occ','OtherTIV_Occ', 'BITIV_Occ', 'NumberOfBuildings_Occ',
