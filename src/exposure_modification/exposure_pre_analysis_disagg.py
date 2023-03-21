@@ -1,4 +1,5 @@
 import pandas as pd
+counter_dict = {}
 
 class ExposurePreAnalysis:
     """
@@ -16,12 +17,30 @@ class ExposurePreAnalysis:
     pre-analysis. 
     """
 
+
     def __init__(self, exposure_data, exposure_pre_analysis_setting, **kwargs):
         self.exposure_data = exposure_data
         self.exposure_pre_analysis_setting = exposure_pre_analysis_setting
 
+    
+
+    # Function to make LocNumbers unique when disaggregated to multiple rows
+    def update_loc_number(row):
+
+        global counter_dict
+        loc_number_value = row['LocNumber']
+
+        if loc_number_value not in counter_dict:
+            counter_dict[loc_number_value] = 1
+        else:
+            counter_dict[loc_number_value] += 1
+
+        row['LocNumber'] = f'{loc_number_value}_{counter_dict[loc_number_value]}'
+
+        return row
+
     def run(self):
-        """example of adding a new column to exposure_data.location.dataframe"""
+
         panda_df = self.exposure_data.location.dataframe
         df_built_env = pd.read_csv('src/exposure_modification/OEDLocBuiltEnv.csv')
 
@@ -81,6 +100,9 @@ class ExposurePreAnalysis:
         df_source_disagg['BITIV_new']= df_source_disagg['BITIV'] * df_source_disagg['BITIV_weight']
         df_source_disagg['NumberOfBuildings_new']= df_source_disagg['NumberOfBuildings'] * df_source_disagg['NumberOfBuildings_weight']
         df_source_disagg['NumberOfBuildings_new']= df_source_disagg['NumberOfBuildings_new'].round(decimals=0).astype(int) # ! Need to make sure sum adds up to original NumberOfBuildings
+    
+        # Reindex LocNumbers to be unique 'LocNumber_counter'
+        # df_source_disagg = df_source_disagg.apply(update_loc_number,axis=1) Need to make this work
 
         # Tidy up and set the original OED field values to use the calculated values. Use FlexiLoc fields for the original values which we don't want to use for disaggregated locations.
         df_source_disagg = df_source_disagg.drop(columns=['BuildingTIV_Occ','ContentsTIV_Occ','OtherTIV_Occ', 'BITIV_Occ', 'NumberOfBuildings_Occ',
@@ -103,4 +125,4 @@ class ExposurePreAnalysis:
         df_output = pd.concat([df_copy, df_source_disagg], axis=0,ignore_index=True,join='inner')
 
         # df_output to be written out to location.csv
-        panda_df = df_output.copy()
+        self.exposure_data.location.dataframe = df_output
