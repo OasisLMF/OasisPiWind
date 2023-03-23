@@ -1,0 +1,7 @@
+PortNumber,AccNumber,LocNumber,CountryCode,Latitude,Longitude,StreetAddress,PostalCode,OccupancyCode,ConstructionCode,LocPerilsCovered,BuildingTIV,OtherTIV,ContentsTIV,BITIV,LocCurrency,OEDVersion,NumberOfBuildings,IsAggregate
+AggregateCases,AggregateCases,Case1,GB,,,,LE13 0SA,1050,5000,WW1,150000,0,37500,15000,GBP,2.0.0,1,0
+AggregateCases,AggregateCases,Case2,GB,,,,LE13 0AA,1050,5000,WW1,4150000,0,1037500,415000,GBP,2.0.0,33,1
+AggregateCases,AggregateCases,Case3,GB,,,,LE13 0DB,1150,5000,WW1,1875000,0,468750,187500,GBP,2.0.0,8,0
+AggregateCases,AggregateCases,Case4,GB,,,,LE13 0GE,1050,5000,WW1,9675000,0,2418750,967500,GBP,2.0.0,0,1
+AggregateCases,AggregateCases,Case5,GB,,,,LE13 0LA,1050,5000,WW1,4325000,0,1081250,432500,GBP,2.0.0,0,0
+AggregateCases,AggregateCases,Case6,GB,,,,LE13 1DN,1050,5000,WW1,6050000,0,1512500,605000,GBP,2.0.0,1,1
