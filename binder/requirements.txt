@@ -4,8 +4,8 @@ folium
 geopandas
 jupyter
 matplotlib
-oasislmf
-pandas<2.0
+oasislmf>=1.27.2
+pandas
 pyarrow
 pygeos
 seaborn
