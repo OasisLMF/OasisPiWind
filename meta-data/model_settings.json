@@ -1,4 +1,5 @@
 {
+    "version": "3",
     "model_settings":{
         "event_set":{
             "name": "Event Set",
