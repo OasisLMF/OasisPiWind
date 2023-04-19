@@ -1,0 +1,3 @@
+PortNumber,AccNumber,AccCurrency,PolNumber,PolPerilsCovered,PolInceptionDate,PolExpiryDate,LayerNumber,LayerParticipation,LayerLimit,LayerAttachment,OEDVersion
+AggregateCases,AggregateCases,GBP,Layer1,WW1,01/01/2018,31/12/2018,1,0.3,5000000,500000,2.0.0
+AggregateCases,AggregateCases,GBP,Layer2,WW1,01/01/2018,31/12/2018,2,0.3,100000000,5500000,2.0.0
