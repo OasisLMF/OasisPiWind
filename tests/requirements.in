@@ -1,0 +1,7 @@
+pytest
+pytest-docker-compose
+oasislmf
+pathlib
+requests
+pandas 
+parametrize
