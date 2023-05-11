@@ -1,0 +1,36 @@
+name: PiWind Generate results
+
+on:
+  workflow_dispatch:
+    inputs:
+      oasislmf_branch:
+        description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+
+      ods_branch:
+        description: "Branch from ods-tools to test piwind with [git ref]"
+        required: false
+
+      platform_version:
+        description: "Platform Version tag [semvar]"
+        required: false
+        
+      pytest_opts:
+        description: 'pass extra options to pytest, [-k <test_name>]'
+        required: false
+        type: string
+
+jobs:
+  generate:
+    name: PiWind generate results
+    uses: ./.github/workflows/integration.yml
+    secrets: inherit
+    with:
+      piwind_branch:
+      ods_branch: ${{ inputs.ods_branch }}
+      oasislmf_branch: ${{ inputs.oasislmf_branch }}
+      worker_tag: ${{ inputs.platform_version }}
+      server_tag: ${{ inputs.platform_version }}
+      pytest_opts: ${{ inputs.pytest_opts }}
+      debug_mode: 0
+      generate_results: 'true'
