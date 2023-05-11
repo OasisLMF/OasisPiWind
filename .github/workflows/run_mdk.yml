@@ -48,7 +48,7 @@ on:
         type: string
       mdk_run_type:
         description: 'Loss modes to test, options are one of "[gul, il, ri]"'
-        required: true
+        required: false
         type: string
       ods_branch:
         description: 'Build ods_tools package before test [git ref]'
@@ -56,7 +56,7 @@ on:
         type: string
       piwind_branch:
         description: 'Branch of PiWind to test (Only needed for remote triggers)'
-        required: true
+        required: false
         type: string
 
 env:
