@@ -1,0 +1,5 @@
+loc_id,portnumber,accnumber,locnumber,peril_id,coverage_type_id,tiv,status,message
+9907,1,A11111,100030549101,WTC,1,150000.0,nomatch,Successful peril area lookup: 66; No vulnerability match
+9907,1,A11111,100030549101,WTC,3,37500.0,nomatch,Successful peril area lookup: 66; No vulnerability match
+9907,1,A11111,100030549101,WSS,1,150000.0,nomatch,Successful peril area lookup: 166; No vulnerability match
+9907,1,A11111,100030549101,WSS,3,37500.0,nomatch,Successful peril area lookup: 166; No vulnerability match

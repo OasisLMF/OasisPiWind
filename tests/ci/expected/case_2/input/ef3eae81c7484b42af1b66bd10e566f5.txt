@@ -1,0 +1,69 @@
+
+Stating oasislmf command - GenerateOasisFiles
+RUNNING: oasislmf.manager.interface
+
+Processing arguments - Creating Oasis Files
+
+Generating Oasis files (GUL=True, IL=True, RIL=True)
+RUNNING: oasislmf.lookup.rtree.get_vulnerabilities
+Note: NumExpr detected 24 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+NumExpr defaulting to 8 threads.
+COMPLETED: oasislmf.lookup.rtree.get_vulnerabilities in 0.03s
+COMPLETED: oasislmf.lookup.rtree.__init__ in 0.03s
+COMPLETED: oasislmf.lookup.rtree.__init__ in 0.03s
+
+Keys successful: /tmp/tmp9rvhy7rc/keys.csv generated with 50388 items
+Keys errors: /tmp/tmp9rvhy7rc/keys-errors.csv generated with 4 items
+RUNNING: oasislmf.preparation.gul_inputs.get_gul_input_items
+COMPLETED: oasislmf.preparation.gul_inputs.get_gul_input_items in 0.11s
+RUNNING: oasislmf.preparation.summaries.write_exposure_summary
+RUNNING: oasislmf.preparation.summaries.write_gul_errors_map
+RUNNING: oasislmf.preparation.summaries.get_exposure_summary
+RUNNING: oasislmf.preparation.summaries.get_exposure_totals
+COMPLETED: oasislmf.preparation.summaries.get_exposure_totals in 0.03s
+COMPLETED: oasislmf.preparation.summaries.get_exposure_summary in 0.37s
+COMPLETED: oasislmf.preparation.summaries.write_exposure_summary in 0.5s
+RUNNING: oasislmf.preparation.summaries.write_summary_levels
+COMPLETED: oasislmf.preparation.summaries.write_summary_levels in 0.03s
+RUNNING: oasislmf.preparation.gul_inputs.write_gul_input_files
+RUNNING: oasislmf.preparation.gul_inputs.write_items_file
+COMPLETED: oasislmf.preparation.gul_inputs.write_items_file in 0.04s
+RUNNING: oasislmf.preparation.gul_inputs.write_coverages_file
+COMPLETED: oasislmf.preparation.gul_inputs.write_coverages_file in 0.02s
+COMPLETED: oasislmf.preparation.gul_inputs.write_gul_input_files in 0.11s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+COMPLETED: oasislmf.preparation.summaries.write_mapping_file in 0.09s
+RUNNING: oasislmf.preparation.il_inputs.get_il_input_items
+COMPLETED: oasislmf.preparation.il_inputs.get_il_input_items in 0.72s
+RUNNING: oasislmf.preparation.il_inputs.write_il_input_files
+RUNNING: oasislmf.preparation.il_inputs.write_fm_policytc_file
+COMPLETED: oasislmf.preparation.il_inputs.write_fm_policytc_file in 0.02s
+RUNNING: oasislmf.preparation.il_inputs.write_fm_profile_file
+COMPLETED: oasislmf.preparation.il_inputs.write_fm_profile_file in 0.02s
+RUNNING: oasislmf.preparation.il_inputs.write_fm_programme_file
+COMPLETED: oasislmf.preparation.il_inputs.write_fm_programme_file in 0.06s
+RUNNING: oasislmf.preparation.il_inputs.write_fm_xref_file
+COMPLETED: oasislmf.preparation.il_inputs.write_fm_xref_file in 0.14s
+COMPLETED: oasislmf.preparation.il_inputs.write_il_input_files in 0.34s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+COMPLETED: oasislmf.preparation.summaries.get_summary_mapping in 0.09s
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+COMPLETED: oasislmf.preparation.summaries.write_mapping_file in 0.2s
+RUNNING: oasislmf.preparation.reinsurance_layer.write_files_for_reinsurance
+COMPLETED: oasislmf.preparation.reinsurance_layer.write_files_for_reinsurance in 0.45s
+
+Oasis files generated: {
+    "items": "/tmp/tmp9rvhy7rc/items.csv",
+    "coverages": "/tmp/tmp9rvhy7rc/coverages.csv",
+    "fm_policytc": "/tmp/tmp9rvhy7rc/fm_policytc.csv",
+    "fm_profile": "/tmp/tmp9rvhy7rc/fm_profile.csv",
+    "fm_programme": "/tmp/tmp9rvhy7rc/fm_programme.csv",
+    "fm_xref": "/tmp/tmp9rvhy7rc/fm_xref.csv",
+    "ri_layers": "/tmp/tmp9rvhy7rc/ri_layers.json",
+    "RI_1": "/tmp/tmp9rvhy7rc/RI_1"
+}
+
+Generate Files completed successfully in /tmp/tmp9rvhy7rc
+COMPLETED: oasislmf.manager.interface in 5.1s
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:05<00:00,  5.10s/it]100%|██████████| 1/1 [00:05<00:00,  5.10s/it]
