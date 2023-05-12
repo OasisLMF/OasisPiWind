@@ -1,4 +1,4 @@
-# This workflow tests the PiWind expected results from 'tests/ci/expected'
+#te This workflow tests the PiWind expected results from 'tests/ci/expected'
 # its tested using 'tests/test_piwind_integration.py' which runs a set of
 # checks using the OasisLMF API client
 #  vs the docker-compose file `docker-compose.yml` and ENV variables
@@ -115,9 +115,9 @@ jobs:
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       PIWIND_BRANCH: ${{ github.ref_name }}
       SERVER_IMG: 'coreoasis/api_server'
-      SERVER_TAG: 'latest'
+      SERVER_TAG: '1.15.26-lts'
       WORKER_IMG: 'coreoasis/model_worker'
-      WORKER_TAG: 'latest'
+      WORKER_TAG: '1.15.26-lts'
       DEBUG: 1
 
     steps:
