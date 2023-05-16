@@ -64,8 +64,8 @@ def wait_for_api(module_scoped_container_getter):
                       used to make calls to the OasisAPI.
     """
     request_session = requests.Session()
-    retries = Retry(total=6,
-                    backoff_factor=2,
+    retries = Retry(total=10,
+                    backoff_factor=4,
                     status_forcelist=[500, 502, 503, 504, 404])
 
     try:
