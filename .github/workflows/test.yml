@@ -59,7 +59,7 @@ env:
   oasislmf_branch: 'develop'
   oasislmf_package: ''
   piwind_branch: ${{ github.ref }}
-  platform_tag: '1.15.26-lts'
+  platform_tag: '1.15.27'
 
 jobs:
   params:
