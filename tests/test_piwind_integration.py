@@ -13,6 +13,27 @@ IL = os.path.join(file_path, 'ci', 'FM_analysis_settings.json')
 RI = os.path.join(file_path, 'ci', 'RI_analysis_settings.json')
 ORD_CSV = os.path.join(file_path, 'ci', 'ORD_csv_analysis_settings.json')
 ORD_PQ = os.path.join(file_path, 'ci', 'ORD_parquet_analysis_settings.json')
+ALL = os.path.join(file_path, 'ci', 'ALL_output_analysis_settings.json')
+
+
+
+class all_outputs(TestOasisModel):
+    exp_dir =  os.path.join(file_path, 'ci', 'expected', __qualname__)
+    exp_files = glob.glob(f"{exp_dir}/output/*")
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass(
+            params = {
+                "analysis_settings_json": ALL,
+                'oed_location_csv': os.path.join(file_path, 'inputs', 'SourceLocOEDPiWind10.csv'),
+                'oed_accounts_csv': os.path.join(file_path, 'inputs', 'SourceAccOEDPiWind.csv'),
+                'oed_info_csv': os.path.join(file_path, 'inputs', 'SourceReinsInfoOEDPiWind.csv'),
+                'oed_scope_csv': os.path.join(file_path, 'inputs', 'SourceReinsScopeOEDPiWind.csv')
+            })
+    @parametrize("filename", exp_files)
+    def test_output_file(self, filename):
+        self._check_output(filename)
 
 
 class control_set(TestOasisModel):
