@@ -1,0 +1,21 @@
+loc_id,PortNumber,AccNumber,LocNumber,peril_id,coverage_type_id,tiv,status,message
+1,1,A11111,10002082046,WEC,1,220000.0,noreturn,unsuported peril_id
+1,1,A11111,10002082046,WEC,3,0.0,noreturn,unsuported peril_id
+2,1,A11111,10002082047,WEC,1,790000.0,noreturn,unsuported peril_id
+2,1,A11111,10002082047,WEC,3,0.0,noreturn,unsuported peril_id
+3,1,A11111,10002082048,WEC,1,160000.0,noreturn,unsuported peril_id
+3,1,A11111,10002082048,WEC,3,0.0,noreturn,unsuported peril_id
+4,1,A11111,10002082049,WEC,1,30000.0,noreturn,unsuported peril_id
+4,1,A11111,10002082049,WEC,3,0.0,noreturn,unsuported peril_id
+5,1,A11111,10002082050,WEC,1,250000.0,noreturn,unsuported peril_id
+5,1,A11111,10002082050,WEC,3,0.0,noreturn,unsuported peril_id
+6,1,A11111,10002082051,WEC,1,700000.0,noreturn,unsuported peril_id
+6,1,A11111,10002082051,WEC,3,0.0,noreturn,unsuported peril_id
+7,1,A11111,10002082052,WEC,1,90000.0,noreturn,unsuported peril_id
+7,1,A11111,10002082052,WEC,3,0.0,noreturn,unsuported peril_id
+8,1,A11111,10002082053,WEC,1,310000.0,noreturn,unsuported peril_id
+8,1,A11111,10002082053,WEC,3,0.0,noreturn,unsuported peril_id
+9,1,A11111,10002082054,WEC,1,420000.0,noreturn,unsuported peril_id
+9,1,A11111,10002082054,WEC,3,0.0,noreturn,unsuported peril_id
+10,1,A11111,10002082055,WEC,1,430000.0,noreturn,unsuported peril_id
+10,1,A11111,10002082055,WEC,3,0.0,noreturn,unsuported peril_id
