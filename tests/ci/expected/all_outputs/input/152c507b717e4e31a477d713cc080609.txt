@@ -1,0 +1,64 @@
+Warning: Unknown options(s) set in MDK config:
+   model_data_dir : model_data/PiWind
+   gulmc : True
+   gulpy : False
+   modelpy : False
+   ktools_alloc_rule_gul : 1
+   analysis_settings_json : analysis_settings.json
+
+Stating oasislmf command - GenerateOasisFiles
+RUNNING: oasislmf.manager.interface
+
+Processing arguments - Creating Oasis Files
+
+Generating Oasis files (GUL=True, IL=True, RIL=True)
+RUNNING: oasislmf.lookup.factory.generate_key_files
+COMPLETED: oasislmf.lookup.factory.generate_key_files in 0.1s
+
+Keys successful: /tmp/tmp58i329pv/keys.csv generated with 40 items
+Keys errors: /tmp/tmp58i329pv/keys-errors.csv generated with 20 items
+RUNNING: oasislmf.preparation.gul_inputs.get_gul_input_items
+COMPLETED: oasislmf.preparation.gul_inputs.get_gul_input_items in 0.04s
+RUNNING: oasislmf.preparation.summaries.write_exposure_summary
+RUNNING: oasislmf.preparation.summaries.write_gul_errors_map
+RUNNING: oasislmf.preparation.summaries.get_exposure_summary
+RUNNING: oasislmf.preparation.summaries.get_exposure_totals
+COMPLETED: oasislmf.preparation.summaries.get_exposure_summary in 0.13s
+COMPLETED: oasislmf.preparation.summaries.write_exposure_summary in 0.19s
+RUNNING: oasislmf.preparation.summaries.write_summary_levels
+COMPLETED: oasislmf.preparation.summaries.write_summary_levels in 0.01s
+RUNNING: oasislmf.preparation.gul_inputs.write_gul_input_files
+RUNNING: oasislmf.preparation.gul_inputs.write_items_file
+RUNNING: oasislmf.preparation.gul_inputs.write_coverages_file
+COMPLETED: oasislmf.preparation.gul_inputs.write_gul_input_files in 0.04s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+RUNNING: oasislmf.preparation.il_inputs.get_il_input_items
+COMPLETED: oasislmf.preparation.il_inputs.get_il_input_items in 0.18s
+RUNNING: oasislmf.preparation.il_inputs.write_il_input_files
+RUNNING: oasislmf.preparation.il_inputs.write_fm_policytc_file
+RUNNING: oasislmf.preparation.il_inputs.write_fm_profile_file
+RUNNING: oasislmf.preparation.il_inputs.write_fm_programme_file
+RUNNING: oasislmf.preparation.il_inputs.write_fm_xref_file
+COMPLETED: oasislmf.preparation.il_inputs.write_fm_xref_file in 0.01s
+COMPLETED: oasislmf.preparation.il_inputs.write_il_input_files in 0.35s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+COMPLETED: oasislmf.preparation.summaries.get_summary_mapping in 0.02s
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+RUNNING: oasislmf.preparation.reinsurance_layer.write_files_for_reinsurance
+COMPLETED: oasislmf.preparation.reinsurance_layer.write_files_for_reinsurance in 0.13s
+
+Oasis files generated: {
+    "items": "/tmp/tmp58i329pv/items.csv",
+    "coverages": "/tmp/tmp58i329pv/coverages.csv",
+    "fm_policytc": "/tmp/tmp58i329pv/fm_policytc.csv",
+    "fm_profile": "/tmp/tmp58i329pv/fm_profile.csv",
+    "fm_programme": "/tmp/tmp58i329pv/fm_programme.csv",
+    "fm_xref": "/tmp/tmp58i329pv/fm_xref.csv",
+    "ri_layers": "/tmp/tmp58i329pv/ri_layers.json",
+    "RI_1": "/tmp/tmp58i329pv/RI_1"
+}
+
+Generate Files completed successfully in /tmp/tmp58i329pv
+COMPLETED: oasislmf.manager.interface in 1.62s
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:01<00:00,  1.62s/it]100%|██████████| 1/1 [00:01<00:00,  1.62s/it]

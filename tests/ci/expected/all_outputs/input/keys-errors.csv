@@ -1,0 +1,21 @@
+LocID,PerilID,CoverageTypeID,Status,Message
+1,WEC,1,noreturn,unsuported peril_id
+2,WEC,1,noreturn,unsuported peril_id
+3,WEC,1,noreturn,unsuported peril_id
+4,WEC,1,noreturn,unsuported peril_id
+5,WEC,1,noreturn,unsuported peril_id
+6,WEC,1,noreturn,unsuported peril_id
+7,WEC,1,noreturn,unsuported peril_id
+8,WEC,1,noreturn,unsuported peril_id
+9,WEC,1,noreturn,unsuported peril_id
+10,WEC,1,noreturn,unsuported peril_id
+1,WEC,3,noreturn,unsuported peril_id
+2,WEC,3,noreturn,unsuported peril_id
+3,WEC,3,noreturn,unsuported peril_id
+4,WEC,3,noreturn,unsuported peril_id
+5,WEC,3,noreturn,unsuported peril_id
+6,WEC,3,noreturn,unsuported peril_id
+7,WEC,3,noreturn,unsuported peril_id
+8,WEC,3,noreturn,unsuported peril_id
+9,WEC,3,noreturn,unsuported peril_id
+10,WEC,3,noreturn,unsuported peril_id
