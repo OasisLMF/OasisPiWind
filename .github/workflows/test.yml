@@ -126,4 +126,4 @@ jobs:
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
       worker_tag: ${{ needs.params.outputs.platform_version }}
       server_tag: ${{ needs.params.outputs.platform_version }}
-      debug_mode: 0
+      debug_mode: 1
