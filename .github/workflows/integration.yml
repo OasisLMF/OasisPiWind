@@ -115,9 +115,9 @@ jobs:
       DOCKERFILE: 'docker/Dockerfile.piwind_worker'
       PIWIND_BRANCH: ${{ github.ref_name }}
       SERVER_IMG: 'coreoasis/api_server'
-      SERVER_TAG: '1.26.7'
+      SERVER_TAG: '1.27.3'
       WORKER_IMG: 'coreoasis/model_worker'
-      WORKER_TAG: '1.26.7'
+      WORKER_TAG: '1.27.3'
       DEBUG: 1
 
     steps:
