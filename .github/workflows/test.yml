@@ -112,7 +112,7 @@ jobs:
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
         echo "ods_package=${{ env.ods_package }}" >> $GITHUB_OUTPUT
-        echo "platform_version=${{ env.platform_version }}" >> $GITHUB_OUTPUT
+        echo "platform_version=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
   test:
     name: PiWind Integration
