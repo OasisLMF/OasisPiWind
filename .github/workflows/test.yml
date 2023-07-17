@@ -12,14 +12,12 @@ name: PiWind Testing
 on:
   push:
     branches:
-      - master
-      - develop
-      - backports**
+      - main
+      - stable**
   pull_request:
     branches:
-      - master
-      - develop
-      - backports**
+      - main
+      - stable**
 
   workflow_dispatch:
     inputs:
@@ -56,7 +54,7 @@ on:
         type: string
 
 env:
-  oasislmf_branch: 'develop'
+  oasislmf_branch: 'main'
   oasislmf_package: ''
   piwind_branch: ${{ github.ref }}
   platform_tag: '1.23.17'

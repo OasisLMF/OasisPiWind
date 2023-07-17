@@ -124,9 +124,8 @@ jobs:
     # Don't allow results generation to break dev/master -->> only accept update as PR
     - name: Test branch for result gen
       if: ${{ inputs.generate_results == 'true' &&
-        startsWith(github.ref_name , 'master') &&
-        startsWith(github.ref_name , 'develop') &&
-        startsWith(github.ref_name, 'backports/') }}
+        startsWith(github.ref_name , 'main') &&
+        startsWith(github.ref_name, 'stable/') }}
       run: |
         echo "Result generation must not be directly executed on protected branches, run on a PR branch"
         exit 1
