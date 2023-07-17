@@ -72,7 +72,7 @@ def parse_args():
 
     parser.add_argument('-m', '--model-repo-name', default='OasisPiWind', help='Target model GitHub repository name (must be an OasisLMF managed repository)')
 
-    parser.add_argument('-r', '--model-repo-branch', default='master', help='Target branch in the model GitHub repository to clone')
+    parser.add_argument('-r', '--model-repo-branch', default='main', help='Target branch in the model GitHub repository to clone')
 
     parser.add_argument('-t', '--clone-target', default=os.path.abspath('.'), help='Local parent folder in which to clone the model repository - default is script run directory')
 
@@ -124,7 +124,7 @@ def pip_install(pkg_name_or_branch_uri, options_str='', pip_path=get_default_pip
     run_command(cmd_str)
 
 
-def clone_repo(repo_name, target, repo_branch='master', user_or_org_name='OasisLMF', home=os.getcwd(), transfer_protocol='ssh'):
+def clone_repo(repo_name, target, repo_branch='main', user_or_org_name='OasisLMF', home=os.getcwd(), transfer_protocol='ssh'):
     if not os.path.exists(target):
         os.mkdir(target)
 
