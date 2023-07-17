@@ -1,6 +1,8 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/master) [![Build Status](https://ci.oasislmfdev.org/buildStatus/icon?job=oasis_PiWind/master)](https://ci.oasislmfdev.org/view/Oasis/job/oasis_PiWind/job/master/)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/OasisLMF/OasisPiWind/main)
+[![PiWind Testing](https://github.com/OasisLMF/OasisPiWind/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/test.yml)
+[![PiWind MDK](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml/badge.svg?branch=main)](https://github.com/OasisLMF/OasisPiWind/actions/workflows/run_mdk.yml)
 
 # Oasis PiWind
 Toy UK windstorm model.
@@ -11,7 +13,7 @@ You can clone this repository from <a href="https://github.com/OasisLMF/OasisPiW
 
 ## Running via the Oasis MDK
 
-The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis model development kit (MDK)</a> is a Python package which provides a command line interface (CLI) for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/develop/keys_data/PiWind/lookup.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
+The <a href="https://pypi.org/project/oasislmf/" target="_blank">Oasis model development kit (MDK)</a> is a Python package which provides a command line interface (CLI) for developing and running models using the Oasis framework. It can be installed via the Python package installer `pip` (or `pip3` for Python 3). The PiWind repository contains a <a href="https://github.com/OasisLMF/OasisPiWind/blob/main/oasislmf.json" target="_blank">JSON configuration file</a> that allows the PiWind model to be run via the MDK.
 
 Using the configuration file an end-to-end analysis can be executed using the command:
 

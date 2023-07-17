@@ -15,14 +15,12 @@ name: PiWind MDK
 on:
   push:
     branches:
-      - master
-      - develop
-      - backports**
+      - main
+      - stable**
   pull_request:
     branches:
-      - master
-      - develop
-      - backports**
+      - main
+      - stable**
 
   workflow_dispatch:
     inputs:
@@ -62,13 +60,13 @@ on:
 env:
   SCRIPT_BRANCH: 'master'
   PIWIND_BRANCH:  ${{ github.ref }}
-  MDK_BRANCH: 'develop'
+  MDK_BRANCH: 'main'
   MDK_RUN: 'ri'
 
 jobs:
   ods_tools:
     if: inputs.ods_branch != ''
-    uses: OasisLMF/ODS_Tools/.github/workflows/build.yml@develop
+    uses: OasisLMF/ODS_Tools/.github/workflows/build.yml@main
     secrets: inherit
     with:
       ods_branch: ${{ inputs.ods_branch }}
