@@ -5,3 +5,4 @@ pathlib
 requests
 pandas 
 parametrize
+pyYaml==5.3.1
