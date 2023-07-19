@@ -53,6 +53,11 @@ on:
         required: false
         type: string
 
+      pytest_opts:
+        description: 'pass extra options to pytest'
+        required: false
+        type: string
+
 env:
   oasislmf_branch: 'main'
   oasislmf_package: ''
@@ -125,3 +130,4 @@ jobs:
       worker_tag: ${{ needs.params.outputs.platform_version }}
       server_tag: ${{ needs.params.outputs.platform_version }}
       debug_mode: 1
+      pytest_opts: ${{ inputs.pytest_opts }}
