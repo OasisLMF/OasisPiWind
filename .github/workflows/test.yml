@@ -58,6 +58,11 @@ on:
         required: false
         type: string
 
+      storage_suffix:
+        description: 'Edit storage name'
+        required: false
+        type: string
+
 env:
   oasislmf_branch: 'main'
   oasislmf_package: ''
@@ -131,3 +136,4 @@ jobs:
       server_tag: ${{ needs.params.outputs.platform_version }}
       debug_mode: 1
       pytest_opts: ${{ inputs.pytest_opts }}
+      storage_suffix: ${{ inputs.storage_suffix }}
