@@ -6,7 +6,7 @@ COPY $ods_package ./
 ARG ods_package
 RUN if [ ! -z "$ods_package" ];  then \
     pip uninstall ods-tools -y; \
-    pip install $ods_package; \
+    pip install --user --no-warn-script-location $ods_package; \
   fi
 
 # Install ODS-Tools from git branch (Optional) 'docker build --build-arg ods_tools_branch=develop'
