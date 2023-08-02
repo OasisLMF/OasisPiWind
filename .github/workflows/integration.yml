@@ -112,7 +112,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Run Pytest
     env:
-      DOCKERFILE: 'docker/Dockerfile.piwind_worker'
+      DOCKERFILE_WORKER: 'docker/Dockerfile.piwind_worker'
+      DOCKERFILE_SERVER: 'docker/Dockerfile.piwind_server'
       PIWIND_BRANCH: ${{ github.ref_name }}
       SERVER_IMG: 'coreoasis/api_server'
       SERVER_TAG: '1.27.3'
@@ -177,12 +178,14 @@ jobs:
 
     - name: replace default image with input
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != ''
-      run: sed -i "/FROM /c\FROM ${{ env.WORKER_IMG }}:${{ env.WORKER_TAG }}" ${{ env.DOCKERFILE }}
+      run: |
+        sed -i "/FROM /c\FROM ${{ env.WORKER_IMG }}:${{ env.WORKER_TAG }}" ${{ env.DOCKERFILE_WORKER }}
+        sed -i "/FROM /c\FROM ${{ env.SERVER_IMG }}:${{ env.SERVER_TAG }}" ${{ env.DOCKERFILE_SERVER }}
 
     - name: Docker Build
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != '' || inputs.ods_branch != ''
       run: |
-        docker build -f ${{ env.DOCKERFILE }} \
+        docker build -f ${{ env.DOCKERFILE_WORKER }} \
                      --pull \
                      --build-arg oasislmf_package=${{ inputs.oasislmf_package }} \
                      --build-arg oasislmf_branch=${{ inputs.oasislmf_branch }} \
@@ -190,9 +193,17 @@ jobs:
                      --build-arg ods_branch=${{ inputs.ods_branch }} \
                      -t ${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }} .
 
-    - name: Override Worker image env
+        docker build -f ${{ env.DOCKERFILE_SERVER }} \
+                     --pull \
+                     --build-arg ods_package=${{ inputs.ods_package }} \
+                     --build-arg ods_branch=${{ inputs.ods_branch }} \
+                     -t ${{ env.SERVER_IMG }}:piwind-test-${{ github.sha }} .
+
+    - name: Override Image Env
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != ''
-      run: echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV
+      run: |
+        echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV
+        echo "SERVER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV
 
     - name: Setup Python
       uses: actions/setup-python@v4
