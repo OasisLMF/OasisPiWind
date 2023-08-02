@@ -1,6 +1,7 @@
 FROM coreoasis/api_server:latest
 
-COPY $ods_package ./
+COPY --chown=server:server $ods_package ./
+USER server
 
 # Install ods_tools from package file (Optional) 'docker build --build-arg ods_package=<whl>'
 ARG ods_package
@@ -16,3 +17,5 @@ RUN if [ ! -z "$ods_tools_branch" ] ; then \
     pip uninstall ods-tools -y; \
     pip install --user --no-warn-script-location -v git+https://git@github.com/OasisLMF/ODS_Tools.git@${ods_tools_branch}#egg=ods-tools; \
   fi
+
+
