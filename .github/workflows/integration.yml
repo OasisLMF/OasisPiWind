@@ -195,13 +195,11 @@ jobs:
 
         docker build -f ${{ env.DOCKERFILE_SERVER }} \
                      --pull \
-                     --build-arg oasislmf_package=${{ inputs.oasislmf_package }} \
-                     --build-arg oasislmf_branch=${{ inputs.oasislmf_branch }} \
                      --build-arg ods_package=${{ inputs.ods_package }} \
                      --build-arg ods_branch=${{ inputs.ods_branch }} \
                      -t ${{ env.SERVER_IMG }}:piwind-test-${{ github.sha }} .
 
-    - name: Override Worker image env
+    - name: Override Image Env
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != ''
       run: |
         echo "WORKER_TAG=piwind-test-${{ github.sha }}" >> $GITHUB_ENV
