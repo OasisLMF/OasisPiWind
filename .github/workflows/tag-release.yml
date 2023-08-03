@@ -42,8 +42,9 @@ jobs:
         run: |
           if [ $(git tag -l "${{ inputs.release_tag }}") ]; then
             git tag -d ${{ inputs.release_tag }}
-          fi 
+          fi
           git tag ${{ inputs.release_tag }}
-          git push origin ${{ inputs.release_tag  }}
+          #git push origin ${{ inputs.release_tag  }}
+          git push https://token:$BUILD_GIT_TOKEN@github.com/OasisLMF/OasisPiWind.git tag ${{ inputs.release_tag }}
         env:
-          GITHUB_TOKEN: ${{ secrets.BUILD_GIT_TOKEN }}
+          BUILD_GIT_TOKEN: ${{ secrets.BUILD_GIT_TOKEN }}
