@@ -40,7 +40,9 @@ jobs:
 
       - name: Tag the repository
         run: |
-          git tag -d ${{ inputs.release_tag }}
+          if [ $(git tag -l "${{ inputs.release_tag }}") ]; then
+            git tag -d ${{ inputs.release_tag }}
+          fi 
           git tag ${{ inputs.release_tag }}
           git push origin ${{ inputs.release_tag  }}
         env:
