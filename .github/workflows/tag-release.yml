@@ -1,0 +1,42 @@
+name: Tag Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'github tag to create [semvar]'
+        required: true
+
+  workflow_call:
+    inputs:
+      release_tag:
+        description: 'github tag to create [semvar]'
+        required: true
+      piwind_branch:
+        description: "Branch of piwind to apply tag [git ref]"
+        required: true
+
+jobs:
+  env:
+    PIWIND_BRANCH: ${{ inputs.piwind_branch == '' && ${{ github.ref_name }} || inputs.piwind_branch }}
+  tag_release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          repository: OasisLMF/OasisPiWind
+          ref: ${{ env.PIWIND_BRANCH }}
+
+      - name: Setup github user
+        run: |
+          git config --global user.email ${{ secrets.BUILD_GIT_EMAIL }}
+          git config --global user.name ${{ secrets.BUILD_GIT_USERNAME }}
+          git config --global pull.ff only
+
+      - name: Tag the repository
+        run: |
+          git tag ${{ inputs.release_tag }}
+          git push origin ${{ inputs.release_tag  }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.BUILD_GIT_TOKEN }}
