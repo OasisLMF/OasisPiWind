@@ -19,7 +19,7 @@ on:
         type: string
 
 env:
-  PIWIND_BRANCH: ${{ inputs.piwind_branch == '' && ${{ github.ref_name }} || inputs.piwind_branch }}
+  PIWIND_BRANCH: ${{ inputs.piwind_branch == '' && github.ref_name || inputs.piwind_branch }}
 
 jobs:
   tag_release:
