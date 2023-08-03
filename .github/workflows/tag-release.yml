@@ -33,12 +33,14 @@ jobs:
 
       - name: Setup github user
         run: |
+          git config -l | grep 'http\..*\.extraheader' | cut -d= -f1 | xargs -L1 git config --unset-all
           git config --global user.email ${{ secrets.BUILD_GIT_EMAIL }}
           git config --global user.name ${{ secrets.BUILD_GIT_USERNAME }}
           git config --global pull.ff only
 
       - name: Tag the repository
         run: |
+          git tag -d ${{ inputs.release_tag }}
           git tag ${{ inputs.release_tag }}
           git push origin ${{ inputs.release_tag  }}
         env:
