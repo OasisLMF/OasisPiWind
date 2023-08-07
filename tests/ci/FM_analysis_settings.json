@@ -34,7 +34,8 @@
     ],
     "model_settings": {
         "event_set": "p",
-         "event_occurrence_id": "lt"
+        "event_occurrence_id": "lt",
+	"footprint_set": "b"
      },
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",

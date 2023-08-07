@@ -13,7 +13,8 @@
     ],
     "gul_threshold": 0,
     "model_settings": {
-        "event_set": "p"
+        "event_set": "p",
+	"footprint_set": "b"
      },
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",

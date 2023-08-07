@@ -25,6 +25,11 @@ on:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: True
         type: string
+      ods_branch:
+        description: 'Build ods_tools package before test [git ref]'
+        required: false
+        type: string
+
 
   workflow_call:
     inputs:
@@ -35,6 +40,11 @@ on:
 
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+        type: string
+
+      ods_branch:
+        description: 'Build ods_tools package before test [git ref]'
         required: false
         type: string
 
@@ -66,6 +76,8 @@ on:
 env:
   oasislmf_branch: 'main'
   oasislmf_package: ''
+  ods_branch: 'main'
+  ods_package: ''
   piwind_branch: ${{ github.ref }}
   platform_tag: 'latest'
 
@@ -77,6 +89,7 @@ jobs:
       piwind_branch: ${{ steps.export_param.outputs.piwind_branch }}
       oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
       oasislmf_package: ${{ steps.export_param.outputs.oasislmf_package }}
+      ods_branch: ${{ steps.export_param.outputs.ods_branch }}
       ods_package: ${{ steps.export_param.outputs.ods_package }}
       platform_version: ${{ steps.export_param.outputs.platform_version }}
 
@@ -87,6 +100,7 @@ jobs:
         [[ -z "${{ inputs.platform_version }}" ]] || echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_ENV
         echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
         echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        echo "ods_branch=${{ inputs.ods_branch }}" >> $GITHUB_ENV
         echo "ods_package=${{ inputs.ods_package }}" >> $GITHUB_ENV
 
     - name: Update params (Push)
@@ -102,6 +116,7 @@ jobs:
         if [[ -z "${{ inputs.piwind_branch }}" ]]; then
           # Pull Request from PiWind (Set MDK)
           echo "oasislmf_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+          echo "ods_branch=main" >> $GITHUB_ENV
         else
           # Pull Request from OasisLMF (Set piwind)
           echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
@@ -110,11 +125,18 @@ jobs:
     - id: export_param
       name: Output params
       run: |
+        # If oasislmf package is given remove branch install option
         if [[ -n "${{ inputs.oasislmf_package }}" ]]; then
-            # If oasislmf package is given remove branch install option
             echo "oasislmf_branch=" >> $GITHUB_ENV
         else
             echo "oasislmf_branch=${{ env.oasislmf_branch }}" >> $GITHUB_OUTPUT
+        fi
+
+        # If ods_tools package is given remove branch install option
+        if [[ -n "${{ inputs.ods_package }}" ]]; then
+            echo "ods_branch=" >> $GITHUB_ENV
+        else
+            echo "ods_branch=${{ env.ods_branch }}" >> $GITHUB_OUTPUT
         fi
 
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
@@ -130,6 +152,7 @@ jobs:
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
       ods_package: ${{ needs.params.outputs.ods_package }}
+      ods_branch: ${{ needs.params.outputs.ods_branch }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
       worker_tag: ${{ needs.params.outputs.platform_version }}
