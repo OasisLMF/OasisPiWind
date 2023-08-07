@@ -25,6 +25,11 @@ on:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: True
         type: string
+      ods_branch:
+        description: 'Build ods_tools package before test [git ref]'
+        required: false
+        type: string
+
 
   workflow_call:
     inputs:
@@ -35,6 +40,11 @@ on:
 
       oasislmf_branch:
         description: "Branch from oasislmf to test piwind with [git ref]"
+        required: false
+        type: string
+
+      ods_branch:
+        description: 'Build ods_tools package before test [git ref]'
         required: false
         type: string
 
@@ -122,14 +132,23 @@ jobs:
         echo "ods_package=${{ env.ods_package }}" >> $GITHUB_OUTPUT
         echo "platform_version=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
+  ods_tools:
+    if: ${{ inputs.ods_branch != '' || github.event_name != 'workflow_dispatch' }}
+    uses: OasisLMF/ODS_Tools/.github/workflows/build.yml@main
+    secrets: inherit
+    with:
+      ods_branch: ${{ github.event_name != 'workflow_dispatch' && 'main' ||  inputs.ods_branch }}
+
   test:
+    if: ${{ ! failure() || ! cancelled() }}
     name: PiWind Integration
     uses: ./.github/workflows/integration.yml
     secrets: inherit
-    needs: [params]
+    needs: [params, ods_tools]
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
       ods_package: ${{ needs.params.outputs.ods_package }}
+      ods_branch: ${{ needs.ods_tools.outputs.whl_filename }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
       worker_tag: ${{ needs.params.outputs.platform_version }}
