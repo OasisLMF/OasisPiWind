@@ -116,6 +116,7 @@ jobs:
         if [[ -z "${{ inputs.piwind_branch }}" ]]; then
           # Pull Request from PiWind (Set MDK)
           echo "oasislmf_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+          echo "ods_branch=main" >> $GITHUB_ENV
         else
           # Pull Request from OasisLMF (Set piwind)
           echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
