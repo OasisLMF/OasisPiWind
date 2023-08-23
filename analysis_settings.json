@@ -8,8 +8,7 @@
     "gul_output": true,
     "model_settings": {
         "event_set": "p",
-        "event_occurrence_id": "lt",
-	"footprint_set": "b"
+        "event_occurrence_id": "lt"
     },
     "gul_summaries": [
         {
