@@ -16,15 +16,7 @@
             "options":[
                 {"id":"lt", "desc": "Long Term"}
             ]
-        },
-	"footprint_set":{
-	    "name": "Footprint Set",
-	    "desc": "PiWind Footprint Set selection",
-	    "default": "b",
-	    "options":[
-		{"id":"b", "desc": "Balanced"}
-	    ]
-	}
+        }
      },
     "lookup_settings":{
         "supported_perils":[
