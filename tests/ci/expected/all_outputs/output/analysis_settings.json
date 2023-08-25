@@ -1,9 +1,10 @@
 {
     "version": "3",
-    "analysis_tag": "base_example",
+    "analysis_tag": "ALL_outputs_tests",
     "source_tag": "MDK",
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",
+    "number_of_samples": 1,
     "gul_threshold": 0,
     "gul_output": true,
     "model_settings": {
@@ -29,11 +30,27 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
+                "parquet_format": true,
                 "return_period_file": true
+            },
+            "summarycalc": true,
+            "eltcalc": true,
+            "aalcalc": true,
+            "pltcalc": true,
+            "lec_output": true,
+            "leccalc": {
+                "return_period_file": true,
+                "full_uncertainty_aep": true,
+                "full_uncertainty_oep": true,
+                "wheatsheaf_aep": true,
+                "wheatsheaf_oep": true,
+                "wheatsheaf_mean_aep": true,
+                "wheatsheaf_mean_oep": true,
+                "sample_mean_aep": true,
+                "sample_mean_oep": true
             }
         }
     ],
-    
     "il_output": true,
     "il_summaries": [
         {
@@ -54,7 +71,24 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
+                "parquet_format": true,
                 "return_period_file": true
+            },
+            "summarycalc": true,
+            "eltcalc": true,
+            "aalcalc": true,
+            "pltcalc": true,
+            "lec_output": true,
+            "leccalc": {
+                "return_period_file": true,
+                "full_uncertainty_aep": true,
+                "full_uncertainty_oep": true,
+                "wheatsheaf_aep": true,
+                "wheatsheaf_oep": true,
+                "wheatsheaf_mean_aep": true,
+                "wheatsheaf_mean_oep": true,
+                "sample_mean_aep": true,
+                "sample_mean_oep": true
             }
         }
     ],
@@ -78,7 +112,24 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
+                "parquet_format": true,
                 "return_period_file": true
+            },
+            "summarycalc": true,
+            "eltcalc": true,
+            "aalcalc": true,
+            "pltcalc": true,
+            "lec_output": true,
+            "leccalc": {
+                "return_period_file": true,
+                "full_uncertainty_aep": true,
+                "full_uncertainty_oep": true,
+                "wheatsheaf_aep": true,
+                "wheatsheaf_oep": true,
+                "wheatsheaf_mean_aep": true,
+                "wheatsheaf_mean_oep": true,
+                "sample_mean_aep": true,
+                "sample_mean_oep": true
             }
         }
     ]

@@ -65,11 +65,11 @@ env:
 
 jobs:
   ods_tools:
-    if: ${{ inputs.ods_branch != '' || github.event_name != 'workflow_dispatch' }}
+    if: inputs.ods_branch != ''
     uses: OasisLMF/ODS_Tools/.github/workflows/build.yml@main
     secrets: inherit
     with:
-      ods_branch: ${{ github.event_name != 'workflow_dispatch' && 'main' ||  inputs.ods_branch }}
+      ods_branch: ${{ inputs.ods_branch }}
 
   run_mdk:
     if: ${{ ! failure() || ! cancelled() }}

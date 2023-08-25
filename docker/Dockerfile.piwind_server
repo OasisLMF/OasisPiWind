@@ -1,10 +1,7 @@
 FROM coreoasis/api_server:latest
 
-USER root
-RUN apt update && apt install -y git
-
-USER server
 COPY --chown=server:server $ods_package ./
+USER server
 
 # Install ods_tools from package file (Optional) 'docker build --build-arg ods_package=<whl>'
 ARG ods_package
