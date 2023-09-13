@@ -7,6 +7,10 @@ def pytest_addoption(parser):
         '--generate-expected', action='store_true', default=False,  # dest='generate_expected',
         help='If True, it generates the expected files instead of running the tests. Default: False.'
     )  
+    parser.addoption(
+        '--skip-output-cmp', action='store_true', default=False,
+        help='If True, only check that output is generated dont compare with exisiting files'
+    )  
 
 pytest_plugins = [
     "docker_compose",

@@ -106,6 +106,7 @@ def _class_server_conn(request, wait_for_api):
     """
     request.cls.api = wait_for_api
     request.cls.generate_expected = request.config.getoption('--generate-expected', False)
+    request.cls.skip_output_cmp = request.config.getoption('--skip-output-cmp', False)
 
 
 class TestOasisModel(TestCase):
@@ -189,7 +190,7 @@ class TestOasisModel(TestCase):
 
         # skip run if paramters are missing
         if not cls.params:
-            pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")    
+            pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")
 
         # Find PiWind's model id
         cls.model_id = cls._get_model_id(cls)
@@ -315,9 +316,15 @@ class TestOasisModel(TestCase):
         if self.generate_expected:
             pytest.skip(f"Skipping file check, generate_expected={self.generate_expected}")
 
-        df_result = self._result_from_tar(filename)
-        df_expect = self._expect_from_dir(filename)
-        assert_frame_equal(df_result, df_expect)
+        if self.skip_output_cmp:
+            # Check DF is not empty
+            df_result = self._result_from_tar(filename)
+            self.assertTrue(len(df_result) > 0)
+        else:
+            # Check DF matches expected data
+            df_result = self._result_from_tar(filename)
+            df_expect = self._expect_from_dir(filename)
+            assert_frame_equal(df_result, df_expect)
 
     def _generate_expected_results(self):
         """
