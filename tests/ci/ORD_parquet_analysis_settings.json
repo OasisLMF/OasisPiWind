@@ -5,6 +5,7 @@
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",
     "number_of_samples": 10,
+    "pla": true,
     "gul_threshold": 0,
     "gul_output": true,
     "model_settings": {
