@@ -3,6 +3,7 @@
     "source_tag": "piwind",
     "analysis_tag": "RI_integration_test",
     "exposure_location": "L:",
+    "pla": true,
     "gul_output": true,
     "gul_summaries": [
         {
