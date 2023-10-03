@@ -46,5 +46,5 @@
                           }
         }
     },
-    "strategy": ["split_loc_perils_covered", "peril", "create_coverage_type", "vulnerability", "amplification"]
+    "strategy": ["split_loc_perils_covered", "peril", "create_coverage_type", "vulnerability"]
 }
