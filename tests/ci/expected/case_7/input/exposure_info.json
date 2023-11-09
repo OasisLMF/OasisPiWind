@@ -1,0 +1,63 @@
+{
+  "location": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "orig": {
+        "source_type": "filepath",
+        "filepath": "/shared-fs/7c8c1be326bb4e228d6a456d986ce4ee.parquet",
+        "read_param": {}
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "location.csv",
+        "extension": "csv"
+      }
+    }
+  },
+  "account": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "orig": {
+        "source_type": "filepath",
+        "filepath": "/shared-fs/5a91a07e5ade42f79c472713097dad02.parquet",
+        "read_param": {}
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "account.csv",
+        "extension": "csv"
+      }
+    }
+  },
+  "ri_info": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "orig": {
+        "source_type": "filepath",
+        "filepath": "/shared-fs/eaa03e475a1147588638eecb2a7690c0.parquet",
+        "read_param": {}
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "ri_info.csv",
+        "extension": "csv"
+      }
+    }
+  },
+  "ri_scope": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "orig": {
+        "source_type": "filepath",
+        "filepath": "/shared-fs/c6f84b0ede674b0dab84b4bd0a312d56.parquet",
+        "read_param": {}
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "ri_scope.csv",
+        "extension": "csv"
+      }
+    }
+  },
+  "oed_schema_info": "/home/worker/.local/lib/python3.10/site-packages/ods_tools/data/OpenExposureData_Spec.json"
+}
