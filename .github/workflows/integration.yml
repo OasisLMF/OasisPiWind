@@ -29,6 +29,10 @@ on:
         description: 'Worker image [semvar]'
         required: false
         default: 'latest'
+      worker_api_ver:
+        description: 'Worker image run mode [v1, v2]'
+        required: false
+        default: 'v2'
       debug_mode:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
@@ -68,6 +72,10 @@ on:
         type: string
       worker_tag:
         description: 'Worker image [semvar]'
+        required: false
+        type: string
+      worker_api_ver:
+        description: 'Worker image run mode [v1, v2]'
         required: false
         type: string
       debug_mode:
@@ -119,6 +127,7 @@ jobs:
       SERVER_TAG: 'latest'
       WORKER_IMG: 'coreoasis/model_worker'
       WORKER_TAG: 'latest'
+      WORKER_API_VER: 'v2'
       DEBUG: 1
 
     steps:
@@ -138,6 +147,7 @@ jobs:
        [[ -z "${{ inputs.server_tag }}"   ]] || echo "SERVER_TAG=${{ inputs.server_tag }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.worker_image }}" ]] || echo "WORKER_IMG=${{ inputs.worker_image }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.worker_tag }}"   ]] || echo "WORKER_TAG=${{ inputs.worker_tag }}" >> $GITHUB_ENV
+       [[ -z "${{ inputs.worker_api_ver }}"   ]] || echo "WORKER_API_VER=${{ inputs.worker_api_ver }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.debug_mode }}"   ]] || echo "DEBUG=${{ inputs.debug_mode }}" >> $GITHUB_ENV
 
     - name: clone PiWind repository
