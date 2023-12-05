@@ -51,7 +51,7 @@ from oasislmf.utils.exceptions import OasisException
 
 
 @pytest.fixture(scope='module')
-def wait_for_api(module_scoped_container_getter):
+def wait_for_api(module_scoped_container_getter, request):
     """
     Fixture that waits for the docker container running the OasisAPI to become responsive.
     see https://github.com/pytest-docker-compose/pytest-docker-compose for details on using
@@ -76,7 +76,7 @@ def wait_for_api(module_scoped_container_getter):
     # Wait for server
     request_session.mount('http://', HTTPAdapter(max_retries=retries))
     server = module_scoped_container_getter.get("server").network_info[0]
-    api_ver = request.config.getoption('--api-version', 'v1') 
+    api_ver = request.config.getoption('--api-version', 'v1')
     api_url = f"http://{server.hostname}:{server.host_port}"
     assert request_session.get(f"{api_url}/healthcheck/")
 
@@ -193,7 +193,7 @@ class TestOasisModel(TestCase):
 
         # skip run if paramters are missing
         if not cls.params:
-            pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")    
+            pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")
 
         # Find PiWind's model id
         cls.model_id = cls._get_model_id(cls)
