@@ -76,6 +76,7 @@ def wait_for_api(module_scoped_container_getter):
     # Wait for server
     request_session.mount('http://', HTTPAdapter(max_retries=retries))
     server = module_scoped_container_getter.get("server").network_info[0]
+    api_ver = request.config.getoption('--api-version', 'v1') 
     api_url = f"http://{server.hostname}:{server.host_port}"
     assert request_session.get(f"{api_url}/healthcheck/")
 
@@ -85,13 +86,12 @@ def wait_for_api(module_scoped_container_getter):
         assert request_session.get(localstack_url)
 
     # Wait for Model
-    oasis_client = APIClient(api_url=api_url)
+    oasis_client = APIClient(api_url=api_url, api_ver=api_ver)
     oasis_client.api.mount('http://', HTTPAdapter(max_retries=retries))
 
     model_headers = {'authorization': f"Bearer {oasis_client.api.tkn_access}"}
-    model_url = f"{api_url}/V1/models/1/"
+    model_url = f"{api_url}/{api_ver}/models/1/"
     assert request_session.get(model_url, headers=model_headers)
-    #assert oasis_client.models.get(1)
     return oasis_client
 
 
