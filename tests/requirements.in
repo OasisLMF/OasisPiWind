@@ -6,3 +6,4 @@ requests
 pandas 
 parametrize
 pyYaml==5.3.1
+docker[ssh]==6.1.3
