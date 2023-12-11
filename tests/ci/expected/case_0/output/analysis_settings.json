@@ -1,0 +1,22 @@
+{
+    "version": "3",
+    "source_tag": "piwind",
+    "analysis_tag": "GUL_integration_test",
+    "exposure_location": "L:",
+    "pla": true,
+    "gul_output": true,
+    "gul_summaries": [
+        {
+            "eltcalc": true,
+            "id": 1,
+            "lec_output": false
+        }
+    ],
+    "gul_threshold": 0,
+    "model_settings": {
+        "event_set": "p"
+    },
+    "model_name_id": "PiWind",
+    "model_supplier_id": "OasisLMF",
+    "number_of_samples": 10
+}

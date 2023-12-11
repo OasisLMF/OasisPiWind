@@ -1,4 +1,4 @@
-loc_id,portnumber,accnumber,locnumber,peril_id,coverage_type_id,tiv,status,message
+loc_id,PortNumber,AccNumber,LocNumber,peril_id,coverage_type_id,tiv,status,message
 412,1,A11111,100030534294,WEC,1,150000.0,noreturn,unsuported peril_id
 412,1,A11111,100030534294,WEC,3,37500.0,noreturn,unsuported peril_id
 413,1,A11111,100030534295,WEC,1,150000.0,noreturn,unsuported peril_id
