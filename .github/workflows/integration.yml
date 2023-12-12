@@ -224,8 +224,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pip-tools
-        pip-compile tests/requirements.in -o tests/requirements.txt
-        pip install -r tests/requirements.txt
+        wget $BASE_URL/tests/requirements.in test-requirements.in
+        pip-compile test-requirements.in -o requirements.txt
+        pip install -r requirements.txt
+      env:
+        BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/main'
 
     - name: Run Checks
       if: inputs.generate_results != 'true'
