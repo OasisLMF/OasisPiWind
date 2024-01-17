@@ -1,4 +1,6 @@
 {
+    "post_analysis_module": "src/post_analysis/post_analysis_example.py",
+    "post_analysis_class_name": "MyPostAnalysis",
     "analysis_settings_json": "analysis_settings.json",
     "lookup_config_json": "keys_data/PiWind/lookup_config.json",
     "lookup_data_dir": "keys_data/PiWind",
