@@ -46,6 +46,12 @@ x-worker-env: &worker-env
   OASIS_RABBIT_PORT: 5672
   OASIS_RABBIT_USER: rabbit
   OASIS_RABBIT_PASS: rabbit
+  # S3 
+  OASIS_STORAGE_TYPE: S3
+  OASIS_AWS_BUCKET_NAME: example-bucket
+  OASIS_AWS_S3_ENDPOINT_URL: "http://localstack-s3:4572"
+  OASIS_AWS_ACCESS_KEY_ID: foobar
+  OASIS_AWS_SECRET_ACCESS_KEY: foobar
 
 services:
   localstack-s3:
