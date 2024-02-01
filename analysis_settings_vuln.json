@@ -6,7 +6,7 @@
     "model_supplier_id": "OasisLMF",
     "gul_threshold": 0,
     "gul_output": true,
-    "vulnerability_settings": {
+    "vulnerability_adjustments": {
     	"replace_file": "vuln_adj.csv",
     	"adjustments": {"2": 0.5 , "8": 1.5}
     },
