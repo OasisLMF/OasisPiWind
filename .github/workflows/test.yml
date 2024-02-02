@@ -63,6 +63,11 @@ on:
         required: false
         type: string
 
+      worker_api_ver:
+        description: 'Worker image run mode [v1, v2]'
+        required: false
+        type: string
+
 env:
   oasislmf_branch: 'main'
   oasislmf_package: ''
@@ -137,3 +142,4 @@ jobs:
       debug_mode: 1
       pytest_opts: ${{ inputs.pytest_opts }}
       storage_suffix: ${{ inputs.storage_suffix }}
+      worker_api_ver: ${{ inputs.worker_api_ver }}
