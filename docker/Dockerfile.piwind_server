@@ -1,5 +1,8 @@
 FROM coreoasis/api_server:latest
 
+USER root 
+RUN apt-get update && apt-get -y install git python3-pip && rm -rf /var/lib/apt/lists/*
+
 COPY --chown=server:server $ods_package ./
 USER server
 
