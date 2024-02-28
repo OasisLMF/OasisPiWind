@@ -135,7 +135,7 @@ services:
      OASIS_MODEL_SUPPLIER_ID: OasisLMF
      OASIS_MODEL_ID: PiWind
      OASIS_MODEL_VERSION_ID: 1
-     OASIS_API_VERSION: ${WORKER_API_VER:-v2}
+     OASIS_RUN_MODE: ${WORKER_API_VER:-v2}
     volumes:
      - ../:/home/worker/model
      - filestore-OasisData:/shared-fs:rw
