@@ -20,8 +20,9 @@ x-shared-env: &shared-env
   OASIS_CELERY_DB_USER: celery
   OASIS_CELERY_DB_NAME: celery
   OASIS_CELERY_DB_PORT: 5432
-  OASIS_INPUT_GENERATION_CONTROLLER_QUEUE: task-controller
-  OASIS_LOSSES_GENERATION_CONTROLLER_QUEUE: task-controller
+  OASIS_INPUT_GENERATION_CONTROLLER_QUEUE: task-controller  # older setting (before 2.3.1)
+  OASIS_LOSSES_GENERATION_CONTROLLER_QUEUE: task-controller # older setting (before 2.3.1)
+  OASIS_TASK_CONTROLLER_QUEUE: task-controller              # New option v2.3.1+ 
 x-volumes: &shared-volumes
   - filestore-OasisData:/shared-fs:rw
 services:
