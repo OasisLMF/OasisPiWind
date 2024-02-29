@@ -34,3 +34,5 @@ jobs:
       pytest_opts: ${{ inputs.pytest_opts }}
       debug_mode: 0
       generate_results: 'true'
+      worker_api_ver: 'v1'
+      pytest_opts: "--docker-compose=./docker/plat2-v2.docker-compose.yml"
