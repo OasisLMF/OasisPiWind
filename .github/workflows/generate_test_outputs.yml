@@ -31,8 +31,7 @@ jobs:
       oasislmf_branch: ${{ inputs.oasislmf_branch }}
       worker_tag: ${{ inputs.platform_version }}
       server_tag: ${{ inputs.platform_version }}
-      pytest_opts: ${{ inputs.pytest_opts }}
       debug_mode: 0
       generate_results: 'true'
       worker_api_ver: 'v1'
-      pytest_opts: "--docker-compose=./docker/plat2-v2.docker-compose.yml"
+      pytest_opts: "--docker-compose=./docker/plat2-v2.docker-compose.yml ${{ inputs.pytest_opts }}"
