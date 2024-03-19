@@ -1,0 +1,39 @@
+{
+    "version": "3",
+    "model_settings":{
+        "event_set":{
+            "name": "Event Set",
+            "desc": "Piwind Event Set selection",
+            "default": "p",
+            "options":[
+                {"id":"p", "desc": "Probabilistic", "number_of_events": 1447}
+            ]
+         },
+        "event_occurrence_id":{
+            "name": "Occurrence Set",
+            "desc": "PiWind Occurrence selection",
+            "default": "lt",
+            "options":[
+                {"id":"lt", "desc": "Long Term"}
+            ]
+        }
+     },
+    "lookup_settings":{
+        "supported_perils":[
+           {"id": "WSS", "desc": "Single Peril: Storm Surge", "peril_correlation_group": 1},
+           {"id": "WTC", "desc": "Single Peril: Tropical Cyclone", "peril_correlation_group": 2},
+           {"id": "WW1", "desc": "Group Peril: Windstorm with storm surge"},
+           {"id": "WW2", "desc": "Group Peril: Windstorm w/o storm surge"}
+        ]
+    },
+    "correlation_settings": [
+          {"peril_correlation_group":  1, "damage_correlation_value":  "0.7", "hazard_correlation_value":  "0.0"},
+          {"peril_correlation_group":  2, "damage_correlation_value":  "0.5", "hazard_correlation_value":  "0.0"}
+      ],
+      "data_settings": {
+          "damage_group_fields": ["PortNumber", "AccNumber", "LocNumber"],
+          "hazard_group_fields": ["PortNumber", "AccNumber", "LocNumber"],
+          "supported_oed_versions": ["1.5", "2.0"]
+      },
+    "model_default_samples" :10
+}
