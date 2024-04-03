@@ -5,7 +5,7 @@ volumes:
   filestore-OasisData:
 
 x-server-env: &server-env
-  OASIS_DEBUG: 1
+  OASIS_DEBUG: ${DEBUG:-0}
   OASIS_URL_SUB_PATH: 0
   OASIS_CELERY_BROKER_URL: "amqp://rabbit:rabbit@broker:5672"
   OASIS_SERVER_DB_HOST: server-db
@@ -26,7 +26,7 @@ x-server-env: &server-env
   OASIS_TASK_CONTROLLER_QUEUE: task-controller              # New option v2.3.1+ 
 
 x-worker-env: &worker-env
-  OASIS_DEBUG: 1
+  OASIS_DEBUG: ${DEBUG:-0}
   OASIS_CELERY_BROKER_URL: "amqp://rabbit:rabbit@broker:5672"
   OASIS_CELERY_DB_ENGINE: db+postgresql+psycopg2
   OASIS_CELERY_DB_HOST: celery-db
