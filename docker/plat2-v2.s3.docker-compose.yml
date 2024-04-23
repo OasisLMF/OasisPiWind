@@ -31,6 +31,7 @@ x-oasis-env: &server-env
   OASIS_AWS_S3_ENDPOINT_URL: "http://localstack-s3:4572"
   OASIS_AWS_ACCESS_KEY_ID: foobar
   OASIS_AWS_SECRET_ACCESS_KEY: foobar
+  OASIS_AWS_LOCATION: 'oasis/server'
 
 x-worker-env: &worker-env
   OASIS_DEBUG: 1
@@ -52,6 +53,7 @@ x-worker-env: &worker-env
   OASIS_AWS_S3_ENDPOINT_URL: "http://localstack-s3:4572"
   OASIS_AWS_ACCESS_KEY_ID: foobar
   OASIS_AWS_SECRET_ACCESS_KEY: foobar
+  OASIS_AWS_LOCATION: 'oasis/worker'
 
 services:
   localstack-s3:
