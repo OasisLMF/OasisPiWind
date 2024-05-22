@@ -1,8 +1,8 @@
-pytest
+pytest==8.2.0
 pytest-docker-compose
 oasislmf
 pathlib
-requests
+requests==2.31.0
 pandas 
 parametrize
 pyYaml==5.3.1
