@@ -228,8 +228,7 @@ jobs:
         pip-compile requirements.in -o requirements.txt
         pip install -r requirements.txt
       env:
-        #BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/main'
-        BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/fix/ci-platform-testing'
+        BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/main'
 
     - name: Run Checks
       if: inputs.generate_results != 'true'
