@@ -1,11 +1,11 @@
 {
+    "version": "3",
     "analysis_tag": "base_example",
     "source_tag": "MDK",
     "model_name_id": "PiWind",
     "model_supplier_id": "OasisLMF",
     "gul_threshold": 0,
     "gul_output": true,
-    "number_of_samples": 10,
     "model_settings": {
         "event_set": "p",
         "event_occurrence_id": "lt"
@@ -37,7 +37,7 @@
             }
         }
     ],
-    "ri_output": false,
+    "ri_output": true,
     "ri_summaries": [
         {
             "aalcalc": true,

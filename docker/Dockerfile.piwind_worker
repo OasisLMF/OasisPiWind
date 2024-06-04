@@ -2,8 +2,40 @@ ARG OASIS_WORKER_VERSION
 FROM coreoasis/model_worker:$OASIS_WORKER_VERSION
 
 WORKDIR /home/worker
-
 COPY ./docker/oasislmf_deploy.json /home/worker/model/oasislmf.json
 COPY ./meta-data/model_settings.json /home/worker/model/meta-data/model_settings.json
-
 ENTRYPOINT ./startup.sh
+
+COPY $ods_package ./
+COPY $oasislmf_package ./
+
+
+# Install ods_tools from package file (Optional) 'docker build --build-arg ods_package=<whl>'
+ARG ods_package
+RUN if [ ! -z "$ods_package" ];  then \
+    pip uninstall ods-tools -y; \
+    pip install $ods_package; \
+  fi
+
+# Install ODS-Tools from git branch (Optional) 'docker build --build-arg ods_tools_branch=develop'
+ARG ods_tools_branch
+RUN if [ ! -z "$ods_tools_branch" ] ; then \
+    apt update && apt install -y git; \
+    pip uninstall ods-tools -y; \
+    pip install --user --no-warn-script-location -v git+https://git@github.com/OasisLMF/ODS_Tools.git@${ods_tools_branch}#egg=ods-tools; \
+  fi
+
+# Install MDK from package file (Optional) 'docker build --build-arg oasislmf_package=<whl>'
+ARG oasislmf_package
+RUN if [ ! -z "$oasislmf_package" ]; then \
+    pip uninstall oasislmf -y; \
+    pip install $oasislmf_package; \
+  fi
+
+# install MDK from git branch (Optional) 'docker build --build-arg oasislmf_branch=develop'
+ARG oasislmf_branch
+RUN if [ ! -z "$oasislmf_branch" ] ; then \
+    apt update && apt install -y git; \
+    pip uninstall oasislmf -y; \
+    pip install -v git+https://git@github.com/OasisLMF/OasisLMF.git@${oasislmf_branch}#egg=oasislmf[extra]; \
+  fi

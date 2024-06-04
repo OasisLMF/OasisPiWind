@@ -1,4 +1,5 @@
 {
+    "version": "3",
     "model_settings":{
         "event_set":{
             "name": "Event Set",
@@ -26,11 +27,12 @@
         ]
     },
     "correlation_settings": [
-      {"peril_correlation_group":  1, "correlation_value":  "0.7"},
-      {"peril_correlation_group":  2, "correlation_value":  "0.5"}
-    ],
-    "data_settings": {
-	"group_fields": ["PortNumber", "AccNumber", "LocNumber"]
-    },
+          {"peril_correlation_group":  1, "damage_correlation_value":  "0.7", "hazard_correlation_value":  "0.0"},
+          {"peril_correlation_group":  2, "damage_correlation_value":  "0.5", "hazard_correlation_value":  "0.0"}
+      ],
+      "data_settings": {
+          "damage_group_fields": ["PortNumber", "AccNumber", "LocNumber"],
+          "hazard_group_fields": ["PortNumber", "AccNumber", "LocNumber"]
+      },
     "model_default_samples" :10
 }
