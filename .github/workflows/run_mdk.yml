@@ -77,7 +77,7 @@ jobs:
     needs: ods_tools
     strategy:
       matrix:
-        py-version: [3.8, 3.9]
+        py-version: ["3.8", "3.9", "3.10"]
     steps:
       - name: Github context
         run:   echo "$GITHUB_CONTEXT"
@@ -131,6 +131,10 @@ jobs:
         run: |
           pip uninstall ods_tools -y
           pip install ${{ needs.ods_tools.outputs.whl_filename }}
+
+      - name: install wheel
+        run: |
+          pip install wheel
 
       - name: run MDK
         run: |

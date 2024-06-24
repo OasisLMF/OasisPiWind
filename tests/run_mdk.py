@@ -120,7 +120,7 @@ def pip_install(pkg_name_or_branch_uri, options_str='', pip_path=get_default_pip
     if pkg_exists(pkg_name):
         pip_uninstall(pkg_name)
 
-    cmd_str = '{} install {} {}'.format(pip_path, options_str, pkg_name_or_branch_uri)
+    cmd_str = '{} install {} {}  --break-system-packages'.format(pip_path, options_str, pkg_name_or_branch_uri)
     run_command(cmd_str)
 
 
@@ -281,7 +281,7 @@ if __name__ == "__main__":
     if args['git_transfer_protocol'] not in ['https', 'ssh']:
         args['git_transfer_protocol'] = 'ssh'
 
-    pkg_uri = 'git+{}://git@github.com/OasisLMF/OasisLMF.git@{}#egg=oasislmf[extra]'.format(args['git_transfer_protocol'], args['mdk_repo_branch'])
+    pkg_uri = 'oasislmf[extra]@git+{}://git@github.com/OasisLMF/OasisLMF.git@{}'.format(args['git_transfer_protocol'], args['mdk_repo_branch'])
 
     print('\nInstalling MDK package {}'.format(pkg_uri))
 
