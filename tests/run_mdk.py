@@ -281,7 +281,7 @@ if __name__ == "__main__":
     if args['git_transfer_protocol'] not in ['https', 'ssh']:
         args['git_transfer_protocol'] = 'ssh'
 
-    pkg_uri = 'git+{}://git@github.com/OasisLMF/OasisLMF.git@{}#egg=oasislmf[extra]'.format(args['git_transfer_protocol'], args['mdk_repo_branch'])
+    pkg_uri = 'oasislmf[extra]@git+{}://git@github.com/OasisLMF/OasisLMF.git@{}'.format(args['git_transfer_protocol'], args['mdk_repo_branch'])
 
     print('\nInstalling MDK package {}'.format(pkg_uri))
 

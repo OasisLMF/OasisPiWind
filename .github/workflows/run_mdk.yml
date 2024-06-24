@@ -132,6 +132,10 @@ jobs:
           pip uninstall ods_tools -y
           pip install ${{ needs.ods_tools.outputs.whl_filename }}
 
+      - name: install wheel
+        run: |
+          pip install wheel
+
       - name: run MDK
         run: |
            ./run_mdk.py --model-repo-branch ${{ env.PIWIND_BRANCH}} \
