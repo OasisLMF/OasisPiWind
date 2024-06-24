@@ -120,7 +120,7 @@ def pip_install(pkg_name_or_branch_uri, options_str='', pip_path=get_default_pip
     if pkg_exists(pkg_name):
         pip_uninstall(pkg_name)
 
-    cmd_str = '{} install {} {}'.format(pip_path, options_str, pkg_name_or_branch_uri)
+    cmd_str = '{} install {} {}  --break-system-packages'.format(pip_path, options_str, pkg_name_or_branch_uri)
     run_command(cmd_str)
 
 
