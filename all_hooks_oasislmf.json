@@ -10,12 +10,15 @@
     "oed_scope_csv": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
 
     "exposure_pre_analysis_module": "src/pre_files/exposure_pre_analysis_example.py",
-    "exposure_pre_analysis_setting_json": "tests/inputs/exposure_pre_analysis.json",
+    "exposure_pre_analysis_class_name": "MyExposurePreAnalysis", 
+    "exposure_pre_analysis_setting_json": "src/pre_files/settings.json",
 
     "post_file_gen_module": "src/post_files/post_write_gen_example.py",
+    "post_file_gen_setting_json": "src/post_files/settings.json",
     "post_file_gen_class_name": "MyPostFileGen",
 
     "pre_loss_module": "src/pre_loss/pre_loss_example.py",
+    "pre_loss_setting_json": "src/pre_loss/settings.json",
     "pre_loss_class_name": "MyPreLoss",
 
     "post_analysis_module": "src/post_loss/post_analysis_example.py",

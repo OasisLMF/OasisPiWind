@@ -1,4 +1,4 @@
-class ExposurePreAnalysis:
+class MyExposurePreAnalysis:
     """
     Template for a custom exposure pre-analysis module.
     This module is called by ExposurePreAnalysis() in oasislmf/computation/hooks/pre_analysis.py to produce customized outputs.
