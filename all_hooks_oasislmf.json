@@ -1,0 +1,23 @@
+{
+    "analysis_settings_json": "analysis_settings.json",
+    "lookup_config_json": "keys_data/PiWind/lookup_config.json",
+    "lookup_data_dir": "keys_data/PiWind",
+    "model_data_dir": "model_data/PiWind",
+    "model_settings_json": "meta-data/model_settings.json",
+    "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10.csv",
+    "oed_accounts_csv": "tests/inputs/SourceAccOEDPiWind.csv",
+    "oed_info_csv": "tests/inputs/SourceReinsInfoOEDPiWind.csv",
+    "oed_scope_csv": "tests/inputs/SourceReinsScopeOEDPiWind.csv",
+
+    "exposure_pre_analysis_module": "src/pre_files/exposure_pre_analysis_example.py",
+    "exposure_pre_analysis_setting_json": "tests/inputs/exposure_pre_analysis.json",
+
+    "post_file_gen_module": "src/post_files/post_write_gen_example.py",
+    "post_file_gen_class_name": "MyPostFileGen",
+
+    "pre_loss_module": "src/pre_loss/pre_loss_example.py",
+    "pre_loss_class_name": "MyPreLoss",
+
+    "post_analysis_module": "src/post_loss/post_analysis_example.py",
+    "post_analysis_class_name": "MyPostAnalysis"
+}
