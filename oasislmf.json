@@ -2,7 +2,7 @@
     "analysis_settings_json": "analysis_settings.json",
     "lookup_module_path": "src/custom_keys_class",
     "lookup_data_dir": "keys_data/PiWind",
-    "model_version_file_path": "ModelVersion.csv",
+    "model_version_csv": "ModelVersion.csv",
     "model_data_dir": "model_data/PiWind",
     "model_settings_json": "meta-data/model_settings.json",
     "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10.csv",
