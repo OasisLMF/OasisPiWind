@@ -28,7 +28,7 @@ A4, 440, 1000
 """)
 
 class MyPostAnalysis:
-    def __init__(self, model_data_dir=None, model_run_dir=None, analysis_settings_json=None):
+    def __init__(self, model_data_dir=None, model_run_dir=None, user_data_dir=None, analysis_settings_json=None):
         self.model_data_dir = model_data_dir
         self.model_run_dir = model_run_dir
         self.analysis_settings_json = analysis_settings_json
