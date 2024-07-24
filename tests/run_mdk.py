@@ -257,6 +257,7 @@ def model_run_ok(model_run_dir, model_run_mode):
         assert(_is_non_empty_file(os.path.join(outputs_fp, 'il_S1_leccalc_full_uncertainty_oep.csv')))
 
         if model_run_mode == 'ri':
+            print("running: assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'ri_layers'), substr_match=True))")
             assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'ri_layers'), substr_match=True))
             assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'RI'), substr_match=True))
 
