@@ -58,7 +58,7 @@ on:
         type: string
 
 env:
-  SCRIPT_BRANCH: 'master'
+  SCRIPT_BRANCH: 'main'
   PIWIND_BRANCH:  ${{ github.ref }}
   MDK_BRANCH: 'main'
   MDK_RUN: 'ri'
@@ -96,6 +96,7 @@ jobs:
         run: |
           echo "MDK_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "PIWIND_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "SCRIPT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Update Params (Pull Request)
         if: github.event_name == 'pull_request'
@@ -104,6 +105,7 @@ jobs:
           if [[ -z "${{ inputs.piwind_branch }}" ]]; then
             # Pull Request from PiWind (Set MDK)
             echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "SCRIPT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
           else
             # Pull Request from OasisLMF (Set piwind)
             echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
