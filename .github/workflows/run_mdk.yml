@@ -58,7 +58,7 @@ on:
         type: string
 
 env:
-  SCRIPT_BRANCH: 'master'
+  SCRIPT_BRANCH: 'main'
   PIWIND_BRANCH:  ${{ github.ref }}
   MDK_BRANCH: 'main'
   MDK_RUN: 'ri'
