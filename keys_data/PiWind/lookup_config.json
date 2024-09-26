@@ -2,7 +2,7 @@
     "model": {
         "supplier_id": "OasisLMF",
         "model_id": "PiWind",
-        "model_version": "0.0.0.1"
+        "model_version": "2"
     },
     "builtin_lookup_type": "new_lookup",
     "keys_data_path": "./",
@@ -21,7 +21,7 @@
             "type": "split_loc_perils_covered" ,
             "columns": ["locperilscovered"],
             "parameters": {
-                "model_perils_covered": ["WTC", "WSS"]
+                "model_perils_covered": ["WEC", "ORF"]
             }
         },
         "create_coverage_type": {

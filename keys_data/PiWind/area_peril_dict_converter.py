@@ -6,10 +6,6 @@ import os
 df = pd.read_csv(os.path.join(os.path.dirname(__file__), "areaperil_dict.csv"))
 df.rename(columns={column:column.lower() for column in df.columns}, inplace=True)
 
-# remove duplicate for coverage
-df.drop(df[df['coverage_type'] != 1].index, inplace=True)
-df.drop(columns=['coverage_type'], inplace=True)
-
 polygon_point_order = [1, 2, 4, 3]
 
 # create the GeoDataFrame and its geometry
