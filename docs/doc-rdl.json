@@ -1,0 +1,498 @@
+{
+  "datasets": [
+    {
+      "id": "piwind_hazard",
+      "title": "PiWind illustrative model",
+      "description": "PiWind is an illustrative wind and river flood model based on the fictional town of Pi. PiWind can be used as an example for modellers to create Oasis compatible models and for users can be used to evaluate the Oasis platform",
+      "risk_data_type": [
+        "hazard"
+      ],
+      "publisher": {
+        "name": "Oasis LMF",
+        "email": "support@oasislmf.org",
+        "url": "https://oasislmf.org/"
+      },
+      "version": "1",
+      "spatial": {
+        "countries": [
+          "GBR"
+        ],
+        "bbox": [-0.91765, -0.85699, 52.73399, 52.79466],
+        "scale": "sub-national"
+      },
+      "license": "CC0-1.0",
+      "contact_point": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "creator": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "resources": [
+        {
+          "id": "haz_events_p_bin",
+          "title": "events_p binary file",
+          "description": "A list of events for the event set 'p' (probabilistic) in Oasis binary format (.bin)",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/events_p.bin"
+        },
+        {
+          "id": "haz_events_p_csv",
+          "title": "events_p csv file",
+          "description": "A list of events for the event set 'p' (probabilistic) in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/haz/events_p.csv"
+        },
+        {
+          "id": "haz_footprint_bin",
+          "title": "footprint binary file",
+          "description": "A footprint file for event set p in Oasis binary format (.bin)",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/footprint.bin"
+        },
+        {
+          "id": "haz_footprint_csv",
+          "title": "footprint csv file",
+          "description": "A footprint file for event set p in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "model_data/PiWind/footprint.csv"
+        },
+        {
+          "id": "haz_footprint_idx",
+          "title": "footprint index file",
+          "description": "A footprint index file for event set p in Oasis format (.idx)",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/footprint.idx"
+        },
+        {
+          "id": "haz_occurrence_lt_bin",
+          "title": "occurrence_lt binary file",
+          "description": "A list of event occurrences 'lt' (long term rates) in Oasis binary format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/occurrence_lt.bin",
+          "temporal_resolution": "P1000Y"
+        },
+        {
+          "id": "haz_occurrence_lt_csv",
+          "title": "occurrence_lt csv file",
+          "description": "A list of event occurrences 'lt' (long term rates) in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/haz/occurrence_lt.csv",
+          "temporal_resolution": "P1000Y"
+        },
+        {
+          "id": "haz_areaperil_dict_csv",
+          "title": "areaperil dictionary csv file",
+          "description": "A list of areaperils used for keys lookup in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "keys_data/PiWind/areaperil_dict.csv"
+        },
+        {
+          "id": "haz_areaperil_dict_parquet",
+          "title": "areaperil dictionary parquet file",
+          "description": "A list of areaperils used for keys lookup in parquet format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "keys_data/PiWind/areaperil_dict.parquet"
+        },
+        {
+          "id": "haz_keys_json",
+          "title": "keys json file",
+          "description": "A file that specifies keys lookup methods and their priorities",
+          "media_type": "application/json",
+          "format": "json",
+          "download_url": "keys_data/PiWind/keys.json"
+        },
+        {
+          "id": "haz_lookup_config_json",
+          "title": "lookup config json file",
+          "description": "A file that controls the keys lookup logic",
+          "media_type": "application/json",
+          "format": "json",
+          "download_url": "keys_data/PiWind/lookup_config.json"
+        },
+        {
+          "id": "haz_intensity_bin_dict_csv",
+          "title": "intensity bin dictionary csv file",
+          "description": "A list of intensity metric bins in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/haz/intensity_bin_dict.csv"
+        },
+        {
+          "id": "model_settings file",
+          "title": "model settings json file",
+          "description": "A settings file with specific model attributes and default values",
+          "media_type": "application/json",
+          "format": "json",
+          "download_url": "meta-data/model_settings.json"
+        }
+      ],
+      "hazard": {
+        "event_sets": [
+          {
+            "id": "p",
+            "analysis_type": "probabilistic",
+            "frequency_distribution": "poisson",
+            "seasonality": "user_defined",
+            "calculation_method": "simulated",
+            "event_count": 1447,
+            "occurrence_range": "1 to 1000 years",
+            "spatial": {
+              "countries": [
+                "GBR"
+              ],
+              "bbox": [-0.91765, -0.85699, 52.73399, 52.79466],
+              "scale": "sub-national"
+            },
+            "temporal": {
+              "duration": "P1000Y"
+            },
+            "hazards": [
+              {
+                "id": "WTC",
+                "type": "strong_wind",
+                "processes": [
+                  "tropical_cyclone"
+                ],
+                "intensity_measure": "v_ect(1m):knots"
+              },
+              {
+                "id": "WSS",
+                "type": "flood",
+                "processes": [
+                  "fluvial_flood"
+                ],
+                "intensity_measure": "fl_wd:m",
+                "trigger": {
+                  "type": "strong_wind",
+                  "processes": [
+                    "tropical_cyclone"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "links": [
+        {
+          "href": "https://docs.riskdatalibrary.org/en/0__2__0/rdls_schema.json",
+          "rel": "describedby"
+        }
+      ]
+    },
+    {
+      "id": "piwind_exposure",
+      "title": "PiWind illustrative model",
+      "description": "PiWind is an illustrative wind and river flood model based on the fictional town of Pi. PiWind can be used as an example for modellers to create Oasis compatible models and for users can be used to evaluate the Oasis platform",
+      "risk_data_type": [
+        "exposure"
+      ],
+      "publisher": {
+        "name": "Oasis LMF",
+        "email": "support@oasislmf.org",
+        "url": "https://oasislmf.org/"
+      },
+      "version": "1",
+      "spatial": {
+        "countries": [
+          "GBR"
+        ],
+        "scale": "sub-national"
+      },
+      "license": "CC0-1.0",
+      "contact_point": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "creator": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "exposure": {
+        "category": "buildings",
+        "taxonomy": "OED",
+        "metrics": [
+          {
+            "id": "1",
+            "dimension": "structure",
+            "quantity_kind": "currency"
+          },
+          {
+            "id": "3",
+            "dimension": "content",
+            "quantity_kind": "currency"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "id": "exp_source_acc_oed_csv",
+          "title": "source account OED csv file",
+          "description": "A building exposure account file in OED csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "exposure_data/SourceAccOEDPiWind.csv"
+        },
+        {
+          "id": "exp_source_loc_oed_csv",
+          "title": "source location OED csv file",
+          "description": "A building exposure location file in OED csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "exposure_data/SourceLocOEDPiWind10.csv"
+        },
+        {
+          "id": "exp_source_info_oed_csv",
+          "title": "source info OED csv file",
+          "description": "A reinsurance info file in OED csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "exposure_data/SourceReinsInfoOEDPiWind"
+        },
+        {
+          "id": "exp_source_scope_oed_csv",
+          "title": "source scope OED csv file",
+          "description": "A reinsurance scope file in OED csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "exposure_data/SourceReinsScopeOEDPiWind"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://docs.riskdatalibrary.org/en/0__2__0/rdls_schema.json",
+          "rel": "describedby"
+        }
+      ]
+    },
+    {
+      "id": "piwind_vulnerability",
+      "title": "PiWind illustrative model",
+      "description": "PiWind is an illustrative wind and river flood model based on the fictional town of Pi. PiWind can be used as an example for modellers to create Oasis compatible models and for users can be used to evaluate the Oasis platform",
+      "risk_data_type": [
+        "vulnerability"
+      ],
+      "publisher": {
+        "name": "Oasis LMF",
+        "email": "support@oasislmf.org",
+        "url": "https://oasislmf.org/"
+      },
+      "version": "1",
+      "spatial": {
+        "countries": [
+          "GBR"
+        ],
+        "scale": "sub-national"
+      },
+      "license": "CC0-1.0",
+      "contact_point": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "creator": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "vulnerability": {
+        "hazard_primary": "strong_wind",
+        "hazard_secondary": "flood",
+        "hazard_process_primary": "tropical_cyclone",
+        "hazard_process_secondary": "fluvial_flood",
+        "hazard_analysis_type": "probabilistic",
+        "intensity": "v_ect(1m):knots",
+        "category": "buildings",
+        "taxonomy": "OEDOccupancyCode",
+        "impact": {
+          "type": "direct",
+          "metric": "damage_ratio",
+          "unit": "percentage",
+          "base_data_type": "simulated"
+        },
+        "spatial": {
+          "countries": [
+            "GBR"
+          ],
+          "scale": "sub-national"
+        },
+        "functions": {
+          "vulnerability": {
+            "approach": "hybrid",
+            "relationship": "discrete"
+          }
+        },
+        "cost": [
+          {
+            "id": "1",
+            "dimension": "structure",
+            "unit": "GBP"
+          },
+          {
+            "id": "3",
+            "dimension": "content",
+            "unit": "GBP"
+          }
+        ]
+      },
+      "resources": [
+        {
+          "id": "vln_vulnerability_bin",
+          "title": "vulnerability binary file",
+          "description": "A list of damage probability matrices for all vulnerability functions in Oasis binary format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/vulnerability.bin"
+        },
+        {
+          "id": "vln_vulnerability_csv",
+          "title": "vulnerability csv file",
+          "description": "A list of damage probability matrices for all vulnerability functions in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "model_data/PiWind/vulnerability.csv"
+        },
+        {
+          "id": "vln_lossfactors_bin",
+          "title": "loss factors binary file",
+          "description": "A loss factors file use for amplifying losses in Oasis binary format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/lossfactors.bin"
+        },
+        {
+          "id": "vln_lossfactors_csv",
+          "title": "loss factors csv file",
+          "description": "A loss factors file use for amplifying losses in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "model_data/PiWind/lossfactors.csv"
+        },
+        {
+          "id": "vln_damage_bin_dict_bin",
+          "title": "damage bin dictionary binary file",
+          "description": "A list of damage bins in Oasis binary format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/damage_bin_dict.bin"
+        },
+        {
+          "id": "vln_damage_bin_dict_csv",
+          "title": "damage bin dictionary csv file",
+          "description": "A list of damage bins in csv",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/vln/damage_bin_dict.csv"
+        },
+        {
+          "id": "vln_vulnerability_dict_csv",
+          "title": "vulnerability dictionary file",
+          "description": "A list of vulnerability ids and attributes used for keys lookup in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "keys_data/PiWind/vulnerability_dict.csv"
+        },
+        {
+          "id": "vln_amplification_dict_csv",
+          "title": "amplification dictionary file",
+          "description": "A list of amplification ids and attributes",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "keys_data/PiWind/amplification_dict.csv"
+        },
+        {
+          "id": "vln_intensity_bin_dict_csv",
+          "title": "intensity bin dictionary csv file",
+          "description": "A list of intensity metric bins in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/vln/intensity_bin_dict.csv"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://docs.riskdatalibrary.org/en/0__2__0/rdls_schema.json",
+          "rel": "describedby"
+        }
+      ]
+    },
+    {
+      "id": "piwind_loss",
+      "title": "PiWind illustrative model",
+      "description": "PiWind is an illustrative wind and river flood model based on the fictional town of Pi. PiWind can be used as an example for modellers to create Oasis compatible models and for users can be used to evaluate the Oasis platform",
+      "risk_data_type": [
+        "loss"
+      ],
+      "publisher": {
+        "name": "Oasis LMF",
+        "email": "support@oasislmf.org",
+        "url": "https://oasislmf.org/"
+      },
+      "version": "1",
+      "spatial": {
+        "countries": [
+          "GBR"
+        ],
+        "scale": "sub-national"
+      },
+      "license": "CC0-1.0",
+      "contact_point": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "creator": {
+        "name": "Oasis support",
+        "email": "support@oasislmf.org"
+      },
+      "resources": [
+        {
+          "id": "los_quantiles_bin",
+          "title": "quantiles binary file",
+          "description": "A list of quantiles used for quantile loss reports in Oasis binary format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/quantile.bin"
+        },
+        {
+          "id": "los_quantiles_csv",
+          "title": "quantiles csv file",
+          "description": "A list of quantiles used for quantile loss reports in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/los/quantile.csv"
+        },
+        {
+          "id": "los_returnperiods_bin",
+          "title": "return periods binary file",
+          "description": "A list of return periods used for exceedance probability reports in Oasis binary format",
+          "media_type": "application/octet-stream",
+          "format": "md",
+          "download_url": "model_data/PiWind/returnperiods.bin"
+        },
+        {
+          "id": "los_returnperiods_csv",
+          "title": "return periods csv file",
+          "description": "A list of return periods used for exceedance probability reports in csv format",
+          "media_type": "text/csv",
+          "format": "csv",
+          "download_url": "docs/resources/los/returnperiods.csv"
+        }
+      ],
+      "links": [
+        {
+          "href": "https://docs.riskdatalibrary.org/en/0__2__0/rdls_schema.json",
+          "rel": "describedby"
+        }
+      ]
+    }
+  ]
+}
