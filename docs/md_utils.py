@@ -3,6 +3,8 @@ from typing import List
 
 class MarkdownGenerator:
     def __init__(self):
+        """A simple markdown generator for adding markdown strings
+        """
         self.sections = []
     
     def get_markdown(self) -> str:
