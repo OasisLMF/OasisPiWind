@@ -22,7 +22,7 @@ class MarkdownGenerator:
             title (str): Title string
             level (int): Markdown header level. Defaults to 1.
         """
-        self.sections.append(f"{"#" * level} {title}\n\n")
+        self.sections.append(f"{'#' * level} {title}\n\n")
 
     def add_definition(self, title: str, content: str):
         """Adds definition line to markdown in the following format
