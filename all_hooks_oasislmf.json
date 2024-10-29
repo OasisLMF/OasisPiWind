@@ -1,7 +1,10 @@
 {
     "analysis_settings_json": "analysis_settings.json",
-    "lookup_config_json": "keys_data/PiWind/lookup_config.json",
+
     "lookup_data_dir": "keys_data/PiWind",
+    "lookup_module_path": "src/complex_lookup/PiWindComplexModelKeysLookup.py",
+    "model_version_csv": "keys_data/PiWind/ModelVersion.csv",
+
     "model_data_dir": "model_data/PiWind",
     "model_settings_json": "meta-data/model_settings.json",
     "oed_location_csv": "tests/inputs/SourceLocOEDPiWind10.csv",
