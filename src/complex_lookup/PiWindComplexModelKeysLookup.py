@@ -91,7 +91,7 @@ class PiWindComplexModelKeysLookup(OasisBaseKeysLookup):
 
         #import ipdb; ipdb.set_trace()
         root_logger = logging.getLogger()
-        root_logger.info("MESSAGE TO THE ROOT LOGGER FROM FLYKeysLookup!!!")
+        root_logger.info("MESSAGE TO THE ROOT LOGGER FROM Piwind Custom Lookup!!!")
         loc_df = loc_df.rename(columns=str.lower)
 
         locs_seq = (loc for _, loc in loc_df.iterrows())
