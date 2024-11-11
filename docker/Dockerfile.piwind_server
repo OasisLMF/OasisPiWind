@@ -5,6 +5,7 @@ RUN apt-get update && apt-get -y install git python3-pip && rm -rf /var/lib/apt/
 
 COPY --chown=server:server $ods_package ./
 USER server
+ENV PIP_BREAK_SYSTEM_PACKAGES 1
 
 # Install ods_tools from package file (Optional) 'docker build --build-arg ods_package=<whl>'
 ARG ods_package
