@@ -251,7 +251,8 @@ jobs:
     - name: Commit results
       if: inputs.generate_results == 'true'
       run: |
-        git add -A tests/ci/expected
+        git add -A tests/ci/expected/*/output/*.parquet
+        git add -A tests/ci/expected/*/output/*.csv
         git status
         if [[ ! -z $(git status -s) ]]; then
             git commit -m 'Regenerated expected results - https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
