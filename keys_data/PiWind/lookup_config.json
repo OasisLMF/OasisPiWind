@@ -17,6 +17,28 @@
                 "nearest_neighbor_min_distance": -1
             }
         },
+        "fixed_size_geo_grid_multi_peril":{
+            "type": "fixed_size_geo_grid_multi_peril",
+            "columns": ["latitude", "longitude", "peril_id"],
+            "parameters": {
+                "perils_dict":{
+                    "WTC": {
+                        "lon_min": -0.9176515,
+                        "lon_max": -0.8569864,
+                        "lat_min": 52.7339933,
+                        "lat_max": 52.7946584,
+                        "arc_size": 0.00606651
+                    },
+                    "WSS": {
+                        "lon_min": -0.9176515,
+                        "lon_max": -0.8569864,
+                        "lat_min": 52.7339933,
+                        "lat_max": 52.7946584,
+                        "arc_size": 0.00606651
+                    }
+                }
+            }
+        },
         "fixed_size_z_index_geo_grid_multi_peril":{
             "type": "fixed_size_z_index_geo_grid_multi_peril",
             "columns": ["latitude", "longitude", "peril_id"],
@@ -68,5 +90,5 @@
                           }
         }
     },
-    "strategy": ["split_loc_perils_covered", "fixed_size_z_index_geo_grid_multi_peril", "create_coverage_type", "vulnerability"]
+    "strategy": ["split_loc_perils_covered", "fixed_size_geo_grid_multi_peril", "create_coverage_type", "vulnerability"]
 }
