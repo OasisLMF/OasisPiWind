@@ -77,7 +77,7 @@ jobs:
     needs: ods_tools
     strategy:
       matrix:
-        py-version: ["3.8", "3.9", "3.10"]
+        py-version: ["3.9", "3.10", "3.11"]
     steps:
       - name: Github context
         run:   echo "$GITHUB_CONTEXT"
