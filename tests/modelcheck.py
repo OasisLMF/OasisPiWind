@@ -322,14 +322,20 @@ class TestOasisModel(TestCase):
         df_result = self._result_from_tar(filename)
         df_expect = self._expect_from_dir(filename)
 
-        if ('eltcalc' in filename
-            and "standard_deviation" in df_result.columns
-            and "standard_deviation" in df_expect.columns): # work around for eltcalc rounding error tolerance in stdev
-            res_col = list(set(df_result.columns) - {"standard_deviation"})
-            exp_col = list(set(df_expect.columns) - {"standard_deviation"})
+        if (('eltcalc' in filename
+                and "standard_deviation" in df_result.columns
+                and "standard_deviation" in df_expect.columns)
+            or (('elt' in filename or 'plt' in filename)
+                and "sdloss" in df_result.columns
+                and "sdloss" in df_result.columns
+            )
+        ): # work around for rounding error tolerance in stdev
+            stdev_col = "standard_deviation" if "standard_deviation" in df_result.columns else "sdloss"
+            res_col = list(set(df_result.columns) - {stdev_col})
+            exp_col = list(set(df_expect.columns) - {stdev_col})
 
             assert_frame_equal(df_result[res_col], df_expect[exp_col])
-            assert_frame_equal(df_result[["standard_deviation"]], df_expect[["standard_deviation"]], rtol=0.01)
+            assert_frame_equal(df_result[[stdev_col]], df_expect[[stdev_col]], rtol=0.01)
         else:
             df_result = self._result_from_tar(filename)
             df_expect = self._expect_from_dir(filename)
