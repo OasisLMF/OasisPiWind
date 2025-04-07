@@ -337,8 +337,6 @@ class TestOasisModel(TestCase):
             assert_frame_equal(df_result[res_col], df_expect[exp_col])
             assert_frame_equal(df_result[[stdev_col]], df_expect[[stdev_col]], rtol=0.01)
         else:
-            df_result = self._result_from_tar(filename)
-            df_expect = self._expect_from_dir(filename)
             assert_frame_equal(df_result, df_expect)
 
     def _generate_expected_results(self):
