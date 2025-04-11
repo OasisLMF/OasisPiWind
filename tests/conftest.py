@@ -1,6 +1,6 @@
 """pytest configuration"""
 
-from os import getenv
+from os import getenv, cpu_count
 from .modelcheck import wait_for_api, _class_server_conn
 
 
@@ -12,6 +12,14 @@ def pytest_addoption(parser):
     parser.addoption(
         '--api-version', type=str, default=getenv('WORKER_API_VER', default='v1'), 
         help='Set the OasisAPI clients api version [v1, v2]' 
+    )  
+    parser.addoption(
+        '--lookup-chunks', type=int, default=getenv('WORKER_LOOKUP_CHUNKS', default=cpu_count()), 
+        help='Set the number of lookup chunks (v2 runs only)' 
+    )  
+    parser.addoption(
+        '--analysis-chunks', type=int, default=getenv('WORKER_ANALYSIS_CHUNKS', default=cpu_count()), 
+        help='Set the number of analysis chunks (v2 runs only)' 
     )  
 
 pytest_plugins = [
