@@ -33,6 +33,12 @@ on:
         description: 'Worker image run mode [v1, v2]'
         required: false
         default: 'v2'
+      worker_lookup_chunks:
+        description: 'Set the number of lookup chunks (v2 runs only)'
+        required: false
+      worker_analysis_chunks:
+        description: 'Set the number of analysis chunks (v2 runs only)'
+        required: false
       debug_mode:
         description: 'Enable verbose logging for containers [0, 1]'
         required: false
@@ -76,6 +82,14 @@ on:
         type: string
       worker_api_ver:
         description: 'Worker image run mode [v1, v2]'
+        required: false
+        type: string
+      worker_lookup_chunks:
+        description: 'Set the number of lookup chunks (v2 runs only)'
+        required: false
+        type: string
+      worker_analysis_chunks:
+        description: 'Set the number of analysis chunks (v2 runs only)'
         required: false
         type: string
       debug_mode:
@@ -148,6 +162,8 @@ jobs:
        [[ -z "${{ inputs.worker_image }}" ]] || echo "WORKER_IMG=${{ inputs.worker_image }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.worker_tag }}"   ]] || echo "WORKER_TAG=${{ inputs.worker_tag }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.worker_api_ver }}"   ]] || echo "WORKER_API_VER=${{ inputs.worker_api_ver }}" >> $GITHUB_ENV
+       [[ -z "${{ inputs.worker_lookup_chunks }}"   ]] || echo "WORKER_LOOKUP_CHUNKS=${{ inputs.worker_lookup_chunks }}" >> $GITHUB_ENV
+       [[ -z "${{ inputs.worker_analysis_chunks }}"   ]] || echo "WORKER_ANALYSIS_CHUNKS=${{ inputs.worker_analysis_chunks }}" >> $GITHUB_ENV
        [[ -z "${{ inputs.debug_mode }}"   ]] || echo "DEBUG=${{ inputs.debug_mode }}" >> $GITHUB_ENV
 
     - name: clone PiWind repository
