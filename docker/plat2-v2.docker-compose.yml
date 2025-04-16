@@ -47,7 +47,7 @@ x-volumes: &shared-volumes
 services:
   server:
    restart: always
-   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
+   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: ["./wsgi/run-wsgi.sh"]
    ports:
      - 8000:8000
@@ -65,7 +65,7 @@ services:
   websocket:
    restart: always
    image: coreoasis/api_server:dev
-   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
+   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: ["./asgi/run-asgi.sh"]
    links:
      - server-db
@@ -79,7 +79,7 @@ services:
      - filestore-OasisData:/shared-fs:rw
   v1-worker-monitor:
    restart: always
-   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
+   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: [celery, -A, src.server.oasisapi.celery_app_v1, worker, --loglevel=INFO, -Q, celery]
    links:
      - server-db
@@ -91,7 +91,7 @@ services:
      - filestore-OasisData:/shared-fs:rw
   v2-worker-monitor:
    restart: always
-   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
+   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: [celery, -A, src.server.oasisapi.celery_app_v2, worker, --loglevel=INFO, -Q, celery-v2]
    links:
      - server-db
@@ -103,7 +103,7 @@ services:
      - filestore-OasisData:/shared-fs:rw
   task-controller:
    restart: always
-   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
+   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: [celery, -A, src.server.oasisapi.celery_app_v2, worker, --loglevel=INFO, -Q, task-controller]
    links:
      - server-db
@@ -115,7 +115,7 @@ services:
      - filestore-OasisData:/shared-fs:rw
   celery-beat:
    restart: always
-   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-2.1.0-dev}
+   image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: [celery, -A, src.server.oasisapi.celery_app_v2, beat, --loglevel=INFO]
    links:
      - server-db
@@ -126,7 +126,7 @@ services:
    volumes: *shared-volumes
   worker:
     restart: always
-    image: ${WORKER_IMG:-coreoasis/model_worker}:${WORKER_TAG:-2.1.0-dev}
+    image: ${WORKER_IMG:-coreoasis/model_worker}:${WORKER_TAG:-latest}
     links:
      - celery-db
      - broker:mybroker

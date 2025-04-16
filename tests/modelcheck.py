@@ -110,6 +110,8 @@ def _class_server_conn(request, wait_for_api):
     """
     request.cls.api = wait_for_api
     request.cls.generate_expected = request.config.getoption('--generate-expected', False)
+    request.cls.lookup_chunks = request.config.getoption('--lookup-chunks')
+    request.cls.anaysis_chunks = request.config.getoption('--analysis-chunks')
 
 
 class TestOasisModel(TestCase):
@@ -197,6 +199,13 @@ class TestOasisModel(TestCase):
 
         # Find PiWind's model id
         cls.model_id = cls._get_model_id(cls)
+
+        # test if V2, if yes set chunk sizes based on input (default = number of cpu cores) 
+        if cls.api.api_ver.lower() == 'v2':
+            chunk_cfg = cls.api.models.chunking_configuration.get(cls.model_id).json()
+            chunk_cfg['fixed_lookup_chunks'] = cls.lookup_chunks
+            chunk_cfg['fixed_analysis_chunks'] = cls.anaysis_chunks
+            cls.api.models.chunking_configuration.post(cls.model_id, chunk_cfg)
 
         # Create portfolio
         cls.portfolio_id = cls._create_portfolio(cls)
