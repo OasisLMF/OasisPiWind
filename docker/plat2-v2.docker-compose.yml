@@ -15,7 +15,7 @@ x-server-env: &server-env
   OASIS_SERVER_DB_PORT: 5432
   OASIS_SERVER_CHANNEL_LAYER_HOST: channel-layer
   OASIS_SERVER_DB_ENGINE: django.db.backends.postgresql
-  OASIS_CELERY_DB_ENGINE: db+postgresql+psycopg
+  OASIS_CELERY_DB_ENGINE: db+postgresql
   OASIS_CELERY_DB_HOST: celery-db
   OASIS_CELERY_DB_PASS: password
   OASIS_CELERY_DB_USER: celery
@@ -28,7 +28,7 @@ x-server-env: &server-env
 x-worker-env: &worker-env
   OASIS_DEBUG: ${DEBUG:-0}
   OASIS_CELERY_BROKER_URL: "amqp://rabbit:rabbit@broker:5672"
-  OASIS_CELERY_DB_ENGINE: db+postgresql+psycopg
+  OASIS_CELERY_DB_ENGINE: db+postgresql
   OASIS_CELERY_DB_HOST: celery-db
   OASIS_CELERY_DB_PASS: password
   OASIS_CELERY_DB_USER: celery

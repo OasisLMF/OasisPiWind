@@ -18,7 +18,7 @@ x-oasis-env: &oasis-env
   OASIS_SERVER_DB_NAME: oasis
   OASIS_SERVER_DB_PORT: 5432
   OASIS_SERVER_DB_ENGINE: django.db.backends.postgresql
-  OASIS_CELERY_DB_ENGINE: db+postgresql+psycopg
+  OASIS_CELERY_DB_ENGINE: db+postgresql
   OASIS_CELERY_DB_HOST: celery-db
   OASIS_CELERY_DB_PASS: password
   OASIS_CELERY_DB_USER: celery
