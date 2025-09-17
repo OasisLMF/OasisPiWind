@@ -23,7 +23,7 @@ x-oasis-env: &server-env
   OASIS_CELERY_DB_USER: celery
   OASIS_CELERY_DB_NAME: celery
   OASIS_CELERY_DB_PORT: 3306
-  STARTUP_RUN_MIGRATIONS: 'true'
+  OASIS_CELERY_DB_SSL_MODE: ''
   OASIS_INPUT_GENERATION_CONTROLLER_QUEUE: task-controller
   OASIS_LOSSES_GENERATION_CONTROLLER_QUEUE: task-controller
   OASIS_STORAGE_TYPE: S3
@@ -42,6 +42,7 @@ x-worker-env: &worker-env
   OASIS_CELERY_DB_USER: celery
   OASIS_CELERY_DB_NAME: celery
   OASIS_CELERY_DB_PORT: 3306
+  OASIS_CELERY_DB_SSL_MODE: ''
   # V1
   OASIS_RABBIT_HOST: broker
   OASIS_RABBIT_PORT: 5672
@@ -75,6 +76,7 @@ services:
       - broker
     environment:
       <<: *server-env
+      STARTUP_RUN_MIGRATIONS: 'true'
   websocket:
     restart: always
     image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
