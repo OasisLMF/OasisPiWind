@@ -233,7 +233,8 @@ jobs:
     - name: Reinstall oasislmf version (if set)
       if: inputs.oasislmf_branch != ''
       run: |
-        pip install --force-reinstall "git+https://github.com/OasisLMF/OasisLMF.git@${{ inputs.oasislmf_branch }}"
+        pip uninstall oasislmf -y; \
+        pip install -v "git+https://git@github.com/OasisLMF/OasisLMF.git@${{ inputs.oasislmf_branch }}#egg=oasislmf[extra]"
 
     - name: Run Checks
       if: inputs.generate_results != 'true'
