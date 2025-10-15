@@ -104,7 +104,7 @@ def wait_for_api(module_scoped_container_getter, request):
             oasis_client = APIClient(
                 api_url=api_url,
                 api_ver=api_ver,
-                client_id="oasis-Service",
+                client_id="oasis-service",
                 client_secret="serviceNotSoSecret"
             )
         except HTTPError as e:
