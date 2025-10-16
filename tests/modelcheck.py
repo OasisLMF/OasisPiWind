@@ -88,30 +88,7 @@ def wait_for_api(module_scoped_container_getter, request):
 
     # Wait for Model
     # First attempt: username/password
-    try:
-        oasis_client = APIClient(
-            api_url=api_url,
-            api_ver=api_ver,
-            username="admin",
-            password="password"
-        )
-    except HTTPError as e:
-        if e.response.status_code not in (400, 401):
-            # Raise immediately if it’s not an auth failure
-            raise e
-        # Second attempt: client ID/secret
-        try:
-            oasis_client = APIClient(
-                api_url=api_url,
-                api_ver=api_ver,
-                client_id="oasis-service",
-                client_secret="serviceNotSoSecret"
-            )
-        except HTTPError as e:
-            if e.response.status_code in (400, 401):
-                raise RuntimeError("Both authentication methods failed (401/400).") from e
-            else:
-                raise e
+    oasis_client = APIClient(api_url=api_url, api_ver=api_ver)
     oasis_client.api.mount('http://', HTTPAdapter(max_retries=retries))
 
     model_headers = {'authorization': f"Bearer {oasis_client.api.tkn_access}"}
