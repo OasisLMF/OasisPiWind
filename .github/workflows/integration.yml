@@ -230,12 +230,6 @@ jobs:
       env:
         BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/main'
 
-    - name: Reinstall oasislmf version (if set)
-      if: inputs.oasislmf_branch != ''
-      run: |
-        pip uninstall oasislmf -y; \
-        pip install -v "git+https://git@github.com/OasisLMF/OasisLMF.git@${{ inputs.oasislmf_branch }}#egg=oasislmf[extra]"
-
     - name: Run Checks
       if: inputs.generate_results != 'true'
       run: pytest -v --use-running-containers ${{ inputs.pytest_opts }}
