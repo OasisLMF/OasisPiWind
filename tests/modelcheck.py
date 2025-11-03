@@ -44,6 +44,7 @@ import random
 from unittest import TestCase
 import pandas as pd
 from pandas.testing import assert_frame_equal
+from requests.exceptions import HTTPError
 
 from oasislmf.platform.client import APIClient
 from oasislmf.utils.exceptions import OasisException
@@ -86,6 +87,7 @@ def wait_for_api(module_scoped_container_getter, request):
         assert request_session.get(localstack_url)
 
     # Wait for Model
+    # First attempt: username/password
     oasis_client = APIClient(api_url=api_url, api_ver=api_ver)
     oasis_client.api.mount('http://', HTTPAdapter(max_retries=retries))
 
