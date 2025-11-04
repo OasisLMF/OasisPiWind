@@ -174,14 +174,14 @@ jobs:
 
     - name: Download package (oasislmf)
       if: inputs.oasislmf_package != ''
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: oasislmf-bin-pkg_linux
         path: ${{ github.workspace }}/
 
     - name: Download package (ods_tools)
       if: inputs.ods_package != ''
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: bin_package
         path: ${{ github.workspace }}/
@@ -273,7 +273,7 @@ jobs:
 
     - name: Store docker logs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: docker-logs${{ inputs.storage_suffix }}
         path: ./docker_logs
@@ -281,7 +281,7 @@ jobs:
 
     - name: Store result data
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: output-tars${{ inputs.storage_suffix }}
         path: ./tests/result/
