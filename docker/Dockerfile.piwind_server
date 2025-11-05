@@ -1,4 +1,5 @@
-FROM coreoasis/api_server:latest
+ARG API_SERVER_VERSION=latest
+FROM coreoasis/api_server:${API_SERVER_VERSION}
 
 USER root 
 RUN apt-get update && apt-get -y install git python3-pip && rm -rf /var/lib/apt/lists/*
