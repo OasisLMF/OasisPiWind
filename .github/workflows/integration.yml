@@ -199,7 +199,7 @@ jobs:
         sed -i "/FROM /c\FROM ${{ env.SERVER_IMG }}:${{ env.SERVER_TAG }}" ${{ env.DOCKERFILE_SERVER }}
 
     - name: Build local api_server image from oasisplatform branch
-      if: inputs.oasisplatform_branch != ''
+      if: inputs.oasisplatform_branch == ''
       run: |
         echo "Building coreoasis/api_server from oasisplatform branch: ${{ inputs.oasisplatform_branch }}"
         git clone --branch ${{ inputs.oasisplatform_branch }} https://github.com/OasisLMF/OasisPlatform.git
@@ -222,7 +222,7 @@ jobs:
                      -t ${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }} .
 
         if [ -n "${{ inputs.oasisplatform_branch }}" ]; then
-          export API_SERVER_VERSION=latest
+          export API_SERVER_VERSION=dev
         else
           export API_SERVER_VERSION=latest
         fi
