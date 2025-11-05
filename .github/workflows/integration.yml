@@ -203,10 +203,11 @@ jobs:
       run: |
         echo "Building coreoasis/api_server from oasisplatform branch: ${{ inputs.oasisplatform_branch }}"
         git clone --branch ${{ inputs.oasisplatform_branch }} https://github.com/OasisLMF/OasisPlatform.git
-        cd OasisPlatform
+        pushd OasisPlatform
         docker build -f Dockerfile.api_server \
                       -t coreoasis/api_server:dev \
                       .
+        popd
         echo "Built local image coreoasis/api_server:dev from ${{ inputs.oasisplatform_branch }}"
 
     - name: Docker Build
