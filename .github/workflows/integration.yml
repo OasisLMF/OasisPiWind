@@ -221,10 +221,10 @@ jobs:
                      -t ${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }} .
 
         if [ -n "${{ inputs.oasisplatform_branch }}" ]; then
-            export API_SERVER_VERSION=dev
-          else
-            export API_SERVER_VERSION=latest
-          fi
+          export API_SERVER_VERSION=latest
+        else
+          export API_SERVER_VERSION=latest
+        fi
 
         echo "Using base image: coreoasis/api_server:${API_SERVER_VERSION}"
 
