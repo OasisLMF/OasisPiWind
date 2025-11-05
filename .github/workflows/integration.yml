@@ -205,7 +205,7 @@ jobs:
         git clone --branch ${{ inputs.oasisplatform_branch }} https://github.com/OasisLMF/OasisPlatform.git
         cd OasisPlatform
         docker build -f Dockerfile.api_server \
-                      -t coreoasis/api_server:${{ inputs.oasisplatform_branch }} \
+                      -t coreoasis/api_server:dev \
                       .
         echo "Built local image coreoasis/api_server:${{ inputs.oasisplatform_branch }}"
 
@@ -221,7 +221,7 @@ jobs:
                      -t ${{ env.WORKER_IMG }}:piwind-test-${{ github.sha }} .
 
         if [ -n "${{ inputs.oasisplatform_branch }}" ]; then
-            export API_SERVER_VERSION=${{ inputs.oasisplatform_branch }}
+            export API_SERVER_VERSION=dev
           else
             export API_SERVER_VERSION=latest
           fi
