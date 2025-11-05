@@ -1,7 +1,6 @@
 ARG API_SERVER_VERSION=latest
 FROM coreoasis/api_server:${API_SERVER_VERSION}
 
-ARG API_SERVER_VERSION=latest
 RUN echo $API_SERVER_VERSION
 
 USER root 

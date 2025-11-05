@@ -207,7 +207,7 @@ jobs:
         docker build -f Dockerfile.api_server \
                       -t coreoasis/api_server:dev \
                       .
-        echo "Built local image coreoasis/api_server:${{ inputs.oasisplatform_branch }}"
+        echo "Built local image coreoasis/api_server:dev from ${{ inputs.oasisplatform_branch }}"
 
     - name: Docker Build
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != '' || inputs.ods_branch != ''
