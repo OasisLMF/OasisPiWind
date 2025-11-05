@@ -43,6 +43,7 @@ on:
       oasisplatform_branch:
         description: "Branch from oasisplatform to test piwind with [git ref]"
         required: false
+        type: string
       # If set build a piwind worker with / branch package
       # otherwise use the default worker image
       oasislmf_branch:
@@ -106,6 +107,7 @@ on:
       oasisplatform_branch:
         description: "Branch from oasisplatform to test piwind with [git ref]"
         required: false
+        type: string
       # If set build a piwind worker with / branch package
       # otherwise use the default worker image
       oasislmf_branch:
