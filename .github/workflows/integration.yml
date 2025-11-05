@@ -199,9 +199,10 @@ jobs:
         sed -i "/FROM /c\FROM ${{ env.SERVER_IMG }}:${{ env.SERVER_TAG }}" ${{ env.DOCKERFILE_SERVER }}
 
     - name: Build local api_server image from oasisplatform branch
-      if: inputs.oasisplatform_branch == ''
+      if: inputs.oasisplatform_branch != ''
       run: |
         echo "Building coreoasis/api_server from oasisplatform branch: ${{ inputs.oasisplatform_branch }}"
+        set -e
         git clone --branch ${{ inputs.oasisplatform_branch }} https://github.com/OasisLMF/OasisPlatform.git
         pushd OasisPlatform
         docker build -f Dockerfile.api_server \
@@ -213,6 +214,7 @@ jobs:
     - name: Docker Build
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != '' || inputs.ods_branch != ''
       run: |
+        set -e
         docker build -f ${{ env.DOCKERFILE_WORKER }} \
                      --pull \
                      --build-arg oasislmf_package=${{ inputs.oasislmf_package }} \
