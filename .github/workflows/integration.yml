@@ -222,7 +222,7 @@ jobs:
 
     - name: install test deps
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade "pip<23.3"
         pip install pip-tools
         wget $BASE_URL/tests/requirements.in
         pip-compile requirements.in -o requirements.txt
