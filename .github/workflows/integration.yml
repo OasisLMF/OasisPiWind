@@ -230,7 +230,6 @@ jobs:
 
         docker build -f ${{ env.DOCKERFILE_SERVER }} \
                      --pull \
-                     --build-arg API_SERVER_VERSION=${API_SERVER_VERSION} \
                      --build-arg ods_package=${{ inputs.ods_package }} \
                      --build-arg ods_tools_branch=${{ inputs.ods_branch }} \
                      -t ${{ env.SERVER_IMG }}:piwind-test-${{ github.sha }} .
