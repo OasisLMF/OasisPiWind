@@ -226,7 +226,7 @@ jobs:
             export API_SERVER_VERSION=latest
           fi
 
-          echo "Using base image: coreoasis/api_server:${API_SERVER_VERSION}"
+        echo "Using base image: coreoasis/api_server:${API_SERVER_VERSION}"
 
         docker build -f ${{ env.DOCKERFILE_SERVER }} \
                      --pull \
