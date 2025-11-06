@@ -214,7 +214,7 @@ jobs:
     - name: Debug local images
       run: |
         echo "Local Docker images:"
-        docker images | grep coreoasis/api_server
+        docker images
 
     - name: Docker Build
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != '' || inputs.ods_branch != ''
