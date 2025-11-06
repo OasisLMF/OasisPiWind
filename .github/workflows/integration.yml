@@ -209,6 +209,7 @@ jobs:
                       -t local/api_server:dev \
                       .
         popd
+        rm -rf OasisPlatform
         echo "Built local image local/api_server:dev from ${{ inputs.oasisplatform_branch }}"
 
     - name: Docker Build
