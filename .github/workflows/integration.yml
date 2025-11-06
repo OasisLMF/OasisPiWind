@@ -211,6 +211,11 @@ jobs:
         popd
         echo "Built local image coreoasis/api_server:dev from ${{ inputs.oasisplatform_branch }}"
 
+    - name: Debug local images
+      run: |
+        echo "Local Docker images:"
+        docker images | grep coreoasis/api_server
+
     - name: Docker Build
       if: inputs.oasislmf_package != '' || inputs.oasislmf_branch != '' || inputs.ods_package != '' || inputs.ods_branch != ''
       run: |
