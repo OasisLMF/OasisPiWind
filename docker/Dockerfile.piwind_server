@@ -1,4 +1,5 @@
-FROM coreoasis/api_server:latest
+ARG API_SERVER_IMG=coreoasis/api_server:latest
+FROM ${API_SERVER_IMG}
 
 
 USER root 
