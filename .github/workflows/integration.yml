@@ -231,7 +231,7 @@ jobs:
 
         echo "Using base image: ${API_SERVER_IMG}"
 
-        docker build -f ${{ env.DOCKERFILE_SERVER }} \
+        docker build --no-cache -f ${{ env.DOCKERFILE_SERVER }} \
                      --pull \
                      --build-arg ods_package=${{ inputs.ods_package }} \
                      --build-arg ods_tools_branch=${{ inputs.ods_branch }} \
