@@ -78,7 +78,7 @@ services:
       POSTGRES_USER: oasis
       POSTGRES_PASSWORD: oasis
     volumes:
-      - server-db-OasisData:/var/lib/postgresql/data:rw
+      - server-db-OasisData:/var/lib/postgresql:rw
 
   celery-db:
     restart: always
@@ -88,7 +88,7 @@ services:
       POSTGRES_USER: celery
       POSTGRES_PASSWORD: password
     volumes:
-      - celery-db-OasisData:/var/lib/postgresql/data:rw
+      - celery-db-OasisData:/var/lib/postgresql:rw
 
   rabbit:
     restart: always
