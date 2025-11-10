@@ -231,10 +231,9 @@ jobs:
         BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/main'
 
     - name: Reinstall oasislmf version (if set)
-      if: inputs.oasislmf_branch != ''
       run: |
         pip uninstall oasislmf -y; \
-        pip install -v "git+https://git@github.com/OasisLMF/OasisLMF.git@${{ inputs.oasislmf_branch }}#egg=oasislmf[extra]"
+        pip install -v "git+https://git@github.com/OasisLMF/OasisLMF.git@feature/generic_oidc_edited#egg=oasislmf[extra]"
 
     - name: Run Checks
       if: inputs.generate_results != 'true'
