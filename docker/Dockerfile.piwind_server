@@ -1,6 +1,4 @@
-ARG API_SERVER_IMG=coreoasis/api_server:latest
-FROM ${API_SERVER_IMG}
-
+FROM coreoasis/api_server:latest
 
 USER root 
 RUN apt-get update && apt-get -y install git python3-pip && rm -rf /var/lib/apt/lists/*
