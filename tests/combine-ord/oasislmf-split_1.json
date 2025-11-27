@@ -1,0 +1,13 @@
+{
+    "analysis_settings_json": "analysis_settings.json",
+    "lookup_config_json": "../../keys_data/PiWind/lookup_config.json",
+    "lookup_data_dir": "../../keys_data/PiWind",
+    "model_data_dir": "../../model_data/PiWind",
+    "model_settings_json": "../../meta-data/model_settings.json",
+    "oed_location_csv": "split/1/SourceLocOEDPiWind10.csv",
+    "oed_accounts_csv": "SourceAccOEDPiWind.csv",
+    "modelpy": false,
+    "gulpy": false,
+    "gulmc": true,
+    "ktools_alloc_rule_gul": 1
+}
