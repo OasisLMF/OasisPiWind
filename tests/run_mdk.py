@@ -214,7 +214,7 @@ def model_run_ok(model_run_dir, model_run_mode):
 
     direct_csv_inputs_fp = os.path.join(model_run_dir, 'input', 'csv') if not ri else os.path.join(model_run_dir, 'input')
 
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'location.csv'), substr_match=True))
+    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'location'), substr_match=True))
     assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'keys'), substr_match=True))
     assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'keys-errors'), substr_match=True))
 
@@ -237,7 +237,7 @@ def model_run_ok(model_run_dir, model_run_mode):
     assert(_is_non_empty_file(os.path.join(outputs_fp, 'gul_S1_leccalc_full_uncertainty_oep.csv')))
 
     if model_run_mode in ['fm', 'ri']:
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'account.csv'), substr_match=True))
+        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'account'), substr_match=True))
         assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_programme.csv')))
         assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_profile.csv')))
         assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_policytc.csv')))
