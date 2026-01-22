@@ -64,7 +64,7 @@ services:
      - filestore-OasisData:/shared-fs:rw
   websocket:
    restart: always
-   image: coreoasis/api_server:dev
+  #  image: coreoasis/api_server:dev
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: ["./asgi/run-asgi.sh"]
    links:
