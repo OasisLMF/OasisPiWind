@@ -2,17 +2,22 @@
     "version": "3",
     "source_tag": "piwind",
     "analysis_tag": "FM_integration_test",
-    "exposure_location": "L:",
+    "model_name_id": "PiWind",
+    "model_supplier_id": "OasisLMF",
+    "model_settings": {
+        "event_set": "p",
+         "event_occurrence_id": "lt"
+     },
+    "number_of_samples": 10,
     "gul_output": true,
     "gul_summaries": [
         {
-            "aalcalc": true,
-            "eltcalc": true,
             "id": 1,
-            "lec_output": true,
-            "leccalc": {
-                "full_uncertainty_aep": true,
-                "full_uncertainty_oep": true,
+            "ord_output": {
+                "alt_period": true,
+                "elt_sample": true,
+                "ept_full_uncertainty_aep": true,
+                "ept_full_uncertainty_oep": true,
                 "return_period_file": true
             }
         }
@@ -21,23 +26,14 @@
     "il_output": true,
     "il_summaries": [
         {
-            "aalcalc": true,
-            "eltcalc": true,
             "id": 1,
-            "lec_output": true,
-            "leccalc": {
-                "full_uncertainty_aep": true,
-                "full_uncertainty_oep": true,
+            "ord_output": {
+                "alt_period": true,
+                "elt_sample": true,
+                "ept_full_uncertainty_aep": true,
+                "ept_full_uncertainty_oep": true,
                 "return_period_file": true
             }
-        }
-    ],
-    "model_settings": {
-        "event_set": "p",
-         "event_occurrence_id": "lt"
-     },
-    "model_name_id": "PiWind",
-    "model_supplier_id": "OasisLMF",
-    "number_of_samples": 10
+    ]
 }
 
