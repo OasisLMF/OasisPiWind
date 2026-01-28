@@ -1,0 +1,2 @@
+Store dir: /tmp/tmpltbrksue -> analysis-14_files-44f7811f25024500833911558fc1ff5f/keys-data.tar.gz
+Store file: /var/log/oasis/tasks/44f7811f25024500833911558fc1ff5f_collect-keys.log -> dbd39dc98cf94e3b85dc601620e20f17.log

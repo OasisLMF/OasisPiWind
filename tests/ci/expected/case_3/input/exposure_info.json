@@ -1,0 +1,37 @@
+{
+  "location": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "curr": {
+        "source_type": "filepath",
+        "filepath": "/tmp/run/analysis-15_files-4940d3265de84389b0fc347804798846/raw_location.csv",
+        "read_param": {},
+        "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "location.csv",
+        "extension": "csv",
+        "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
+      }
+    }
+  },
+  "account": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "curr": {
+        "source_type": "filepath",
+        "filepath": "/tmp/run/analysis-15_files-4940d3265de84389b0fc347804798846/raw_account.csv",
+        "read_param": {},
+        "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "account.csv",
+        "extension": "csv",
+        "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
+      }
+    }
+  },
+  "oed_schema_info": "/home/worker/.local/lib/python3.12/site-packages/ods_tools/data/OpenExposureData_4.0.0Spec.json"
+}

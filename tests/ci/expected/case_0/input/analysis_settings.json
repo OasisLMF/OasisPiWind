@@ -1,0 +1,1 @@
+{"version": "3", "source_tag": "piwind", "analysis_tag": "GUL_integration_test", "model_name_id": "PiWind", "model_supplier_id": "OasisLMF", "model_settings": {"event_set": "p"}, "number_of_samples": 10, "gul_threshold": 0, "gul_output": true, "gul_summaries": [{"id": 1, "ord_output": {"elt_sample": true}}], "module_supplier_id": "OasisLMF", "model_version_id": "PiWind"}
