@@ -1,0 +1,51 @@
+RUNNING: oasislmf.manager.interface
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+user_role [] cannot overwrite version, role ['user'] required
+user_role [] cannot overwrite event_set, role ['user'] required
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+RUNNING: oasislmf.computation.generate.files.run
+
+Processing arguments - Creating Oasis Files
+detected class of business is ClassOfBusiness.prop
+oed check:   0%|          | 0/9 [00:00<?, ?it/s]
+oed check: 100%|##########| 9/9 [00:00<00:00, 765.46it/s]
+
+Generating Oasis files (GUL=True, IL=False, RIL=None)
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+RUNNING: oasislmf.preparation.gul_inputs.get_gul_input_items
+COMPLETED: oasislmf.preparation.gul_inputs.get_gul_input_items in 0.02s
+RUNNING: oasislmf.preparation.summaries.write_exposure_summary
+RUNNING: oasislmf.preparation.summaries.get_exposure_summary
+RUNNING: oasislmf.preparation.summaries.get_exposure_totals
+COMPLETED: oasislmf.preparation.summaries.get_exposure_summary in 0.1s
+COMPLETED: oasislmf.preparation.summaries.write_exposure_summary in 0.12s
+RUNNING: oasislmf.preparation.summaries.write_summary_levels
+RUNNING: oasislmf.preparation.gul_inputs.write_gul_input_files
+RUNNING: oasislmf.preparation.gul_inputs.write_items_file
+RUNNING: oasislmf.preparation.gul_inputs.write_coverages_file
+COMPLETED: oasislmf.preparation.gul_inputs.write_gul_input_files in 0.03s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+
+Oasis files generated: {
+    "items": "/tmp/run/analysis-12_files-c7d5603795184a98bb4c970d1d4c752b/items.csv",
+    "coverages": "/tmp/run/analysis-12_files-c7d5603795184a98bb4c970d1d4c752b/coverages.csv"
+}
+COMPLETED: oasislmf.computation.generate.files.run in 0.35s
+COMPLETED: oasislmf.manager.interface in 0.36s
+Store file: /var/log/oasis/tasks/c7d5603795184a98bb4c970d1d4c752b_write-input-files.log -> effe04e6ea404a46b30d7a9b556323d8.log

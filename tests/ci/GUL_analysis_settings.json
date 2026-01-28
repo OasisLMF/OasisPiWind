@@ -2,20 +2,20 @@
     "version": "3",
     "source_tag": "piwind",
     "analysis_tag": "GUL_integration_test",
-    "exposure_location": "L:",
-    "gul_output": true,
-    "gul_summaries": [
-        {
-            "eltcalc": true,
-            "id": 1,
-            "lec_output": false
-        }
-    ],
-    "gul_threshold": 0,
+    "model_name_id": "PiWind",
+    "model_supplier_id": "OasisLMF",
     "model_settings": {
         "event_set": "p"
      },
-    "model_name_id": "PiWind",
-    "model_supplier_id": "OasisLMF",
-    "number_of_samples": 10
+    "number_of_samples": 10,
+    "gul_threshold": 0,
+    "gul_output": true,
+    "gul_summaries": [
+        {
+            "id": 1,
+            "ord_output": {
+                "elt_sample": true
+            }
+        }
+    ]
 }

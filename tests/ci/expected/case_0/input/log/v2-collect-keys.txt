@@ -1,0 +1,2 @@
+Store dir: /tmp/tmpg16ikqib -> analysis-12_files-c7d5603795184a98bb4c970d1d4c752b/keys-data.tar.gz
+Store file: /var/log/oasis/tasks/c7d5603795184a98bb4c970d1d4c752b_collect-keys.log -> 7f4e23eb6fed4c41aa47b7e87bddc366.log

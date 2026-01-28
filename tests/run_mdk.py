@@ -68,13 +68,16 @@ def parse_args():
     )
     parser = argparse.ArgumentParser(description=desc)
 
-    parser.add_argument('-b', '--mdk-repo-branch', default='develop', help='Target branch in the MDK package GitHub repository to build the package from')
+    parser.add_argument('-b', '--mdk-repo-branch', default='develop',
+                        help='Target branch in the MDK package GitHub repository to build the package from')
 
-    parser.add_argument('-m', '--model-repo-name', default='OasisPiWind', help='Target model GitHub repository name (must be an OasisLMF managed repository)')
+    parser.add_argument('-m', '--model-repo-name', default='OasisPiWind',
+                        help='Target model GitHub repository name (must be an OasisLMF managed repository)')
 
     parser.add_argument('-r', '--model-repo-branch', default='main', help='Target branch in the model GitHub repository to clone')
 
-    parser.add_argument('-t', '--clone-target', default=os.path.abspath('.'), help='Local parent folder in which to clone the model repository - default is script run directory')
+    parser.add_argument('-t', '--clone-target', default=os.path.abspath('.'),
+                        help='Local parent folder in which to clone the model repository - default is script run directory')
 
     parser.add_argument('-g', '--git-transfer-protocol', default='https', help='Git transfer protocol - https" or "ssh"')
 
@@ -82,7 +85,8 @@ def parse_args():
 
     parser.add_argument('-d', '--model-run-mode', default='ri', help='Model run mode - `gul` for GUL only, `fm` for GUL + FM, `ri` for GUL + FM + RI')
 
-    parser.add_argument('-n', '--no-cleanup', action='store_true', default=False, help='Whether to cleanup installed MDK installed package and model repository')
+    parser.add_argument('-n', '--no-cleanup', action='store_true', default=False,
+                        help='Whether to cleanup installed MDK installed package and model repository')
 
     args = vars(parser.parse_args())
 
@@ -94,6 +98,7 @@ def parse_args():
         args['model_run_mode'] = 'ri'
 
     return args
+
 
 def run_command(cmd_str):
     resp = run(cmd_str.split(), stderr=subprocess.STDOUT)
@@ -113,6 +118,7 @@ def pip_uninstall(pkg_name, options_str='-y', pip_path=get_default_pip_path()):
     if pkg_exists(pkg_name):
         cmd_str = 'pip uninstall {} {}'.format(options_str, pkg_name)
         run_command(cmd_str)
+
 
 def pip_install(pkg_name_or_branch_uri, options_str='', pip_path=get_default_pip_path()):
     pkg_name = pkg_name_or_branch_uri.split('=')[-1]
@@ -144,7 +150,7 @@ def clone_repo(repo_name, target, repo_branch='main', user_or_org_name='OasisLMF
     if repo_branch[:3] == "PR-" or 'refs/pull' in repo_branch:
         # Fetch Pull Request
         pull_id = int(''.join(d for d in repo_branch if d.isdigit()))
-        run_command('git fetch origin pull/{}/head:{}'.format(pull_id,repo_branch))
+        run_command('git fetch origin pull/{}/head:{}'.format(pull_id, repo_branch))
 
     # Checkout repo Branch
     run_command('git checkout {}'.format(repo_branch))
@@ -169,7 +175,7 @@ def apply_model_run_mode(model_run_mode, model_mdk_config_fp, as_dict=False):
     if as_dict:
         return _model_mdk_config
 
-    #with io.open(model_mdk_config_fp, 'w', encoding='utf-8') as f:
+    # with io.open(model_mdk_config_fp, 'w', encoding='utf-8') as f:
     #    json.dump(_model_mdk_config, f, indent=4, sort_keys=True)
 
 
@@ -188,7 +194,7 @@ def model_run_ok(model_run_dir, model_run_mode):
     def _is_non_empty_file(fp, substr_match=False, is_dir=False):
         print(fp)
         if not substr_match:
-            print( (os.path.isfile(fp) if not is_dir else os.path.isdir(fp)) and os.path.getsize(fp) > 0 )
+            print((os.path.isfile(fp) if not is_dir else os.path.isdir(fp)) and os.path.getsize(fp) > 0)
             return (os.path.isfile(fp) if not is_dir else os.path.isdir(fp)) and os.path.getsize(fp) > 0
         else:
             substr, dir_name, dir_contents = os.path.basename(fp), os.path.dirname(fp), os.listdir(os.path.dirname(fp))
@@ -202,63 +208,72 @@ def model_run_ok(model_run_dir, model_run_mode):
             return os.path.getsize(_fp) > 0
 
     ri = model_run_mode == 'ri'
+    output_files = [
+        'S1_ept.csv',
+        'S1_melt.csv',
+        'S1_mplt.csv',
+        'S1_palt.csv',
+        'S1_psept.csv',
+        'S1_qelt.csv',
+        'S1_qplt.csv',
+        'S1_selt.csv',
+        'S1_splt.csv',
+        'S1_summary-info.csv',
+    ]
 
-    assert(_is_non_empty_file(model_run_dir, is_dir=True))
-
-    assert(_is_non_empty_file(os.path.join(model_run_dir, 'analysis_settings.json')))
-    assert(_is_non_empty_file(os.path.join(model_run_dir, 'input'), is_dir=True))
-    assert(_is_non_empty_file(os.path.join(model_run_dir, 'output'), is_dir=True))
-    assert(_is_non_empty_file(os.path.join(model_run_dir, 'static'), is_dir=True))
-    assert(_is_non_empty_file(os.path.join(model_run_dir, 'work'), is_dir=True))
-    assert(_is_non_empty_file(os.path.join(model_run_dir, 'run_ktools.sh')))
+    assert (_is_non_empty_file(model_run_dir, is_dir=True))
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'analysis_settings.json')))
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'input'), is_dir=True))
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'output'), is_dir=True))
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'static'), is_dir=True))
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'run_ktools.sh')))
 
     direct_csv_inputs_fp = os.path.join(model_run_dir, 'input', 'csv') if not ri else os.path.join(model_run_dir, 'input')
 
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'location'), substr_match=True))
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'keys'), substr_match=True))
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'keys-errors'), substr_match=True))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'location'), substr_match=True))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'keys'), substr_match=True))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'keys-errors'), substr_match=True))
 
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'items.csv')))
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'coverages.csv')))
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'gulsummaryxref.csv')))
-    assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'gul_summary_map.csv')))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'items.csv')))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'coverages.csv')))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'gulsummaryxref.csv')))
+    assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'gul_summary_map.csv')))
 
     bin_inputs_fp = os.path.join(model_run_dir, 'input')
-    assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'occurrence.bin')))
-    assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'events.bin')))
-    assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'items.bin')))
-    assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'coverages.bin')))
-    assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'gulsummaryxref.bin')))
+    assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'occurrence.bin')))
+    assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'events.bin')))
+    assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'items.bin')))
+    assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'coverages.bin')))
+    assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'gulsummaryxref.bin')))
 
     outputs_fp = os.path.join(model_run_dir, 'output')
-    assert(_is_non_empty_file(os.path.join(outputs_fp, 'gul_S1_aalcalc.csv')))
-    assert(_is_non_empty_file(os.path.join(outputs_fp, 'gul_S1_eltcalc.csv')))
-    assert(_is_non_empty_file(os.path.join(outputs_fp, 'gul_S1_leccalc_full_uncertainty_aep.csv')))
-    assert(_is_non_empty_file(os.path.join(outputs_fp, 'gul_S1_leccalc_full_uncertainty_oep.csv')))
+    assert (_is_non_empty_file(os.path.join(outputs_fp, 'analysis_settings.json')))
+    for ord_file in output_files:
+        assert (_is_non_empty_file(os.path.join(outputs_fp, f"gul_{ord_file}")))
 
     if model_run_mode in ['fm', 'ri']:
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'account'), substr_match=True))
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_programme.csv')))
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_profile.csv')))
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_policytc.csv')))
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_xref.csv')))
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fmsummaryxref.csv')))
-        assert(_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_summary_map.csv')))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'account'), substr_match=True))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_programme.csv')))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_profile.csv')))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_policytc.csv')))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_xref.csv')))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fmsummaryxref.csv')))
+        assert (_is_non_empty_file(os.path.join(direct_csv_inputs_fp, 'fm_summary_map.csv')))
 
-        assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_programme.bin')))
-        assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_profile.bin')))
-        assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_policytc.bin')))
-        assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_xref.bin')))
-        assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'fmsummaryxref.bin')))
+        assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_programme.bin')))
+        assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_profile.bin')))
+        assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_policytc.bin')))
+        assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'fm_xref.bin')))
+        assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'fmsummaryxref.bin')))
 
-        assert(_is_non_empty_file(os.path.join(outputs_fp, 'il_S1_aalcalc.csv')))
-        assert(_is_non_empty_file(os.path.join(outputs_fp, 'il_S1_eltcalc.csv')))
-        assert(_is_non_empty_file(os.path.join(outputs_fp, 'il_S1_leccalc_full_uncertainty_aep.csv')))
-        assert(_is_non_empty_file(os.path.join(outputs_fp, 'il_S1_leccalc_full_uncertainty_oep.csv')))
+        for ord_file in output_files:
+            assert (_is_non_empty_file(os.path.join(outputs_fp, f"il_{ord_file}")))
 
         if model_run_mode == 'ri':
-            assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'ri_layers'), substr_match=True))
-            assert(_is_non_empty_file(os.path.join(bin_inputs_fp, 'RI'), substr_match=True))
+            assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'ri_layers'), substr_match=True))
+            assert (_is_non_empty_file(os.path.join(bin_inputs_fp, 'RI'), substr_match=True))
+            for ord_file in output_files:
+                assert (_is_non_empty_file(os.path.join(outputs_fp, f"ri_{ord_file}")))
 
     return True
 
@@ -295,7 +310,8 @@ if __name__ == "__main__":
     print('\nCloning model repository {} (branch {}) in {}\n'.format(args['model_repo_name'], args['model_repo_branch'], args['clone_target']))
 
     try:
-        clone_repo(args['model_repo_name'], args['clone_target'], repo_branch=args['model_repo_branch'], transfer_protocol=args['git_transfer_protocol'])
+        clone_repo(args['model_repo_name'], args['clone_target'], repo_branch=args['model_repo_branch'],
+                   transfer_protocol=args['git_transfer_protocol'])
     except CalledProcessError as e:
         raise MdkModelRunException('\nError while trying to clone {} repository: {}\n'.format(args['model_repo_name'], e))
 
@@ -308,7 +324,8 @@ if __name__ == "__main__":
     apply_model_run_mode(args['model_run_mode'], model_mdk_config_fp)
 
     model_run_dir = os.path.join(local_model_repo_fp, 'test-run')
-    print('\nRunning {} end-to-end via MDK using config. file {} - model run dir. is {}\n'.format(args['model_repo_name'], model_mdk_config_fp, model_run_dir))
+    print(
+        '\nRunning {} end-to-end via MDK using config. file {} - model run dir. is {}\n'.format(args['model_repo_name'], model_mdk_config_fp, model_run_dir))
 
     try:
         run_model(model_mdk_config_fp, model_run_dir=model_run_dir)
