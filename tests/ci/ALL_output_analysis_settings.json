@@ -86,7 +86,7 @@
             }
         }
     ],
-    "rl_output": false,
+    "rl_output": true,
     "rl_summaries": [
         {
             "id": 1,
