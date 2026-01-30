@@ -4,7 +4,7 @@
     "sources": {
       "curr": {
         "source_type": "filepath",
-        "filepath": "/tmp/tmpt9dj7h1c/location.csv",
+        "filepath": "/tmp/run/analysis-3_files-834aa646644840a2a8a3e890559c3216/raw_location.csv",
         "read_param": {},
         "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
       },
@@ -21,7 +21,7 @@
     "sources": {
       "curr": {
         "source_type": "filepath",
-        "filepath": "/tmp/tmpt9dj7h1c/account.csv",
+        "filepath": "/tmp/run/analysis-3_files-834aa646644840a2a8a3e890559c3216/raw_account.csv",
         "read_param": {},
         "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
       },
@@ -38,7 +38,7 @@
     "sources": {
       "curr": {
         "source_type": "filepath",
-        "filepath": "/tmp/tmpt9dj7h1c/reinsinfo.csv",
+        "filepath": "/tmp/run/analysis-3_files-834aa646644840a2a8a3e890559c3216/raw_reinsinfo.csv",
         "read_param": {},
         "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
       },
@@ -55,7 +55,7 @@
     "sources": {
       "curr": {
         "source_type": "filepath",
-        "filepath": "/tmp/tmpt9dj7h1c/reinsscope.csv",
+        "filepath": "/tmp/run/analysis-3_files-834aa646644840a2a8a3e890559c3216/raw_reinsscope.csv",
         "read_param": {},
         "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
       },

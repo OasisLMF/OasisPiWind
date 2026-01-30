@@ -30,7 +30,7 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
-                "parquet_format": true,
+                "parquet_format": false,
                 "return_period_file": true
             }
         }
@@ -56,7 +56,7 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
-                "parquet_format": true,
+                "parquet_format": false,
                 "return_period_file": true
             }
         }
@@ -81,7 +81,7 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
-                "parquet_format": true,
+                "parquet_format": false,
                 "return_period_file": true
             }
         }
@@ -106,7 +106,7 @@
                 "ept_per_sample_mean_oep": true,
                 "psept_aep": true,
                 "psept_oep": true,
-                "parquet_format": true,
+                "parquet_format": false,
                 "return_period_file": true
             }
         }
