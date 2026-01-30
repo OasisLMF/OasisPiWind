@@ -1,0 +1,65 @@
+RUNNING: oasislmf.manager.interface
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+user_role [] cannot overwrite version, role ['user'] required
+user_role [] cannot overwrite event_set, role ['user'] required
+user_role [] cannot overwrite event_occurrence_id, role ['user'] required
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+RUNNING: oasislmf.computation.generate.files.run
+
+Processing arguments - Creating Oasis Files
+detected class of business is ClassOfBusiness.prop
+oed check:   0%|          | 0/9 [00:00<?, ?it/s]
+oed check: 100%|##########| 9/9 [00:00<00:00, 170.15it/s]
+
+Generating Oasis files (GUL=True, IL=True, RIL=True)
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+RUNNING: oasislmf.preparation.gul_inputs.get_gul_input_items
+COMPLETED: oasislmf.preparation.gul_inputs.get_gul_input_items in 0.03s
+RUNNING: oasislmf.preparation.summaries.write_exposure_summary
+RUNNING: oasislmf.preparation.summaries.get_exposure_summary
+RUNNING: oasislmf.preparation.summaries.get_exposure_totals
+COMPLETED: oasislmf.preparation.summaries.get_exposure_summary in 0.1s
+COMPLETED: oasislmf.preparation.summaries.write_exposure_summary in 0.13s
+RUNNING: oasislmf.preparation.summaries.write_summary_levels
+RUNNING: oasislmf.preparation.gul_inputs.write_gul_input_files
+RUNNING: oasislmf.preparation.gul_inputs.write_items_file
+RUNNING: oasislmf.preparation.gul_inputs.write_coverages_file
+COMPLETED: oasislmf.preparation.gul_inputs.write_gul_input_files in 0.03s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+RUNNING: oasislmf.preparation.il_inputs.get_il_input_items
+level 1 {'id': 11, 'desc': 'policy layer'} took 0.033382415771484375
+COMPLETED: oasislmf.preparation.il_inputs.get_il_input_items in 0.05s
+RUNNING: oasislmf.preparation.summaries.get_summary_mapping
+RUNNING: oasislmf.preparation.summaries.write_mapping_file
+RUNNING: oasislmf.preparation.reinsurance_layer.write_files_for_reinsurance
+COMPLETED: oasislmf.preparation.reinsurance_layer.write_files_for_reinsurance in 0.05s
+
+Oasis files generated: {
+    "items": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/items.csv",
+    "coverages": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/coverages.csv",
+    "fm_policytc": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/fm_policytc.csv",
+    "fm_profile": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/fm_profile.csv",
+    "fm_programme": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/fm_programme.csv",
+    "fm_xref": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/fm_xref.csv",
+    "ri_layers": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/ri_layers.json",
+    "RI_1": "/tmp/run/analysis-17_files-1673391ec9c5484b962494dfe5818aa0/RI_1"
+}
+COMPLETED: oasislmf.computation.generate.files.run in 0.68s
+COMPLETED: oasislmf.manager.interface in 0.68s
+Store file: /var/log/oasis/tasks/1673391ec9c5484b962494dfe5818aa0_write-input-files.log -> 2c050447d5034b769b83b4a5ed7be711.log

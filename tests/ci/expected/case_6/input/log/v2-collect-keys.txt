@@ -1,0 +1,2 @@
+Store dir: /tmp/tmpg683v_0f -> analysis-18_files-85cdcd14d52d48caad5589394338fd08/keys-data.tar.gz
+Store file: /var/log/oasis/tasks/85cdcd14d52d48caad5589394338fd08_collect-keys.log -> 7fdab284f11d4f30b27d13cb92266a72.log

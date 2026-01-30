@@ -1,0 +1,2 @@
+Store dir: /tmp/tmpxvrehonn -> analysis-17_files-1673391ec9c5484b962494dfe5818aa0/keys-data.tar.gz
+Store file: /var/log/oasis/tasks/1673391ec9c5484b962494dfe5818aa0_collect-keys.log -> 6da80ddac4ec40dab0778f2accbe8f44.log

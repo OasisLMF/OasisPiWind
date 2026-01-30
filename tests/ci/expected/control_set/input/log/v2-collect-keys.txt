@@ -1,0 +1,2 @@
+Store dir: /tmp/tmp6y7r72vf -> analysis-11_files-0323d0621bb941f8ab02eb616748b935/keys-data.tar.gz
+Store file: /var/log/oasis/tasks/0323d0621bb941f8ab02eb616748b935_collect-keys.log -> 80dfd79404fd4a23ae922a3f7a4b96fc.log

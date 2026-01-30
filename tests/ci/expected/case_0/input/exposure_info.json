@@ -1,0 +1,20 @@
+{
+  "location": {
+    "cur_version_name": "_csv",
+    "sources": {
+      "curr": {
+        "source_type": "filepath",
+        "filepath": "/tmp/run/analysis-12_files-c7d5603795184a98bb4c970d1d4c752b/raw_location.csv",
+        "read_param": {},
+        "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
+      },
+      "_csv": {
+        "source_type": "filepath",
+        "filepath": "location.csv",
+        "extension": "csv",
+        "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
+      }
+    }
+  },
+  "oed_schema_info": "/home/worker/.local/lib/python3.12/site-packages/ods_tools/data/OpenExposureData_4.0.0Spec.json"
+}
