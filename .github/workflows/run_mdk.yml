@@ -101,15 +101,19 @@ jobs:
       - name: Update Params (Pull Request)
         if: github.event_name == 'pull_request'
         run: |
-          # Check if PR is from OasisPiWind / OasisLMF and set other target
-          if [[ -z "${{ inputs.piwind_branch }}" ]]; then
-            # Pull Request from PiWind (Set MDK)
-            echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-            echo "SCRIPT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
-          else
-            # Pull Request from OasisLMF (Set piwind)
-            echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-          fi
+          echo "MDK_BRANCH=feature/rm-ktools" >> $GITHUB_ENV
+          echo "SCRIPT_BRANCH=update-mdk-checks-2.5.0" >> $GITHUB_ENV
+          echo "PIWIND_BRANCH=update-mdk-checks-2.5.0" >> $GITHUB_ENV
+
+          ## Check if PR is from OasisPiWind / OasisLMF and set other target
+          #if [[ -z "${{ inputs.piwind_branch }}" ]]; then
+          #  # Pull Request from PiWind (Set MDK)
+          #  echo "MDK_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          #  echo "SCRIPT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
+          #else
+          #  # Pull Request from OasisLMF (Set piwind)
+          #  echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+          #fi
 
       - name: Fetch CLI test script
         run: |
