@@ -1,0 +1,2 @@
+Store dir: /tmp/tmpvwrjao4c -> analysis-15_files-4940d3265de84389b0fc347804798846/keys-data.tar.gz
+Store file: /var/log/oasis/tasks/4940d3265de84389b0fc347804798846_collect-keys.log -> b212e2b0725b41e48f2cc869bc58c70e.log

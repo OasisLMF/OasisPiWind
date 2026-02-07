@@ -1,0 +1,8 @@
+Notify API: analysis_id=14, status=INPUTS_GENERATION_STARTED
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+ 'module_supplier_id' loaded as 'model_supplier_id'
+ 'model_version_id' loaded as 'model_name_id'
+Running check_unique_summary_ids
+Store file: /var/log/oasis/tasks/44f7811f25024500833911558fc1ff5f_prepare-input-generation-params.log -> 7faebb3e6d494667adf4620cbd2136e7.log

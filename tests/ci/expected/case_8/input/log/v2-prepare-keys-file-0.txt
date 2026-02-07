@@ -1,0 +1,5 @@
+detected class of business is ClassOfBusiness.prop
+RUNNING: oasislmf.lookup.factory.generate_key_files
+COMPLETED: oasislmf.lookup.factory.generate_key_files in 0.05s
+Store dir: /tmp/tmpyy280508/lookup-1 -> analysis-20_files-fb576274983040e8b57ffd84391a0e17/lookup-1.tar.gz
+Store file: /var/log/oasis/tasks/fb576274983040e8b57ffd84391a0e17_prepare-keys-file-0.log -> 45ea25fc93c64c4da2a94cbef8baebbe.log
