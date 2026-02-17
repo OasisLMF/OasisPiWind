@@ -88,6 +88,9 @@ def parse_args():
     parser.add_argument('-n', '--no-cleanup', action='store_true', default=False,
                         help='Whether to cleanup installed MDK installed package and model repository')
 
+    parser.add_argument('--no-intermediary-csv', action='store_true', default=False,
+                        help='Whether to create intermediary csv files')
+
     args = vars(parser.parse_args())
 
     if not os.path.isabs(args['clone_target']):
@@ -97,6 +100,8 @@ def parse_args():
     if args['model_run_mode'] not in ['gul', 'fm', 'ri']:
         args['model_run_mode'] = 'ri'
 
+    args["intermediary_csv"] = not args.pop("no_intermediary_csv")
+    
     return args
 
 
