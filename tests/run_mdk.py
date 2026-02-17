@@ -100,8 +100,10 @@ def parse_args():
     if args['model_run_mode'] not in ['gul', 'fm', 'ri']:
         args['model_run_mode'] = 'ri'
 
+    print("no_intermediary_csv", args.get("no_intermediary_csv"), not args.get("no_intermediary_csv"))
+    0/0
     args["intermediary_csv"] = not args.pop("no_intermediary_csv")
-    
+
     return args
 
 
