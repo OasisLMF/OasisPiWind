@@ -11,5 +11,6 @@
     "modelpy": false,
     "gulpy": false,
     "gulmc": true,
-    "ktools_alloc_rule_gul": 1
+    "ktools_alloc_rule_gul": 1,
+    "intermediary_csv": true
 }
