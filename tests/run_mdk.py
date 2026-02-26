@@ -222,7 +222,8 @@ def model_run_ok(model_run_dir, model_run_mode):
     ]
 
     assert (_is_non_empty_file(model_run_dir, is_dir=True))
-    assert (_is_non_empty_file(os.path.join(model_run_dir, 'analysis_settings.json')))
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'input', 'analysis_settings.json'))) # user settings
+    assert (_is_non_empty_file(os.path.join(model_run_dir, 'output', 'analysis_settings.json'))) # Merged settings
     assert (_is_non_empty_file(os.path.join(model_run_dir, 'input'), is_dir=True))
     assert (_is_non_empty_file(os.path.join(model_run_dir, 'output'), is_dir=True))
     assert (_is_non_empty_file(os.path.join(model_run_dir, 'static'), is_dir=True))
