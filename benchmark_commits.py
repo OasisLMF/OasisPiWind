@@ -44,6 +44,22 @@ DEFAULT_SERVER_IMG = "coreoasis/api_server"
 DEFAULT_SERVER_TAG = "latest"
 
 
+_COMPOSE_CMD: Optional[list[str]] = None  # resolved on first use
+
+
+def compose_cmd() -> list[str]:
+    """Return the compose command prefix, detecting V1 vs V2 on first call.
+
+    V2 plugin: ['docker', 'compose']
+    V1 standalone: ['docker-compose']
+    """
+    global _COMPOSE_CMD
+    if _COMPOSE_CMD is None:
+        rc, _, _, _ = run_command(["docker", "compose", "version"])
+        _COMPOSE_CMD = ["docker", "compose"] if rc == 0 else ["docker-compose"]
+    return _COMPOSE_CMD
+
+
 @dataclass
 class CommitResult:
     commit: str
@@ -329,6 +345,76 @@ class MemoryMonitor:
 # Test runner
 # ---------------------------------------------------------------------------
 
+class LogCapture:
+    """
+    Streams worker container logs to a file in a background thread.
+
+    Uses `docker logs -f <container_id>` so logs are written in real time
+    and the full output is available even if the test fails. Container
+    discovery uses the same ancestor filter as MemoryMonitor.
+    """
+
+    def __init__(self, worker_img: str, worker_tag: str, log_path: Path, poll_interval: float = 1.0):
+        self.worker_img = worker_img
+        self.worker_tag = worker_tag
+        self.log_path = log_path
+        self.poll_interval = poll_interval
+        self._process: Optional[subprocess.Popen] = None
+        self._stop = threading.Event()
+        self._thread = threading.Thread(target=self._run, daemon=True)
+
+    def start(self) -> None:
+        self._thread.start()
+
+    def stop(self) -> None:
+        """Signal the thread to stop and wait for it to finish."""
+        self._stop.set()
+        if self._process is not None:
+            self._process.kill()
+        self._thread.join(timeout=5)
+
+    def _find_container_id(self) -> Optional[str]:
+        rc, stdout, _, _ = run_command([
+            "docker", "ps",
+            "--filter", f"ancestor={self.worker_img}:{self.worker_tag}",
+            "--format", "{{.ID}}",
+        ])
+        if rc != 0:
+            return None
+        ids = [line.strip() for line in stdout.splitlines() if line.strip()]
+        return ids[0] if ids else None
+
+    def _run(self) -> None:
+        # Poll until the container appears.
+        container_id: Optional[str] = None
+        while not self._stop.is_set() and container_id is None:
+            container_id = self._find_container_id()
+            if container_id is None:
+                self._stop.wait(self.poll_interval)
+
+        if container_id is None:
+            return
+
+        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+        self._process = subprocess.Popen(
+            ["docker", "logs", "-f", container_id],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+        try:
+            assert self._process.stdout is not None
+            with self.log_path.open("w") as f:
+                for line in self._process.stdout:
+                    f.write(line)
+                    f.flush()
+                    if self._stop.is_set():
+                        break
+        finally:
+            self._process.kill()
+            self._process.wait()
+
+
 def run_tests(
     bench_img: str,
     image_tag: str,
@@ -358,7 +444,7 @@ def run_tests(
         "pytest",
         f"--docker-compose={compose_file}",
         "--docker-compose-remove-volumes",
-        "--durations=0",  # show all test durations
+        "--durations=0",
         "-v",
         "tests/test_piwind_integration.py",
         *extra_pytest_args,
@@ -647,6 +733,18 @@ def main() -> None:
         help="Path for the JSON results file (default: benchmark_results.json)",
     )
     parser.add_argument(
+        "--log-dir",
+        type=Path,
+        default=Path("docker_logs"),
+        metavar="DIR",
+        help="Directory to store worker container logs per commit (default: docker_logs)",
+    )
+    parser.add_argument(
+        "--no-logs",
+        action="store_true",
+        help="Disable worker container log collection",
+    )
+    parser.add_argument(
         "--cleanup",
         action="store_true",
         help="Keep built Docker images after the run (useful for debugging)",
@@ -762,6 +860,13 @@ def main() -> None:
         print(f"  Running tests ...")
         monitor = MemoryMonitor(use_img, use_tag)
         monitor.start()
+
+        log_capture: Optional[LogCapture] = None
+        if not args.no_logs:
+            log_path = args.log_dir / f"{tag}.log"
+            log_capture = LogCapture(use_img, use_tag, log_path)
+            log_capture.start()
+
         (
             test_ok,
             test_dur,
@@ -784,6 +889,9 @@ def main() -> None:
         )
 
         peak_mem = monitor.stop()
+        if log_capture is not None:
+            log_capture.stop()
+            print(f"  Worker logs: {log_path}")
 
         result.test_duration = test_dur
         result.total_duration = time.monotonic() - t_start
