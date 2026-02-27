@@ -17,7 +17,7 @@ Usage:
         --api-version v2 --pytest-args "-k case_0"
 
     # Keep docker images after run (for debugging), verbose output
-    python benchmark_commits.py abc1234 --no-cleanup --verbose
+    python benchmark_commits.py abc1234 --cleanup --verbose
 """
 
 import argparse
@@ -112,7 +112,11 @@ def stream_command(
         lines.append(line)
         print(f"{prefix}{line}" if prefix else line, flush=True)
 
-    process.wait()
+    try:
+        process.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait()
     return process.returncode, "\n".join(lines), time.monotonic() - start
 
 
@@ -181,11 +185,19 @@ def build_worker_image(
             output = stdout + stderr
 
         if rc != 0:
-            return False, duration, output[-3000:]
+            return False, duration, output
         return True, duration, ""
 
     finally:
         os.unlink(tmp_dockerfile)
+
+
+def image_exists(image_name: str, image_tag: str) -> bool:
+    """Return True if the Docker image is present in the local image store."""
+    rc, _, _, _ = run_command(
+        ["docker", "image", "inspect", f"{image_name}:{image_tag}"]
+    )
+    return rc == 0
 
 
 def cleanup_images(results: list[CommitResult], bench_img: str) -> None:
@@ -456,9 +468,9 @@ def main() -> None:
         help="Disable Docker layer cache when building worker images",
     )
     parser.add_argument(
-        "--skip-build",
+        "--force-rebuild",
         action="store_true",
-        help="Skip Docker build step (images must already exist with correct tags)",
+        help="Always rebuild Docker images even if a matching tag already exists locally",
     )
 
     # --- Test / compose options ---
@@ -497,7 +509,7 @@ def main() -> None:
         help="Path for the JSON results file (default: benchmark_results.json)",
     )
     parser.add_argument(
-        "--no-cleanup",
+        "--cleanup",
         action="store_true",
         help="Keep built Docker images after the run (useful for debugging)",
     )
@@ -550,8 +562,14 @@ def main() -> None:
         t_start = time.monotonic()
 
         # --- Docker build ---
-        if not args.skip_build:
-            print(f"  Building {args.bench_img}:{tag} ...")
+        already_exists = image_exists(args.bench_img, tag)
+        if already_exists and not args.force_rebuild:
+            print(f"  Build: SKIPPED (image {args.bench_img}:{tag} already exists, use --force-rebuild to rebuild)")
+        else:
+            if already_exists:
+                print(f"  Building {args.bench_img}:{tag} (--force-rebuild) ...")
+            else:
+                print(f"  Building {args.bench_img}:{tag} ...")
             ok, build_dur, err = build_worker_image(
                 commit=commit,
                 bench_img=args.bench_img,
@@ -572,8 +590,6 @@ def main() -> None:
                 if err and not args.verbose:
                     print(f"  Last build output:\n{err}")
                 continue
-        else:
-            print(f"  Build: SKIPPED")
 
         # --- Run tests ---
         print(f"  Running tests ...")
@@ -630,7 +646,7 @@ def main() -> None:
     save_results(results, args.output)
 
     # --- Cleanup ---
-    if not args.no_cleanup and not args.skip_build:
+    if args.cleanup:
         print("\n  Cleaning up Docker images ...")
         cleanup_images(results, args.bench_img)
 
