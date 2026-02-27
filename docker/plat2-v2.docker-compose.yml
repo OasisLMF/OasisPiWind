@@ -134,6 +134,7 @@ services:
      OASIS_MODEL_ID: PiWind
      OASIS_MODEL_VERSION_ID: 1
      OASIS_RUN_MODE: ${WORKER_API_VER:-v1}
+     OASIS_CELERY_CONCURRENCY: 8
     volumes:
      - ../:/home/worker/model
      - filestore-OasisData:/shared-fs:rw

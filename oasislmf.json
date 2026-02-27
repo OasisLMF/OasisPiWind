@@ -12,5 +12,6 @@
     "gulpy": false,
     "gulmc": true,
     "ktools_alloc_rule_gul": 1,
+    "ktools_num_processes": 8,
     "intermediary_csv": true
 }
