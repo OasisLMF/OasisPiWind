@@ -297,31 +297,47 @@ class MemoryMonitor:
         self._thread.join(timeout=self.poll_interval * 3)
         return self.peak_bytes
 
-    def _get_container_ids(self) -> list[str]:
+    def _find_container_id(self) -> Optional[str]:
         rc, stdout, _, _ = run_command([
             "docker", "ps",
             "--filter", f"ancestor={self.worker_img}:{self.worker_tag}",
             "--format", "{{.ID}}",
         ])
         if rc != 0:
-            return []
-        return [line.strip() for line in stdout.splitlines() if line.strip()]
+            return None
+        ids = [line.strip() for line in stdout.splitlines() if line.strip()]
+        return ids[0] if ids else None
 
     def _run(self) -> None:
-        while not self._stop.is_set():
-            container_ids = self._get_container_ids()
-            if container_ids:
-                rc, stdout, _, _ = run_command([
-                    "docker", "stats", "--no-stream",
-                    "--format", "{{.MemUsage}}",
-                    *container_ids,
-                ])
-                if rc == 0:
-                    for line in stdout.splitlines():
-                        used_bytes = _parse_docker_mem(line.split("/")[0].strip())
-                        if used_bytes > self.peak_bytes:
-                            self.peak_bytes = used_bytes
-            self._stop.wait(self.poll_interval)
+        # Wait for the worker container to appear before starting the stream.
+        container_id: Optional[str] = None
+        while not self._stop.is_set() and container_id is None:
+            container_id = self._find_container_id()
+            if container_id is None:
+                self._stop.wait(self.poll_interval)
+
+        if container_id is None:
+            return  # stopped before the container ever appeared
+
+        # Stream stats continuously — docker stats emits one line per second
+        # without --no-stream, so a single subprocess replaces repeated polling.
+        process = subprocess.Popen(
+            ["docker", "stats", "--format", "{{.MemUsage}}", container_id],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+        try:
+            assert process.stdout is not None
+            for line in process.stdout:
+                if self._stop.is_set():
+                    break
+                used_bytes = _parse_docker_mem(line.split("/")[0].strip())
+                if used_bytes > self.peak_bytes:
+                    self.peak_bytes = used_bytes
+        finally:
+            process.kill()
+            process.wait()
 
 
 # ---------------------------------------------------------------------------
