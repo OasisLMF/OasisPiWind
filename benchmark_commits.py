@@ -27,6 +27,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import threading
 import time
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
@@ -58,6 +59,7 @@ class CommitResult:
     errors: int = 0
     skipped: int = 0
     status: str = "pending"  # pending | build_failed | test_failed | passed
+    peak_memory_bytes: int = 0
     pytest_durations: dict = field(default_factory=dict)
     error_message: str = ""
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
@@ -237,6 +239,92 @@ def cleanup_images(results: list[CommitResult], bench_img: str) -> None:
 
 
 # ---------------------------------------------------------------------------
+# Memory monitoring
+# ---------------------------------------------------------------------------
+
+def _parse_docker_mem(s: str) -> int:
+    """Parse a Docker memory string (e.g. '1.5GiB', '512MiB', '800MB') to bytes."""
+    s = s.strip()
+    for suffix, mult in [
+        ("TiB", 1 << 40), ("GiB", 1 << 30), ("MiB", 1 << 20), ("KiB", 1 << 10),
+        ("TB",  10**12),   ("GB",  10**9),    ("MB",  10**6),    ("KB",  10**3),
+        ("B",   1),
+    ]:
+        if s.endswith(suffix):
+            try:
+                return int(float(s[:-len(suffix)]) * mult)
+            except ValueError:
+                return 0
+    return 0
+
+
+def _fmt_mem(b: int) -> str:
+    """Format bytes as a human-readable string."""
+    if b <= 0:
+        return "N/A"
+    if b >= 1 << 30:
+        return f"{b / (1 << 30):.2f} GiB"
+    if b >= 1 << 20:
+        return f"{b / (1 << 20):.0f} MiB"
+    return f"{b / (1 << 10):.0f} KiB"
+
+
+class MemoryMonitor:
+    """
+    Polls `docker stats` in a background thread to track the peak memory
+    usage of the worker container while tests are running.
+
+    Container discovery uses `docker ps --filter ancestor=<image>:<tag>` so
+    it finds the right container regardless of the compose project name, and
+    tolerates the container not yet being present at startup (it keeps polling
+    until it appears).
+    """
+
+    def __init__(self, worker_img: str, worker_tag: str, poll_interval: float = 1.0):
+        self.worker_img = worker_img
+        self.worker_tag = worker_tag
+        self.poll_interval = poll_interval
+        self.peak_bytes: int = 0
+        self._stop = threading.Event()
+        self._thread = threading.Thread(target=self._run, daemon=True)
+
+    def start(self) -> None:
+        self._thread.start()
+
+    def stop(self) -> int:
+        """Stop the monitor and return the peak memory reading in bytes."""
+        self._stop.set()
+        self._thread.join(timeout=self.poll_interval * 3)
+        return self.peak_bytes
+
+    def _get_container_ids(self) -> list[str]:
+        rc, stdout, _, _ = run_command([
+            "docker", "ps",
+            "--filter", f"ancestor={self.worker_img}:{self.worker_tag}",
+            "--format", "{{.ID}}",
+        ])
+        if rc != 0:
+            return []
+        return [line.strip() for line in stdout.splitlines() if line.strip()]
+
+    def _run(self) -> None:
+        while not self._stop.is_set():
+            container_ids = self._get_container_ids()
+            if container_ids:
+                rc, stdout, _, _ = run_command([
+                    "docker", "stats", "--no-stream",
+                    "--format", "{{.MemUsage}}",
+                    *container_ids,
+                ])
+                if rc == 0:
+                    for line in stdout.splitlines():
+                        used_bytes = _parse_docker_mem(line.split("/")[0].strip())
+                        if used_bytes > self.peak_bytes:
+                            self.peak_bytes = used_bytes
+            self._stop.wait(self.poll_interval)
+
+
+# ---------------------------------------------------------------------------
 # Test runner
 # ---------------------------------------------------------------------------
 
@@ -357,6 +445,7 @@ def print_results_table(results: list[CommitResult]) -> None:
         f"{'Total(s)':>10}"
         f"{'Passed':>8}"
         f"{'Failed':>8}"
+        f"{'Peak RAM':>12}"
     )
     print(header)
     _sep()
@@ -378,6 +467,7 @@ def print_results_table(results: list[CommitResult]) -> None:
             f"{r.total_duration:>10.1f}"
             f"{r.passed:>8}"
             f"{r.failed:>8}"
+            f"{_fmt_mem(r.peak_memory_bytes):>12}"
         )
 
     _sep("═")
@@ -642,6 +732,8 @@ def main() -> None:
 
         # --- Run tests ---
         print(f"  Running tests ...")
+        monitor = MemoryMonitor(use_img, use_tag)
+        monitor.start()
         (
             test_ok,
             test_dur,
@@ -663,6 +755,8 @@ def main() -> None:
             test_timeout=args.test_timeout,
         )
 
+        peak_mem = monitor.stop()
+
         result.test_duration = test_dur
         result.total_duration = time.monotonic() - t_start
         result.passed = passed
@@ -670,11 +764,13 @@ def main() -> None:
         result.errors = errors_
         result.skipped = skipped
         result.pytest_durations = durations
+        result.peak_memory_bytes = peak_mem
         result.status = "passed" if test_ok else "test_failed"
 
         print(
             f"  Tests {'PASSED' if test_ok else 'FAILED'} ({test_dur:.1f}s)"
             f"  [passed={passed} failed={failed} errors={errors_} skipped={skipped}]"
+            f"  peak RAM: {_fmt_mem(peak_mem)}"
         )
 
         if not test_ok and not args.verbose:
