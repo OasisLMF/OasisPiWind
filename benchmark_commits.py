@@ -275,10 +275,10 @@ class MemoryMonitor:
     Polls `docker stats` in a background thread to track the peak memory
     usage of the worker container while tests are running.
 
-    Container discovery uses `docker ps --filter ancestor=<image>:<tag>` so
-    it finds the right container regardless of the compose project name, and
-    tolerates the container not yet being present at startup (it keeps polling
-    until it appears).
+    Container discovery uses `docker ps --filter ancestor=<image>:<tag>`.
+    Each poll calls `docker stats --no-stream` for one sample (~1s) then waits
+    `poll_interval` before the next. This tolerates the container not yet being
+    present at startup — the loop simply retries until it appears.
     """
 
     def __init__(self, worker_img: str, worker_tag: str, poll_interval: float = 1.0):
@@ -298,47 +298,31 @@ class MemoryMonitor:
         self._thread.join(timeout=self.poll_interval * 3)
         return self.peak_bytes
 
-    def _find_container_id(self) -> Optional[str]:
+    def _get_container_ids(self) -> list[str]:
         rc, stdout, _, _ = run_command([
             "docker", "ps",
             "--filter", f"ancestor={self.worker_img}:{self.worker_tag}",
             "--format", "{{.ID}}",
         ])
         if rc != 0:
-            return None
-        ids = [line.strip() for line in stdout.splitlines() if line.strip()]
-        return ids[0] if ids else None
+            return []
+        return [line.strip() for line in stdout.splitlines() if line.strip()]
 
     def _run(self) -> None:
-        # Wait for the worker container to appear before starting the stream.
-        container_id: Optional[str] = None
-        while not self._stop.is_set() and container_id is None:
-            container_id = self._find_container_id()
-            if container_id is None:
-                self._stop.wait(self.poll_interval)
-
-        if container_id is None:
-            return  # stopped before the container ever appeared
-
-        # Stream stats continuously — docker stats emits one line per second
-        # without --no-stream, so a single subprocess replaces repeated polling.
-        process = subprocess.Popen(
-            ["docker", "stats", "--format", "{{.MemUsage}}", container_id],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
-            text=True,
-        )
-        try:
-            assert process.stdout is not None
-            for line in process.stdout:
-                if self._stop.is_set():
-                    break
-                used_bytes = _parse_docker_mem(line.split("/")[0].strip())
-                if used_bytes > self.peak_bytes:
-                    self.peak_bytes = used_bytes
-        finally:
-            process.kill()
-            process.wait()
+        while not self._stop.is_set():
+            container_ids = self._get_container_ids()
+            if container_ids:
+                rc, stdout, _, _ = run_command([
+                    "docker", "stats", "--no-stream",
+                    "--format", "{{.MemUsage}}",
+                    *container_ids,
+                ])
+                if rc == 0:
+                    for line in stdout.splitlines():
+                        used_bytes = _parse_docker_mem(line.split("/")[0].strip())
+                        if used_bytes > self.peak_bytes:
+                            self.peak_bytes = used_bytes
+            self._stop.wait(self.poll_interval)
 
 
 # ---------------------------------------------------------------------------
@@ -528,6 +512,28 @@ def print_results_table(results: list[CommitResult]) -> None:
             print(f"  {short_name:<{name_w}}  {values}")
 
 
+def next_results_path(base: Path) -> Path:
+    """
+    Return *base* if it does not exist, otherwise return base_0, base_1, ...
+    using the first index whose path is free.
+
+    E.g. with base=benchmark_results.json:
+        benchmark_results.json exists   → try benchmark_results_0.json
+        benchmark_results_0.json exists → try benchmark_results_1.json  ...
+    """
+    if not base.exists():
+        return base
+    stem = base.stem   # "benchmark_results"
+    suffix = base.suffix  # ".json"
+    parent = base.parent
+    n = 0
+    while True:
+        candidate = parent / f"{stem}_{n}{suffix}"
+        if not candidate.exists():
+            return candidate
+        n += 1
+
+
 def save_results(results: list[CommitResult], output_path: Path) -> None:
     """Save benchmark results as a JSON file."""
     data = {
@@ -652,6 +658,11 @@ def main() -> None:
     )
 
     args = parser.parse_args()
+
+    # Auto-increment output filename if the default would overwrite an existing file.
+    # Only applies when the user has not explicitly passed --output.
+    if args.output == Path("benchmark_results.json"):
+        args.output = next_results_path(args.output)
 
     # --- Collect commits ---
     commits: list[str] = list(args.commits)
