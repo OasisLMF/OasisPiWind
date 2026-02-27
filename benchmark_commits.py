@@ -60,6 +60,7 @@ class CommitResult:
     skipped: int = 0
     status: str = "pending"  # pending | build_failed | test_failed | passed
     peak_memory_bytes: int = 0
+    peak_memory: str = ""
     pytest_durations: dict = field(default_factory=dict)
     error_message: str = ""
     timestamp: str = field(default_factory=lambda: datetime.utcnow().isoformat())
@@ -781,6 +782,7 @@ def main() -> None:
         result.skipped = skipped
         result.pytest_durations = durations
         result.peak_memory_bytes = peak_mem
+        result.peak_memory = _fmt_mem(peak_mem)
         result.status = "passed" if test_ok else "test_failed"
 
         print(
