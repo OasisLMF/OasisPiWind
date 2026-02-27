@@ -47,6 +47,9 @@ DEFAULT_SERVER_TAG = "latest"
 class CommitResult:
     commit: str
     tag: str
+    worker_img: str = ""   # actual image name used when running tests
+    worker_tag: str = ""   # actual image tag used when running tests
+    built: bool = False    # True only if we built the image ourselves (controls cleanup)
     build_duration: float = 0.0
     test_duration: float = 0.0
     total_duration: float = 0.0
@@ -200,10 +203,32 @@ def image_exists(image_name: str, image_tag: str) -> bool:
     return rc == 0
 
 
+def is_semver(ref: str) -> bool:
+    """Return True if ref looks like a semver tag (e.g. 2.5.0 or v2.5.0)."""
+    return bool(re.match(r"^v?\d+\.\d+\.\d+", ref))
+
+
+def dockerhub_tag_exists(image: str, tag: str) -> bool:
+    """
+    Return True if image:tag exists as a public image on Docker Hub,
+    without pulling it. Uses `docker manifest inspect` which queries the
+    registry API directly.
+
+    DOCKER_CLI_EXPERIMENTAL is set for compatibility with Docker < 20.10.
+    """
+    rc, _, _, _ = run_command(
+        ["docker", "manifest", "inspect", f"{image}:{tag}"],
+        env={"DOCKER_CLI_EXPERIMENTAL": "enabled"},
+    )
+    return rc == 0
+
+
 def cleanup_images(results: list[CommitResult], bench_img: str) -> None:
-    """Remove all benchmark Docker images created during the run."""
+    """Remove Docker images that were built during this benchmark run."""
     for r in results:
-        full_tag = f"{bench_img}:{r.tag}"
+        if not r.built:
+            continue
+        full_tag = f"{r.worker_img}:{r.worker_tag}"
         subprocess.run(
             ["docker", "rmi", full_tag, "--force"],
             capture_output=True,
@@ -561,35 +586,59 @@ def main() -> None:
         result = CommitResult(commit=commit, tag=tag)
         t_start = time.monotonic()
 
-        # --- Docker build ---
-        already_exists = image_exists(args.bench_img, tag)
-        if already_exists and not args.force_rebuild:
-            print(f"  Build: SKIPPED (image {args.bench_img}:{tag} already exists, use --force-rebuild to rebuild)")
-        else:
-            if already_exists:
-                print(f"  Building {args.bench_img}:{tag} (--force-rebuild) ...")
-            else:
-                print(f"  Building {args.bench_img}:{tag} ...")
-            ok, build_dur, err = build_worker_image(
-                commit=commit,
-                bench_img=args.bench_img,
-                image_tag=tag,
-                base_worker_img=args.worker_img,
-                base_worker_tag=args.worker_tag,
-                no_cache=args.no_cache,
-                verbose=args.verbose,
-            )
-            result.build_duration = build_dur
-            print(f"  Build {'OK' if ok else 'FAILED'} ({build_dur:.1f}s)")
+        # --- Resolve which image to use ---
+        # If the ref looks like a semver (e.g. 2.5.0) check whether the
+        # official coreoasis/model_worker image for that version exists on
+        # Docker Hub. If it does, use it directly and skip the build entirely.
+        use_img = args.bench_img
+        use_tag = tag
+        built = False
 
-            if not ok:
-                result.status = "build_failed"
-                result.error_message = err
-                result.total_duration = time.monotonic() - t_start
-                results.append(result)
-                if err and not args.verbose:
-                    print(f"  Last build output:\n{err}")
-                continue
+        if not args.force_rebuild and is_semver(commit):
+            semver_tag = commit.lstrip("v")
+            official_img = DEFAULT_WORKER_IMG
+            print(f"  Semver detected — checking {official_img}:{semver_tag} on Docker Hub ...")
+            if dockerhub_tag_exists(official_img, semver_tag):
+                print(f"  Found official image, skipping build")
+                use_img = official_img
+                use_tag = semver_tag
+
+        # --- Docker build (only when not using an official image) ---
+        if use_img == args.bench_img:
+            already_exists = image_exists(args.bench_img, tag)
+            if already_exists and not args.force_rebuild:
+                print(f"  Build: SKIPPED (image {args.bench_img}:{tag} already exists, use --force-rebuild to rebuild)")
+            else:
+                if already_exists:
+                    print(f"  Building {args.bench_img}:{tag} (--force-rebuild) ...")
+                else:
+                    print(f"  Building {args.bench_img}:{tag} ...")
+                ok, build_dur, err = build_worker_image(
+                    commit=commit,
+                    bench_img=args.bench_img,
+                    image_tag=tag,
+                    base_worker_img=args.worker_img,
+                    base_worker_tag=args.worker_tag,
+                    no_cache=args.no_cache,
+                    verbose=args.verbose,
+                )
+                result.build_duration = build_dur
+                print(f"  Build {'OK' if ok else 'FAILED'} ({build_dur:.1f}s)")
+
+                if not ok:
+                    result.status = "build_failed"
+                    result.error_message = err
+                    result.total_duration = time.monotonic() - t_start
+                    results.append(result)
+                    if err and not args.verbose:
+                        print(f"  Last build output:\n{err}")
+                    continue
+
+                built = True
+
+        result.worker_img = use_img
+        result.worker_tag = use_tag
+        result.built = built
 
         # --- Run tests ---
         print(f"  Running tests ...")
@@ -603,8 +652,8 @@ def main() -> None:
             durations,
             test_output,
         ) = run_tests(
-            bench_img=args.bench_img,
-            image_tag=tag,
+            bench_img=use_img,
+            image_tag=use_tag,
             compose_file=args.compose,
             api_version=args.api_version,
             server_img=args.server_img,
@@ -647,8 +696,12 @@ def main() -> None:
 
     # --- Cleanup ---
     if args.cleanup:
-        print("\n  Cleaning up Docker images ...")
-        cleanup_images(results, args.bench_img)
+        built_count = sum(1 for r in results if r.built)
+        if built_count:
+            print(f"\n  Cleaning up {built_count} built Docker image(s) ...")
+            cleanup_images(results, args.bench_img)
+        else:
+            print("\n  Cleanup: nothing to remove (no images were built)")
 
     any_non_passing = any(r.status != "passed" for r in results)
     sys.exit(1 if any_non_passing else 0)
