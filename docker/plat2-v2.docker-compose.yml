@@ -1,4 +1,3 @@
-version: '3.4'
 volumes:
   server-db-OasisData:
   celery-db-OasisData:
@@ -64,7 +63,6 @@ services:
      - filestore-OasisData:/shared-fs:rw
   websocket:
    restart: always
-   image: coreoasis/api_server:dev
    image: ${SERVER_IMG:-coreoasis/api_server}:${SERVER_TAG:-latest}
    command: ["./asgi/run-asgi.sh"]
    links:
@@ -136,6 +134,7 @@ services:
      OASIS_MODEL_ID: PiWind
      OASIS_MODEL_VERSION_ID: 1
      OASIS_RUN_MODE: ${WORKER_API_VER:-v1}
+     OASIS_CELERY_CONCURRENCY: 8
     volumes:
      - ../:/home/worker/model
      - filestore-OasisData:/shared-fs:rw
