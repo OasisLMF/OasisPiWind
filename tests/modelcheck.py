@@ -40,6 +40,7 @@ import glob
 import pathlib
 import time
 import random
+import concurrent.futures
 
 from unittest import TestCase
 import pandas as pd
@@ -78,12 +79,12 @@ def wait_for_api(module_scoped_container_getter, request):
     server = module_scoped_container_getter.get("server").network_info[0]
     api_ver = request.config.getoption('--api-version', 'v1')
     api_url = f"http://{server.hostname}:{server.host_port}"
-    assert request_session.get(f"{api_url}/healthcheck/")
+    assert request_session.get(f"{api_url}/healthcheck/", timeout=30)
 
     # Wait for localstack (only if in compose file)
     if localstack:
         localstack_url = f"http://{localstack.hostname}:4572/example-bucket"
-        assert request_session.get(localstack_url)
+        assert request_session.get(localstack_url, timeout=30)
 
     # Wait for Model
     oasis_client = APIClient(api_url=api_url, api_ver=api_ver)
@@ -91,7 +92,7 @@ def wait_for_api(module_scoped_container_getter, request):
 
     model_headers = {'authorization': f"Bearer {oasis_client.api.tkn_access}"}
     model_url = f"{api_url}/{api_ver}/models/1/"
-    assert request_session.get(model_url, headers=model_headers)
+    assert request_session.get(model_url, headers=model_headers, timeout=30)
     return oasis_client
 
 
@@ -112,6 +113,8 @@ def _class_server_conn(request, wait_for_api):
     request.cls.generate_expected = request.config.getoption('--generate-expected', False)
     request.cls.lookup_chunks = request.config.getoption('--lookup-chunks')
     request.cls.anaysis_chunks = request.config.getoption('--analysis-chunks')
+    request.cls.server_timeout = request.config.getoption('--server-timeout')
+    request.cls.exit_on_timeout = request.config.getoption('--exit-on-timeout')
 
 
 class TestOasisModel(TestCase):
@@ -217,9 +220,29 @@ class TestOasisModel(TestCase):
             analysis_settings_fp=cls.params.get('analysis_settings_json')
         )['id']
 
-        # Run Loss analysis
-        cls.api.run_generate(cls.analysis_id)
-        cls.api.run_analysis(cls.analysis_id)
+        # Run Loss analysis (with timeout to prevent infinite hang if server/worker stalls)
+        server_timeout = getattr(cls, 'server_timeout', 600)
+        exit_on_timeout = getattr(cls, 'exit_on_timeout', True)
+
+        def _on_timeout(msg):
+            if exit_on_timeout:
+                pytest.exit(msg, returncode=1)
+            else:
+                pytest.fail(msg)
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(cls.api.run_generate, cls.analysis_id)
+            try:
+                future.result(timeout=server_timeout)
+            except concurrent.futures.TimeoutError:
+                _on_timeout(f"run_generate timed out after {server_timeout}s for analysis {cls.analysis_id}")
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(cls.api.run_analysis, cls.analysis_id)
+            try:
+                future.result(timeout=server_timeout)
+            except concurrent.futures.TimeoutError:
+                _on_timeout(f"run_analysis timed out after {server_timeout}s for analysis {cls.analysis_id}")
 
         # Download outputs
         cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
