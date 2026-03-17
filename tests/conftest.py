@@ -19,7 +19,7 @@ def pytest_addoption(parser):
     )
     parser.addoption(
         '--analysis-chunks', type=int, default=getenv('WORKER_ANALYSIS_CHUNKS', default=cpu_count()),
-        help='Set the number of analysis chunks (v2 runs only)'
+        help='Set the number of analysis chunks (v2 runs only)',
     )
     parser.addoption(
         '--server-timeout', type=int, default=int(getenv('SERVER_TIMEOUT', default=600)),
