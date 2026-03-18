@@ -25,6 +25,10 @@ on:
         description: "Branch from oasislmf to test piwind with [git ref]"
         required: True
         type: string
+      ods_branch:
+        description: "Branch from ods-tools to test piwind with [git ref]"
+        required: false
+        type: string
 
   workflow_call:
     inputs:
@@ -40,6 +44,11 @@ on:
 
       oasislmf_package:
         description: "Oasislmf package build to test [pkg_filename]"
+        required: false
+        type: string
+
+      ods_branch:
+        description: "Branch from ods-tools to test piwind with [git ref]"
         required: false
         type: string
 
@@ -82,6 +91,7 @@ jobs:
       piwind_branch: ${{ steps.export_param.outputs.piwind_branch }}
       oasislmf_branch: ${{ steps.export_param.outputs.oasislmf_branch }}
       oasislmf_package: ${{ steps.export_param.outputs.oasislmf_package }}
+      ods_branch: ${{ steps.export_param.outputs.ods_branch }}
       ods_package: ${{ steps.export_param.outputs.ods_package }}
       platform_version: ${{ steps.export_param.outputs.platform_version }}
 
@@ -92,6 +102,7 @@ jobs:
         [[ -z "${{ inputs.platform_version }}" ]] || echo "platform_tag=${{ inputs.platform_version }}" >> $GITHUB_ENV
         echo "oasislmf_branch=${{ inputs.oasislmf_branch }}" >> $GITHUB_ENV
         echo "oasislmf_package=${{ inputs.oasislmf_package }}" >> $GITHUB_ENV
+        echo "ods_branch=${{ inputs.ods_branch }}" >> $GITHUB_ENV
         echo "ods_package=${{ inputs.ods_package }}" >> $GITHUB_ENV
 
     - name: Update params (Push)
@@ -124,6 +135,7 @@ jobs:
 
         echo "piwind_branch=${{ env.piwind_branch }}" >> $GITHUB_OUTPUT
         echo "oasislmf_package=${{ env.oasislmf_package }}" >> $GITHUB_OUTPUT
+        echo "ods_branch=${{ env.ods_branch }}" >> $GITHUB_OUTPUT
         echo "ods_package=${{ env.ods_package }}" >> $GITHUB_OUTPUT
         echo "platform_version=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
@@ -134,6 +146,7 @@ jobs:
     needs: [params]
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
+      ods_branch: ${{ needs.params.outputs.ods_branch }}
       ods_package: ${{ needs.params.outputs.ods_package }}
       oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
