@@ -15,15 +15,15 @@ Test Inputs:
 
         tests/ci/expected/<test-class-name>
         ├── input
-        │   ├── account.csv
-        │   ├── correlations.csv
-        │   ├── coverages.csv
+        │   ├── account.csv
+        │   ├── correlations.csv
+        │   ├── coverages.csv
           ...
-        │   ├── location.csv
-        │   ├── lookup_config.json
-        │   ├── lookup.json
-        │   ├── reinsinfo.csv
-        │   └── reinsscope.csv
+        │   ├── location.csv
+        │   ├── lookup_config.json
+        │   ├── lookup.json
+        │   ├── reinsinfo.csv
+        │   └── reinsscope.csv
         └── output
             ├── gul_S1_eltcalc.csv
             └── gul_S1_summary-info.csv
@@ -31,15 +31,14 @@ Test Inputs:
 
 import pytest
 import os
+import io
 import requests
-from urllib.parse import urljoin
 from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
 import tarfile
 import glob
 import pathlib
-import time
-import random
+import concurrent.futures
 
 from unittest import TestCase
 import pandas as pd
@@ -70,7 +69,7 @@ def wait_for_api(module_scoped_container_getter, request):
 
     try:
         localstack = module_scoped_container_getter.get("localstack-s3").network_info[0]
-    except:
+    except Exception:
         localstack = None
 
     # Wait for server
@@ -78,12 +77,12 @@ def wait_for_api(module_scoped_container_getter, request):
     server = module_scoped_container_getter.get("server").network_info[0]
     api_ver = request.config.getoption('--api-version', 'v1')
     api_url = f"http://{server.hostname}:{server.host_port}"
-    assert request_session.get(f"{api_url}/healthcheck/")
+    assert request_session.get(f"{api_url}/healthcheck/", timeout=30)
 
     # Wait for localstack (only if in compose file)
     if localstack:
         localstack_url = f"http://{localstack.hostname}:4572/example-bucket"
-        assert request_session.get(localstack_url)
+        assert request_session.get(localstack_url, timeout=30)
 
     # Wait for Model
     oasis_client = APIClient(api_url=api_url, api_ver=api_ver)
@@ -91,7 +90,7 @@ def wait_for_api(module_scoped_container_getter, request):
 
     model_headers = {'authorization': f"Bearer {oasis_client.api.tkn_access}"}
     model_url = f"{api_url}/{api_ver}/models/1/"
-    assert request_session.get(model_url, headers=model_headers)
+    assert request_session.get(model_url, headers=model_headers, timeout=30)
     return oasis_client
 
 
@@ -111,7 +110,9 @@ def _class_server_conn(request, wait_for_api):
     request.cls.api = wait_for_api
     request.cls.generate_expected = request.config.getoption('--generate-expected', False)
     request.cls.lookup_chunks = request.config.getoption('--lookup-chunks')
-    request.cls.anaysis_chunks = request.config.getoption('--analysis-chunks')
+    request.cls.analysis_chunks = request.config.getoption('--analysis-chunks')
+    request.cls.server_timeout = request.config.getoption('--server-timeout')
+    request.cls.exit_on_timeout = request.config.getoption('--exit-on-timeout')
 
 
 class TestOasisModel(TestCase):
@@ -178,6 +179,7 @@ class TestOasisModel(TestCase):
         cls.results_tar = f'{cls.base_dir}/result/loss_{cls.__name__}.tar.gz'
         cls.expected_dir = getattr(cls, 'exp_dir', None)
         cls.params = {}
+        cls.portfolio_id = None
 
         # SubClass vars
         if expected_dir:
@@ -189,22 +191,25 @@ class TestOasisModel(TestCase):
         if params:
             cls.params = params
 
+        # Ensure the result directory exists
+        os.makedirs(os.path.dirname(cls.results_tar), exist_ok=True)
+
         # clear any prev results
         if os.path.isfile(cls.results_tar):
             os.remove(cls.results_tar)
 
-        # skip run if paramters are missing
+        # skip run if parameters are missing
         if not cls.params:
             pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")
 
         # Find PiWind's model id
         cls.model_id = cls._get_model_id(cls)
 
-        # test if V2, if yes set chunk sizes based on input (default = number of cpu cores) 
+        # test if V2, if yes set chunk sizes based on input (default = number of cpu cores)
         if cls.api.api_ver.lower() == 'v2':
             chunk_cfg = cls.api.models.chunking_configuration.get(cls.model_id).json()
             chunk_cfg['fixed_lookup_chunks'] = cls.lookup_chunks
-            chunk_cfg['fixed_analysis_chunks'] = cls.anaysis_chunks
+            chunk_cfg['fixed_analysis_chunks'] = cls.analysis_chunks
             cls.api.models.chunking_configuration.post(cls.model_id, chunk_cfg)
 
         # Create portfolio
@@ -217,13 +222,40 @@ class TestOasisModel(TestCase):
             analysis_settings_fp=cls.params.get('analysis_settings_json')
         )['id']
 
-        # Run Loss analysis
-        cls.api.run_generate(cls.analysis_id)
-        cls.api.run_analysis(cls.analysis_id)
+        # Run Loss analysis (with timeout to prevent infinite hang if server/worker stalls)
+        server_timeout = getattr(cls, 'server_timeout', 600)
+        exit_on_timeout = getattr(cls, 'exit_on_timeout', True)
+
+        def _on_timeout(msg):
+            if exit_on_timeout:
+                pytest.exit(msg, returncode=1)
+            else:
+                pytest.fail(msg)
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(cls.api.run_generate, cls.analysis_id)
+            try:
+                future.result(timeout=server_timeout)
+            except concurrent.futures.TimeoutError:
+                _on_timeout(f"run_generate timed out after {server_timeout}s for analysis {cls.analysis_id}")
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(cls.api.run_analysis, cls.analysis_id)
+            try:
+                future.result(timeout=server_timeout)
+            except concurrent.futures.TimeoutError:
+                _on_timeout(f"run_analysis timed out after {server_timeout}s for analysis {cls.analysis_id}")
 
         # Download outputs
         cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
         cls.api.analyses.output_file.download(cls.analysis_id, cls.results_tar)
+
+        # Pre-load tar contents into memory so each test doesn't reopen the file
+        cls._results_cache = {}
+        with tarfile.open(cls.results_tar) as tar:
+            for member in tar.getmembers():
+                if member.isfile():
+                    cls._results_cache[member.path] = tar.extractfile(member).read()
 
         # Create results if option is set
         cls._generate_expected_results(cls)
@@ -233,14 +265,16 @@ class TestOasisModel(TestCase):
         """
         Deletes the portfolio and its linked analysis if `portfolio_id` is set.
         """
-        if cls.portfolio_id:
+        if getattr(cls, 'portfolio_id', None):
             cls.api.portfolios.delete(cls.portfolio_id)
 
-    def _get_model_id(self, model_search_dict={'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}):
+    def _get_model_id(self, model_search_dict=None):
         """
         Searches for a model registered with the OasisAPI
         using the supplied search criteria in `model_search_dict` and returns its ID.
         """
+        if model_search_dict is None:
+            model_search_dict = {'model_id': 'PiWind', 'supplier_id': 'OasisLMF'}
         return self.api.models.search(model_search_dict).json().pop()['id']
 
     def _create_portfolio(self):
@@ -271,9 +305,7 @@ class TestOasisModel(TestCase):
 
     def _result_from_tar(self, result_file, insensitive_col=True):
         """
-        Returns a DataFrame object that is read from the specified tar.gz file.
-        These are either the generated inputs, or loss outputs tar files
-        which are returned from the OasisAPI.
+        Returns a DataFrame object read from the pre-loaded tar cache.
 
         Args:
             result_file (str): The name of the file to read the DataFrame from in the results tar archive.
@@ -282,14 +314,12 @@ class TestOasisModel(TestCase):
         Returns:
             pd.DataFrame: The DataFrame object read from the file in the results tar archive.
         """
-        tar_key = result_file.replace(self.expected_dir,'').strip('/')
+        tar_key = result_file.replace(self.expected_dir, '').strip('/')
         pd_read = self._func_to_dataframe(tar_key)
-
-        with tarfile.open(self.results_tar) as tar:
-            df = pd_read(tar.extractfile(tar_key))
-            if insensitive_col:
-                df = df.rename(columns=str.lower)
-            return df
+        df = pd_read(io.BytesIO(self._results_cache[tar_key]))
+        if insensitive_col:
+            df = df.rename(columns=str.lower)
+        return df
 
     def _expect_from_dir(self, result_file, insensitive_col=True):
         """
@@ -336,12 +366,12 @@ class TestOasisModel(TestCase):
                 and "standard_deviation" in df_expect.columns)
             or (('elt' in filename or 'plt' in filename)
                 and "sdloss" in df_result.columns
-                and "sdloss" in df_result.columns
+                and "sdloss" in df_expect.columns
             )
         ): # work around for rounding error tolerance in stdev
             stdev_col = "standard_deviation" if "standard_deviation" in df_result.columns else "sdloss"
-            res_col = list(set(df_result.columns) - {stdev_col})
-            exp_col = list(set(df_expect.columns) - {stdev_col})
+            res_col = [c for c in df_result.columns if c != stdev_col]
+            exp_col = [c for c in df_expect.columns if c != stdev_col]
 
             assert_frame_equal(df_result[res_col], df_expect[exp_col])
             assert_frame_equal(df_result[[stdev_col]], df_expect[[stdev_col]], rtol=0.01)
@@ -405,9 +435,8 @@ class TestOasisModel(TestCase):
 
         # check that all expected files are there in the output tar
         if self.expected_dir:
-            with tarfile.open(self.results_tar) as tar:
-                results = set([member.path for member in tar.getmembers()])
-                expected = set([f.replace(f"{self.expected_dir}/" ,"") for f in  glob.glob(f"{self.expected_dir}/output/*")])
-                print(f'result: {results}')
-                print(f'expect: {expected}')
-                self.assertEqual(expected.difference(results), set())
+            results = set(self._results_cache.keys())
+            expected = set([f.replace(f"{self.expected_dir}/", "") for f in glob.glob(f"{self.expected_dir}/output/*")])
+            print(f'result: {results}')
+            print(f'expect: {expected}')
+            self.assertEqual(expected.difference(results), set())
