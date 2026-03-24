@@ -22,8 +22,8 @@ def pytest_addoption(parser):
         help='Set the number of analysis chunks (v2 runs only)',
     )
     parser.addoption(
-        '--server-timeout', type=int, default=int(getenv('SERVER_TIMEOUT', default=600)),
-        help='Max seconds to wait for a single analysis run to complete before failing. Default: 600.',
+        '--server-timeout', type=int, default=int(getenv('SERVER_TIMEOUT', default=1800)),
+        help='Max seconds to wait for a single analysis run to complete before failing. Default: 30mins.',
     )
     parser.addoption(
         '--exit-on-timeout', action='store_true', default=True,
