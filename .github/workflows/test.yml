@@ -139,18 +139,31 @@ jobs:
         echo "ods_package=${{ env.ods_package }}" >> $GITHUB_OUTPUT
         echo "platform_version=${{ env.platform_tag }}" >> $GITHUB_OUTPUT
 
+  build_worker:
+    name: Build PiWind Worker
+    if: ${{ needs.params.outputs.oasislmf_branch != '' || needs.params.outputs.oasislmf_package != '' }}
+    needs: [params]
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      docker_push: 'true'
+      from_image: 'coreoasis/model_worker:${{ needs.params.outputs.platform_version }}'
+      oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
+      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
+      piwind_branch: ${{ needs.params.outputs.piwind_branch }}
+
   test:
     name: PiWind Integration
+    if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/integration.yml
     secrets: inherit
-    needs: [params]
+    needs: [params, build_worker]
     with:
       piwind_branch: ${{ needs.params.outputs.piwind_branch }}
       ods_branch: ${{ needs.params.outputs.ods_branch }}
-      ods_package: ${{ needs.params.outputs.ods_package }}
-      oasislmf_package: ${{ needs.params.outputs.oasislmf_package }}
       oasislmf_branch: ${{ needs.params.outputs.oasislmf_branch }}
-      worker_tag: ${{ needs.params.outputs.platform_version }}
+      worker_image: ${{ needs.build_worker.result == 'success' && 'coreoasis/github-actions' || '' }}
+      worker_tag: ${{ needs.build_worker.result == 'success' && format('piwind_worker-{0}', github.sha) || needs.params.outputs.platform_version }}
       server_tag: ${{ needs.params.outputs.platform_version }}
       debug_mode: 1
       pytest_opts: ${{ inputs.pytest_opts }}
