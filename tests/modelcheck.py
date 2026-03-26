@@ -32,6 +32,7 @@ Test Inputs:
 import pytest
 import os
 import io
+import time
 import requests
 from urllib3.util.retry import Retry
 from requests.adapters import HTTPAdapter
@@ -202,6 +203,11 @@ class TestOasisModel(TestCase):
         if not cls.params:
             pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")
 
+        # Start the per-class wall-clock budget
+        server_timeout = getattr(cls, 'server_timeout', 600)
+        exit_on_timeout = getattr(cls, 'exit_on_timeout', True)
+        class_start = time.monotonic()
+
         # Find PiWind's model id
         cls.model_id = cls._get_model_id(cls)
 
@@ -223,28 +229,33 @@ class TestOasisModel(TestCase):
         )['id']
 
         # Run Loss analysis (with timeout to prevent infinite hang if server/worker stalls)
-        server_timeout = getattr(cls, 'server_timeout', 600)
-        exit_on_timeout = getattr(cls, 'exit_on_timeout', True)
-
         def _on_timeout(msg):
             if exit_on_timeout:
                 pytest.exit(msg, returncode=1)
             else:
                 pytest.fail(msg)
 
+        def _remaining():
+            """Return seconds left in the per-class budget, or trigger timeout if exhausted."""
+            remaining = server_timeout - (time.monotonic() - class_start)
+            if remaining <= 0:
+                _on_timeout(f"Class {cls.__name__} exceeded total timeout of {server_timeout}s")
+                raise concurrent.futures.TimeoutError  # guards against pytest.exit() not interrupting
+            return remaining
+
         with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(cls.api.run_generate, cls.analysis_id)
             try:
-                future.result(timeout=server_timeout)
+                future.result(timeout=_remaining())
             except concurrent.futures.TimeoutError:
-                _on_timeout(f"run_generate timed out after {server_timeout}s for analysis {cls.analysis_id}")
+                _on_timeout(f"run_generate timed out for analysis {cls.analysis_id} (class budget: {server_timeout}s)")
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(cls.api.run_analysis, cls.analysis_id)
             try:
-                future.result(timeout=server_timeout)
+                future.result(timeout=_remaining())
             except concurrent.futures.TimeoutError:
-                _on_timeout(f"run_analysis timed out after {server_timeout}s for analysis {cls.analysis_id}")
+                _on_timeout(f"run_analysis timed out for analysis {cls.analysis_id} (class budget: {server_timeout}s)")
 
         # Download outputs
         cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
