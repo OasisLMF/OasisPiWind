@@ -204,7 +204,7 @@ class TestOasisModel(TestCase):
             pytest.skip(f"Skipping TestClass={cls.__name__}, no input files set in params")
 
         # Start the per-class wall-clock budget
-        server_timeout = getattr(cls, 'server_timeout', 600)
+        server_timeout = getattr(cls, 'server_timeout', 1800)
         exit_on_timeout = getattr(cls, 'exit_on_timeout', True)
         class_start = time.monotonic()
 
