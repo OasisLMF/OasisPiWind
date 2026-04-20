@@ -124,6 +124,7 @@ class TestOasisModel(TestCase):
         base_dir (str): The base testing directory.
         input_tar (str): The input tar file path.
         results_tar (str): The results tar file path.
+        logs_tar (str): The results tar file path.
         expected_dir (str): The expected results directory.
         params (dict): The oasislmf.json settings used to all the OasisAPI.
                        Valid keys are from the `oasislmf api run` command
@@ -136,7 +137,7 @@ class TestOasisModel(TestCase):
                        ]
 
     Methods:
-        setUpClass(cls, expected_dir=None, input_tar=None, results_tar=None, params=None):
+        setUpClass(cls, expected_dir=None, input_tar=None, results_tar=None, logs_tar=None,  params=None):
             Sets up the test case.
         tearDownClass(cls):
             Tears down the test case.
@@ -163,7 +164,7 @@ class TestOasisModel(TestCase):
     """
 
     @classmethod
-    def setUpClass(cls, expected_dir=None, input_tar=None, results_tar=None, params=None):
+    def setUpClass(cls, expected_dir=None, input_tar=None, results_tar=None, logs_tar=None, params=None):
         """
         Sets up the test case.
 
@@ -178,6 +179,7 @@ class TestOasisModel(TestCase):
         cls.base_dir = os.path.dirname(os.path.realpath(__file__))
         cls.input_tar = f'{cls.base_dir}/result/input_{cls.__name__}.tar.gz'
         cls.results_tar = f'{cls.base_dir}/result/loss_{cls.__name__}.tar.gz'
+        cls.logs_tar = f'{cls.base_dir}/result/logs_{cls.__name__}.tar.gz'
         cls.expected_dir = getattr(cls, 'exp_dir', None)
         cls.params = {}
         cls.portfolio_id = None
@@ -187,6 +189,8 @@ class TestOasisModel(TestCase):
             cls.expected_dir = expected_dir
         if results_tar:
             cls.results_tar = results_tar
+        if logs_tar:
+            cls.logs_tar = logs_tar
         if input_tar:
             cls.input_tar = input_tar
         if params:
@@ -198,6 +202,10 @@ class TestOasisModel(TestCase):
         # clear any prev results
         if os.path.isfile(cls.results_tar):
             os.remove(cls.results_tar)
+        
+        # clear any prev logs
+        if os.path.isfile(cls.logs_tar):
+            os.remove(cls.logs_tar)
 
         # skip run if parameters are missing
         if not cls.params:
@@ -260,6 +268,7 @@ class TestOasisModel(TestCase):
         # Download outputs
         cls.api.analyses.input_file.download(cls.analysis_id, cls.input_tar)
         cls.api.analyses.output_file.download(cls.analysis_id, cls.results_tar)
+        cls.api.analyses.run_log_file.download(cls.analysis_id, cls.logs_tar)
 
         # Pre-load tar contents into memory so each test doesn't reopen the file
         cls._results_cache = {}
