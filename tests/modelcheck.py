@@ -86,7 +86,7 @@ def wait_for_api(module_scoped_container_getter, request):
         assert request_session.get(localstack_url, timeout=30)
 
     # Wait for Model
-    oasis_client = APIClient(api_url=api_url, api_ver=api_ver)
+    oasis_client = APIClient(api_url=api_url, api_ver=api_ver, auth_type='simple')
     oasis_client.api.mount('http://', HTTPAdapter(max_retries=retries))
 
     model_headers = {'authorization': f"Bearer {oasis_client.api.tkn_access}"}
