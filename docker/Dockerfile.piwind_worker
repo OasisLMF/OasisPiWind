@@ -18,9 +18,13 @@ RUN if [ ! -z "$ods_package" ];  then \
 
 # Install ODS-Tools from git branch (Optional) 'docker build --build-arg ods_tools_branch=develop'
 ARG ods_tools_branch
+USER root
 RUN if [ ! -z "$ods_tools_branch" ] ; then \
-    USER root && apt-get update && apt-get install -y --no-install-recommends git gcc python3-dev && rm -rf /var/lib/apt/lists/*; \
-    USER worker && pip uninstall ods-tools -y; \
+    apt-get update && apt-get install -y --no-install-recommends git gcc python3-dev && rm -rf /var/lib/apt/lists/*; \
+  fi
+USER worker
+RUN if [ ! -z "$ods_tools_branch" ] ; then \
+    pip uninstall ods-tools -y && \
     pip install --user --no-warn-script-location -v "git+https://github.com/OasisLMF/ODS_Tools.git@${ods_tools_branch}#egg=ods-tools"; \
   fi
 
@@ -33,8 +37,12 @@ RUN if [ ! -z "$oasislmf_package" ]; then \
 
 # install MDK from git branch (Optional) 'docker build --build-arg oasislmf_branch=develop'
 ARG oasislmf_branch
+USER root
 RUN if [ ! -z "$oasislmf_branch" ] ; then \
-    USER root && apt-get update && apt-get install -y --no-install-recommends git gcc python3-dev && rm -rf /var/lib/apt/lists/*; \
-    USER worker && pip uninstall oasislmf -y; \
+    apt-get update && apt-get install -y --no-install-recommends git gcc python3-dev && rm -rf /var/lib/apt/lists/*; \
+  fi
+USER worker
+RUN if [ ! -z "$oasislmf_branch" ] ; then \
+    pip uninstall oasislmf -y && \
     pip install --user --no-warn-script-location -v "git+https://github.com/OasisLMF/OasisLMF.git@${oasislmf_branch}#egg=oasislmf[extra]"; \
   fi
