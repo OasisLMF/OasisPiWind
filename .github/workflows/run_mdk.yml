@@ -66,7 +66,7 @@ env:
 jobs:
   ods_tools:
     if: inputs.ods_branch != ''
-    uses: OasisLMF/ODS_Tools/.github/workflows/build.yml@main
+    uses: OasisLMF/ODS_Tools/.github/workflows/build.yml@stable/3.2.x
     secrets: inherit
     with:
       ods_branch: ${{ inputs.ods_branch }}
