@@ -109,7 +109,7 @@ jobs:
           echo "oasislmf_branch=${{ github.base_ref }}" >> $GITHUB_ENV
         else
           # Pull Request from OasisLMF (Set piwind)
-          echo "piwind_branch=${{ github.base_ref }}" >> $GITHUB_ENV
+          echo "piwind_branch=stable/2.3.x" >> $GITHUB_ENV
         fi
 
     - id: export_param

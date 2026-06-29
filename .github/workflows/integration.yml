@@ -228,7 +228,7 @@ jobs:
         pip-compile requirements.in -o requirements.txt
         pip install -r requirements.txt
       env:
-        BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/main'
+        BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/stable/2.3.x'
 
     - name: Run Checks
       if: inputs.generate_results != 'true'
