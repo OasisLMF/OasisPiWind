@@ -108,7 +108,7 @@ jobs:
             echo "SCRIPT_BRANCH=${{ github.head_ref }}" >> $GITHUB_ENV
           else
             # Pull Request from OasisLMF (Set piwind)
-            echo "PIWIND_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+            echo "PIWIND_BRANCH=stable/2.4.x" >> $GITHUB_ENV
           fi
 
       - name: Fetch CLI test script
