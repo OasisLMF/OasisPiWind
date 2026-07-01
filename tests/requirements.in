@@ -1,6 +1,6 @@
 pytest==8.2.0
 pytest-docker-compose
-oasislmf
+oasislmf<2.5.0
 pathlib
 requests==2.31.0
 pandas 

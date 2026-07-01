@@ -1,4 +1,4 @@
-FROM coreoasis/model_worker:latest
+FROM coreoasis/model_worker:2.4
 
 WORKDIR /home/worker
 COPY ./docker/oasislmf_deploy.json /home/worker/model/oasislmf.json
