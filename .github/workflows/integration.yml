@@ -223,10 +223,10 @@ jobs:
     - name: install test deps
       run: |
         python -m pip install --upgrade "pip<23.3"
-        pip install pip-tools
+        pip install uv
         wget $BASE_URL/tests/requirements.in
-        pip-compile requirements.in -o requirements.txt
-        pip install -r requirements.txt
+        uv pip compile requirements.in -o requirements.txt
+        uv pip install --system -r requirements.txt
       env:
         BASE_URL: 'https://raw.githubusercontent.com/OasisLMF/OasisPiWind/stable/2.4.x'
 
