@@ -4,7 +4,7 @@
     "sources": {
       "curr": {
         "source_type": "filepath",
-        "filepath": "/tmp/run/analysis-12_files-c7d5603795184a98bb4c970d1d4c752b/raw_location.csv",
+        "filepath": "/tmp/tmp196ft153/location.csv",
         "read_param": {},
         "engine": "oasis_data_manager.df_reader.reader.OasisPandasReader"
       },
@@ -16,5 +16,5 @@
       }
     }
   },
-  "oed_schema_info": "/home/worker/.local/lib/python3.12/site-packages/ods_tools/data/OpenExposureData_4.0.0Spec.json"
+  "oed_schema_info": "/home/worker/.local/lib/python3.12/site-packages/ods_tools/data/OpenExposureData_5.0.0Spec.json"
 }
