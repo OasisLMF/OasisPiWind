@@ -1,0 +1,54 @@
+name: Create HubSpot Ticket on New Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-ticket:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create HubSpot Ticket
+        env:
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          CONTENT=$(printf '%s\n\nSource: %s' "$ISSUE_BODY" "$ISSUE_URL")
+
+          PAYLOAD=$(jq -n \
+            --arg subject "[$REPO_NAME #$ISSUE_NUMBER] $ISSUE_TITLE" \
+            --arg content "$CONTENT" \
+            '{
+              properties: {
+                subject: $subject,
+                content: $content,
+                hs_pipeline: "0",
+                hs_pipeline_stage: "1",
+                hs_ticket_priority: "MEDIUM",
+                source_type: "FORM"
+              }
+            }')
+
+          echo "Payload being sent:"
+          echo "$PAYLOAD"
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
+            "https://api.hubapi.com/crm/v3/objects/tickets" \
+            -H "Authorization: Bearer $HUBSPOT_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD")
+
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+
+          echo "HubSpot response ($HTTP_CODE):"
+          echo "$BODY"
+
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::error::HubSpot API returned error $HTTP_CODE"
+            exit 1
+          fi
