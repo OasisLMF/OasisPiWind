@@ -17,12 +17,11 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           REPO_NAME: ${{ github.repository }}
         run: |
-          # Build JSON payload safely with jq to handle special characters/newlines
+          CONTENT=$(printf '%s\n\nSource: %s' "$ISSUE_BODY" "$ISSUE_URL")
+
           PAYLOAD=$(jq -n \
             --arg subject "[$REPO_NAME #$ISSUE_NUMBER] $ISSUE_TITLE" \
-            --arg content "$ISSUE_BODY
-
-Source: $ISSUE_URL" \
+            --arg content "$CONTENT" \
             '{
               properties: {
                 subject: $subject,
