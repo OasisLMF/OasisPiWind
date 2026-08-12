@@ -239,11 +239,21 @@ jobs:
               | grep -oE '[0-9]+$' || true
           }
 
+          get_note_to_ticket_association_type_id() {
+            local body type_id
+            body=$(hubspot_request_or_fail "association label lookup" GET "https://api.hubapi.com/crm/v4/associations/notes/tickets/labels")
+            type_id=$(echo "$body" | jq -r '[.results[] | select(.category=="HUBSPOT_DEFINED")][0].typeId // ""')
+            if [ -z "$type_id" ]; then
+              echo "::error::Could not determine the note-to-ticket association type ID"
+              exit 1
+            fi
+            echo "$type_id"
+          }
+
           add_note_to_ticket() {
             local ticket_id="$1" comment_body="$2"
-            local timestamp_ms note_body payload
-            # HUBSPOT_DEFINED associationTypeId 214 = note -> ticket (a fixed
-            # default association ID, consistent across all HubSpot portals).
+            local association_type_id timestamp_ms note_body payload
+            association_type_id=$(get_note_to_ticket_association_type_id)
             timestamp_ms=$(date +%s%3N)
             note_body=$(printf 'Comment by %s on <a href="%s">%s</a>:<br>%s' \
               "$COMMENT_AUTHOR" "$COMMENT_URL" "$COMMENT_URL" "$comment_body")
@@ -251,6 +261,7 @@ jobs:
               --arg timestamp "$timestamp_ms" \
               --arg body "$note_body" \
               --arg ticket_id "$ticket_id" \
+              --argjson association_type_id "$association_type_id" \
               '{
                 properties: {
                   hs_timestamp: $timestamp,
@@ -259,7 +270,7 @@ jobs:
                 associations: [
                   {
                     to: { id: $ticket_id },
-                    types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }]
+                    types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: $association_type_id }]
                   }
                 ]
               }')
