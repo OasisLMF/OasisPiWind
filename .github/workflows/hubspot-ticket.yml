@@ -1,5 +1,11 @@
 name: Sync GitHub Issues to HubSpot Tickets
 
+env:
+  # Comma-separated list of label names that gate syncing to HubSpot.
+  # An issue must have at least one of these labels for its create/comment/close
+  # events to be sent to HubSpot. Leave empty ("") to sync every issue.
+  HUBSPOT_SYNC_LABELS: ""
+
 on:
   issues:
     types: [opened, closed]
@@ -51,10 +57,23 @@ jobs:
           ISSUE_URL: ${{ github.event.issue.html_url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
           ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
           REPO_NAME: ${{ github.repository }}
+          ISSUE_LABELS_JSON: ${{ toJSON(github.event.issue.labels.*.name) }}
         run: |
           set -euo pipefail
 
           HUBSPOT_PIPELINE_ID="0"
+
+          # Skip issues that don't carry one of the configured HUBSPOT_SYNC_LABELS
+          # (manual workflow_dispatch runs always bypass this gate).
+          if [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ] && [ -n "$HUBSPOT_SYNC_LABELS" ]; then
+            if ! echo "$ISSUE_LABELS_JSON" | jq -e --arg allowed "$HUBSPOT_SYNC_LABELS" '
+              ($allowed | split(",") | map(gsub("^\\s+|\\s+$";""))) as $allowed_list
+              | any(.[]; IN($allowed_list[]))
+            ' >/dev/null; then
+              echo "Issue does not have any of the configured HUBSPOT_SYNC_LABELS ($HUBSPOT_SYNC_LABELS); skipping."
+              exit 0
+            fi
+          fi
 
           # Strip stray whitespace/newlines from the secret - a common copy-paste
           # mistake that corrupts the Authorization header and causes a raw 415 from
@@ -155,11 +174,24 @@ jobs:
           COMMENT_AUTHOR: ${{ github.event.comment.user.login || github.actor }}
           COMMENT_URL: ${{ github.event.comment.html_url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
           REPO_NAME: ${{ github.repository }}
+          ISSUE_LABELS_JSON: ${{ toJSON(github.event.issue.labels.*.name) }}
         run: |
           set -euo pipefail
 
           HUBSPOT_PIPELINE_ID="0"
           TICKET_MARKER_REGEX='HubSpot ticket ID: [0-9]+'
+
+          # Skip issues that don't carry one of the configured HUBSPOT_SYNC_LABELS
+          # (manual workflow_dispatch runs always bypass this gate).
+          if [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ] && [ -n "$HUBSPOT_SYNC_LABELS" ]; then
+            if ! echo "$ISSUE_LABELS_JSON" | jq -e --arg allowed "$HUBSPOT_SYNC_LABELS" '
+              ($allowed | split(",") | map(gsub("^\\s+|\\s+$";""))) as $allowed_list
+              | any(.[]; IN($allowed_list[]))
+            ' >/dev/null; then
+              echo "Issue does not have any of the configured HUBSPOT_SYNC_LABELS ($HUBSPOT_SYNC_LABELS); skipping."
+              exit 0
+            fi
+          fi
 
           HUBSPOT_API_KEY="$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')"
 
@@ -301,11 +333,24 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
           REPO_NAME: ${{ github.repository }}
+          ISSUE_LABELS_JSON: ${{ toJSON(github.event.issue.labels.*.name) }}
         run: |
           set -euo pipefail
 
           HUBSPOT_PIPELINE_ID="0"
           TICKET_MARKER_REGEX='HubSpot ticket ID: [0-9]+'
+
+          # Skip issues that don't carry one of the configured HUBSPOT_SYNC_LABELS
+          # (manual workflow_dispatch runs always bypass this gate).
+          if [ "$GITHUB_EVENT_NAME" != "workflow_dispatch" ] && [ -n "$HUBSPOT_SYNC_LABELS" ]; then
+            if ! echo "$ISSUE_LABELS_JSON" | jq -e --arg allowed "$HUBSPOT_SYNC_LABELS" '
+              ($allowed | split(",") | map(gsub("^\\s+|\\s+$";""))) as $allowed_list
+              | any(.[]; IN($allowed_list[]))
+            ' >/dev/null; then
+              echo "Issue does not have any of the configured HUBSPOT_SYNC_LABELS ($HUBSPOT_SYNC_LABELS); skipping."
+              exit 0
+            fi
+          fi
 
           HUBSPOT_API_KEY="$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')"
 
