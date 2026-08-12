@@ -1,10 +1,21 @@
-name: Create HubSpot Ticket on New Issue
+name: Sync GitHub Issues to HubSpot Tickets
 
 on:
   issues:
-    types: [opened]
+    types: [opened, closed]
+  issue_comment:
+    types: [created]
   workflow_dispatch:
     inputs:
+      mode:
+        description: "Which case to simulate"
+        required: false
+        default: "create"
+        type: choice
+        options:
+          - create
+          - comment
+          - close
       issue_title:
         description: "Test issue title"
         required: false
@@ -17,57 +28,313 @@ on:
         description: "Test issue number"
         required: false
         default: "0"
+      comment_body:
+        description: "Test comment body (comment mode only)"
+        required: false
+        default: "This is a manually triggered test comment."
 
 jobs:
   create-ticket:
+    if: >-
+      (github.event_name == 'issues' && github.event.action == 'opened') ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'create')
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
-      - name: Create HubSpot Ticket
+      - name: Create HubSpot ticket
         env:
           HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_TITLE: ${{ github.event.issue.title || inputs.issue_title }}
           ISSUE_BODY: ${{ github.event.issue.body || inputs.issue_body }}
           ISSUE_URL: ${{ github.event.issue.html_url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
           ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
           REPO_NAME: ${{ github.repository }}
         run: |
-          # Strip any stray whitespace/newlines from the secret (a common copy-paste
+          set -euo pipefail
+
+          HUBSPOT_PIPELINE_ID="0"
+
+          # Strip stray whitespace/newlines from the secret - a common copy-paste
           # mistake that corrupts the Authorization header and causes a raw 415 from
-          # HubSpot's edge gateway instead of a normal JSON auth error).
-          HUBSPOT_API_KEY=$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')
+          # HubSpot's edge gateway instead of a normal JSON auth error.
+          HUBSPOT_API_KEY="$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')"
 
-          CONTENT=$(printf '%s\n\nSource: %s' "$ISSUE_BODY" "$ISSUE_URL")
+          hubspot_request() {
+            local method="$1" url="$2" data="${3:-}"
+            local args=(-s -w '\n%{http_code}' -X "$method" "$url" \
+              -H "Authorization: Bearer $HUBSPOT_API_KEY" \
+              -H "Content-Type: application/json")
+            if [ -n "$data" ]; then
+              args+=(-d "$data")
+            fi
+            curl "${args[@]}"
+          }
 
-          PAYLOAD=$(jq -n \
-            --arg subject "[$REPO_NAME #$ISSUE_NUMBER] $ISSUE_TITLE" \
-            --arg content "$CONTENT" \
-            '{
-              properties: {
-                subject: $subject,
-                content: $content,
-                hs_pipeline: "0",
-                hs_pipeline_stage: "1",
-                hs_ticket_priority: "MEDIUM",
-                source_type: "FORM"
-              }
-            }')
+          hubspot_request_or_fail() {
+            local label="$1" method="$2" url="$3" data="${4:-}"
+            local response http_code body
+            response=$(hubspot_request "$method" "$url" "$data")
+            http_code=$(echo "$response" | tail -n1)
+            body=$(echo "$response" | sed '$d')
+            echo "HubSpot $label response ($http_code): $body" >&2
+            if [ "$http_code" -ge 400 ]; then
+              echo "::error::HubSpot API returned error $http_code during $label"
+              exit 1
+            fi
+            echo "$body"
+          }
 
-          echo "Payload being sent:"
-          echo "$PAYLOAD"
+          get_portal_id() {
+            local body
+            if ! body=$(hubspot_request_or_fail "account-info lookup" GET "https://api.hubapi.com/account-info/v3/details" 2>/dev/null); then
+              echo ""
+              return
+            fi
+            echo "$body" | jq -r '.portalId // ""'
+          }
 
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            "https://api.hubapi.com/crm/objects/2026-03/tickets" \
-            -H "Authorization: Bearer $HUBSPOT_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d "$PAYLOAD")
+          post_link_comment() {
+            local ticket_id="$1" portal_id link_line body
+            portal_id=$(get_portal_id)
+            if [ -n "$portal_id" ]; then
+              link_line="Link: https://app.hubspot.com/contacts/$portal_id/ticket/$ticket_id"
+            else
+              link_line="Link: unavailable (grant the HubSpot private app the account-info.read scope to enable this)"
+            fi
+            body=$(printf '🎫 HubSpot ticket ID: %s\n%s' "$ticket_id" "$link_line")
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO_NAME" --body "$body"
+          }
 
-          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
-          BODY=$(echo "$RESPONSE" | sed '$d')
+          create_ticket() {
+            local content="$1"
+            local subject="[$REPO_NAME #$ISSUE_NUMBER] $ISSUE_TITLE"
+            local payload body ticket_id
+            payload=$(jq -n \
+              --arg subject "$subject" \
+              --arg content "$content" \
+              --arg pipeline "$HUBSPOT_PIPELINE_ID" \
+              '{
+                properties: {
+                  subject: $subject,
+                  content: $content,
+                  hs_pipeline: $pipeline,
+                  hs_pipeline_stage: "1",
+                  hs_ticket_priority: "MEDIUM",
+                  source_type: "FORM"
+                }
+              }')
+            body=$(hubspot_request_or_fail "ticket creation" POST "https://api.hubapi.com/crm/objects/2026-03/tickets" "$payload")
+            ticket_id=$(echo "$body" | jq -r '.id')
+            post_link_comment "$ticket_id"
+          }
 
-          echo "HubSpot response ($HTTP_CODE):"
-          echo "$BODY"
+          content=$(printf '%s\n\nSource: %s' "$ISSUE_BODY" "$ISSUE_URL")
+          create_ticket "$content"
 
-          if [ "$HTTP_CODE" -ge 400 ]; then
-            echo "::error::HubSpot API returned error $HTTP_CODE"
-            exit 1
+  update-ticket:
+    if: >-
+      (github.event_name == 'issue_comment' && github.event.action == 'created' &&
+       github.event.issue.pull_request == null &&
+       github.event.comment.user.login != 'github-actions[bot]' &&
+       !contains(github.event.comment.body, 'HubSpot ticket ID:')) ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'comment')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Update HubSpot ticket from comment
+        env:
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_TITLE: ${{ github.event.issue.title || inputs.issue_title }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          ISSUE_URL: ${{ github.event.issue.html_url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
+          COMMENT_BODY: ${{ github.event.comment.body || inputs.comment_body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login || github.actor }}
+          COMMENT_URL: ${{ github.event.comment.html_url || format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          HUBSPOT_PIPELINE_ID="0"
+          TICKET_MARKER_REGEX='HubSpot ticket ID: [0-9]+'
+
+          HUBSPOT_API_KEY="$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')"
+
+          hubspot_request() {
+            local method="$1" url="$2" data="${3:-}"
+            local args=(-s -w '\n%{http_code}' -X "$method" "$url" \
+              -H "Authorization: Bearer $HUBSPOT_API_KEY" \
+              -H "Content-Type: application/json")
+            if [ -n "$data" ]; then
+              args+=(-d "$data")
+            fi
+            curl "${args[@]}"
+          }
+
+          hubspot_request_or_fail() {
+            local label="$1" method="$2" url="$3" data="${4:-}"
+            local response http_code body
+            response=$(hubspot_request "$method" "$url" "$data")
+            http_code=$(echo "$response" | tail -n1)
+            body=$(echo "$response" | sed '$d')
+            echo "HubSpot $label response ($http_code): $body" >&2
+            if [ "$http_code" -ge 400 ]; then
+              echo "::error::HubSpot API returned error $http_code during $label"
+              exit 1
+            fi
+            echo "$body"
+          }
+
+          get_portal_id() {
+            local body
+            if ! body=$(hubspot_request_or_fail "account-info lookup" GET "https://api.hubapi.com/account-info/v3/details" 2>/dev/null); then
+              echo ""
+              return
+            fi
+            echo "$body" | jq -r '.portalId // ""'
+          }
+
+          post_link_comment() {
+            local ticket_id="$1" portal_id link_line body
+            portal_id=$(get_portal_id)
+            if [ -n "$portal_id" ]; then
+              link_line="Link: https://app.hubspot.com/contacts/$portal_id/ticket/$ticket_id"
+            else
+              link_line="Link: unavailable (grant the HubSpot private app the account-info.read scope to enable this)"
+            fi
+            body=$(printf '🎫 HubSpot ticket ID: %s\n%s' "$ticket_id" "$link_line")
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO_NAME" --body "$body"
+          }
+
+          create_ticket() {
+            local content="$1"
+            local subject="[$REPO_NAME #$ISSUE_NUMBER] $ISSUE_TITLE"
+            local payload body ticket_id
+            payload=$(jq -n \
+              --arg subject "$subject" \
+              --arg content "$content" \
+              --arg pipeline "$HUBSPOT_PIPELINE_ID" \
+              '{
+                properties: {
+                  subject: $subject,
+                  content: $content,
+                  hs_pipeline: $pipeline,
+                  hs_pipeline_stage: "1",
+                  hs_ticket_priority: "MEDIUM",
+                  source_type: "FORM"
+                }
+              }')
+            body=$(hubspot_request_or_fail "ticket creation" POST "https://api.hubapi.com/crm/objects/2026-03/tickets" "$payload")
+            ticket_id=$(echo "$body" | jq -r '.id')
+            post_link_comment "$ticket_id"
+          }
+
+          find_ticket_id() {
+            gh api "repos/$REPO_NAME/issues/$ISSUE_NUMBER/comments" --paginate --jq '.[].body' \
+              | grep -oE "$TICKET_MARKER_REGEX" \
+              | tail -n1 \
+              | grep -oE '[0-9]+$' || true
+          }
+
+          append_comment_to_ticket() {
+            local ticket_id="$1" comment_body="$2"
+            local get_body existing_content new_content payload
+            get_body=$(hubspot_request_or_fail "ticket fetch" GET "https://api.hubapi.com/crm/objects/2026-03/tickets/$ticket_id?properties=content")
+            existing_content=$(echo "$get_body" | jq -r '.properties.content // ""')
+            new_content=$(printf '%s\n\n---\nComment by %s on %s:\n%s' "$existing_content" "$COMMENT_AUTHOR" "$COMMENT_URL" "$comment_body")
+            payload=$(jq -n --arg content "$new_content" '{properties: {content: $content}}')
+            hubspot_request_or_fail "ticket update" PATCH "https://api.hubapi.com/crm/objects/2026-03/tickets/$ticket_id" "$payload" >/dev/null
+          }
+
+          ticket_id=$(find_ticket_id)
+          if [ -z "$ticket_id" ]; then
+            echo "No existing HubSpot ticket found for issue #$ISSUE_NUMBER, creating one from this comment"
+            content=$(printf '%s\n\nSource: %s' "$COMMENT_BODY" "$ISSUE_URL")
+            create_ticket "$content"
+          else
+            echo "Found existing HubSpot ticket $ticket_id, appending comment"
+            append_comment_to_ticket "$ticket_id" "$COMMENT_BODY"
           fi
+
+  close-ticket:
+    if: >-
+      (github.event_name == 'issues' && github.event.action == 'closed') ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'close')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Close HubSpot ticket
+        env:
+          HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          HUBSPOT_PIPELINE_ID="0"
+          TICKET_MARKER_REGEX='HubSpot ticket ID: [0-9]+'
+
+          HUBSPOT_API_KEY="$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')"
+
+          hubspot_request() {
+            local method="$1" url="$2" data="${3:-}"
+            local args=(-s -w '\n%{http_code}' -X "$method" "$url" \
+              -H "Authorization: Bearer $HUBSPOT_API_KEY" \
+              -H "Content-Type: application/json")
+            if [ -n "$data" ]; then
+              args+=(-d "$data")
+            fi
+            curl "${args[@]}"
+          }
+
+          hubspot_request_or_fail() {
+            local label="$1" method="$2" url="$3" data="${4:-}"
+            local response http_code body
+            response=$(hubspot_request "$method" "$url" "$data")
+            http_code=$(echo "$response" | tail -n1)
+            body=$(echo "$response" | sed '$d')
+            echo "HubSpot $label response ($http_code): $body" >&2
+            if [ "$http_code" -ge 400 ]; then
+              echo "::error::HubSpot API returned error $http_code during $label"
+              exit 1
+            fi
+            echo "$body"
+          }
+
+          find_ticket_id() {
+            gh api "repos/$REPO_NAME/issues/$ISSUE_NUMBER/comments" --paginate --jq '.[].body' \
+              | grep -oE "$TICKET_MARKER_REGEX" \
+              | tail -n1 \
+              | grep -oE '[0-9]+$' || true
+          }
+
+          get_closed_stage_id() {
+            local body stage_id
+            body=$(hubspot_request_or_fail "pipeline lookup" GET "https://api.hubapi.com/crm/v3/pipelines/tickets/$HUBSPOT_PIPELINE_ID")
+            stage_id=$(echo "$body" | jq -r '[.stages[] | select(.metadata.ticketState=="CLOSED")][0].id // ""')
+            if [ -z "$stage_id" ]; then
+              echo "::error::Could not find a stage with ticketState=CLOSED in pipeline $HUBSPOT_PIPELINE_ID"
+              exit 1
+            fi
+            echo "$stage_id"
+          }
+
+          close_ticket() {
+            local ticket_id="$1" stage_id payload
+            stage_id=$(get_closed_stage_id)
+            payload=$(jq -n --arg stage "$stage_id" '{properties: {hs_pipeline_stage: $stage}}')
+            hubspot_request_or_fail "ticket close" PATCH "https://api.hubapi.com/crm/objects/2026-03/tickets/$ticket_id" "$payload" >/dev/null
+          }
+
+          ticket_id=$(find_ticket_id)
+          if [ -z "$ticket_id" ]; then
+            echo "No existing HubSpot ticket found for issue #$ISSUE_NUMBER, nothing to close"
+            exit 0
+          fi
+          echo "Found existing HubSpot ticket $ticket_id, closing it"
+          close_ticket "$ticket_id"
