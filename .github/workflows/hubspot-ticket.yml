@@ -3,6 +3,20 @@ name: Create HubSpot Ticket on New Issue
 on:
   issues:
     types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_title:
+        description: "Test issue title"
+        required: false
+        default: "Manual test ticket"
+      issue_body:
+        description: "Test issue body"
+        required: false
+        default: "This is a manually triggered test run."
+      issue_number:
+        description: "Test issue number"
+        required: false
+        default: "0"
 
 jobs:
   create-ticket:
@@ -11,12 +25,17 @@ jobs:
       - name: Create HubSpot Ticket
         env:
           HUBSPOT_API_KEY: ${{ secrets.HUBSPOT_API_KEY }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_URL: ${{ github.event.issue.html_url }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title || inputs.issue_title }}
+          ISSUE_BODY: ${{ github.event.issue.body || inputs.issue_body }}
+          ISSUE_URL: ${{ github.event.issue.html_url || github.server_url + '/' + github.repository + '/actions/runs/' + github.run_id }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number }}
           REPO_NAME: ${{ github.repository }}
         run: |
+          # Strip any stray whitespace/newlines from the secret (a common copy-paste
+          # mistake that corrupts the Authorization header and causes a raw 415 from
+          # HubSpot's edge gateway instead of a normal JSON auth error).
+          HUBSPOT_API_KEY=$(printf '%s' "$HUBSPOT_API_KEY" | tr -d '[:space:]')
+
           CONTENT=$(printf '%s\n\nSource: %s' "$ISSUE_BODY" "$ISSUE_URL")
 
           PAYLOAD=$(jq -n \
@@ -37,7 +56,7 @@ jobs:
           echo "$PAYLOAD"
 
           RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-            "https://api.hubapi.com/crm/v3/objects/tickets" \
+            "https://api.hubapi.com/crm/objects/2026-03/tickets" \
             -H "Authorization: Bearer $HUBSPOT_API_KEY" \
             -H "Content-Type: application/json" \
             -d "$PAYLOAD")
