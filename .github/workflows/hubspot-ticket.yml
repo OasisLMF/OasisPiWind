@@ -4,7 +4,7 @@ env:
   # Comma-separated list of label names that gate syncing to HubSpot.
   # An issue must have at least one of these labels for its create/comment/close
   # events to be sent to HubSpot. Leave empty ("") to sync every issue.
-  HUBSPOT_SYNC_LABELS: ""
+  HUBSPOT_SYNC_LABELS: "hubspot"
 
 on:
   issues:
