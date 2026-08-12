@@ -239,14 +239,31 @@ jobs:
               | grep -oE '[0-9]+$' || true
           }
 
-          append_comment_to_ticket() {
+          add_note_to_ticket() {
             local ticket_id="$1" comment_body="$2"
-            local get_body existing_content new_content payload
-            get_body=$(hubspot_request_or_fail "ticket fetch" GET "https://api.hubapi.com/crm/objects/2026-03/tickets/$ticket_id?properties=content")
-            existing_content=$(echo "$get_body" | jq -r '.properties.content // ""')
-            new_content=$(printf '%s\n\n---\nComment by %s on %s:\n%s' "$existing_content" "$COMMENT_AUTHOR" "$COMMENT_URL" "$comment_body")
-            payload=$(jq -n --arg content "$new_content" '{properties: {content: $content}}')
-            hubspot_request_or_fail "ticket update" PATCH "https://api.hubapi.com/crm/objects/2026-03/tickets/$ticket_id" "$payload" >/dev/null
+            local timestamp_ms note_body payload
+            # HUBSPOT_DEFINED associationTypeId 214 = note -> ticket (a fixed
+            # default association ID, consistent across all HubSpot portals).
+            timestamp_ms=$(date +%s%3N)
+            note_body=$(printf 'Comment by %s on <a href="%s">%s</a>:<br>%s' \
+              "$COMMENT_AUTHOR" "$COMMENT_URL" "$COMMENT_URL" "$comment_body")
+            payload=$(jq -n \
+              --arg timestamp "$timestamp_ms" \
+              --arg body "$note_body" \
+              --arg ticket_id "$ticket_id" \
+              '{
+                properties: {
+                  hs_timestamp: $timestamp,
+                  hs_note_body: $body
+                },
+                associations: [
+                  {
+                    to: { id: $ticket_id },
+                    types: [{ associationCategory: "HUBSPOT_DEFINED", associationTypeId: 214 }]
+                  }
+                ]
+              }')
+            hubspot_request_or_fail "note creation" POST "https://api.hubapi.com/crm/v3/objects/notes" "$payload" >/dev/null
           }
 
           ticket_id=$(find_ticket_id)
@@ -255,8 +272,8 @@ jobs:
             content=$(printf '%s\n\nSource: %s' "$COMMENT_BODY" "$ISSUE_URL")
             create_ticket "$content"
           else
-            echo "Found existing HubSpot ticket $ticket_id, appending comment"
-            append_comment_to_ticket "$ticket_id" "$COMMENT_BODY"
+            echo "Found existing HubSpot ticket $ticket_id, adding a note"
+            add_note_to_ticket "$ticket_id" "$COMMENT_BODY"
           fi
 
   close-ticket:
