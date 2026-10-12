@@ -1,5 +1,6 @@
 pytest==8.2.0
 pytest-docker-compose
+docker-compose==1.29.2  # pin: newer uv backtracks to 1.6.2 sdist which fails to extract (hard links)
 oasislmf<2.5.0
 pathlib
 requests==2.31.0
